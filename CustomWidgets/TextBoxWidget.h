@@ -5,12 +5,16 @@
 #include <QLabel>
 #include <string>
 #include <QGridLayout>
+#include "../WidgetInfo.h"
+#include <string>
 
 class TextBoxWidget: public BaseWidget  {
 private:
     QLabel textBox;
     QLabel titleBox;
     QGridLayout layout;
+
+    std::string GetInfoString();
 public:
     /**
      * Constructor
@@ -18,7 +22,7 @@ public:
      * @param x     x position of the widget
      * @param y     y position of the widget
      */
-    TextBoxWidget(QWidget *parent, std::string name, int x, int y);
+    TextBoxWidget(QWidget *parent, WidgetInfo *configInfo);
 //    void update();
 };
 

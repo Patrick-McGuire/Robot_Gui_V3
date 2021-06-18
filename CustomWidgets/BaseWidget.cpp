@@ -1,7 +1,9 @@
 #include "BaseWidget.h"
+#include "../WidgetInfo.h"
 
-BaseWidget::BaseWidget(QWidget *parent, std::string name, int x, int y) : QWidget(parent) {
-    _name = name;
+BaseWidget::BaseWidget(QWidget *parent, WidgetInfo *configInfo) : QWidget(parent) {
+    _name = configInfo->name;
+    _configInfo = configInfo;
 //    setPosition(x, y);
 }
 

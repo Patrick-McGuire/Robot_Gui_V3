@@ -9,12 +9,8 @@ public:
     QTimer *timer;
     RobotGUI(QWidget *parent = nullptr);
 
-
 public slots:
     void updateGUI();
-
-private:
-    int countA;
 };
 
 

@@ -2,10 +2,13 @@
 #define ROBOT_GUI_V3_BASEWIDGET_H
 #include <string>
 #include "QWidget"
+#include "../WidgetInfo.h"
 
 class BaseWidget: public QWidget {
-private:
-    std::string _name;
+
+protected:
+    std::string *_name;
+    WidgetInfo *_configInfo;
     int _x;
     int _y;
 public:
@@ -15,7 +18,7 @@ public:
      * @param x     x position of the widget
      * @param y     y position of the widget
      */
-    BaseWidget(QWidget *parent, std::string name, int x, int y);
+    BaseWidget(QWidget *parent, WidgetInfo *configInfo);
 
     /**
      * Sets the position of the widget on the screen
