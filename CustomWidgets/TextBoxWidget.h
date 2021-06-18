@@ -7,6 +7,7 @@
 #include <QGridLayout>
 #include "../WidgetInfo.h"
 #include <string>
+#include "../WidgetData.h"
 
 class TextBoxWidget: public BaseWidget  {
 private:
@@ -22,8 +23,8 @@ public:
      * @param x     x position of the widget
      * @param y     y position of the widget
      */
-    TextBoxWidget(QWidget *parent, WidgetInfo *configInfo);
-//    void update();
+    TextBoxWidget(QWidget *parent, WidgetInfo *configInfo, WidgetData *widgetData);
+    void updateData();
 };
 
 #endif //ROBOT_GUI_V3_TEXTBOXWIDGET_H

@@ -12,7 +12,7 @@ public:
     /**
      * Constructor
      */
-    WidgetData();
+//    WidgetData();
 
     // Getter methods
     std::string getString(std::string key);

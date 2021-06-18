@@ -4,9 +4,9 @@
 
 #include "WidgetData.h"
 
-WidgetData::WidgetData() {
-
-}
+//WidgetData::WidgetData() {
+//
+//}
 
 std::string WidgetData::getString(std::string key) { return stringMap[key]; }
 double WidgetData::getDouble(std::string key) {  return doubleMap[key]; }

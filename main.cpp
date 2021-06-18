@@ -8,8 +8,12 @@
 #include "WidgetInfo.h"
 //#include "opencv2/opencv.hpp"
 #include <vector>
+#include "WidgetData.h"
 
 #include "opencv2/opencv.hpp"
+
+WidgetData widgetData;
+
 //using namespace cv;
 //int main(int argc, char** argv)
 //{
@@ -43,19 +47,21 @@ int main(int argc, char** argv) {
 
     std::vector<std::string> testVector;
     testVector.emplace_back("L1 Tittle");
-    testVector.emplace_back("L1_ID");
+    testVector.emplace_back("KEY1");
 
     std::vector<std::string> testVector2;
     testVector2.emplace_back("L2 Tittle");
-    testVector2.emplace_back("L2_ID");
+    testVector2.emplace_back("KEY1");
 
     testInfo.lines.push_back(testVector);
     testInfo.lines.push_back(testVector2);
 
-    TextBoxWidget test(&win, &testInfo);
+    widgetData.setInt("KEY1", 100);
+
+    TextBoxWidget test(&win, &testInfo, &widgetData);
 
 
-    RobotGUI tes123t(&win);
+    RobotGUI tes123t(&win, &widgetData, &test);
 
     win.show();
 

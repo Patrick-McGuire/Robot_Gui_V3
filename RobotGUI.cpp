@@ -3,9 +3,13 @@
 #include "RobotGUI.h"
 #include <QTimer>
 #include "iostream"
+#include "WidgetData.h"
 
 
-RobotGUI::RobotGUI(QWidget *parent) : QObject(parent) {
+RobotGUI::RobotGUI(QWidget *parent, WidgetData *widgetData, TextBoxWidget *textBoxWidget) : QObject(parent) {
+    _widgetData = widgetData;
+    count = 100;
+    _textBoxWidget = textBoxWidget;
     // Timer that calls updateGUI()
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(updateGUI()));
@@ -13,4 +17,7 @@ RobotGUI::RobotGUI(QWidget *parent) : QObject(parent) {
 }
 
 void RobotGUI::updateGUI() {
+    count += 1;
+    _widgetData->setInt("KEY1", count);
+    _textBoxWidget->updateData();
 }
