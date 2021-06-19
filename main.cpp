@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include "RobotGUI.h"
 #include "CustomWidgets/TextBoxWidget.h"
-#include "WidgetInfo.h"
+#include "Configuration/WidgetInfo.h"
 #include <vector>
 #include "WidgetData.h"
 #include "opencv2/opencv.hpp"
@@ -62,14 +62,11 @@ int main(int argc, char** argv) {
 
     TextBoxWidget test(&win, &testInfo, &widgetData);
 
-
     RobotGUI tes123t(&win, &widgetData, &test);
 
     LocalServer Server(&win, &widgetData, &tes123t);
     Server.StartServer();
 
     win.show();
-
     return app.exec();
-    return 0;
 }

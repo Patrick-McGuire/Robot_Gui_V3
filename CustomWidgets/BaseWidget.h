@@ -2,7 +2,7 @@
 #define ROBOT_GUI_V3_BASEWIDGET_H
 #include <string>
 #include "QWidget"
-#include "../WidgetInfo.h"
+#include "../Configuration/WidgetInfo.h"
 #include "../WidgetData.h"
 
 class BaseWidget: public QWidget {

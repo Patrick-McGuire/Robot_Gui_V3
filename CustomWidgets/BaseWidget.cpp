@@ -1,11 +1,11 @@
 #include "BaseWidget.h"
-#include "../WidgetInfo.h"
+#include "../Configuration/WidgetInfo.h"
 
 BaseWidget::BaseWidget(QWidget *parent, WidgetInfo *configInfo, WidgetData *widgetData) : QWidget(parent) {
     _name = configInfo->name;
     _configInfo = configInfo;
     _widgetData = widgetData;
-//    setPosition(x, y);
+    setPosition(_configInfo->x, _configInfo->y);
 }
 
 void BaseWidget::setPosition(int x, int y) {

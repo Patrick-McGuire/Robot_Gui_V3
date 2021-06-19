@@ -9,7 +9,6 @@
 RobotGUI::RobotGUI(QWidget *parent, WidgetData *widgetData, TextBoxWidget *textBoxWidget) : QObject(parent) {
     _widgetData = widgetData;
     _textBoxWidget = textBoxWidget;
-    // Timer that calls updateGUI()
 }
 
 void RobotGUI::updateGUI() {
