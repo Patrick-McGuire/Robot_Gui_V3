@@ -6,4 +6,11 @@
 #define stringType "string"
 #define noType "none"
 
+// Custom messageTypes
+#define customStringMessage 0
+#define customIntMessage 1
+#define customFloatMessage 2
+#define customJSONMessage 3
+#define customIMGMessage 4
+
 #endif //ROBOT_GUI_V3_CONSTANTS_H
