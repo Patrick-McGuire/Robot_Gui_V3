@@ -17,6 +17,7 @@ public slots:
 private:
     WidgetData *_widgetData;
     int count;
+    double count2;
     TextBoxWidget *_textBoxWidget;
 };
 

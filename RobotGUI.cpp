@@ -9,6 +9,7 @@
 RobotGUI::RobotGUI(QWidget *parent, WidgetData *widgetData, TextBoxWidget *textBoxWidget) : QObject(parent) {
     _widgetData = widgetData;
     count = 100;
+    count2 = 0;
     _textBoxWidget = textBoxWidget;
     // Timer that calls updateGUI()
     timer = new QTimer(this);
@@ -18,6 +19,8 @@ RobotGUI::RobotGUI(QWidget *parent, WidgetData *widgetData, TextBoxWidget *textB
 
 void RobotGUI::updateGUI() {
     count += 1;
+    count2 -= 0.1;
     _widgetData->setInt("KEY1", count);
+    _widgetData->setDouble("KEY2", count2);
     _textBoxWidget->updateData();
 }
