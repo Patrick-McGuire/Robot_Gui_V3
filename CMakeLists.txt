@@ -17,6 +17,7 @@ target_link_libraries(Robot_Gui_V3 Qt5::Core Qt5::Widgets Qt5::Network)
 
 set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -std=c++0x")
 #set(OpenCV_DIR)
+include_directories(/usr/include/)
 
 find_package( OpenCV REQUIRED )
 set(SOURCE_FILES main.cpp)

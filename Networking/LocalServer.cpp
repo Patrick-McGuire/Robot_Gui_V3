@@ -3,10 +3,13 @@
 #include <QTcpSocket>
 #include "opencv2/opencv.hpp"
 #include <vector>
-#include "../Constants.h"
+#include "rapidjson/document.h"
+#include "rapidjson/stringbuffer.h"
 
-LocalServer::LocalServer(QObject *parent, WidgetData *widgetData) : QTcpServer(parent) {
+LocalServer::LocalServer(QObject *parent, WidgetData *widgetData, RobotGUI *robotGui) : QTcpServer(parent) {
     _widgetData = widgetData;
+    _robotGui = robotGui;
+    connect(this, SIGNAL(newData()), _robotGui, SLOT(updateGUI()));
 }
 
 void LocalServer::StartServer() {
@@ -26,11 +29,11 @@ void LocalServer::incomingConnection() {
 
     qDebug("Client connected");
 
-    connect(socket, SIGNAL(readyRead()), this, SLOT(newData()));
+    connect(socket, SIGNAL(readyRead()), this, SLOT(receiveData()));
 }
 
 
-void LocalServer::newData() {
+void LocalServer::receiveData() {
     auto* sender = dynamic_cast<QTcpSocket*>(QObject::sender());
     QByteArray data = sender->readAll();
 
@@ -42,6 +45,25 @@ void LocalServer::newData() {
     int id = (unsigned char) bufferToCompress[0];
     bufferToCompress.erase(bufferToCompress.begin());
     if(id == customJSONMessage) {
+        std::string jsonString(bufferToCompress.begin(),bufferToCompress.end());
+        char jsonCstring[jsonString.length() + 1];
+        std::strcpy(jsonCstring, jsonString.c_str());
+        rapidjson::Document doc;
+        doc.Parse(jsonCstring);
+        rapidjson::Value::MemberIterator M;
+
+        for (M=doc.MemberBegin(); M!=doc.MemberEnd(); M++) {
+            std::string keyName = M->name.GetString();
+            char keyNameCString[20];
+            std::strcpy(keyNameCString, keyName.c_str());
+            if(doc[keyNameCString].IsString()) {
+                _widgetData->setString(keyNameCString, doc[keyNameCString].GetString());
+            } else if(doc[keyNameCString].IsDouble()) {
+                _widgetData->setDouble(keyNameCString, doc[keyNameCString].GetDouble());
+            } else if(doc[keyNameCString].IsInt()) {
+                _widgetData->setInt(keyNameCString, doc[keyNameCString].GetInt());
+            }
+        }
 
     } else if(id == customIMGMessage) {
         try {
@@ -52,17 +74,5 @@ void LocalServer::newData() {
             std::cout << "CVERROR\n";
         }
     }
-
-
+    emit newData();
 }
-
-//    for (int index = 0; index < bufferToCompress.size(); ++index) {
-//        if(bufferToCompress[index] == 60 && bufferToCompress[index+1] == 69 && bufferToCompress[index+2] == 78 && bufferToCompress[index+3] == 68 && bufferToCompress[index+4] == 62) {
-//            bufferToCompress.resize(index);
-//            break;
-//        }
-//    }
-//    for (int index = 0; index < bufferToCompress.size(); ++index) {
-//        std::cout << bufferToCompress[index];
-//        std::cout << "\n";
-//    }

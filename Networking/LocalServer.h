@@ -4,25 +4,28 @@
 #include <QTcpServer>
 #include <QDebug>
 #include "../WidgetData.h"
+#include "../RobotGUI.h"
 
 class LocalServer : public QTcpServer {
 Q_OBJECT
 
 public:
-    explicit LocalServer(QObject *parent, WidgetData *widgetData);
+    explicit LocalServer(QObject *parent, WidgetData *widgetData, RobotGUI *robotGui);
     /**
      * Opens the server
      */
     void StartServer();
 
 signals:
+    void newData();
 
 public slots:
     void incomingConnection();
-    void newData();
+    void receiveData();
 
 private:
     WidgetData *_widgetData;
+    RobotGUI *_robotGui;
 };
 
 

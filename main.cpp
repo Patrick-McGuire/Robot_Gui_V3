@@ -35,8 +35,6 @@ int main(int argc, char** argv) {
     QMainWindow mainWindow;
     QWidget win;
 
-    LocalServer Server(&win, &widgetData);
-    Server.StartServer();
 
     std::string test123 = "thisISTH";
 
@@ -50,16 +48,25 @@ int main(int argc, char** argv) {
     testVector2.emplace_back("L2 Tittle");
     testVector2.emplace_back("KEY2");
 
+    std::vector<std::string> testVector3;
+    testVector3.emplace_back("L3 Tittle");
+    testVector3.emplace_back("KEY3");
+
     testInfo.lines.push_back(testVector);
     testInfo.lines.push_back(testVector2);
+    testInfo.lines.push_back(testVector3);
 
     widgetData.setInt("KEY1", 100);
-    widgetData.setInt("KEY2", 100);
+    widgetData.setDouble("KEY2", 100);
+    widgetData.setString("KEY3", "hi");
 
     TextBoxWidget test(&win, &testInfo, &widgetData);
 
 
     RobotGUI tes123t(&win, &widgetData, &test);
+
+    LocalServer Server(&win, &widgetData, &tes123t);
+    Server.StartServer();
 
     win.show();
 
