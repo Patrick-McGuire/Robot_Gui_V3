@@ -3,20 +3,23 @@
 #include <QObject>
 #include <QTimer>
 #include "WidgetData.h"
-#include "CustomWidgets/TextBoxWidget.h"
+#include "Configuration/TabInfo.h"
+#include "GUIMaker.h"
 
 class RobotGUI : public QObject {
 Q_OBJECT
 public:
     QTimer *timer;
-    RobotGUI(QWidget *parent, WidgetData *widgetData, TextBoxWidget *textBoxWidget);
+    GUIMaker *guiMaker;
+    RobotGUI(QWidget *parent, WidgetData *widgetData, std::vector<TabInfo*> *config);
 
 public slots:
     void updateGUI();
 
 private:
     WidgetData *_widgetData;
-    TextBoxWidget *_textBoxWidget;
+    std::vector<TabInfo*> *_config;
+    std::vector<BaseWidget*> *allWidgets;
 };
 
 

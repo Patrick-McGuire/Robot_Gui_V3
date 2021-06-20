@@ -8,4 +8,5 @@ WidgetInfo::WidgetInfo(std::string *_name, int _x, int _y) {
     name = _name;
     x = _x;
     y = _y;
+    lines = new std::vector<std::vector<std::string*>*>;
 }

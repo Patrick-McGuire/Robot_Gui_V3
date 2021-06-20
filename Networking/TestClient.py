@@ -20,9 +20,8 @@ while True:
     passDict["KEY3"] = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
     bytesToSend = bytearray(json.dumps(passDict).encode())
     bytesToSend.insert(0, 3)
-    print(bytesToSend)
     s.send(bytesToSend)
-    time.sleep(.01)
+    time.sleep(.05)
 
 # s = socket.socket()
 # s.connect(('127.0.0.1', 1254))

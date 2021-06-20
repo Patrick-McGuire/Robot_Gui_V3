@@ -28,6 +28,8 @@ public:
      * @param y     y position of the widget
      */
     void setPosition(int x, int y);
+
+    virtual void updateData();
 };
 
 

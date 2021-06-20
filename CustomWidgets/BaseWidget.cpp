@@ -1,3 +1,4 @@
+#include <iostream>
 #include "BaseWidget.h"
 #include "../Configuration/WidgetInfo.h"
 
@@ -12,4 +13,8 @@ void BaseWidget::setPosition(int x, int y) {
     _x = x;
     _y = y;
     move(x, y);
+}
+
+void BaseWidget::updateData() {
+    //overwrite
 }
