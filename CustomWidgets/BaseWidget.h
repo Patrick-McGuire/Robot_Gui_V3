@@ -4,15 +4,24 @@
 #include "QWidget"
 #include "../Configuration/WidgetInfo.h"
 #include "../WidgetData.h"
+#include "QMouseEvent"
 
 class BaseWidget: public QWidget {
-
+Q_OBJECT
 protected:
     std::string *_name;
     WidgetInfo *_configInfo;
     WidgetData *_widgetData;
     int _x;
     int _y;
+
+    int startX;
+    int startY;
+    bool clicked;
+
+    void mousePressEvent(QMouseEvent *event) override;
+    void mouseReleaseEvent(QMouseEvent *event) override;
+    void mouseMoveEvent(QMouseEvent *event) override;
 public:
     /**
      * Constructor

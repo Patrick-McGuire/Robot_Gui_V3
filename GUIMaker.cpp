@@ -2,29 +2,36 @@
 #include <iostream>
 #include <QTabWidget>
 #include <QString>
+#include <QMainWindow>
 
-GUIMaker::GUIMaker(QWidget *parent, std::vector<TabInfo*> *config, WidgetData *widgetData) {
+GUIMaker::GUIMaker(QWidget *parent, std::vector<TabInfo*> *config, WidgetData *widgetData, int width, int height) {
     _config = config;
     _parent = parent;
     _widgetData = widgetData;
-    tabWidget = new QTabWidget(parent);
-    tabWidget->setFixedHeight(1000);
-    tabWidget->setFixedWidth(1000);
+    _height = height;
+    _width = width;
+
     allWidgets = new std::vector<BaseWidget*>;
-    createTab(config);
+    createTab(parent, config);
 }
 
-void GUIMaker::createTab(std::vector<TabInfo*> *config) {
-    for(auto it = _config->begin(); it != _config->end(); ++it) {
-        if (it[0]->isNester) {
-            createTab(it[0]->nestedTabsInfo);
+void GUIMaker::createTab(QWidget *parent, std::vector<TabInfo*> *config) {
+    auto tabWidget = new QTabWidget(parent);
+    tabWidget->setFixedHeight(_height-30);
+    tabWidget->setFixedWidth(_width-5);
+
+    for(int i = 0; i < config->size(); i++) {
+        if (config[0][i]->isNester) {
+            auto *page = new QWidget();
+            tabWidget->addTab(page, QString::fromStdString(*config[0][i]->name));
+            createTab(page, config[0][i]->nestedTabsInfo);
         } else {
             auto *page = new QWidget();
-            tabWidget->addTab(page, QString::fromStdString(*it[0]->name));
+            tabWidget->addTab(page, QString::fromStdString(*config[0][i]->name));
 
             page->show();
             std::vector<WidgetInfo*> *widgetInfo;
-            widgetInfo = it[0]->widgetsInfo;
+            widgetInfo = config[0][i]->widgetsInfo;
             for(auto itt = widgetInfo->begin(); itt != widgetInfo->end(); ++itt) {
                 auto *textBoxWidget = new TextBoxWidget(page, itt[0], _widgetData);
                 allWidgets->push_back(textBoxWidget);

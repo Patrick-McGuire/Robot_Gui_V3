@@ -19,7 +19,7 @@ std::string TextBoxWidget::GetInfoString() {
     std::string output;
     for(auto it = _configInfo->lines->begin(); it != _configInfo->lines->end(); ++it) {
 
-        output += *it[0][0][1];
+        output += *it[0][0][0];
         output += ": ";
         std::string keyType = _widgetData->getKeyType(*it[0][0][1]);
         if(keyType == intType) {

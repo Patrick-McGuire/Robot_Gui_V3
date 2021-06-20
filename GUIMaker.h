@@ -13,12 +13,14 @@ private:
     std::vector<TabInfo*> *_config;
     WidgetData *_widgetData;
     QWidget *_parent;
+    int _height;
+    int _width;
 
-    void createTab(std::vector<TabInfo*> *config);
+    void createTab(QWidget *parent, std::vector<TabInfo*> *config);
 public:
-    QTabWidget *tabWidget;
+//    QTabWidget *tabWidget;
     std::vector<BaseWidget*> *allWidgets;
-    explicit GUIMaker(QWidget *parent, std::vector<TabInfo*> *config, WidgetData *widgetData);
+    explicit GUIMaker(QWidget *parent, std::vector<TabInfo*> *config, WidgetData *widgetData, int width, int height);
 };
 
 
