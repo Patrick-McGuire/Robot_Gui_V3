@@ -12,17 +12,22 @@ protected:
     std::string *_name;
     WidgetInfo *_configInfo;
     WidgetData *_widgetData;
-    int _x;
-    int _y;
+    int _x{};
+    int _y{};
 
-    int startX;
-    int startY;
-    bool clicked;
+    int startX{};
+    int startY{};
+    int startWX;
+    int startWY;
+    bool clicked{};
+    QWidget *_parent;
 
     void mousePressEvent(QMouseEvent *event) override;
     void mouseReleaseEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
 public:
+    bool draggable;
+
     /**
      * Constructor
      * @param name  name of widget

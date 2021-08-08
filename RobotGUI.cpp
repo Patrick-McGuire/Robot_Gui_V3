@@ -15,8 +15,6 @@ RobotGUI::RobotGUI(QWidget *parent, WidgetData *widgetData, std::vector<TabInfo*
     _width = width;
     _mainWindow = mainWindow;
 
-//    connect(_mainWindow, &QMainWindow::mousePress , this, SLOT(mouseMove()));
-
     guiMaker = new GUIMaker(parent, config, widgetData, width, height);
     allWidgets = guiMaker->allWidgets;
 }

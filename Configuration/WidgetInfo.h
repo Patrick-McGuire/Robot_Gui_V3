@@ -13,6 +13,7 @@ public:
     std::vector<std::vector<std::string*>*> *lines;
     int x;
     int y;
+    bool staticPos = false;
 
     WidgetInfo(std::string *_name, int _x, int _y);
 };

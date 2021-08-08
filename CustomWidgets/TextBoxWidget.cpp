@@ -12,7 +12,9 @@ TextBoxWidget::TextBoxWidget(QWidget *parent, WidgetInfo *configInfo, WidgetData
 
     titleBox.setText(QString::fromStdString(*_name));
     textBox.setText(QString::fromStdString(GetInfoString()));
-    textBox.setFixedWidth(500);
+    textBox.setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
+
+//    textBox.setFixedWidth(500);
 }
 
 std::string TextBoxWidget::GetInfoString() {
@@ -34,6 +36,7 @@ std::string TextBoxWidget::GetInfoString() {
         output += "\n";
 
     }
+    output.pop_back();
     return output;
 }
 
