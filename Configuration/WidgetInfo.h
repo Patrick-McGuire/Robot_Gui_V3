@@ -9,13 +9,15 @@
  */
 class WidgetInfo {
 public:
-    std::string *name;
-    std::vector<std::vector<std::string*>*> *lines;
+    std::string type;
+    std::string name;
+    std::vector<std::vector<std::string>> lines;
+    std::string videoId;
     int x;
     int y;
     bool staticPos = false;
 
-    WidgetInfo(std::string *_name, int _x, int _y);
+    WidgetInfo(std::string _name, std::string _type, int _x, int _y);
 };
 
 

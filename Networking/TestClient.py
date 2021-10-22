@@ -65,3 +65,21 @@ while True:
     cv2.waitKey(5)
     s.send(bytesNEW)
 
+    # JSON
+    passDict["KEY1"] = random.randint(0, 100)
+    passDict["KEY2"] = random.randint(0, 100) / 10
+    passDict["KEY3"] = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
+    bytesToSend = bytearray(json.dumps(passDict).encode())
+
+    # insert the length
+    # print(len(bytesToSend))
+    bytesNum = len(bytesToSend).to_bytes(4, "little")
+    bytesToSend.insert(0, bytesNum[3])
+    bytesToSend.insert(0, bytesNum[2])
+    bytesToSend.insert(0, bytesNum[1])
+    bytesToSend.insert(0, bytesNum[0])
+
+    bytesToSend.insert(0, 3)
+    # print(bytesToSend)
+    s.send(bytesToSend)
+

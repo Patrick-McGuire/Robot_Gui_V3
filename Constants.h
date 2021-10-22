@@ -1,6 +1,11 @@
 #ifndef ROBOT_GUI_V3_CONSTANTS_H
 #define ROBOT_GUI_V3_CONSTANTS_H
 
+// Widget types
+#define textBoxWidgetSTRID "textBox"
+#define videoWidgetSTRID "video"
+
+// WidgetData types
 #define intType "int"
 #define doubleType "double"
 #define stringType "string"

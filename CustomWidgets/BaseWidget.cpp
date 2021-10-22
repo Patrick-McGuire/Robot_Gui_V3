@@ -3,7 +3,7 @@
 #include "../Configuration/WidgetInfo.h"
 
 BaseWidget::BaseWidget(QWidget *parent, WidgetInfo *configInfo, WidgetData *widgetData) : QWidget(parent) {
-    _name = configInfo->name;
+    _name = &configInfo->name;
     _configInfo = configInfo;
     _widgetData = widgetData;
     _parent = parent;

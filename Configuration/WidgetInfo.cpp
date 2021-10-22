@@ -4,9 +4,11 @@
 
 #include "WidgetInfo.h"
 
-WidgetInfo::WidgetInfo(std::string *_name, int _x, int _y) {
-    name = _name;
+#include <utility>
+
+WidgetInfo::WidgetInfo(std::string _name, std::string _type, int _x, int _y) {
+    name = std::move(_name);
+    type = std::move(_type);
     x = _x;
     y = _y;
-    lines = new std::vector<std::vector<std::string*>*>;
 }

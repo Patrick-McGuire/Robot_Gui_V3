@@ -12,47 +12,41 @@
 #include "Configuration/WidgetInfo.h"
 #include <QRect>
 #include <QDesktopWidget>
+#include "Constants.h"
 
 std::vector<TabInfo*>* getConfig() {
-    auto *tab1Name = new std::string("Tab1");
-    auto *tab1 = new TabInfo(tab1Name, false);
+    auto *tab1 = new TabInfo("Tab1", false);
+    auto *tab2 = new TabInfo("Tab2", false);
+    auto *tab3 = new TabInfo("TabCol3", true);
 
-    auto *tab2Name = new std::string("Tab2");
-    auto *tab2 = new TabInfo(tab2Name, false);
+    auto *widget1 = new WidgetInfo("Widget1", textBoxWidgetSTRID, 10, 10);
+    auto *widget2 = new WidgetInfo("Widget2", textBoxWidgetSTRID, 100, 100);
+    auto *widget3 = new WidgetInfo("Widget3", videoWidgetSTRID, 200, 200);
+    auto *widget4 = new WidgetInfo("Widget4", videoWidgetSTRID, 400, 400);
+    widget3->videoId = "1";
+    widget4->videoId = "1";
 
-    auto *tab3Name = new std::string("TabCol3");
-    auto *tab3 = new TabInfo(tab3Name, true);
+    std::vector<std::string> line1;
+    std::vector<std::string> line2;
+    std::vector<std::string> line3;
+    line1.emplace_back("Row 1");
+    line1.emplace_back("KEY1");
+    line2.emplace_back("Row 2");
+    line2.emplace_back("KEY2");
+    line3.emplace_back("Row 3");
+    line3.emplace_back("KEY3");
 
-    auto *widget1Name = new std::string("Widget1");
-    auto *widget2Name = new std::string("Widget2");
-    auto *widget1 = new WidgetInfo(widget1Name, 10, 10);
-    auto *widget2 = new WidgetInfo(widget2Name, 100, 100);
-
-    auto *line1 = new std::vector<std::string*>;
-    auto *line2 = new std::vector<std::string*>;
-    auto *line3 = new std::vector<std::string*>;
-    auto *a1 = new std::string("Row1");
-    auto *aa1 = new std::string("KEY1");
-    auto *a2 = new std::string("Row2");
-    auto *aa2 = new std::string("KEY2");
-    auto *a3 = new std::string("Row3");
-    auto *aa3 = new std::string("KEY3");
-    line1->push_back(a1);
-    line1->push_back(aa1);
-    line2->push_back(a2);
-    line2->push_back(aa2);
-    line3->push_back(a3);
-    line3->push_back(aa3);
-    widget1->lines->push_back(line1);
-    widget1->lines->push_back(line2);
-    widget1->lines->push_back(line3);
-    widget2->lines->push_back(line2);
-    widget2->lines->push_back(line3);
-    widget2->lines->push_back(line1);
-
+    widget1->lines.push_back(line1);
+    widget1->lines.push_back(line2);
+    widget1->lines.push_back(line3);
+    widget2->lines.push_back(line2);
+    widget2->lines.push_back(line3);
+    widget2->lines.push_back(line1);
 
     tab1->widgetsInfo->push_back(widget1);
     tab1->widgetsInfo->push_back(widget2);
+    tab1->widgetsInfo->push_back(widget3);
+    tab1->widgetsInfo->push_back(widget4);
 
     tab3->nestedTabsInfo->push_back(tab1);
     tab3->nestedTabsInfo->push_back(tab2);

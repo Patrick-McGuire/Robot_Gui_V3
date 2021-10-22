@@ -6,12 +6,12 @@
 
 class TabInfo {
 public:
-    std::string *name;
+    std::string name;
     bool isNester;
     std::vector<TabInfo*> *nestedTabsInfo;
     std::vector<WidgetInfo*> *widgetsInfo;
 
-    TabInfo(std::string *_name, bool _isNester);
+    TabInfo(std::string _name, bool _isNester);
     std::vector<WidgetInfo*>* getWidgetInfo() const;
 };
 

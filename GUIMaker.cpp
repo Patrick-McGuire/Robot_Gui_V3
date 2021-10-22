@@ -25,20 +25,23 @@ void GUIMaker::createTab(QWidget *parent, std::vector<TabInfo*> *config) {
     for(int i = 0; i < config->size(); i++) {
         if (config[0][i]->isNester) {
             auto *page = new QWidget();
-            tabWidget->addTab(page, QString::fromStdString(*config[0][i]->name));
+            tabWidget->addTab(page, QString::fromStdString(config[0][i]->name));
             createTab(page, config[0][i]->nestedTabsInfo);
         } else {
             auto *page = new QWidget();
-            tabWidget->addTab(page, QString::fromStdString(*config[0][i]->name));
+            tabWidget->addTab(page, QString::fromStdString(config[0][i]->name));
 
             page->show();
             std::vector<WidgetInfo*> *widgetInfo;
             widgetInfo = config[0][i]->widgetsInfo;
             for(auto itt = widgetInfo->begin(); itt != widgetInfo->end(); ++itt) {
-                auto *textBoxWidget = new TextBoxWidget(page, itt[0], _widgetData);
-                auto *vidWid = new VideoWidget(page, itt[0], _widgetData);
-                allWidgets->push_back(textBoxWidget);
-                allWidgets->push_back(vidWid);
+                if(itt[0]->type == textBoxWidgetSTRID) {
+                    auto *textBoxWidget = new TextBoxWidget(page, itt[0], _widgetData);
+                    allWidgets->push_back(textBoxWidget);
+                } else if(itt[0]->type == videoWidgetSTRID) {
+                    auto *vidWid = new VideoWidget(page, itt[0], _widgetData);
+                    allWidgets->push_back(vidWid);
+                }
             }
         }
     }

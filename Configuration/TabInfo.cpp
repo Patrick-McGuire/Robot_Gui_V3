@@ -1,8 +1,10 @@
 #include "TabInfo.h"
 
+#include <utility>
 
-TabInfo::TabInfo(std::string *_name, bool _isNester) {
-    name = _name;
+
+TabInfo::TabInfo(std::string _name, bool _isNester) {
+    name = std::move(_name);
     isNester = _isNester;
     widgetsInfo = new std::vector<WidgetInfo*>;
     nestedTabsInfo = new std::vector<TabInfo*>;
