@@ -1,7 +1,7 @@
 #include "LocalServer.h"
 #include "iostream"
 #include <QTcpSocket>
-#include "opencv2/opencv.hpp"
+    #include "opencv2/opencv.hpp"
 #include <vector>
 #include "rapidjson/document.h"
 #include "rapidjson/stringbuffer.h"
@@ -43,7 +43,9 @@ void LocalServer::receiveData() {
     auto *sender = dynamic_cast<QTcpSocket *>(QObject::sender());
     QByteArray data = sender->readAll();
 
-    if(data.length() > 5) {
+    std::cout << data.length() << "\n";
+
+    if(data.length() > 6) {
         // Get the data about the message
         int id = (int) data.at(0);
         lengthConverter msgLength = {0};
@@ -51,23 +53,22 @@ void LocalServer::receiveData() {
         msgLength.in[1] = (uint8_t) data.at(2);
         msgLength.in[2] = (uint8_t) data.at(3);
         msgLength.in[3] = (uint8_t) data.at(4);
+        uint8_t imgId = (uint8_t) data.at(5);
         data.remove(0, 5);
 
-        // Get a byte vector
-        const unsigned char *begin = reinterpret_cast<unsigned char *>(data.data());
-        const unsigned char *end = begin + data.length();
-        std::vector<char> bufferToCompress(begin, end);
-        bufferToCompress.resize(msgLength.length, 0);       // Limit to the size of the message,
+        char dataString[msgLength.length + 1];
+        for(int i = 0; i < msgLength.length; i++) {
+            dataString[i] = data.at(i);
+        }
+        dataString[msgLength.length] = (char) 0;
+//        std::cout << dataString << "\n";
 
         // Different types of messages
         if (id == customJSONMessage) {
-            std::string jsonString(bufferToCompress.begin(), bufferToCompress.end());
-            char jsonCstring[jsonString.length() + 1];
-            std::strcpy(jsonCstring, jsonString.c_str());
             rapidjson::Document doc;
-            doc.Parse(jsonCstring);
+            doc.Parse(dataString);
             rapidjson::Value::MemberIterator M;
-
+//
             for (M = doc.MemberBegin(); M != doc.MemberEnd(); M++) {
                 std::string keyName = M->name.GetString();
                 char keyNameCString[20];
@@ -81,11 +82,17 @@ void LocalServer::receiveData() {
                 }
             }
 
-        } else if (id == customIMGMessage) {
+        }
+        else if (id == customIMGMessage) {
             try {
-                cv::Mat img = cv::imdecode(bufferToCompress, cv::IMREAD_ANYCOLOR);
-                cv::imshow("HIF", img);
-                if (cv::waitKey(10) == 27) {}
+                const auto *begin = reinterpret_cast<const unsigned char *>(dataString)+1;
+                const unsigned char *end = begin + (msgLength.length + 1);
+                std::vector<char> bufferToCompress(begin, end);
+                bufferToCompress.resize(msgLength.length, 0);       // Limit to the size of the message,
+
+                auto imgIdStr = std::to_string(imgId);
+                _widgetData->setImg(imgIdStr, cv::imdecode(bufferToCompress, cv::IMREAD_ANYCOLOR));
+
             } catch (cv::Exception) {
                 std::cout << "CVERROR\n";
             }

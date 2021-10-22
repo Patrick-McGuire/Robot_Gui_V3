@@ -20,6 +20,8 @@ void GUIMaker::createTab(QWidget *parent, std::vector<TabInfo*> *config) {
     tabWidget->setFixedHeight(_height-30);
     tabWidget->setFixedWidth(_width-5);
 
+
+
     for(int i = 0; i < config->size(); i++) {
         if (config[0][i]->isNester) {
             auto *page = new QWidget();
@@ -34,7 +36,9 @@ void GUIMaker::createTab(QWidget *parent, std::vector<TabInfo*> *config) {
             widgetInfo = config[0][i]->widgetsInfo;
             for(auto itt = widgetInfo->begin(); itt != widgetInfo->end(); ++itt) {
                 auto *textBoxWidget = new TextBoxWidget(page, itt[0], _widgetData);
+                auto *vidWid = new VideoWidget(page, itt[0], _widgetData);
                 allWidgets->push_back(textBoxWidget);
+                allWidgets->push_back(vidWid);
             }
         }
     }

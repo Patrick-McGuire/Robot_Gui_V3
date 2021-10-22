@@ -4,6 +4,7 @@
 #define intType "int"
 #define doubleType "double"
 #define stringType "string"
+#define imgType "img"
 #define noType "none"
 
 // Custom messageTypes

@@ -1,26 +1,33 @@
 #include "WidgetData.h"
+
+#include <utility>
 #include "iostream"
 
 // Getter methods
-std::string WidgetData::getString(std::string key) { return stringMap[key]; }
-double WidgetData::getDouble(std::string key) {  return doubleMap[key]; }
-int WidgetData::getInt(std::string key) { return intMap[key]; }
+std::string WidgetData::getString(const std::string& key) { return stringMap[key]; }
+double WidgetData::getDouble(const std::string& key) {  return doubleMap[key]; }
+int WidgetData::getInt(const std::string& key) { return intMap[key]; }
+cv::Mat WidgetData::getImg(const std::string& key) { return imgMap[key]; }
 
 // Setter methods
-void WidgetData::setString(std::string key, std::string value) {
+void WidgetData::setString(const std::string& key, std::string value) {
     updateKeyType(key, stringType);
-    stringMap[key] = value;
+    stringMap[key] = std::move(value);
 }
-void WidgetData::setInt(std::string key, int value) {
+void WidgetData::setInt(const std::string& key, int value) {
     updateKeyType(key, intType);
     intMap[key] = value;
 }
-void WidgetData::setDouble(std::string key, double value) {
+void WidgetData::setDouble(const std::string& key, double value) {
     updateKeyType(key, doubleType);
     doubleMap[key] = value;
 }
+void WidgetData::setImg(const std::string& key, cv::Mat img) {
+    updateKeyType(key, imgType);
+    imgMap[key] = img;
+}
 
-std::string WidgetData::getKeyType(std::string key) {
+std::string WidgetData::getKeyType(const std::string& key) {
     for(auto it = keyTypes.begin(); it != keyTypes.end(); ++it) {
         if(it[0][0] == key) {
             return it[0][1];
@@ -29,7 +36,9 @@ std::string WidgetData::getKeyType(std::string key) {
     return noType;
 }
 
-void WidgetData::updateKeyType(std::string key, std::string keyType) {
+
+
+void WidgetData::updateKeyType(const std::string& key, const std::string& keyType) {
     for(auto it = keyTypes.begin(); it != keyTypes.end(); ++it) {
         if(it[0][0] == key) {
             it[0][1] = keyType;
@@ -41,3 +50,8 @@ void WidgetData::updateKeyType(std::string key, std::string keyType) {
     test.push_back(keyType);
     keyTypes.push_back(test);
 }
+
+bool WidgetData::imgExits(const std::string& key) {
+    return imgMap.count(key) > 0;
+}
+
