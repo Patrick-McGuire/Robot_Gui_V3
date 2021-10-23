@@ -24,7 +24,7 @@ std::vector<TabInfo*>* getConfig() {
     auto *widget3 = new WidgetInfo("Widget3", videoWidgetSTRID, 200, 200);
     auto *widget4 = new WidgetInfo("Widget4", videoWidgetSTRID, 400, 400);
     widget3->videoId = "1";
-    widget4->videoId = "1";
+    widget4->videoId = "2";
 
     std::vector<std::string> line1;
     std::vector<std::string> line2;

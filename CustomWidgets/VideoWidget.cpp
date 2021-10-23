@@ -11,7 +11,9 @@ VideoWidget::VideoWidget(QWidget *parent, WidgetInfo *configInfo, WidgetData *wi
 }
 
 void VideoWidget::updateData() {
-    cv::Mat rgb_image;
-    cv::cvtColor(_widgetData->getImg(_configInfo->videoId), rgb_image, cv::COLOR_BGR2RGB);
-    videoWidget.setPixmap(QPixmap::fromImage(QImage((unsigned char*) rgb_image.data, rgb_image.cols, rgb_image.rows, QImage::Format_RGB888)));
+    if(_widgetData->imgExits(_configInfo->videoId)) {
+        cv::Mat rgb_image;
+        cv::cvtColor(_widgetData->getImg(_configInfo->videoId), rgb_image, cv::COLOR_BGR2RGB);
+        videoWidget.setPixmap(QPixmap::fromImage(QImage((unsigned char *) rgb_image.data, rgb_image.cols, rgb_image.rows, QImage::Format_RGB888)));
+    }
 }
