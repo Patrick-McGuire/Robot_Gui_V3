@@ -56,7 +56,12 @@ void LocalServer::receiveData() {
         uint8_t imgId = (uint8_t) data.at(5);
         data.remove(0, 5);
 
-        char dataString[msgLength.length + 1];
+        if(msgLength.length < 0) {          // Int overflow, message corrupted
+            return;
+        }
+
+        char dataString[msgLength.length + 10];
+
         for(int i = 0; i < msgLength.length; i++) {
             dataString[i] = data.at(i);
         }
