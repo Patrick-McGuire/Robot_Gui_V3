@@ -79,7 +79,7 @@ void LocalServer::receiveData() {
             rapidjson::Document doc;
             doc.Parse(dataString);
             rapidjson::Value::MemberIterator M;
-//
+            // Iterate though all json keys and save their values to widgetData
             for (M = doc.MemberBegin(); M != doc.MemberEnd(); M++) {
                 std::string keyName = M->name.GetString();
                 char keyNameCString[20];
@@ -96,15 +96,15 @@ void LocalServer::receiveData() {
         }
         else if (id == customIMGMessage) {
             try {
-                std::vector<char> bufferToCompress(dataString+1, dataString + (msgLength.length + 1));
-                bufferToCompress.resize(msgLength.length, 0);       // Limit to the size of the message,
+                // Decode the image and save it to widgetData
                 auto imgIdStr = std::to_string(imgId);
-                _widgetData->setImg(imgIdStr, cv::imdecode(bufferToCompress, cv::IMREAD_ANYCOLOR));
-            } catch (cv::Exception) {
+                _widgetData->setImg(imgIdStr, cv::imdecode(cv::Mat(1, msgLength.length+1, CV_8UC1, dataString+1), cv::IMREAD_ANYCOLOR));
+            } catch (cv::Exception const &e) {
+                // You sent a bad img
                 std::cout << "CVERROR\n";
             }
         }
-//        delete[] dataString;
+        // This will cause the function that updates all widgets to run
         emit newData();
     }
 }
