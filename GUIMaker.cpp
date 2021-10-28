@@ -29,6 +29,8 @@ void GUIMaker::createTab(QWidget *parent, std::vector<TabInfo*> *config) {
             createTab(page, config[0][i]->nestedTabsInfo);
         } else {
             auto *page = new QWidget();
+//            std::cout << parent->width() << "\n";
+//            page->setFixedSize(parent->width(), parent->height());
             tabWidget->addTab(page, QString::fromStdString(config[0][i]->name));
 
             page->show();

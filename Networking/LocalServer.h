@@ -26,6 +26,8 @@ public slots:
 private:
     WidgetData *_widgetData;
     RobotGUI *_robotGui;
+    char *dataString;
+    int maxDataStringLength;
 };
 
 

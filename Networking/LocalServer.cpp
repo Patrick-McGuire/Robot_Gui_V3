@@ -13,6 +13,8 @@ union lengthConverter {
 };
 
 LocalServer::LocalServer(QObject *parent, WidgetData *widgetData, RobotGUI *robotGui) : QTcpServer(parent) {
+    dataString = (char *) malloc(100);
+    maxDataStringLength = 1000;
     _widgetData = widgetData;
     _robotGui = robotGui;
     connect(this, SIGNAL(newData()), _robotGui, SLOT(updateGUI()));
@@ -43,7 +45,7 @@ void LocalServer::receiveData() {
     auto *sender = dynamic_cast<QTcpSocket *>(QObject::sender());
     QByteArray data = sender->readAll();
 
-    std::cout << data.length() << "\n";
+//    std::cout << data.length() << "\n";
 
     if(data.length() > 6) {
         // Get the data about the message
@@ -56,17 +58,21 @@ void LocalServer::receiveData() {
         uint8_t imgId = (uint8_t) data.at(5);
         data.remove(0, 5);
 
-        if(msgLength.length < 0) {          // Int overflow, message corrupted
+        if(msgLength.length < 0 || data.length() < msgLength.length) {          // Int overflow, message corrupted
             return;
         }
 
-        char dataString[msgLength.length + 10];
+        if(maxDataStringLength < msgLength.length) {
+            maxDataStringLength = msgLength.length + 100;
+            std::cout << "Setting buffer length to: " << maxDataStringLength << "\n";
+            dataString = (char*) realloc(dataString, maxDataStringLength);
+            std::cout << "Buffer length set to: " << maxDataStringLength << "\n";
+        }
 
         for(int i = 0; i < msgLength.length; i++) {
             dataString[i] = data.at(i);
         }
         dataString[msgLength.length] = (char) 0;
-//        std::cout << dataString << "\n";
 
         // Different types of messages
         if (id == customJSONMessage) {
@@ -90,18 +96,15 @@ void LocalServer::receiveData() {
         }
         else if (id == customIMGMessage) {
             try {
-                const auto *begin = reinterpret_cast<const unsigned char *>(dataString)+1;
-                const unsigned char *end = begin + (msgLength.length + 1);
-                std::vector<char> bufferToCompress(begin, end);
+                std::vector<char> bufferToCompress(dataString+1, dataString + (msgLength.length + 1));
                 bufferToCompress.resize(msgLength.length, 0);       // Limit to the size of the message,
-
                 auto imgIdStr = std::to_string(imgId);
                 _widgetData->setImg(imgIdStr, cv::imdecode(bufferToCompress, cv::IMREAD_ANYCOLOR));
-
             } catch (cv::Exception) {
                 std::cout << "CVERROR\n";
             }
         }
+//        delete[] dataString;
         emit newData();
     }
 }

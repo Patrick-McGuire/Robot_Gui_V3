@@ -72,9 +72,9 @@ int main(int argc, char** argv) {
 
     QRect rec = QApplication::desktop()->availableGeometry();
     mainWindow->resize(rec.width(), rec.height());
-
+//    mainWindow->resize(600, 600);
     auto *win = new QWidget(mainWindow);
-
+//    win->resize(mainWindow->width(), mainWindow->height());
 
     auto config = getConfig();
     RobotGUI robotGui(win, widgetData, config, mainWindow, rec.width(), rec.height());
