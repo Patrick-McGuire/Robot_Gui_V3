@@ -7,6 +7,7 @@
 std::string WidgetData::getString(const std::string& key) { return stringMap[key]; }
 double WidgetData::getDouble(const std::string& key) {  return doubleMap[key]; }
 int WidgetData::getInt(const std::string& key) { return intMap[key]; }
+bool WidgetData::getBool(const std::string& key) { return boolMap[key]; }
 cv::Mat WidgetData::getImg(const std::string& key) { return imgMap[key]; }
 
 // Setter methods
@@ -22,6 +23,10 @@ void WidgetData::setDouble(const std::string& key, double value) {
     updateKeyType(key, doubleType);
     doubleMap[key] = value;
 }
+void WidgetData::setBool(const std::string& key, bool value) {
+    updateKeyType(key, boolType);
+    boolMap[key] = value;
+}
 void WidgetData::setImg(const std::string& key, cv::Mat img) {
     updateKeyType(key, imgType);
     imgMap[key] = img;
@@ -35,8 +40,6 @@ std::string WidgetData::getKeyType(const std::string& key) {
     }
     return noType;
 }
-
-
 
 void WidgetData::updateKeyType(const std::string& key, const std::string& keyType) {
     for(auto it = keyTypes.begin(); it != keyTypes.end(); ++it) {

@@ -6,7 +6,9 @@
 #include "../WidgetData.h"
 #include "../RobotGUI.h"
 
-class LocalServer : public QTcpServer {
+#define serverMinBufferLength 1000
+
+class LocalServer :  public QTcpServer {
 Q_OBJECT
 
 public:

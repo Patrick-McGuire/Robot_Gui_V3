@@ -13,24 +13,22 @@ TextBoxWidget::TextBoxWidget(QWidget *parent, WidgetInfo *configInfo, WidgetData
     titleBox.setText(QString::fromStdString(*_name));
     textBox.setText(QString::fromStdString(GetInfoString()));
     textBox.setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
-
-//    textBox.setFixedWidth(500);
 }
 
 std::string TextBoxWidget::GetInfoString() {
     std::string output;
     for(auto it = _configInfo->lines.begin(); it != _configInfo->lines.end(); ++it) {
-
         output += it[0][0];
         output += ": ";
         std::string keyType = _widgetData->getKeyType(it[0][1]); //&it[0][0][1]
-//        std::cout << it[0][0] << "\n";
-        if(keyType == intType) {
+        if (keyType == intType) {
             output += std::to_string(_widgetData->getInt(it[0][1]));
-        } else if(keyType == doubleType) {
+        } else if (keyType == doubleType) {
             output += std::to_string(_widgetData->getDouble(it[0][1]));
-        } else if(keyType == stringType) {
+        } else if (keyType == stringType) {
             output += _widgetData->getString(it[0][1]);
+        } else if(keyType == boolType) {
+            output += _widgetData->getBool(it[0][1]) ? "True" : "False";
         } else {
             output += "Invalid Key or datatype";
         }

@@ -44,6 +44,11 @@ public:
     void setPosition(int x, int y);
 
     virtual void updateData();
+
+private:
+    virtual void updateInFocus();
+    virtual void updateNoFocus();
+    virtual void updateOnInFocus();
 };
 
 

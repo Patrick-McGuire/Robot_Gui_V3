@@ -8,6 +8,7 @@
 // WidgetData types
 #define intType "int"
 #define doubleType "double"
+#define boolType "bool"
 #define stringType "string"
 #define imgType "img"
 #define noType "none"

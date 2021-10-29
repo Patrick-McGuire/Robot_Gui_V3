@@ -1,6 +1,7 @@
 #include <iostream>
 #include "BaseWidget.h"
 #include "../Configuration/WidgetInfo.h"
+#include <QTabWidget>
 
 BaseWidget::BaseWidget(QWidget *parent, WidgetInfo *configInfo, WidgetData *widgetData) : QWidget(parent) {
     _name = &configInfo->name;
@@ -8,7 +9,8 @@ BaseWidget::BaseWidget(QWidget *parent, WidgetInfo *configInfo, WidgetData *widg
     _widgetData = widgetData;
     _parent = parent;
     draggable = true;
-
+//    QTabWidget* a = (QTabWidget*)parent->parent();
+//    a->currentWidget();
     setPosition(_configInfo->x, _configInfo->y);
 }
 
@@ -21,10 +23,6 @@ void BaseWidget::setPosition(int x, int y) {
     _x = x;
     _y = y;
     move(x, y);
-}
-
-void BaseWidget::updateData() {
-    //overwrite
 }
 
 void BaseWidget::mousePressEvent(QMouseEvent *event) {
@@ -47,4 +45,20 @@ void BaseWidget::mouseMoveEvent(QMouseEvent *event) {
     if(clicked && draggable && !_configInfo->staticPos) {
         setPosition(event->globalX() - startX + startWX, event->globalY() - startY + startWY );
     }
+}
+
+void BaseWidget::updateData() {
+
+}
+
+void BaseWidget::updateInFocus() {
+
+}
+
+void BaseWidget::updateNoFocus() {
+
+}
+
+void BaseWidget::updateOnInFocus() {
+
 }

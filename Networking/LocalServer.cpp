@@ -13,7 +13,7 @@ union lengthConverter {
 };
 
 LocalServer::LocalServer(QObject *parent, WidgetData *widgetData, RobotGUI *robotGui) : QTcpServer(parent) {
-    dataString = (char *) malloc(100);
+    dataString = (char *) malloc(serverMinBufferLength);
     maxDataStringLength = 1000;
     _widgetData = widgetData;
     _robotGui = robotGui;
@@ -44,8 +44,6 @@ void LocalServer::incomingConnection() {
 void LocalServer::receiveData() {
     auto *sender = dynamic_cast<QTcpSocket *>(QObject::sender());
     QByteArray data = sender->readAll();
-
-//    std::cout << data.length() << "\n";
 
     if(data.length() > 6) {
         // Get the data about the message
@@ -90,6 +88,8 @@ void LocalServer::receiveData() {
                     _widgetData->setDouble(keyNameCString, doc[keyNameCString].GetDouble());
                 } else if (doc[keyNameCString].IsInt()) {
                     _widgetData->setInt(keyNameCString, doc[keyNameCString].GetInt());
+                } else if(doc[keyNameCString].IsBool()) {
+                    _widgetData->setBool(keyNameCString, doc[keyNameCString].GetBool());
                 }
             }
 
@@ -103,6 +103,8 @@ void LocalServer::receiveData() {
                 // You sent a bad img
                 std::cout << "CVERROR\n";
             }
+        } else {
+            return;
         }
         // This will cause the function that updates all widgets to run
         emit newData();

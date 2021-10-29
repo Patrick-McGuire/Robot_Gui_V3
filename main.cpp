@@ -29,19 +29,24 @@ std::vector<TabInfo*>* getConfig() {
     std::vector<std::string> line1;
     std::vector<std::string> line2;
     std::vector<std::string> line3;
+    std::vector<std::string> line4;
     line1.emplace_back("Row 1");
     line1.emplace_back("KEY1");
     line2.emplace_back("Row 2");
     line2.emplace_back("KEY2");
     line3.emplace_back("Row 3");
     line3.emplace_back("KEY3");
+    line4.emplace_back("Row 4");
+    line4.emplace_back("KEY4");
 
     widget1->lines.push_back(line1);
     widget1->lines.push_back(line2);
     widget1->lines.push_back(line3);
+    widget1->lines.push_back(line4);
     widget2->lines.push_back(line2);
     widget2->lines.push_back(line3);
     widget2->lines.push_back(line1);
+    widget2->lines.push_back(line4);
 
     tab1->widgetsInfo->push_back(widget1);
     tab1->widgetsInfo->push_back(widget2);

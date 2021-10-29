@@ -5,7 +5,7 @@ import random
 import string
 import time
 
-
+boolean = False
 passDict = {
     "KEY1": 3,
     "KEY2": 2.1,
@@ -56,9 +56,12 @@ while True:
             break
 
         # JSON
+        if random.randint(0, 100) > 85:
+            boolean = not boolean
         passDict["KEY1"] = random.randint(0, 100)
         passDict["KEY2"] = random.randint(0, 100) / 10
         passDict["KEY3"] = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
+        passDict["KEY4"] = boolean
         bytesToSend = bytearray(json.dumps(passDict).encode())
 
         # insert the length

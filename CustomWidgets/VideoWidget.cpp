@@ -17,3 +17,4 @@ void VideoWidget::updateData() {
         videoWidget.setPixmap(QPixmap::fromImage(QImage((unsigned char *) rgb_image.data, rgb_image.cols, rgb_image.rows, QImage::Format_RGB888)));
     }
 }
+
