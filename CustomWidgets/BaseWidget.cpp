@@ -9,8 +9,6 @@ BaseWidget::BaseWidget(QWidget *parent, WidgetInfo *configInfo, WidgetData *widg
     _widgetData = widgetData;
     _parent = parent;
     draggable = true;
-//    QTabWidget* a = (QTabWidget*)parent->parent();
-//    a->currentWidget();
     setPosition(_configInfo->x, _configInfo->y);
 }
 

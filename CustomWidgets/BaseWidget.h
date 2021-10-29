@@ -12,14 +12,14 @@ protected:
     std::string *_name;
     WidgetInfo *_configInfo;
     WidgetData *_widgetData;
-    int _x{};
-    int _y{};
+    int _x;
+    int _y;
 
-    int startX{};
-    int startY{};
+    int startX;
+    int startY;
     int startWX;
     int startWY;
-    bool clicked{};
+    bool clicked;
     QWidget *_parent;
 
     void mousePressEvent(QMouseEvent *event) override;
