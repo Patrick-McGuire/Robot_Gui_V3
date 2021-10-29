@@ -7,7 +7,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
-add_executable(Robot_Gui_V3 main.cpp GUIMaker.cpp GUIMaker.h CustomWidgets/TextBoxWidget.cpp CustomWidgets/TextBoxWidget.h CustomWidgets/BaseWidget.cpp CustomWidgets/BaseWidget.h RobotGUI.cpp RobotGUI.h Configuration/WidgetInfo.cpp Configuration/WidgetInfo.h WidgetData.cpp WidgetData.h Constants.h Networking/LocalServer.cpp Networking/LocalServer.h Configuration/TabInfo.cpp Configuration/TabInfo.h CustomWidgets/VideoWidget.cpp CustomWidgets/VideoWidget.h XML/XMLInput.cpp XML/XMLInput.h XML/XMLOutput.cpp XML/XMLOutput.h CustomWidgets/BaseWidgetCollection.cpp CustomWidgets/BaseWidgetCollection.h)
+add_executable(Robot_Gui_V3 main.cpp GUIMaker.cpp GUIMaker.h CustomWidgets/TextBoxWidget.cpp CustomWidgets/TextBoxWidget.h CustomWidgets/BaseWidget.cpp CustomWidgets/BaseWidget.h RobotGUI.cpp RobotGUI.h Configuration/WidgetInfo.cpp Configuration/WidgetInfo.h WidgetData.cpp WidgetData.h Constants.h Networking/LocalServer.cpp Networking/LocalServer.h Configuration/TabInfo.cpp Configuration/TabInfo.h CustomWidgets/VideoWidget.cpp CustomWidgets/VideoWidget.h XML/XMLInput.cpp XML/XMLInput.h XML/XMLOutput.cpp XML/XMLOutput.h CustomWidgets/BaseWidgetCollection.cpp CustomWidgets/BaseWidgetCollection.h XML/XMLConstants.h)
 
 set(Qt5_DIR "~/Qt/5.12.2/clang_64/lib/cmake/Qt5")
 find_package(Qt5 COMPONENTS Core Widgets REQUIRED)

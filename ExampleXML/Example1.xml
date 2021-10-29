@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+<window title="Probot Control" width="max" height="max" theme="Better Dark">
+    <widgetCollection type="tab" title="Dashboard" width="max" height="max">
+
+    </widgetCollection>
+</window>
