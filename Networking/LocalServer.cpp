@@ -42,7 +42,7 @@ void LocalServer::incomingConnection() {
 
 
 void LocalServer::receiveData() {
-    auto *sender = dynamic_cast<QTcpSocket *>(QObject::sender());
+    auto *sender = dynamic_cast<QTcpSocket*>(QObject::sender());
     QByteArray data = sender->readAll();
 
     if(data.length() > 6) {
@@ -54,6 +54,7 @@ void LocalServer::receiveData() {
         msgLength.in[2] = (uint8_t) data.at(3);
         msgLength.in[3] = (uint8_t) data.at(4);
         uint8_t imgId = (uint8_t) data.at(5);
+//        uint8_t outputCode = (uint8_t) data.at(6);
         data.remove(0, 5);
 
         if(msgLength.length < 0 || data.length() < msgLength.length) {          // Int overflow, message corrupted
@@ -64,7 +65,6 @@ void LocalServer::receiveData() {
             maxDataStringLength = msgLength.length + 100;
             std::cout << "Setting buffer length to: " << maxDataStringLength << "\n";
             dataString = (char*) realloc(dataString, maxDataStringLength);
-            std::cout << "Buffer length set to: " << maxDataStringLength << "\n";
         }
 
         for(int i = 0; i < msgLength.length; i++) {

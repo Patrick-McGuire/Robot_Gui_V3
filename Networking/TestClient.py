@@ -42,8 +42,7 @@ while True:
         try:
             s.connect(('localhost', 1254))
             break
-        except Exception as e:
-            print(e)
+        except ConnectionRefusedError:
             time.sleep(1)
     print("Connected")
 
@@ -77,4 +76,5 @@ while True:
             s.send(bytesToSend)
         except (BrokenPipeError, ConnectionResetError):
             break
+    print("Disconnected")
 
