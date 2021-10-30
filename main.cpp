@@ -63,9 +63,8 @@ std::vector<TabInfo*>* getConfig() {
     return ret;
 }
 
-
-auto widgetData = new WidgetData();
 int main(int argc, char** argv) {
+    auto widgetData = new WidgetData();
     widgetData->setInt("KEY1", 100);
     widgetData->setDouble("KEY2", 10.1);
     widgetData->setString("KEY3", "hi");
