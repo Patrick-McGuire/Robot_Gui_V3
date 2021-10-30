@@ -14,6 +14,28 @@
 #include <QDesktopWidget>
 #include "Constants.h"
 
+#include "XML/rapidxml/rapidxml.hpp"
+//#include "XML/rapidxml/rapidxml_iterators.hpp"
+#include "XML/rapidxml/rapidxml_print.hpp"
+#include "XML/rapidxml/rapidxml_utils.hpp"
+#include <sstream>
+#include <fstream>
+#include <QFileDialog>
+
+void parseXMLTest() {
+    rapidxml::file<> xmlFile("/home/patrick/Robot_Gui_V3/ExampleXML/Example2.xml");  //ExampleXML/
+    rapidxml::xml_document<> doc;
+    doc.parse<0>(xmlFile.data());
+    rapidxml::xml_node<> *c = doc.first_node();
+    while (c) {
+        std::string start = c->first_attribute("title")->value();
+        std::cout << start;
+//        std::string numStaff = c->first_attribute("numStaff")->value();
+//        std::cout << start << "\t" << numStaff << std::endl;
+        c = c->next_sibling();
+    }
+}
+
 std::vector<TabInfo*>* getConfig() {
     auto *tab1 = new TabInfo("Tab1", false);
     auto *tab2 = new TabInfo("Tab2", false);
@@ -64,6 +86,8 @@ std::vector<TabInfo*>* getConfig() {
 }
 
 int main(int argc, char** argv) {
+//    parseXMLTest();
+//    return 0;
     auto widgetData = new WidgetData();
     widgetData->setInt("KEY1", 100);
     widgetData->setDouble("KEY2", 10.1);
