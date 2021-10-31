@@ -13,8 +13,6 @@ union lengthConverter {
 };
 
 LocalServer::LocalServer(QObject *parent, WidgetData *widgetData, RobotGUI *robotGui) : QTcpServer(parent) {
-    dataString = (char *) malloc(serverMinBufferLength);
-    maxDataStringLength = 1000;
     _widgetData = widgetData;
     _robotGui = robotGui;
     connect(this, SIGNAL(newData()), _robotGui, SLOT(updateGUI()));
@@ -22,11 +20,11 @@ LocalServer::LocalServer(QObject *parent, WidgetData *widgetData, RobotGUI *robo
 
 void LocalServer::StartServer() {
     if(!this->listen(QHostAddress::Any,1254)) {
-        std::cout << "Could not start server\n";
+        qDebug("Could not start server");
     }
     else {
         connect(this, SIGNAL(newConnection()), this, SLOT(incomingConnection()));
-        std::cout << "Listening...\n";
+        qDebug("Listening...");
     }
 }
 
@@ -34,9 +32,7 @@ void LocalServer::incomingConnection() {
     QTcpSocket *socket = this->nextPendingConnection();
     if (!socket)
         return;
-
     qDebug("Client connected");
-
     connect(socket, SIGNAL(readyRead()), this, SLOT(receiveData()));
 }
 
@@ -61,15 +57,7 @@ void LocalServer::receiveData() {
             return;
         }
 
-        if(maxDataStringLength < msgLength.length) {
-            maxDataStringLength = msgLength.length + 100;
-            std::cout << "Setting buffer length to: " << maxDataStringLength << "\n";
-            dataString = (char*) realloc(dataString, maxDataStringLength);
-        }
-
-        for(int i = 0; i < msgLength.length; i++) {
-            dataString[i] = data.at(i);
-        }
+        dataString = (char*)(data.data());
         dataString[msgLength.length] = (char) 0;
 
         // Different types of messages

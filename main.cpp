@@ -89,9 +89,6 @@ int main(int argc, char** argv) {
 //    parseXMLTest();
 //    return 0;
     auto widgetData = new WidgetData();
-    widgetData->setInt("KEY1", 100);
-    widgetData->setDouble("KEY2", 10.1);
-    widgetData->setString("KEY3", "hi");
 
     QApplication app(argc, argv);
 

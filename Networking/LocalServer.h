@@ -6,8 +6,6 @@
 #include "../WidgetData.h"
 #include "../RobotGUI.h"
 
-#define serverMinBufferLength 1000
-
 class LocalServer :  public QTcpServer {
 Q_OBJECT
 
@@ -29,7 +27,6 @@ private:
     WidgetData *_widgetData;
     RobotGUI *_robotGui;
     char *dataString;
-    int maxDataStringLength;
 };
 
 
