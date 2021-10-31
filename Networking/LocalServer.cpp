@@ -49,9 +49,9 @@ void LocalServer::receiveData() {
         msgLength.in[1] = (uint8_t) data.at(2);
         msgLength.in[2] = (uint8_t) data.at(3);
         msgLength.in[3] = (uint8_t) data.at(4);
-        uint8_t imgId = (uint8_t) data.at(5);
-//        uint8_t outputCode = (uint8_t) data.at(6);
-        data.remove(0, 5);
+        auto outputCode = (uint8_t) data.at(5);
+        auto imgId = (uint8_t) data.at(6);          // only used by img
+        data.remove(0, 6);
 
         if(msgLength.length < 0 || data.length() < msgLength.length) {          // Int overflow, message corrupted
             return;
@@ -81,8 +81,7 @@ void LocalServer::receiveData() {
                 }
             }
 
-        }
-        else if (id == customIMGMessage) {
+        } else if (id == customIMGMessage) {
             try {
                 // Decode the image and save it to widgetData
                 auto imgIdStr = std::to_string(imgId);

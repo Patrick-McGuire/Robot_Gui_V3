@@ -1,6 +1,6 @@
 #ifndef ROBOT_GUI_V3_LOCALSERVER_H
 #define ROBOT_GUI_V3_LOCALSERVER_H
-
+#include <memory>
 #include <QTcpServer>
 #include <QDebug>
 #include "../WidgetData.h"
@@ -24,6 +24,7 @@ public slots:
     void receiveData();
 
 private:
+//    std::shared_ptr<WidgetData> _widgetData;
     WidgetData *_widgetData;
     RobotGUI *_robotGui;
     char *dataString;

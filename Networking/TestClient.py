@@ -15,14 +15,15 @@ passDict = {
 cam = cv2.VideoCapture(0)
 
 
-def sendImg(imgToSend, idThing):
+def sendImg(imgToSend, idThing, rtnCode):
     is_success, im_buf_arr = cv2.imencode(".jpg", img)
     bytesIN = im_buf_arr.tobytes()
     bytesNEW = bytearray(bytesIN)
 
     bytesNum2 = len(bytesNEW).to_bytes(4, "little")
     # print(len(bytesNEW))
-    bytesNEW.insert(0, idThing)           # img id
+    bytesNEW.insert(0, idThing)
+    bytesNEW.insert(0, rtnCode)           # img id
     bytesNEW.insert(0, bytesNum2[3])
     bytesNEW.insert(0, bytesNum2[2])
     bytesNEW.insert(0, bytesNum2[1])
@@ -48,10 +49,10 @@ while True:
 
     while True:
         ret_val, img = cam.read()
-        if sendImg(img, 1):
+        if sendImg(img, 1, 0):
             break
         cv2.rectangle(img, (10, 100), (200, 200), (0, 255, 0))
-        if sendImg(img, 2):
+        if sendImg(img, 2, 0):
             break
 
         # JSON
@@ -66,6 +67,7 @@ while True:
         # insert the length
         # print(len(bytesToSend))
         bytesNum = len(bytesToSend).to_bytes(4, "little")
+        bytesToSend.insert(0, 0)
         bytesToSend.insert(0, bytesNum[3])
         bytesToSend.insert(0, bytesNum[2])
         bytesToSend.insert(0, bytesNum[1])
