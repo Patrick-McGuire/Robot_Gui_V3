@@ -12,6 +12,7 @@
 #define xmlTypeATR "type"
 #define xmlTitleATR "title"
 #define xmlThemeATR "theme"
+#define xmlIdATR "id"
 #define xmlXPosATR "x"
 #define xmlYPosATR "y"
 #define xmlHiddenATR "hidden"
@@ -23,6 +24,10 @@
 #define xmlWidgetTag "widget"
 
 //// XML value constants ////
+#define xmlTrueConst "true"
+#define xmlTrueCapConst "True"
+#define xmlFalseConst "false"
+#define xmlFalseCapConst "False"
 #define xmlMaxConst "max"
 #define xmlMaxConstID -1
 #define xmlAutoConst "auto"

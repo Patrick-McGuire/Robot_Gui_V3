@@ -3,6 +3,7 @@
 //
 
 #include "XMLInput.h"
+#define strFailed -9123931
 
 WindowConfig *XMLInput::parse(const char *filename) {
     // Open the file and parse it
@@ -11,18 +12,70 @@ WindowConfig *XMLInput::parse(const char *filename) {
     doc.parse<0>(xmlFile.data());
     rapidxml::xml_node<> *windowNode = doc.first_node();                    // Get the first node, which should be the window node
     // Parse into data structure
-    auto windowConfig = new WindowConfig;
-    parseWidowNode(windowConfig, windowNode);
-
-
+    auto windowConfig = new WindowConfig;                                   // Window config struct
+    parseWidowNode(windowConfig, windowNode);                               // Gets all attributes from the window tag
+    // Recursively parse all child nodes of window into a struct
+    auto rootConfig = new WidgetConfig;                                     // Widget config struct
+    parseNode(rootConfig, windowNode->first_node());                  // Parse xml
     return windowConfig;
 }
 
+void XMLInput::parseNode(struct WidgetConfig *parentConfig, rapidxml::xml_node<> *node) {
+    while (node) {
+        rapidxml::xml_attribute<> *attr = node->first_attribute();
+        std::string tagName = node->name();
+        if(tagName == xmlWidgetCollectionTag) {
+
+        } else if(tagName == xmlWidgetTag) {
+//            auto newWidgetStruct = new WidgetConfig;
+        }
+        node = node->next_sibling();
+    }
+}
+
+WidgetConfig *XMLInput::parseWidget(rapidxml::xml_node<> *node) {
+    auto newWidgetStruct = new WidgetConfig;                    // Struct to return
+    int tempVal = 0;                                            // Used to keep track of ints parsed from the xml file
+    // Parse all basic data into default struct
+    for(rapidxml::xml_attribute<> *attr = node->first_attribute(); attr; attr->next_attribute()) {
+        std::string attrName = attr->name();                                            // Get the name of the current attribute
+        std::string attrVal = attr->value();                                            // Get the value of the current attribute
+        // Cases for all non type specific attributes
+        if(attrName == xmlTypeATR) {
+            newWidgetStruct->name = attrVal;
+        } else if(attrName == xmlNameATR) {
+            newWidgetStruct->name = attrVal;
+        } else if(attrName == xmlTitleATR) {
+            newWidgetStruct->title = attrVal;
+        } else if(attrName == xmlIdATR) {
+            newWidgetStruct->id = attrVal;
+        } else if(attrName == xmlDraggableATR) {
+            newWidgetStruct->draggable = (attrVal == xmlTrueCapConst || attrVal == xmlTrueConst);       // Default false
+        } else if(attrName == xmlHiddenATR) {
+            newWidgetStruct->hidden = (attrVal != xmlFalseCapConst || attrVal != xmlFalseConst);        // Default true
+        } else if(attrName == xmlXPosATR) {
+            if(isConstant(attrVal)) {                                                         // Check if it is one of a few constant types (ie auto, max, min)
+                newWidgetStruct->x = getConstVal(attrVal);
+            } else {
+                tempVal = safeStoi(attrVal);
+                newWidgetStruct->x = tempVal != strFailed ? tempVal : xmlAutoConstID;         // If conversion failed return the "auto" id so the GUI can still be created
+            }
+        } else if(attrName == xmlYPosATR) {
+            if(isConstant(attrVal)) {                                                         // Check if it is one of a few constant types (ie auto, max, min)
+                newWidgetStruct->y = getConstVal(attrVal);
+            } else {
+                tempVal = safeStoi(attrVal);
+                newWidgetStruct->y = tempVal != strFailed ? tempVal : xmlAutoConstID;         // If conversion failed return the "auto" id so the GUI can still be created
+            }
+        }
+    }
+    return newWidgetStruct;
+}
+
 void XMLInput::parseWidowNode(struct WindowConfig *windowConfig, rapidxml::xml_node<> *node) {
-    rapidxml::xml_attribute<> *attr = node->first_attribute();                          // Get an attribute object to iterate though
     int tempVal = 0;
     // Iterate though all attributes
-    while (attr) {
+    for(rapidxml::xml_attribute<> *attr = node->first_attribute(); attr; attr = attr->next_attribute()) {
         std::string attrName = attr->name();                                            // Get the name of the current attribute
         std::string attrVal = attr->value();                                            // Get the value of the current attribute
         // Cases
@@ -42,34 +95,9 @@ void XMLInput::parseWidowNode(struct WindowConfig *windowConfig, rapidxml::xml_n
                 windowConfig->width = getConstVal(attrVal);
             } else {
                 tempVal = safeStoi(attrVal);
-                windowConfig->width = tempVal != 0 ? tempVal : xmlAutoConstID;         // If conversion failed return the "auto" id so the GUI can still be created
+                windowConfig->width = tempVal != strFailed ? tempVal : xmlAutoConstID;         // If conversion failed return the "auto" id so the GUI can still be created
             }
         }
-        attr = attr->next_attribute();                                      // Iterate to the next attribute
-    }
-}
-
-void XMLInput::parseNode(rapidxml::xml_node<> *node, int tabNum) {
-    while (node) {
-        rapidxml::xml_attribute<> *attr = node->first_attribute();
-        for(int i = 0; i < tabNum; i++) { std::cout << "\t"; }
-        std::cout << node->name() << ":\n";
-        if(strcmp(node->name(), xmlWidgetCollectionTag) == 0) {
-            while (attr) {
-                for(int i = 0; i < tabNum; i++) { std::cout << "\t"; }
-                std::cout << "\t" << attr->name() << " : " << attr->value() << "\n";
-                attr = attr->next_attribute();
-            }
-        } else if(strcmp(node->name(), xmlWidgetTag) == 0) {
-            while (attr) {
-                for(int i = 0; i < tabNum; i++) { std::cout << "\t"; }
-                std::cout << "\t" << attr->name() << " : " << attr->value() << "\n";
-                attr = attr->next_attribute();
-            }
-        }
-        std::cout << "\n";
-        parseNode(node->first_node(), tabNum + 2);
-        node = node->next_sibling();
     }
 }
 
@@ -90,6 +118,6 @@ int XMLInput::safeStoi(const std::string &val) {
     try {
         return std::stoi(val);
     } catch(...) {
-        return 0;
+        return strFailed;
     }
 }

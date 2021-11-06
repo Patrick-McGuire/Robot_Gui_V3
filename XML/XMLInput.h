@@ -23,8 +23,11 @@ public:
     static WindowConfig *parse(const char *filename);
 
 private:
-    static void parseNode(rapidxml::xml_node<> *node, int tabNum);
+    static void parseNode(struct WidgetConfig *parentConfig, rapidxml::xml_node<> *node);
     static void parseWidowNode(struct WindowConfig *windowConfig, rapidxml::xml_node<> *node);
+    static WidgetConfig *parseWidget(rapidxml::xml_node<> *node);
+
+
     static bool isConstant(const std::string& val);
     static int getConstVal(const std::string& val);
     static int safeStoi(const std::string& val);

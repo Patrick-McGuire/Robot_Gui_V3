@@ -17,11 +17,7 @@ struct WidgetConfig {
     int y;
     bool hidden;
     bool draggable;
-};
-
-struct WidgetCollectionConfig {
-    struct WidgetConfig config;
-    std::vector<struct WidgetConfig> widgets;
+    std::vector<struct WidgetConfig*> widgets;
 };
 
 struct WindowConfig {
@@ -29,7 +25,7 @@ struct WindowConfig {
     std::string theme;
     int height;
     int width;
-    struct WidgetCollectionConfig config;
+    struct WidgetConfig *config;
 };
 
 #endif //ROBOT_GUI_V3_CONFIGSTRUCTS_H
