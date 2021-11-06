@@ -8,6 +8,9 @@
 #include "rapidxml/rapidxml.hpp"
 #include "rapidxml/rapidxml_print.hpp"
 #include "rapidxml/rapidxml_utils.hpp"
+#include "iostream"
+#include "XMLConstants.h"
+#include <cstring>
 
 class XMLInput {
 public:
@@ -16,7 +19,9 @@ public:
      * Parses xml file into internal format
      * @param filename file to parse
      */
-    explicit XMLInput(char *filename);
+    explicit XMLInput(const char *filename);
+
+    void parseNode(rapidxml::xml_node<> *node, int tabNum);
 };
 
 

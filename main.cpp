@@ -21,19 +21,22 @@
 #include <sstream>
 #include <fstream>
 #include <QFileDialog>
+#include "XML/XMLInput.h"
 
 void parseXMLTest() {
-    rapidxml::file<> xmlFile("/home/patrick/Robot_Gui_V3/ExampleXML/Example2.xml");  //ExampleXML/
-    rapidxml::xml_document<> doc;
-    doc.parse<0>(xmlFile.data());
-    rapidxml::xml_node<> *c = doc.first_node();
-    while (c) {
-        std::string start = c->first_attribute("title")->value();
-        std::cout << start;
-//        std::string numStaff = c->first_attribute("numStaff")->value();
-//        std::cout << start << "\t" << numStaff << std::endl;
-        c = c->next_sibling();
-    }
+    auto a = new XMLInput("/home/patrick/Robot_Gui_V3/ExampleXML/Example2.xml");
+//    rapidxml::file<> xmlFile("/home/patrick/Robot_Gui_V3/ExampleXML/Example2.xml");  //ExampleXML/
+//    rapidxml::xml_document<> doc;
+//    doc->
+//    doc.parse<0>(xmlFile.data());
+//    rapidxml::xml_node<> *c = doc.first_node();
+//    while (c) {
+//        std::string start = c->first_attribute("title")->value();
+//        std::cout << start;
+////        std::string numStaff = c->first_attribute("numStaff")->value();
+////        std::cout << start << "\t" << numStaff << std::endl;
+//        c = c->next_sibling();
+//    }
 }
 
 std::vector<TabInfo*>* getConfig() {
@@ -86,8 +89,8 @@ std::vector<TabInfo*>* getConfig() {
 }
 
 int main(int argc, char** argv) {
-//    parseXMLTest();
-//    return 0;
+    parseXMLTest();
+    return 0;
     auto widgetData = new WidgetData();
 //    auto widget_data = std::make_shared<WidgetData>();
 
