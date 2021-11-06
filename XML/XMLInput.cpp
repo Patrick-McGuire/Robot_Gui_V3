@@ -4,15 +4,6 @@
 
 #include "XMLInput.h"
 
-
-//XMLInput::XMLInput(const char *filename) {
-//    rapidxml::file<> xmlFile(filename);
-//    rapidxml::xml_document<> doc;
-//    doc.parse<0>(xmlFile.data());
-//    rapidxml::xml_node<> *activeNode = doc.first_node();
-//    parseNode(activeNode->first_node(), 0);
-//}
-
 WindowConfig *XMLInput::parse(const char *filename) {
     // Open the file and parse it
     rapidxml::file<> xmlFile(filename);
@@ -43,14 +34,14 @@ void XMLInput::parseWidowNode(struct WindowConfig *windowConfig, rapidxml::xml_n
             if(isConstant(attrVal)) {                                                   // Check if it is one of a few constant types (ie auto, max, min)
                 windowConfig->height = getConstVal(attrVal);
             } else {
-                tempVal = std::stoi(attrVal);
+                tempVal = safeStoi(attrVal);
                 windowConfig->height = tempVal != 0 ? tempVal : xmlAutoConstID;         // If conversion failed return the "auto" id so the GUI can still be created
             }
         } else if(attrName == xmlWidthATR) {
             if(isConstant(attrVal)) {                                                   // Check if it is one of a few constant types (ie auto, max, min)
                 windowConfig->width = getConstVal(attrVal);
             } else {
-                tempVal = std::stoi(attrVal);
+                tempVal = safeStoi(attrVal);
                 windowConfig->width = tempVal != 0 ? tempVal : xmlAutoConstID;         // If conversion failed return the "auto" id so the GUI can still be created
             }
         }
@@ -93,4 +84,12 @@ int XMLInput::getConstVal(const std::string& val) {
         return xmlAutoConstID;
     }
     return 0;
+}
+
+int XMLInput::safeStoi(const std::string &val) {
+    try {
+        return std::stoi(val);
+    } catch(...) {
+        return 0;
+    }
 }
