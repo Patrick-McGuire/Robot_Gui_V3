@@ -6,8 +6,11 @@
 #include <string>
 #include <QGridLayout>
 #include "../Configuration/WidgetInfo.h"
+#include "../Configuration/ConfigStructs.h"
 #include <string>
 #include "../WidgetData.h"
+#include "../Constants.h"
+#include "../XML/XMLConstants.h"
 
 class TextBoxWidget: public BaseWidget  {
 private:
@@ -24,6 +27,9 @@ public:
      * @param y     y position of the widget
      */
     TextBoxWidget(QWidget *parent, WidgetInfo *configInfo, WidgetData *widgetData);
+
+    static void parseXml(struct WidgetConfig *parentConfig, rapidxml::xml_node<> *node);
+
     void updateData();
 };
 

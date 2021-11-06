@@ -42,3 +42,24 @@ std::string TextBoxWidget::GetInfoString() {
 void TextBoxWidget::updateData() {
     textBox.setText(QString::fromStdString(GetInfoString()));
 }
+
+void TextBoxWidget::parseXml(struct WidgetConfig *parentConfig, rapidxml::xml_node<> *node) {
+    // Iterate though all lines
+    for(auto *line = node->first_node(); line; line = line->next_sibling()) {
+        std::string tagName = line->name();
+        if(tagName == xmlLineTag) {
+            std::string label;
+            std::string value;
+            for(rapidxml::xml_attribute<> *attr = line->first_attribute(); attr; attr = attr->next_attribute()) {
+                std::string attrName = attr->name();
+                std::string attrVal = attr->value();
+                if(attrName == xmlLabelATR) {
+                    label = attrVal;
+                } else if(attrName == xmlValueATR) {
+                    value = attrVal;
+                }
+            }
+            parentConfig->lines.emplace_back(std::vector<std::string> {label, value});
+        }
+    }
+}

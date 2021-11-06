@@ -60,3 +60,7 @@ void BaseWidget::updateNoFocus() {
 void BaseWidget::updateOnInFocus() {
 
 }
+
+void BaseWidget::parseXml(struct WidgetConfig *parentConfig, rapidxml::xml_node<> *node) {
+
+}

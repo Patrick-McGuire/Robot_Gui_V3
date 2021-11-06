@@ -14,37 +14,22 @@ WindowConfig *XMLInput::parse(const char *filename) {
     // Parse into data structure
     auto windowConfig = new WindowConfig;                                   // Window config struct
     parseWidowNode(windowConfig, windowNode);                               // Gets all attributes from the window tag
-    // Recursively parse all child nodes of window into a struct
-    auto rootConfig = new WidgetConfig;                                     // Widget config struct
-    parseNode(rootConfig, windowNode->first_node());                  // Parse xml
+
+    windowConfig->firstChild = parseWidget(windowNode->first_node());
+
     return windowConfig;
-}
-
-void XMLInput::parseNode(struct WidgetConfig *parentConfig, rapidxml::xml_node<> *node) {
-    while (node) {
-        rapidxml::xml_attribute<> *attr = node->first_attribute();
-        std::string tagName = node->name();
-        if(tagName == xmlWidgetCollectionTag) {
-
-        } else if(tagName == xmlWidgetTag) {
-//            auto newWidgetStruct = new WidgetConfig;
-        }
-        node = node->next_sibling();
-    }
 }
 
 WidgetConfig *XMLInput::parseWidget(rapidxml::xml_node<> *node) {
     auto newWidgetStruct = new WidgetConfig;                    // Struct to return
     int tempVal = 0;                                            // Used to keep track of ints parsed from the xml file
     // Parse all basic data into default struct
-    for(rapidxml::xml_attribute<> *attr = node->first_attribute(); attr; attr->next_attribute()) {
+    for(rapidxml::xml_attribute<> *attr = node->first_attribute(); attr; attr = attr->next_attribute()) {
         std::string attrName = attr->name();                                            // Get the name of the current attribute
         std::string attrVal = attr->value();                                            // Get the value of the current attribute
         // Cases for all non type specific attributes
         if(attrName == xmlTypeATR) {
-            newWidgetStruct->name = attrVal;
-        } else if(attrName == xmlNameATR) {
-            newWidgetStruct->name = attrVal;
+            newWidgetStruct->type = attrVal;
         } else if(attrName == xmlTitleATR) {
             newWidgetStruct->title = attrVal;
         } else if(attrName == xmlIdATR) {
@@ -69,6 +54,12 @@ WidgetConfig *XMLInput::parseWidget(rapidxml::xml_node<> *node) {
             }
         }
     }
+    // Call widget specific methods to finish configuring the struct
+    if(newWidgetStruct->type == textBoxWidgetSTRID) {
+        TextBoxWidget::parseXml(newWidgetStruct, node);
+    } else if(newWidgetStruct->type == videoWidgetSTRID) {
+        VideoWidget::parseXml(newWidgetStruct, node);
+    }
     return newWidgetStruct;
 }
 
@@ -88,7 +79,7 @@ void XMLInput::parseWidowNode(struct WindowConfig *windowConfig, rapidxml::xml_n
                 windowConfig->height = getConstVal(attrVal);
             } else {
                 tempVal = safeStoi(attrVal);
-                windowConfig->height = tempVal != 0 ? tempVal : xmlAutoConstID;         // If conversion failed return the "auto" id so the GUI can still be created
+                windowConfig->height = tempVal != strFailed ? tempVal : xmlAutoConstID;         // If conversion failed return the "auto" id so the GUI can still be created
             }
         } else if(attrName == xmlWidthATR) {
             if(isConstant(attrVal)) {                                                   // Check if it is one of a few constant types (ie auto, max, min)

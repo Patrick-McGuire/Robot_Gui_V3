@@ -17,11 +17,14 @@
 #define xmlYPosATR "y"
 #define xmlHiddenATR "hidden"
 #define xmlDraggableATR "draggable"
+#define xmlLabelATR "label"
+#define xmlValueATR "value"
 
 //// XML Tags ////
 #define xmlWindowTag "window"
-#define xmlWidgetCollectionTag "widgetCollection"
 #define xmlWidgetTag "widget"
+#define xmlTabTag "tab"
+#define xmlLineTag "line"
 
 //// XML value constants ////
 #define xmlTrueConst "true"

@@ -26,7 +26,10 @@
 
 void parseXMLTest() {
     struct WindowConfig *aa = XMLInput::parse("/home/patrick/Robot_Gui_V3/ExampleXML/Example2.xml");
-    std::cout << aa->title << "\n" << aa->theme << "\n" << aa->width << "\n" << aa->height;
+    std::cout << aa->title << "\n" << aa->theme << "\n" << aa->width << "\n" << aa->height << "\n";
+    for (auto it = begin (aa->firstChild->lines); it != end (aa->firstChild->lines); ++it) {
+        std::cout << it[0][0] << " : " << it[0][1] << "\n";
+    }
 }
 
 std::vector<TabInfo*>* getConfig() {

@@ -29,6 +29,9 @@ public:
      * @param y     y position of the widget
      */
     VideoWidget(QWidget *parent, WidgetInfo *configInfo, WidgetData *widgetData);
+
+    static void parseXml(struct WidgetConfig *parentConfig, rapidxml::xml_node<> *node);
+
     void updateData();
 };
 

@@ -5,6 +5,9 @@
 #include "../Configuration/WidgetInfo.h"
 #include "../WidgetData.h"
 #include "QMouseEvent"
+#include "../XML/rapidxml/rapidxml.hpp"
+#include "../XML/rapidxml/rapidxml_print.hpp"
+#include "../XML/rapidxml/rapidxml_utils.hpp"
 
 class BaseWidget: public QWidget {
 Q_OBJECT
@@ -44,6 +47,13 @@ public:
     void setPosition(int x, int y);
 
     virtual void updateData();
+
+    /**
+     * Adds widget type specific config to the specified struct
+     * @param[out] parentConfig struct to configure
+     * @param[in] node xml node to get data from
+     */
+    static void parseXml(struct WidgetConfig *parentConfig, rapidxml::xml_node<> *node);
 
 private:
     virtual void updateInFocus();

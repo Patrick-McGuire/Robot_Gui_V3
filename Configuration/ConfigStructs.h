@@ -9,7 +9,6 @@
 #include <vector>
 
 struct WidgetConfig {
-    std::string name;
     std::string title;
     std::string type;
     std::string id;
@@ -17,7 +16,12 @@ struct WidgetConfig {
     int y;
     bool hidden;
     bool draggable;
-    std::vector<struct WidgetConfig*> widgets;
+    /////// Widget specific ///////
+    // Tab widget collection
+    std::vector<std::string> tabNames;
+    std::vector<std::vector<struct WidgetConfig*>> tabWidgets;
+    // Configurable textbox widget
+    std::vector<std::vector<std::string>> lines;
 };
 
 struct WindowConfig {
@@ -25,7 +29,7 @@ struct WindowConfig {
     std::string theme;
     int height;
     int width;
-    struct WidgetConfig *config;
+    struct WidgetConfig *firstChild;
 };
 
 #endif //ROBOT_GUI_V3_CONFIGSTRUCTS_H

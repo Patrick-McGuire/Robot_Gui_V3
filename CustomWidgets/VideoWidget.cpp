@@ -18,3 +18,7 @@ void VideoWidget::updateData() {
     }
 }
 
+void VideoWidget::parseXml(struct WidgetConfig *parentConfig, rapidxml::xml_node<> *node) {
+
+}
+

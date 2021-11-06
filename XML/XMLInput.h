@@ -10,8 +10,11 @@
 #include "rapidxml/rapidxml_utils.hpp"
 #include "iostream"
 #include "XMLConstants.h"
+#include "../Constants.h"
 #include <cstring>
 #include "../Configuration/ConfigStructs.h"
+#include "../CustomWidgets/TextBoxWidget.h"
+#include "../CustomWidgets/VideoWidget.h"
 
 class XMLInput {
 public:
@@ -22,11 +25,15 @@ public:
      */
     static WindowConfig *parse(const char *filename);
 
-private:
-    static void parseNode(struct WidgetConfig *parentConfig, rapidxml::xml_node<> *node);
-    static void parseWidowNode(struct WindowConfig *windowConfig, rapidxml::xml_node<> *node);
+    /**
+     * Parses a xml node into internal format
+     * @param node xml node to parse
+     * @return WidgetConfig struct
+     */
     static WidgetConfig *parseWidget(rapidxml::xml_node<> *node);
 
+private:
+    static void parseWidowNode(struct WindowConfig *windowConfig, rapidxml::xml_node<> *node);
 
     static bool isConstant(const std::string& val);
     static int getConstVal(const std::string& val);
