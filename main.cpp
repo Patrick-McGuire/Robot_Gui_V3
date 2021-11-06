@@ -22,21 +22,11 @@
 #include <fstream>
 #include <QFileDialog>
 #include "XML/XMLInput.h"
+#include "Configuration/ConfigStructs.h"
 
 void parseXMLTest() {
-    auto a = new XMLInput("/home/patrick/Robot_Gui_V3/ExampleXML/Example2.xml");
-//    rapidxml::file<> xmlFile("/home/patrick/Robot_Gui_V3/ExampleXML/Example2.xml");  //ExampleXML/
-//    rapidxml::xml_document<> doc;
-//    doc->
-//    doc.parse<0>(xmlFile.data());
-//    rapidxml::xml_node<> *c = doc.first_node();
-//    while (c) {
-//        std::string start = c->first_attribute("title")->value();
-//        std::cout << start;
-////        std::string numStaff = c->first_attribute("numStaff")->value();
-////        std::cout << start << "\t" << numStaff << std::endl;
-//        c = c->next_sibling();
-//    }
+    struct WindowConfig *aa = XMLInput::parse("/home/patrick/Robot_Gui_V3/ExampleXML/Example2.xml");
+    std::cout << aa->title << "\n" << aa->theme << "\n" << aa->width << "\n" << aa->height;
 }
 
 std::vector<TabInfo*>* getConfig() {

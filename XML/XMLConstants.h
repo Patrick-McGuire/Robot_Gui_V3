@@ -6,6 +6,7 @@
 #define ROBOT_GUI_V3_XMLCONSTANTS_H
 
 //// XML Attributes ////
+#define xmlNameATR "name"
 #define xmlWidthATR "width"
 #define xmlHeightATR "height"
 #define xmlTypeATR "type"
@@ -23,6 +24,8 @@
 
 //// XML value constants ////
 #define xmlMaxConst "max"
+#define xmlMaxConstID -1
 #define xmlAutoConst "auto"
+#define xmlAutoConstID -2
 
 #endif //ROBOT_GUI_V3_XMLCONSTANTS_H

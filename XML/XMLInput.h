@@ -11,6 +11,7 @@
 #include "iostream"
 #include "XMLConstants.h"
 #include <cstring>
+#include "../Configuration/ConfigStructs.h"
 
 class XMLInput {
 public:
@@ -19,9 +20,13 @@ public:
      * Parses xml file into internal format
      * @param filename file to parse
      */
-    explicit XMLInput(const char *filename);
+    static WindowConfig *parse(const char *filename);
 
-    void parseNode(rapidxml::xml_node<> *node, int tabNum);
+private:
+    static void parseNode(rapidxml::xml_node<> *node, int tabNum);
+    static void parseWidowNode(struct WindowConfig *windowConfig, rapidxml::xml_node<> *node);
+    static bool isConstant(const std::string& val);
+    static int getConstVal(const std::string& val);
 };
 
 
