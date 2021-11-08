@@ -22,6 +22,8 @@ public:
 //    QTabWidget *tabWidget;
     std::vector<BaseWidget*> *allWidgets;
     explicit GUIMaker(QWidget *parent, std::vector<TabInfo*> *config, WidgetData *widgetData, int width, int height);
+
+    static BaseWidget* createWidget();
 };
 
 

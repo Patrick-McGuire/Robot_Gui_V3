@@ -14,6 +14,8 @@ struct WidgetConfig {
     std::string id;
     int x;
     int y;
+    int height;
+    int width;
     bool hidden;
     bool draggable;
     /////// Widget specific ///////

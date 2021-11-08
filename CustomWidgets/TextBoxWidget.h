@@ -30,7 +30,7 @@ public:
 
     static void parseXml(struct WidgetConfig *parentConfig, rapidxml::xml_node<> *node);
 
-    void updateData();
+    void updateData() override;
 };
 
 #endif //ROBOT_GUI_V3_TEXTBOXWIDGET_H

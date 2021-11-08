@@ -15,6 +15,7 @@
 #include "../Configuration/ConfigStructs.h"
 #include "../CustomWidgets/TextBoxWidget.h"
 #include "../CustomWidgets/VideoWidget.h"
+#include "../CustomWidgets/TabWidget.h"
 
 class XMLInput {
 public:

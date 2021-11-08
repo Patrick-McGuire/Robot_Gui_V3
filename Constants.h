@@ -4,6 +4,7 @@
 // Widget types
 #define textBoxWidgetSTRID "textBox"
 #define videoWidgetSTRID "video"
+#define tabWidgetSTRID "tab"
 
 // WidgetData types
 #define intType "int"

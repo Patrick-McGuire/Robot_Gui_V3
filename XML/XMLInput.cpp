@@ -52,6 +52,20 @@ WidgetConfig *XMLInput::parseWidget(rapidxml::xml_node<> *node) {
                 tempVal = safeStoi(attrVal);
                 newWidgetStruct->y = tempVal != strFailed ? tempVal : xmlAutoConstID;         // If conversion failed return the "auto" id so the GUI can still be created
             }
+        } else if(attrName == xmlHeightATR) {
+            if(isConstant(attrVal)) {                                                   // Check if it is one of a few constant types (ie auto, max, min)
+                newWidgetStruct->height = getConstVal(attrVal);
+            } else {
+                tempVal = safeStoi(attrVal);
+                newWidgetStruct->height = tempVal != strFailed ? tempVal : xmlAutoConstID;         // If conversion failed return the "auto" id so the GUI can still be created
+            }
+        } else if(attrName == xmlWidthATR) {
+            if(isConstant(attrVal)) {                                                   // Check if it is one of a few constant types (ie auto, max, min)
+                newWidgetStruct->width = getConstVal(attrVal);
+            } else {
+                tempVal = safeStoi(attrVal);
+                newWidgetStruct->width = tempVal != strFailed ? tempVal : xmlAutoConstID;         // If conversion failed return the "auto" id so the GUI can still be created
+            }
         }
     }
     // Call widget specific methods to finish configuring the struct
@@ -59,6 +73,8 @@ WidgetConfig *XMLInput::parseWidget(rapidxml::xml_node<> *node) {
         TextBoxWidget::parseXml(newWidgetStruct, node);
     } else if(newWidgetStruct->type == videoWidgetSTRID) {
         VideoWidget::parseXml(newWidgetStruct, node);
+    } else if(newWidgetStruct->type == tabWidgetSTRID) {
+        TabWidget::parseXml(newWidgetStruct, node);
     }
     return newWidgetStruct;
 }

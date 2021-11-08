@@ -27,8 +27,11 @@
 void parseXMLTest() {
     struct WindowConfig *aa = XMLInput::parse("/home/patrick/Robot_Gui_V3/ExampleXML/Example2.xml");
     std::cout << aa->title << "\n" << aa->theme << "\n" << aa->width << "\n" << aa->height << "\n";
-    for (auto it = begin (aa->firstChild->lines); it != end (aa->firstChild->lines); ++it) {
-        std::cout << it[0][0] << " : " << it[0][1] << "\n";
+    for (auto it = begin (aa->firstChild->tabNames); it != aa->firstChild->tabNames.end(); it++) {
+        std::cout << it[0] << "\n";
+        for(auto j = aa->firstChild->tabWidgets[1].begin(); j != aa->firstChild->tabWidgets[1].end(); j++) {
+            std::cout << "\t" << j[0]->title << "\n";
+        }
     }
 }
 

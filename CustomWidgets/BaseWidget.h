@@ -28,6 +28,11 @@ protected:
     void mousePressEvent(QMouseEvent *event) override;
     void mouseReleaseEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
+
+    virtual void updateInFocus();
+    virtual void updateNoFocus();
+    virtual void updateOnInFocus();
+
 public:
     bool draggable;
 
@@ -48,17 +53,11 @@ public:
 
     virtual void updateData();
 
-    /**
-     * Adds widget type specific config to the specified struct
-     * @param[out] parentConfig struct to configure
-     * @param[in] node xml node to get data from
-     */
-    static void parseXml(struct WidgetConfig *parentConfig, rapidxml::xml_node<> *node);
 
 private:
-    virtual void updateInFocus();
-    virtual void updateNoFocus();
-    virtual void updateOnInFocus();
+//    virtual void updateInFocus();
+//    virtual void updateNoFocus();
+//    virtual void updateOnInFocus();
 };
 
 
