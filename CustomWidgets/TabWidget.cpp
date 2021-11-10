@@ -4,7 +4,7 @@
 
 #include "TabWidget.h"
 
-TabWidget::TabWidget(QWidget *parent, WidgetConfig *configInfo, WidgetData *widgetData) : BaseWidget(parent, nullptr, widgetData) {
+TabWidget::TabWidget(QWidget *parent, WidgetConfig *configInfo, WidgetData *widgetData) : BaseWidget(parent, configInfo, widgetData) {
     tabs = new QTabWidget(parent);
     tabs->setFixedHeight(configInfo->height-30);
     tabs->setFixedWidth(configInfo->width-5);
@@ -15,8 +15,8 @@ TabWidget::TabWidget(QWidget *parent, WidgetConfig *configInfo, WidgetData *widg
         page->show();
         pages.emplace_back(page);
         // Create all widgets in the tab
-        for(int j = 0; j < configInfo->tabWidgets[i].size(); j++) {
-
+        for(auto & j : configInfo->tabWidgets[i]) {
+            widgets.emplace_back(GUIMaker::createWidget(page, j, widgetData));
         }
     }
 
@@ -24,7 +24,9 @@ TabWidget::TabWidget(QWidget *parent, WidgetConfig *configInfo, WidgetData *widg
 
 
 void TabWidget::updateInFocus() {
-
+    for(int i = 0; i < widgets.size(); i++) {
+        widgets[i]->updateData(tabs->currentWidget());
+    }
 }
 
 void TabWidget::updateNoFocus() {

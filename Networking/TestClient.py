@@ -78,6 +78,6 @@ while True:
             s.send(bytesToSend)
         except (BrokenPipeError, ConnectionResetError):
             break
-        # time.sleep(1/20)
+        # time.sleep(1)
     print("Disconnected")
 

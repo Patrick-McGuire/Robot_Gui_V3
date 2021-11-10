@@ -5,12 +5,12 @@
 #include <vector>
 #include "../Constants.h"
 
-TextBoxWidget::TextBoxWidget(QWidget *parent, WidgetInfo *configInfo, WidgetData *widgetData) : BaseWidget(parent, configInfo, widgetData) {
+TextBoxWidget::TextBoxWidget(QWidget *parent, WidgetConfig *configInfo, WidgetData *widgetData) : BaseWidget(parent, configInfo, widgetData) {
     this->setLayout(&layout);
     layout.addWidget(&titleBox);
     layout.addWidget(&textBox);
 
-    titleBox.setText(QString::fromStdString(*_name));
+    titleBox.setText(QString::fromStdString(configInfo->title));
     textBox.setText(QString::fromStdString(GetInfoString()));
     textBox.setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
 }
@@ -39,9 +39,9 @@ std::string TextBoxWidget::GetInfoString() {
     return output;
 }
 
-void TextBoxWidget::updateData() {
-    textBox.setText(QString::fromStdString(GetInfoString()));
-}
+//void TextBoxWidget::updateData() {
+//    textBox.setText(QString::fromStdString(GetInfoString()));
+//}
 
 void TextBoxWidget::parseXml(struct WidgetConfig *parentConfig, rapidxml::xml_node<> *node) {
     // Iterate though all lines
@@ -62,4 +62,16 @@ void TextBoxWidget::parseXml(struct WidgetConfig *parentConfig, rapidxml::xml_no
             parentConfig->lines.emplace_back(std::vector<std::string> {label, value});
         }
     }
+}
+
+void TextBoxWidget::updateInFocus() {
+    textBox.setText(QString::fromStdString(GetInfoString()));
+}
+
+void TextBoxWidget::updateNoFocus() {
+
+}
+
+void TextBoxWidget::updateOnInFocus() {
+
 }

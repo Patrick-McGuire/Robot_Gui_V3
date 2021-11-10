@@ -26,11 +26,13 @@ public:
      * @param x     x position of the widget
      * @param y     y position of the widget
      */
-    TextBoxWidget(QWidget *parent, WidgetInfo *configInfo, WidgetData *widgetData);
+    TextBoxWidget(QWidget *parent, WidgetConfig *configInfo, WidgetData *widgetData);
 
-    static void parseXml(struct WidgetConfig *parentConfig, rapidxml::xml_node<> *node);
+    static void parseXml(WidgetConfig *parentConfig, rapidxml::xml_node<> *node);
 
-    void updateData() override;
+    void updateInFocus() override;
+    void updateNoFocus() override;
+    void updateOnInFocus() override;
 };
 
 #endif //ROBOT_GUI_V3_TEXTBOXWIDGET_H

@@ -85,8 +85,8 @@ std::vector<TabInfo*>* getConfig() {
 }
 
 int main(int argc, char** argv) {
-    parseXMLTest();
-    return 0;
+//    parseXMLTest();
+//    return 0;
     auto widgetData = new WidgetData();
 //    auto widget_data = std::make_shared<WidgetData>();
 

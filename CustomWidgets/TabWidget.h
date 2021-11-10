@@ -19,11 +19,13 @@
 #include "../XML/XMLInput.h"
 #include <QTabWidget>
 #include <QString>
+#include "../GUIMaker.h"
 
 class TabWidget : public BaseWidget  {
 private:
     QTabWidget *tabs;
-    std::std::vector<QWidget*> pages;
+    std::vector<QWidget*> pages;
+    std::vector<BaseWidget*> widgets;
 
     static void parseTabChildren(struct WidgetConfig *parentConfig, rapidxml::xml_node<> *node);
 

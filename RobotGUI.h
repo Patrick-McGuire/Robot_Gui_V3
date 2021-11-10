@@ -6,12 +6,14 @@
 #include "Configuration/TabInfo.h"
 #include "GUIMaker.h"
 #include <QMainWindow>
+#include "CustomWidgets/TabWidget.h"
 
 class RobotGUI : public QObject {
 Q_OBJECT
 public:
 //    QTimer *timer;
-    GUIMaker *guiMaker;
+//    GUIMaker *guiMaker;
+    TabWidget *tabWidget;
     RobotGUI(QWidget *parent, WidgetData *widgetData, std::vector<TabInfo*> *config, QMainWindow *mainWindow, int width, int height);
 
 public slots:
@@ -23,7 +25,7 @@ public slots:
 private:
     WidgetData *_widgetData;
     std::vector<TabInfo*> *_config;
-    std::vector<BaseWidget*> *allWidgets;
+//    std::vector<BaseWidget*> *allWidgets;
     int _width;
     int _height;
     QMainWindow *_mainWindow;

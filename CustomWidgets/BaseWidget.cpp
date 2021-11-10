@@ -3,12 +3,12 @@
 #include "../Configuration/WidgetInfo.h"
 #include <QTabWidget>
 
-BaseWidget::BaseWidget(QWidget *parent, WidgetInfo *configInfo, WidgetData *widgetData) : QWidget(parent) {
-    _name = &configInfo->name;
+BaseWidget::BaseWidget(QWidget *parent, WidgetConfig *configInfo, WidgetData *widgetData) : QWidget(parent) {
     _configInfo = configInfo;
     _widgetData = widgetData;
     _parent = parent;
-    draggable = true;
+    draggable = configInfo->draggable;
+    inFocusLast = true;
     setPosition(_configInfo->x, _configInfo->y);
 }
 
@@ -24,7 +24,7 @@ void BaseWidget::setPosition(int x, int y) {
 }
 
 void BaseWidget::mousePressEvent(QMouseEvent *event) {
-    if(draggable && !_configInfo->staticPos) {
+    if(draggable) {
         clicked = true;
         startX = event->globalX();
         startY = event->globalY();
@@ -40,13 +40,22 @@ void BaseWidget::mouseReleaseEvent(QMouseEvent *event) {
 }
 
 void BaseWidget::mouseMoveEvent(QMouseEvent *event) {
-    if(clicked && draggable && !_configInfo->staticPos) {
+    if(clicked && draggable) {
         setPosition(event->globalX() - startX + startWX, event->globalY() - startY + startWY );
     }
 }
 
-void BaseWidget::updateData() {
-
+void BaseWidget::updateData(QWidget *activeParent) {
+    if(activeParent == _parent) {
+        if(!inFocusLast) {
+            inFocusLast = true;
+            updateOnInFocus();
+        }
+        updateInFocus();
+    } else {
+        inFocusLast = false;
+        updateNoFocus();
+    }
 }
 
 void BaseWidget::updateInFocus() {

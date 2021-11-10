@@ -5,6 +5,7 @@
 #include "Configuration/WidgetInfo.h"
 #include "CustomWidgets/BaseWidget.h"
 #include "CustomWidgets/TextBoxWidget.h"
+#include "CustomWidgets/TabWidget.h"
 #include "CustomWidgets/VideoWidget.h"
 #include <QWidget>
 #include <QTabWidget>
@@ -23,7 +24,7 @@ public:
     std::vector<BaseWidget*> *allWidgets;
     explicit GUIMaker(QWidget *parent, std::vector<TabInfo*> *config, WidgetData *widgetData, int width, int height);
 
-    static BaseWidget* createWidget();
+    static BaseWidget* createWidget(QWidget *parent, WidgetConfig *configInfo, WidgetData *widgetData);
 };
 
 

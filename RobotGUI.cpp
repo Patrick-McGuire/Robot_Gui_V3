@@ -15,14 +15,14 @@ RobotGUI::RobotGUI(QWidget *parent, WidgetData *widgetData, std::vector<TabInfo*
     _width = width;
     _mainWindow = mainWindow;
 
-    guiMaker = new GUIMaker(parent, config, widgetData, width, height);
-    allWidgets = guiMaker->allWidgets;
+    WindowConfig *testConfig = XMLInput::parse("/home/patrick/Robot_Gui_V3/ExampleXML/Example2.xml");
+    tabWidget = new TabWidget(parent, testConfig->firstChild, widgetData);
+//    guiMaker = new GUIMaker(parent, config, widgetData, width, height);
+//    allWidgets = guiMaker->allWidgets;
 }
 
 void RobotGUI::updateGUI() {
-    for(int i = 0; i < allWidgets->size(); i++) {
-        allWidgets[0][i]->updateData();
-    }
+    tabWidget->updateInFocus();
 }
 
 void RobotGUI::mousePress() {

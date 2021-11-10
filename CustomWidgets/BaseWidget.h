@@ -3,6 +3,7 @@
 #include <string>
 #include "QWidget"
 #include "../Configuration/WidgetInfo.h"
+#include "../Configuration/ConfigStructs.h"
 #include "../WidgetData.h"
 #include "QMouseEvent"
 #include "../XML/rapidxml/rapidxml.hpp"
@@ -13,8 +14,10 @@ class BaseWidget: public QWidget {
 Q_OBJECT
 protected:
     std::string *_name;
-    WidgetInfo *_configInfo;
+//    WidgetConfig *_widgetConfig;
+    WidgetConfig *_configInfo;
     WidgetData *_widgetData;
+    bool inFocusLast;
     int _x;
     int _y;
 
@@ -29,9 +32,7 @@ protected:
     void mouseReleaseEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
 
-    virtual void updateInFocus();
-    virtual void updateNoFocus();
-    virtual void updateOnInFocus();
+
 
 public:
     bool draggable;
@@ -42,7 +43,7 @@ public:
      * @param x     x position of the widget
      * @param y     y position of the widget
      */
-    BaseWidget(QWidget *parent, WidgetInfo *configInfo, WidgetData *widgetData);
+    BaseWidget(QWidget *parent, WidgetConfig *configInfo, WidgetData *widgetData);
 
     /**
      * Sets the position of the widget on the screen
@@ -51,13 +52,13 @@ public:
      */
     void setPosition(int x, int y);
 
-    virtual void updateData();
+    void updateData(QWidget *activeParent);
 
 
 private:
-//    virtual void updateInFocus();
-//    virtual void updateNoFocus();
-//    virtual void updateOnInFocus();
+    virtual void updateInFocus();
+    virtual void updateNoFocus();
+    virtual void updateOnInFocus();
 };
 
 
