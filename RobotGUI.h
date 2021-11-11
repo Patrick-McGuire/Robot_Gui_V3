@@ -3,10 +3,10 @@
 #include <QObject>
 #include <QTimer>
 #include "WidgetData.h"
-#include "Configuration/TabInfo.h"
 #include "GUIMaker.h"
 #include <QMainWindow>
 #include "CustomWidgets/TabWidget.h"
+#include "Configuration/ConfigStructs.h"
 
 class RobotGUI : public QObject {
 Q_OBJECT
@@ -14,7 +14,7 @@ public:
 //    QTimer *timer;
 //    GUIMaker *guiMaker;
     TabWidget *tabWidget;
-    RobotGUI(QWidget *parent, WidgetData *widgetData, std::vector<TabInfo*> *config, QMainWindow *mainWindow, int width, int height);
+    RobotGUI(QWidget *parent, WidgetData *widgetData, WidgetConfig *config, QMainWindow *mainWindow, int width, int height);
 
 public slots:
     void updateGUI();
@@ -24,8 +24,8 @@ public slots:
 
 private:
     WidgetData *_widgetData;
-    std::vector<TabInfo*> *_config;
-//    std::vector<BaseWidget*> *allWidgets;
+    WidgetConfig *_config;
+
     int _width;
     int _height;
     QMainWindow *_mainWindow;

@@ -8,7 +8,7 @@
 #include "GUIMaker.h"
 #include <QMainWindow>
 
-RobotGUI::RobotGUI(QWidget *parent, WidgetData *widgetData, std::vector<TabInfo*> *config, QMainWindow *mainWindow, int width, int height) : QObject(parent) {
+RobotGUI::RobotGUI(QWidget *parent, WidgetData *widgetData, WidgetConfig *config, QMainWindow *mainWindow, int width, int height) : QObject(parent) {
     _widgetData = widgetData;
     _config = config;
     _height = height;

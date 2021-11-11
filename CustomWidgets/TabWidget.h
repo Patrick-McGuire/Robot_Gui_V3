@@ -10,7 +10,6 @@
 #include <QLabel>
 #include <string>
 #include <QGridLayout>
-#include "../Configuration/WidgetInfo.h"
 #include "../Configuration/ConfigStructs.h"
 #include <string>
 #include "../WidgetData.h"

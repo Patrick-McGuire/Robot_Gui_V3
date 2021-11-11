@@ -1,7 +1,6 @@
 #include "TextBoxWidget.h"
 #include <QString>
 #include <iostream>
-#include "../Configuration/WidgetInfo.h"
 #include <vector>
 #include "../Constants.h"
 

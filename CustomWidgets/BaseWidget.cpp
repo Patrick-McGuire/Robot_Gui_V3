@@ -1,6 +1,5 @@
 #include <iostream>
 #include "BaseWidget.h"
-#include "../Configuration/WidgetInfo.h"
 #include <QTabWidget>
 
 BaseWidget::BaseWidget(QWidget *parent, WidgetConfig *configInfo, WidgetData *widgetData) : QWidget(parent) {
