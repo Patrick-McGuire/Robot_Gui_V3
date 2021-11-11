@@ -43,8 +43,8 @@ void LocalServer::receiveData() {
 
     if(data.length() > 6) {
         // Get the data about the message
-        int id = (int) data.at(0);
-        lengthConverter msgLength = {0};
+        auto id = static_cast<messageType>((int) data.at(0));
+        lengthConverter msgLength{};
         msgLength.in[0] = (uint8_t) data.at(1);
         msgLength.in[1] = (uint8_t) data.at(2);
         msgLength.in[2] = (uint8_t) data.at(3);
@@ -61,39 +61,41 @@ void LocalServer::receiveData() {
         dataString[msgLength.length] = (char) 0;
 
         // Different types of messages
-        if (id == customJSONMessage) {
-            rapidjson::Document doc;
-            doc.Parse(dataString);
-            rapidjson::Value::MemberIterator M;
-            // Iterate though all json keys and save their values to widgetData
-            for (M = doc.MemberBegin(); M != doc.MemberEnd(); M++) {
-                std::string keyName = M->name.GetString();
-                char keyNameCString[20];
-                std::strcpy(keyNameCString, keyName.c_str());
-                if (doc[keyNameCString].IsString()) {
-                    _widgetData->setString(keyNameCString, doc[keyNameCString].GetString());
-                } else if (doc[keyNameCString].IsDouble()) {
-                    _widgetData->setDouble(keyNameCString, doc[keyNameCString].GetDouble());
-                } else if (doc[keyNameCString].IsInt()) {
-                    _widgetData->setInt(keyNameCString, doc[keyNameCString].GetInt());
-                } else if(doc[keyNameCString].IsBool()) {
-                    _widgetData->setBool(keyNameCString, doc[keyNameCString].GetBool());
+        switch (id) {
+            case JSON: {
+                rapidjson::Document doc;
+                doc.Parse(dataString);
+                rapidjson::Value::MemberIterator M;
+                // Iterate though all json keys and save their values to widgetData
+                for (M = doc.MemberBegin(); M != doc.MemberEnd(); M++) {
+                    std::string keyName = M->name.GetString();
+                    char keyNameCString[20];
+                    std::strcpy(keyNameCString, keyName.c_str());
+                    if (doc[keyNameCString].IsString()) {
+                        _widgetData->setString(keyNameCString, doc[keyNameCString].GetString());
+                    } else if (doc[keyNameCString].IsDouble()) {
+                        _widgetData->setDouble(keyNameCString, doc[keyNameCString].GetDouble());
+                    } else if (doc[keyNameCString].IsInt()) {
+                        _widgetData->setInt(keyNameCString, doc[keyNameCString].GetInt());
+                    } else if(doc[keyNameCString].IsBool()) {
+                        _widgetData->setBool(keyNameCString, doc[keyNameCString].GetBool());
+                    }
                 }
+                break;
+            } case IMG: {
+                try {
+                    // Decode the image and save it to widgetData
+                    auto imgIdStr = std::to_string(imgId);
+                    _widgetData->setImg(imgIdStr, cv::imdecode(cv::Mat(1, msgLength.length+1, CV_8UC1, dataString+1), cv::IMREAD_ANYCOLOR));
+                } catch (cv::Exception const &e) {
+                    // You sent a bad img
+                    std::cout << "CVERROR\n";
+                }
+                break;
+            } default: {
+                return;         // We don't need to emit new data if we don't have new data
             }
-
-        } else if (id == customIMGMessage) {
-            try {
-                // Decode the image and save it to widgetData
-                auto imgIdStr = std::to_string(imgId);
-                _widgetData->setImg(imgIdStr, cv::imdecode(cv::Mat(1, msgLength.length+1, CV_8UC1, dataString+1), cv::IMREAD_ANYCOLOR));
-            } catch (cv::Exception const &e) {
-                // You sent a bad img
-                std::cout << "CVERROR\n";
-            }
-        } else {
-            return;
         }
-        // This will cause the function that updates all widgets to run
-        emit newData();
+        emit newData();         // This will cause the function that updates all widgets to run
     }
 }

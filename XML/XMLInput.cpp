@@ -28,6 +28,7 @@ WidgetConfig *XMLInput::parseWidget(rapidxml::xml_node<> *node) {
         std::string attrName = attr->name();                                            // Get the name of the current attribute
         std::string attrVal = attr->value();                                            // Get the value of the current attribute
         // Cases for all non type specific attributes
+
         if(attrName == xmlTypeATR) {
             newWidgetStruct->type = attrVal;
         } else if(attrName == xmlTitleATR) {

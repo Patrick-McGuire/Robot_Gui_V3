@@ -15,6 +15,13 @@
 #define noType "none"
 
 // Custom messageTypes
+enum messageType {
+    String=0,
+    Int=1,
+    Float=2,
+    JSON=3,
+    IMG=4,
+};
 #define customStringMessage 0
 #define customIntMessage 1
 #define customFloatMessage 2
