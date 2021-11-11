@@ -789,7 +789,7 @@ namespace rapidxml
 
     };
 
-    //! Class representing attribute node of XML document. 
+    //! Class representing attribute node of XML document.
     //! Each attribute has name and value strings, which are available through name() and value() functions (inherited from xml_base).
     //! Note that after parse, both name and value of attribute will point to interior of source text used for parsing. 
     //! Thus, this text must persist in memory for the lifetime of attribute.
@@ -878,7 +878,7 @@ namespace rapidxml
     ///////////////////////////////////////////////////////////////////////////
     // XML node
 
-    //! Class representing a node of XML document. 
+    //! Class representing a node of XML document.
     //! Each node may have associated name and value strings, which are available through name() and value() functions. 
     //! Interpretation of name and value depends on type of the node.
     //! Type of node can be determined by using type() function.

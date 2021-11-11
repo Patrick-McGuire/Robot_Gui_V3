@@ -22,10 +22,6 @@ enum messageType {
     JSON=3,
     IMG=4,
 };
-#define customStringMessage 0
-#define customIntMessage 1
-#define customFloatMessage 2
-#define customJSONMessage 3
-#define customIMGMessage 4
+
 
 #endif //ROBOT_GUI_V3_CONSTANTS_H

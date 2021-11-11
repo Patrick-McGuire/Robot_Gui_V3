@@ -18,6 +18,7 @@ struct WidgetConfig {
     int width;
     bool hidden;
     bool draggable;
+    bool staticPos;
     /////// Widget specific ///////
     // Tab widget collection
     std::vector<std::string> tabNames;
