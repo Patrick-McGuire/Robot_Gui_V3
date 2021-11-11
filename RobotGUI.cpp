@@ -17,8 +17,6 @@ RobotGUI::RobotGUI(QWidget *parent, WidgetData *widgetData, std::vector<TabInfo*
 
     WindowConfig *testConfig = XMLInput::parse("/home/patrick/Robot_Gui_V3/ExampleXML/Example2.xml");
     tabWidget = new TabWidget(parent, testConfig->firstChild, widgetData);
-//    guiMaker = new GUIMaker(parent, config, widgetData, width, height);
-//    allWidgets = guiMaker->allWidgets;
 }
 
 void RobotGUI::updateGUI() {

@@ -39,10 +39,6 @@ std::string TextBoxWidget::GetInfoString() {
     return output;
 }
 
-//void TextBoxWidget::updateData() {
-//    textBox.setText(QString::fromStdString(GetInfoString()));
-//}
-
 void TextBoxWidget::parseXml(struct WidgetConfig *parentConfig, rapidxml::xml_node<> *node) {
     // Iterate though all lines
     for(auto *line = node->first_node(); line; line = line->next_sibling()) {

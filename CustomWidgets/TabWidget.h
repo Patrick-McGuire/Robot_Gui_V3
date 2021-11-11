@@ -23,6 +23,8 @@
 
 class TabWidget : public BaseWidget  {
 private:
+    QGridLayout layout;
+    QWidget *wrapper;
     QTabWidget *tabs;
     std::vector<QWidget*> pages;
     std::vector<BaseWidget*> widgets;

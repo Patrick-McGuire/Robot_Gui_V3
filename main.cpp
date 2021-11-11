@@ -100,7 +100,7 @@ int main(int argc, char** argv) {
 //    mainWindow->resize(600, 600);
     auto *win = new QWidget(mainWindow);
 //    win->resize(mainWindow->width(), mainWindow->height());
-
+    win->resize(mainWindow->width(), mainWindow->height());
     auto config = getConfig();
     RobotGUI robotGui(win, widgetData, config, mainWindow, rec.width(), rec.height());
 
