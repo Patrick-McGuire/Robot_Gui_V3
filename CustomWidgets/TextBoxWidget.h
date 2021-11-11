@@ -18,6 +18,8 @@ private:
     QLabel titleBox;
     QGridLayout layout;
 
+    std::vector<std::string> lineKeys;
+
     std::string GetInfoString();
 public:
     /**
@@ -33,6 +35,7 @@ public:
     void updateInFocus() override;
     void updateNoFocus() override;
     void updateOnInFocus() override;
+    void customUpdate() override;
 };
 
 #endif //ROBOT_GUI_V3_TEXTBOXWIDGET_H

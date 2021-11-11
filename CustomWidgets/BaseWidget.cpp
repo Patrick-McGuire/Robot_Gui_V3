@@ -70,3 +70,7 @@ void BaseWidget::updateOnInFocus() {
 
 }
 
+void BaseWidget::customUpdate() {
+
+}
+

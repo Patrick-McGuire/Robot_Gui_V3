@@ -13,6 +13,10 @@ TextBoxWidget::TextBoxWidget(QWidget *parent, WidgetConfig *configInfo, WidgetDa
     titleBox.setText(QString::fromStdString(configInfo->title));
     textBox.setText(QString::fromStdString(GetInfoString()));
     textBox.setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
+
+    for(auto it = _configInfo->lines.begin(); it != _configInfo->lines.end(); ++it) {
+        lineKeys.push_back(it[0][1]);
+    }
 }
 
 std::string TextBoxWidget::GetInfoString() {
@@ -61,7 +65,12 @@ void TextBoxWidget::parseXml(struct WidgetConfig *parentConfig, rapidxml::xml_no
 }
 
 void TextBoxWidget::updateInFocus() {
-    textBox.setText(QString::fromStdString(GetInfoString()));
+    for(auto & lineKey : lineKeys) {
+        if(_widgetData->keyUpdated(lineKey)) {
+            customUpdate();
+            return;
+        }
+    }
 }
 
 void TextBoxWidget::updateNoFocus() {
@@ -69,5 +78,9 @@ void TextBoxWidget::updateNoFocus() {
 }
 
 void TextBoxWidget::updateOnInFocus() {
+    customUpdate();
+}
 
+void TextBoxWidget::customUpdate() {
+    textBox.setText(QString::fromStdString(GetInfoString()));
 }

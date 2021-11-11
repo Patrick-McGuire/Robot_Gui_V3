@@ -13,6 +13,14 @@ private:
     std::map<std::string , std::string> stringMap;
     std::map<std::string, cv::Mat> imgMap;
     std::vector<std::vector<std::string>> keyTypes;
+    std::map<std::string, bool> keysUpdated;
+    /**
+     * Saves the key type
+     * @param key
+     * @param keyType
+     */
+    void updateKeyType(const std::string& key, const std::string& keyType);
+
 public:
     /**
      * Finds the type of data for a given key
@@ -20,12 +28,10 @@ public:
      * @return data type <string>
      */
     std::string getKeyType(const std::string& key);
-    /**
-     * Saves the key type
-     * @param key
-     * @param keyType
-     */
-    void updateKeyType(const std::string& key, const std::string& keyType);
+
+    void resetKeysUpdated();
+    bool keyUpdated(const std::string& key);
+
     bool imgExits(const std::string& key);
 
     // Getter methods

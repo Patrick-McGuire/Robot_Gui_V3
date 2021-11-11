@@ -11,9 +11,6 @@ TabWidget::TabWidget(QWidget *parent, WidgetConfig *configInfo, WidgetData *widg
     tabs->setFixedHeight(configInfo->height-30);
     tabs->setFixedWidth(configInfo->width-5);
     layout.addWidget(tabs);
-    tabs->show();
-//    setPosition(configInfo->x, configInfo->y);
-//    this->move(configInfo->x, configInfo->y);
 
     for(int i = 0; i < configInfo->tabNames.size(); i++) {
         // Add new tab to tabWidget and setup it's page
@@ -27,7 +24,14 @@ TabWidget::TabWidget(QWidget *parent, WidgetConfig *configInfo, WidgetData *widg
             widgets.emplace_back(GUIMaker::createWidget(page, j, widgetData));
         }
     }
-
+    // Just don't even ask
+    // Please don't ask
+    // Fine. It's a dumb fix for a problem that makes no sense
+    // Comment this out, configure nested tabs, and enjoy
+    for(int i = 0; i < widgets.size(); i++) {
+        tabs->setCurrentIndex(i);
+    }
+    tabs->setCurrentIndex(0);
 }
 
 

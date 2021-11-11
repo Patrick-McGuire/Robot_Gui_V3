@@ -35,6 +35,7 @@ public:
     void updateInFocus() override;
     void updateNoFocus() override;
     void updateOnInFocus() override;
+    void customUpdate() override;
 };
 
 

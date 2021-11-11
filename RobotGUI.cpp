@@ -21,6 +21,7 @@ RobotGUI::RobotGUI(QWidget *parent, WidgetData *widgetData, std::vector<TabInfo*
 
 void RobotGUI::updateGUI() {
     tabWidget->updateInFocus();
+    _widgetData->resetKeysUpdated();
 }
 
 void RobotGUI::mousePress() {

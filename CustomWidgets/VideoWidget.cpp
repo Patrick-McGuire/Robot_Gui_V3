@@ -15,10 +15,8 @@ void VideoWidget::parseXml(struct WidgetConfig *parentConfig, rapidxml::xml_node
 }
 
 void VideoWidget::updateInFocus() {
-    if(_widgetData->imgExits(_configInfo->id)) {
-        cv::Mat rgb_image;
-        cv::cvtColor(_widgetData->getImg(_configInfo->id), rgb_image, cv::COLOR_BGR2RGB);
-        videoWidget.setPixmap(QPixmap::fromImage(QImage((unsigned char *) rgb_image.data, rgb_image.cols, rgb_image.rows, QImage::Format_RGB888)));
+    if(_widgetData->keyUpdated(_configInfo->id)) {
+        customUpdate();
     }
 }
 
@@ -27,6 +25,14 @@ void VideoWidget::updateNoFocus() {
 }
 
 void VideoWidget::updateOnInFocus() {
+    customUpdate();
+}
 
+void VideoWidget::customUpdate() {
+    if(_widgetData->imgExits(_configInfo->id)) {
+        cv::Mat rgb_image;
+        cv::cvtColor(_widgetData->getImg(_configInfo->id), rgb_image, cv::COLOR_BGR2RGB);
+        videoWidget.setPixmap(QPixmap::fromImage(QImage((unsigned char *) rgb_image.data, rgb_image.cols, rgb_image.rows, QImage::Format_RGB888)));
+    }
 }
 

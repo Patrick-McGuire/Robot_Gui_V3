@@ -42,6 +42,7 @@ std::string WidgetData::getKeyType(const std::string& key) {
 }
 
 void WidgetData::updateKeyType(const std::string& key, const std::string& keyType) {
+    keysUpdated[key] = true;
     for(auto it = keyTypes.begin(); it != keyTypes.end(); ++it) {
         if(it[0][0] == key) {
             it[0][1] = keyType;
@@ -57,4 +58,16 @@ void WidgetData::updateKeyType(const std::string& key, const std::string& keyTyp
 bool WidgetData::imgExits(const std::string& key) {
     return imgMap.count(key) > 0;
 }
+
+void WidgetData::resetKeysUpdated() {
+    for(auto & it : keysUpdated) {
+        keysUpdated[it.first] = false;
+    }
+}
+
+bool WidgetData::keyUpdated(const std::string &key) {
+    return keysUpdated[key];
+}
+
+
 

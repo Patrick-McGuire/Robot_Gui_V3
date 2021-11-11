@@ -32,8 +32,6 @@ protected:
     void mouseReleaseEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
 
-
-
 public:
     bool draggable;
 
@@ -59,6 +57,7 @@ private:
     virtual void updateInFocus();
     virtual void updateNoFocus();
     virtual void updateOnInFocus();
+    virtual void customUpdate();
 };
 
 
