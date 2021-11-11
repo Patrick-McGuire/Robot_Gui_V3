@@ -3,10 +3,8 @@
 #include "iostream"
 #include <QMainWindow>
 #include "RobotGUI.h"
-#include "CustomWidgets/TextBoxWidget.h"
 #include <vector>
 #include "WidgetData.h"
-#include "opencv2/opencv.hpp"
 #include "Networking/LocalServer.h"
 #include <QRect>
 #include <QDesktopWidget>

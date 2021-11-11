@@ -12,7 +12,7 @@
 #include "XMLConstants.h"
 #include "../Constants.h"
 #include <cstring>
-#include "../Configuration/ConfigStructs.h"
+#include "../ConfigStructs.h"
 #include "../CustomWidgets/TextBoxWidget.h"
 #include "../CustomWidgets/VideoWidget.h"
 #include "../CustomWidgets/TabWidget.h"

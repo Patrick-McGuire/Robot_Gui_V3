@@ -2,7 +2,7 @@
 #define ROBOT_GUI_V3_BASEWIDGET_H
 #include <string>
 #include "QWidget"
-#include "../Configuration/ConfigStructs.h"
+#include "../ConfigStructs.h"
 #include "../WidgetData.h"
 #include "QMouseEvent"
 #include "../XML/rapidxml/rapidxml.hpp"

@@ -5,7 +5,7 @@
 #include <QLabel>
 #include <string>
 #include <QGridLayout>
-#include "../Configuration/ConfigStructs.h"
+#include "../ConfigStructs.h"
 #include <string>
 #include "../WidgetData.h"
 #include "../Constants.h"

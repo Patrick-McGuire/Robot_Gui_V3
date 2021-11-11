@@ -6,21 +6,16 @@
 #include "GUIMaker.h"
 #include <QMainWindow>
 #include "CustomWidgets/TabWidget.h"
-#include "Configuration/ConfigStructs.h"
+#include "ConfigStructs.h"
 
 class RobotGUI : public QObject {
 Q_OBJECT
 public:
-//    QTimer *timer;
-//    GUIMaker *guiMaker;
     TabWidget *tabWidget;
     RobotGUI(QWidget *parent, WidgetData *widgetData, WidgetConfig *config, QMainWindow *mainWindow, int width, int height);
 
 public slots:
     void updateGUI();
-    void mousePress();
-    void mouseRelease();
-    void mouseMove();
 
 private:
     WidgetData *_widgetData;

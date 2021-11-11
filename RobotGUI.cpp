@@ -6,7 +6,7 @@
 #include "WidgetData.h"
 #include <vector>
 #include "GUIMaker.h"
-#include <QMainWindow>
+
 
 RobotGUI::RobotGUI(QWidget *parent, WidgetData *widgetData, WidgetConfig *config, QMainWindow *mainWindow, int width, int height) : QObject(parent) {
     _widgetData = widgetData;
@@ -22,16 +22,4 @@ RobotGUI::RobotGUI(QWidget *parent, WidgetData *widgetData, WidgetConfig *config
 void RobotGUI::updateGUI() {
     tabWidget->updateInFocus();
     _widgetData->resetKeysUpdated();
-}
-
-void RobotGUI::mousePress() {
-
-}
-
-void RobotGUI::mouseRelease() {
-
-}
-
-void RobotGUI::mouseMove() {
-    std::cout << "HERE!\n";
 }
