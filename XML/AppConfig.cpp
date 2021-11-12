@@ -13,8 +13,8 @@ void AppConfig::parse() {
         std::ifstream file(getPath() + std::string(appConfigFileName));
         std::string activeLine;
         while (std::getline(file, activeLine)) {
-            std::string key = split(activeLine, appConfigSep, 0);
-            std::string val = split(activeLine, appConfigSep, 1);
+            std::string key = splitStr(activeLine, appConfigSep, 0);
+            std::string val = splitStr(activeLine, appConfigSep, 1);
             if(key == appConfigXmlPath) {
                 xmlFilepath = val;
             }
@@ -59,7 +59,7 @@ std::string AppConfig::getPath() {
     return getpwuid(getuid())->pw_dir + std::string(appConfigFilePath);
 }
 
-std::string AppConfig::split(const std::string &str, char delim, int index) {
+std::string AppConfig::splitStr(const std::string &str, char delim, int index) {
     std::stringstream strStream(str);
     std::string item;
     for(int i = 0; std::getline(strStream, item, delim); i++) {
@@ -70,12 +70,11 @@ std::string AppConfig::split(const std::string &str, char delim, int index) {
     return "";
 }
 
-bool AppConfig::fileExists(const std::string& name) {
-    if (FILE *file = fopen(name.c_str(), "r")) {
+bool AppConfig::fileExists(const std::string& path) {
+    if (FILE *file = fopen(path.c_str(), "r")) {
         fclose(file);
         return true;
-    } else {
-        return false;
     }
+    return false;
 }
 
