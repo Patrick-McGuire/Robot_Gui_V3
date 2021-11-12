@@ -2,8 +2,8 @@
 // Created by patrick on 11/12/21.
 //
 
-#ifndef ROBOT_GUI_V3_CONFIG_H
-#define ROBOT_GUI_V3_CONFIG_H
+#ifndef ROBOT_GUI_V3_APPCONFIG_H
+#define ROBOT_GUI_V3_APPCONFIG_H
 #include "iostream"
 #include <unistd.h>
 #include "experimental/filesystem"
@@ -20,9 +20,9 @@
 /* Notes:
  * Configuration data is stored in usr/<username>/home/.config/RobotGUI
  * This auto creates the RobotGUI folder when it runs the first time
- * Config data is stored in RobotGUI_Settings.csv in csv format
+ * AppConfig data is stored in RobotGUI_Settings.csv in csv format
  */
-class Config {
+class AppConfig {
 public:
     /**
      * This either creates or parses the configuration file for the app
@@ -45,4 +45,4 @@ private:
     static bool fileExists(const std::string &name);
     static std::string split(const std::string &str, char delim, int index);
 };
-#endif //ROBOT_GUI_V3_CONFIG_H
+#endif //ROBOT_GUI_V3_APPCONFIG_H

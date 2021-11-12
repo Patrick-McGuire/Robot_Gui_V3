@@ -2,11 +2,11 @@
 // Created by patrick on 11/12/21.
 //
 
-#include "Config.h"
+#include "AppConfig.h"
 
 #include <utility>
 
-void Config::parseConfig() {
+void AppConfig::parseConfig() {
     if(createConfigDir()) {
         xmlFilepath = configNoXmlPath;
     } else {
@@ -23,14 +23,14 @@ void Config::parseConfig() {
 
 }
 
-void Config::setConfig() {
+void AppConfig::setConfig() {
     std::ofstream outfile;
     outfile.open(getConfigPath() + std::string(configFileName), std::ofstream::out | std::ofstream::trunc);
     outfile << configXmlPath << configSep << xmlFilepath << std::endl;
     outfile.close();
 }
 
-bool Config::createConfigDir() {
+bool AppConfig::createConfigDir() {
     if(std::experimental::filesystem::create_directories(getConfigPath())) {
         createConfigFile();
         return true;
@@ -41,25 +41,25 @@ bool Config::createConfigDir() {
     return false;
 }
 
-void Config::setDefaultXmlPath(std::string path) {
+void AppConfig::setDefaultXmlPath(std::string path) {
     xmlFilepath = std::move(path);
 }
 
-std::string Config::getDefaultXmlPath() {
+std::string AppConfig::getDefaultXmlPath() {
     return xmlFilepath;
 }
 
-void Config::createConfigFile() {
+void AppConfig::createConfigFile() {
     std::ofstream outfile (getConfigPath() + std::string(configFileName));
     outfile << configXmlPath << configSep << configNoXmlPath << std::endl;
     outfile.close();
 }
 
-std::string Config::getConfigPath() {
+std::string AppConfig::getConfigPath() {
     return getpwuid(getuid())->pw_dir + std::string(configFilePath);
 }
 
-std::string Config::split(const std::string &str, char delim, int index) {
+std::string AppConfig::split(const std::string &str, char delim, int index) {
     std::stringstream strStream(str);
     std::string item;
     for(int i = 0; std::getline(strStream, item, delim); i++) {
@@ -70,7 +70,7 @@ std::string Config::split(const std::string &str, char delim, int index) {
     return "";
 }
 
-bool Config::fileExists(const std::string& name) {
+bool AppConfig::fileExists(const std::string& name) {
     if (FILE *file = fopen(name.c_str(), "r")) {
         fclose(file);
         return true;

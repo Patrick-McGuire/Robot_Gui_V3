@@ -18,17 +18,17 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <pwd.h>
-#include "XML/Config.h"
+#include "XML/AppConfig.h"
 
 void test() {
-    auto a = new Config;
+    auto a = new AppConfig;
     a->parseConfig();
     std::cout << a->getDefaultXmlPath()<< "\n";
-    a->setDefaultXmlPath("..FF");
+    a->setDefaultXmlPath(".F.FF");
     a->setConfig();
     delete a;
 
-    auto aa = new Config;
+    auto aa = new AppConfig;
     aa->parseConfig();
     std::cout << aa->getDefaultXmlPath() << "\n";
 }
