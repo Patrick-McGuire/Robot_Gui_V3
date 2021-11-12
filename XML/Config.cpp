@@ -4,28 +4,29 @@
 
 #include "Config.h"
 
-AppConfig *Config::parseConfig() {
-    auto *out = new AppConfig;
+#include <utility>
+
+void Config::parseConfig() {
     if(createConfigDir()) {
-        out->xmlFilepath = configNoXmlPath;
+        xmlFilepath = configNoXmlPath;
     } else {
         std::ifstream file(getConfigPath() + std::string(configFileName));
         std::string activeLine;
         while (std::getline(file, activeLine)) {
-            std::string key = split(activeLine, ',', 0);
-            std::string val = split(activeLine, ',', 1);
+            std::string key = split(activeLine, configSep, 0);
+            std::string val = split(activeLine, configSep, 1);
             if(key == configXmlPath) {
-                out->xmlFilepath = val;
+                xmlFilepath = val;
             }
         }
     }
-    return out;
+
 }
 
-void Config::setConfig(AppConfig *config) {
+void Config::setConfig() {
     std::ofstream outfile;
     outfile.open(getConfigPath() + std::string(configFileName), std::ofstream::out | std::ofstream::trunc);
-    outfile << configXmlPath << configSep << config->xmlFilepath << std::endl;
+    outfile << configXmlPath << configSep << xmlFilepath << std::endl;
     outfile.close();
 }
 
@@ -38,6 +39,14 @@ bool Config::createConfigDir() {
         return true;
     }
     return false;
+}
+
+void Config::setDefaultXmlPath(std::string path) {
+    xmlFilepath = std::move(path);
+}
+
+std::string Config::getDefaultXmlPath() {
+    return xmlFilepath;
 }
 
 void Config::createConfigFile() {
@@ -69,3 +78,4 @@ bool Config::fileExists(const std::string& name) {
         return false;
     }
 }
+

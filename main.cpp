@@ -21,13 +21,16 @@
 #include "XML/Config.h"
 
 void test() {
-    auto a = Config::parseConfig();
-    std::cout << a->xmlFilepath << "\n";
-    a->xmlFilepath = "bruh";
-    Config::setConfig(a);
+    auto a = new Config;
+    a->parseConfig();
+    std::cout << a->getDefaultXmlPath()<< "\n";
+    a->setDefaultXmlPath("..FF");
+    a->setConfig();
     delete a;
-    a = Config::parseConfig();
-    std::cout << a->xmlFilepath << "\n";
+
+    auto aa = new Config;
+    aa->parseConfig();
+    std::cout << aa->getDefaultXmlPath() << "\n";
 }
 
 int main(int argc, char** argv) {

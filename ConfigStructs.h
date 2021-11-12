@@ -35,8 +35,4 @@ struct WindowConfig {
     struct WidgetConfig *firstChild;
 };
 
-struct AppConfig {
-    std::string xmlFilepath;
-};
-
 #endif //ROBOT_GUI_V3_CONFIGSTRUCTS_H
