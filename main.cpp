@@ -18,23 +18,21 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <pwd.h>
+#include "XML/Config.h"
 
 void test() {
-    std::string configDir = getpwuid(getuid())->pw_dir;
-    configDir += "/.config/RobotGUI";
-    std::cout << configDir;
-
-    std::cout << std::experimental::filesystem::create_directories(configDir);
-//    std::cout << boost::filesystem::create_directories("/etc/RobotGUI");
-//    std::ofstream myfile;
-//    myfile.open ("example.txt");
-//    myfile << "Writing this to a file.\n";
-//    myfile.close();
+    auto a = Config::parseConfig();
+    std::cout << a->xmlFilepath << "\n";
+    a->xmlFilepath = "bruh";
+    Config::setConfig(a);
+    delete a;
+    a = Config::parseConfig();
+    std::cout << a->xmlFilepath << "\n";
 }
 
 int main(int argc, char** argv) {
-//    test();
-//    return 0;
+    test();
+    return 0;
     auto widgetData = new WidgetData();
 //    auto widget_data = std::make_shared<WidgetData>();
 
