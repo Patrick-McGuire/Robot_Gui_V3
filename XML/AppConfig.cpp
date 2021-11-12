@@ -6,16 +6,16 @@
 
 #include <utility>
 
-void AppConfig::parseConfig() {
-    if(createConfigDir()) {
-        xmlFilepath = configNoXmlPath;
+void AppConfig::parse() {
+    if(createDir()) {
+        xmlFilepath = appConfigNoXmlPath;
     } else {
-        std::ifstream file(getConfigPath() + std::string(configFileName));
+        std::ifstream file(getPath() + std::string(appConfigFileName));
         std::string activeLine;
         while (std::getline(file, activeLine)) {
-            std::string key = split(activeLine, configSep, 0);
-            std::string val = split(activeLine, configSep, 1);
-            if(key == configXmlPath) {
+            std::string key = split(activeLine, appConfigSep, 0);
+            std::string val = split(activeLine, appConfigSep, 1);
+            if(key == appConfigXmlPath) {
                 xmlFilepath = val;
             }
         }
@@ -23,22 +23,11 @@ void AppConfig::parseConfig() {
 
 }
 
-void AppConfig::setConfig() {
+void AppConfig::write() {
     std::ofstream outfile;
-    outfile.open(getConfigPath() + std::string(configFileName), std::ofstream::out | std::ofstream::trunc);
-    outfile << configXmlPath << configSep << xmlFilepath << std::endl;
+    outfile.open(getPath() + std::string(appConfigFileName), std::ofstream::out | std::ofstream::trunc);
+    outfile << appConfigXmlPath << appConfigSep << xmlFilepath << std::endl;
     outfile.close();
-}
-
-bool AppConfig::createConfigDir() {
-    if(std::experimental::filesystem::create_directories(getConfigPath())) {
-        createConfigFile();
-        return true;
-    } else if(!fileExists(getConfigPath() + std::string(configFileName))) {
-        createConfigFile();
-        return true;
-    }
-    return false;
 }
 
 void AppConfig::setDefaultXmlPath(std::string path) {
@@ -49,14 +38,25 @@ std::string AppConfig::getDefaultXmlPath() {
     return xmlFilepath;
 }
 
-void AppConfig::createConfigFile() {
-    std::ofstream outfile (getConfigPath() + std::string(configFileName));
-    outfile << configXmlPath << configSep << configNoXmlPath << std::endl;
+bool AppConfig::createDir() {
+    if(std::experimental::filesystem::create_directories(getPath())) {
+        createFile();
+        return true;
+    } else if(!fileExists(getPath() + std::string(appConfigFileName))) {
+        createFile();
+        return true;
+    }
+    return false;
+}
+
+void AppConfig::createFile() {
+    std::ofstream outfile (getPath() + std::string(appConfigFileName));
+    outfile << appConfigXmlPath << appConfigSep << appConfigNoXmlPath << std::endl;
     outfile.close();
 }
 
-std::string AppConfig::getConfigPath() {
-    return getpwuid(getuid())->pw_dir + std::string(configFilePath);
+std::string AppConfig::getPath() {
+    return getpwuid(getuid())->pw_dir + std::string(appConfigFilePath);
 }
 
 std::string AppConfig::split(const std::string &str, char delim, int index) {

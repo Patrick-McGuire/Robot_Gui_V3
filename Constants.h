@@ -14,6 +14,13 @@
 #define imgType "img"
 #define noType "none"
 
+// AppConfig consts
+#define appConfigFilePath "/.config/RobotGUI"
+#define appConfigFileName "/RobotGUI_Settings.csv"
+#define appConfigXmlPath "XML_PATH"
+#define appConfigSep ','
+#define appConfigNoXmlPath "none"
+
 // Custom messageTypes
 enum messageType {
     String=0,

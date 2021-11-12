@@ -22,14 +22,14 @@
 
 void test() {
     auto a = new AppConfig;
-    a->parseConfig();
+    a->parse();
     std::cout << a->getDefaultXmlPath()<< "\n";
-    a->setDefaultXmlPath(".F.FF");
-    a->setConfig();
+    a->setDefaultXmlPath("Hi2");
+    a->write();
     delete a;
 
     auto aa = new AppConfig;
-    aa->parseConfig();
+    aa->parse();
     std::cout << aa->getDefaultXmlPath() << "\n";
 }
 
