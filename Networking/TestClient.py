@@ -41,49 +41,50 @@ def sendImg(imgToSend, idThing, rtnCode):
     return False
 
 
-while True:
-    s = socket.socket()
+if __name__ == '__main__':
     while True:
-        try:
-            s.connect(('localhost', 1254))
-            break
-        except ConnectionRefusedError:
-            time.sleep(1)
-    print("Connected")
+        s = socket.socket()
+        while True:
+            try:
+                s.connect(('localhost', 1254))
+                break
+            except ConnectionRefusedError:
+                time.sleep(1)
+        print("Connected")
 
-    while True:
-        ret_val, img = cam.read()
-        if sendImg(img, 1, 0):
-            break
-        time.sleep(1/rate)
-        cv2.rectangle(img, (10, 100), (200, 200), (0, 255, 0))
-        if sendImg(img, 2, 0):
-            break
-        time.sleep(1/rate)
+        while True:
+            ret_val, img = cam.read()
+            if sendImg(img, 1, 0):
+                break
+            time.sleep(1/rate)
+            cv2.rectangle(img, (10, 100), (200, 200), (0, 255, 0))
+            if sendImg(img, 2, 0):
+                break
+            time.sleep(1/rate)
 
-        # JSON
-        if random.randint(0, 100) > 85:
-            boolean = not boolean
-        passDict["KEY1"] = random.randint(0, 100)
-        passDict["KEY2"] = random.randint(0, 100) / 10
-        passDict["KEY3"] = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
-        passDict["KEY4"] = boolean
-        bytesToSend = bytearray(json.dumps(passDict).encode())
+            # JSON
+            if random.randint(0, 100) > 85:
+                boolean = not boolean
+            passDict["KEY1"] = random.randint(0, 100)
+            passDict["KEY2"] = random.randint(0, 100) / 10
+            passDict["KEY3"] = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
+            passDict["KEY4"] = boolean
+            bytesToSend = bytearray(json.dumps(passDict).encode())
 
-        # insert the length
-        # print(len(bytesToSend))
-        bytesNum = len(bytesToSend).to_bytes(4, "little")
-        bytesToSend.insert(0, 0)
-        bytesToSend.insert(0, bytesNum[3])
-        bytesToSend.insert(0, bytesNum[2])
-        bytesToSend.insert(0, bytesNum[1])
-        bytesToSend.insert(0, bytesNum[0])
+            # insert the length
+            # print(len(bytesToSend))
+            bytesNum = len(bytesToSend).to_bytes(4, "little")
+            bytesToSend.insert(0, 0)
+            bytesToSend.insert(0, bytesNum[3])
+            bytesToSend.insert(0, bytesNum[2])
+            bytesToSend.insert(0, bytesNum[1])
+            bytesToSend.insert(0, bytesNum[0])
 
-        bytesToSend.insert(0, 3)
-        try:
-            s.send(bytesToSend)
-        except (BrokenPipeError, ConnectionResetError):
-            break
-        time.sleep(1/rate)
-    print("Disconnected")
+            bytesToSend.insert(0, 3)
+            try:
+                s.send(bytesToSend)
+            except (BrokenPipeError, ConnectionResetError):
+                break
+            time.sleep(1/rate)
+        print("Disconnected")
 
