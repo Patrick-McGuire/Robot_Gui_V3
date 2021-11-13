@@ -18,49 +18,36 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <pwd.h>
+#include <QFileDialog>
 #include "XML/AppConfig.h"
 
-void test() {
-    auto a = new AppConfig;
-    a->parse();
-    std::cout << a->getDefaultXmlPath()<< "\n";
-    a->setDefaultXmlPath("Hi2");
-    a->write();
-    delete a;
-
-    auto aa = new AppConfig;
-    aa->parse();
-    std::cout << aa->getDefaultXmlPath() << "\n";
-}
 
 int main(int argc, char** argv) {
-    test();
-    return 0;
+    // Create the objects needed to run the GUI
     auto widgetData = new WidgetData();
-//    auto widget_data = std::make_shared<WidgetData>();
-
     QApplication app(argc, argv);
-
     auto mainWindow = new QMainWindow;
-    mainWindow->setWindowTitle("Probot Control");
-
-    QRect rec = QApplication::desktop()->availableGeometry();
-    mainWindow->resize(rec.width(), rec.height());
-//    mainWindow->resize(600, 600);
     auto *win = new QWidget(mainWindow);
-//    win->resize(mainWindow->width(), mainWindow->height());
-    win->resize(mainWindow->width(), mainWindow->height());
 
-    RobotGUI robotGui(win, widgetData, nullptr, mainWindow, rec.width(), rec.height());
+    // Get the app configuration data and filepath to xml
+    auto appConfig = new AppConfig;
+    appConfig->parse();
+    auto filePath = appConfig->getDefaultXmlPath();
+    if(filePath == appConfigNoXmlPath || !AppConfig::fileExists(filePath)) {
+        filePath = QFileDialog::getOpenFileName(mainWindow, "Open XML Configuration File", "/home", "XML Files (*.xml)").toStdString();
+        appConfig->setDefaultXmlPath(filePath);
+        appConfig->write();
+    }
 
+    // Initialise my objects that run the GUI
+    RobotGUI robotGui(win, mainWindow, widgetData, appConfig, filePath);
     LocalServer Server(win, widgetData, &robotGui);
     Server.StartServer();
 
-
-
+    // Open the window
     mainWindow->setCentralWidget(win);
     win->show();
     mainWindow->show();
-    return app.exec();
+    return QApplication::exec();
 }
 

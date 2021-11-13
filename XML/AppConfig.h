@@ -14,7 +14,7 @@
 
 /* Notes:
  * Configuration data is stored in usr/<username>/home/.config/RobotGUI
- * This auto creates the RobotGUI folder when it runs the first time
+ * This auto creates the RobotGUI folder + config file when it runs the first time
  * AppConfig data is stored in RobotGUI_Settings.csv in csv format
  */
 class AppConfig {
@@ -41,6 +41,13 @@ public:
      */
     std::string getDefaultXmlPath();
 
+    /**
+     * Checks if a file exists
+     * @param path[in] path + filename to check
+     * @return if file exists
+     */
+    static bool fileExists(const std::string &path);
+
 private:
     /**
      * Trys to create the directory ~/.config/RobotGUI
@@ -58,13 +65,6 @@ private:
      * @return path to .config for current user
      */
     static std::string getPath();
-
-    /**
-     * Checks if a file exists
-     * @param path path + filename to check
-     * @return if file exists
-     */
-    static bool fileExists(const std::string &path);
 
     /**
      * Returns a segment of a string based on a delimiter and index

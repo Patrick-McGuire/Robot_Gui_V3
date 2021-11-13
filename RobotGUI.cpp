@@ -8,15 +8,22 @@
 #include "GUIMaker.h"
 
 
-RobotGUI::RobotGUI(QWidget *parent, WidgetData *widgetData, WidgetConfig *config, QMainWindow *mainWindow, int width, int height) : QObject(parent) {
+RobotGUI::RobotGUI(QWidget *parent, QMainWindow *mainWindow, WidgetData *widgetData, AppConfig *config, const std::string& configPath) : QObject(parent) {
     _widgetData = widgetData;
-    _config = config;
-    _height = height;
-    _width = width;
     _mainWindow = mainWindow;
 
-    WindowConfig *testConfig = XMLInput::parse("/home/patrick/Robot_Gui_V3/ExampleXML/Example2.xml");
-    tabWidget = new TabWidget(parent, testConfig->firstChild, widgetData);
+    WindowConfig *testConfig = XMLInput::parse(configPath.c_str());
+    _mainWindow->setWindowTitle(QString::fromStdString(testConfig->title));
+    _mainWindow->resize(testConfig->width, testConfig->height);
+
+    layout = new QBoxLayout(QBoxLayout::TopToBottom);
+    parent->setLayout(layout);
+    menu = new Menu(_mainWindow, config);
+    layout->addWidget(menu);
+    layout->setMargin(0);
+    auto wrap = new QWidget();
+    layout->addWidget(wrap, 1);
+    tabWidget = new TabWidget(wrap, testConfig->firstChild, widgetData);
 }
 
 void RobotGUI::updateGUI() {
