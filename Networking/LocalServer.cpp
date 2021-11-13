@@ -1,7 +1,7 @@
 #include "LocalServer.h"
 #include "iostream"
 #include <QTcpSocket>
-    #include "opencv2/opencv.hpp"
+#include "opencv2/opencv.hpp"
 #include <vector>
 #include "rapidjson/document.h"
 #include "rapidjson/stringbuffer.h"
