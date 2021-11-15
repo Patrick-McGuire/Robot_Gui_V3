@@ -12,9 +12,7 @@
 class BaseWidget: public QWidget {
 Q_OBJECT
 protected:
-    std::string *_name;
-//    WidgetConfig *_widgetConfig;
-    WidgetConfig *_configInfo;
+    WidgetConfig_ptr _configInfo;
     WidgetData *_widgetData;
     bool inFocusLast;
     int _x;
@@ -40,7 +38,7 @@ public:
      * @param x     x position of the widget
      * @param y     y position of the widget
      */
-    BaseWidget(QWidget *parent, WidgetConfig *configInfo, WidgetData *widgetData);
+    BaseWidget(QWidget *parent, WidgetConfig_ptr configInfo, WidgetData *widgetData);
 
     /**
      * Sets the position of the widget on the screen

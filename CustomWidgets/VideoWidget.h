@@ -27,9 +27,9 @@ public:
      * @param x     x position of the widget
      * @param y     y position of the widget
      */
-    VideoWidget(QWidget *parent, WidgetConfig *configInfo, WidgetData *widgetData);
+    VideoWidget(QWidget *parent, WidgetConfig_ptr configInfo, WidgetData *widgetData);
 
-    static void parseXml(WidgetConfig *parentConfig, rapidxml::xml_node<> *node);
+    static void parseXml(WidgetConfig_ptr parentConfig, rapidxml::xml_node<> *node);
 
     void updateInFocus() override;
     void updateNoFocus() override;
@@ -37,5 +37,5 @@ public:
     void customUpdate() override;
 };
 
-
+//typedef std::shared_ptr<VideoWidget> VideoWidget_ptr;
 #endif //ROBOT_GUI_V3_VIDEOWIDGET_H

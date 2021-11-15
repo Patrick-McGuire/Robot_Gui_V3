@@ -28,12 +28,12 @@ private:
     std::vector<QWidget*> pages;
     std::vector<BaseWidget*> widgets;
 
-    static void parseTabChildren(struct WidgetConfig *parentConfig, rapidxml::xml_node<> *node);
+    static void parseTabChildren(WidgetConfig_ptr parentConfig, rapidxml::xml_node<> *node);
 
 public:
-    TabWidget(QWidget *parent, WidgetConfig *configInfo, WidgetData *widgetData);
+    TabWidget(QWidget *parent, WidgetConfig_ptr configInfo, WidgetData *widgetData);
 
-    static void parseXml(struct WidgetConfig *parentConfig, rapidxml::xml_node<> *node);
+    static void parseXml(WidgetConfig_ptr parentConfig, rapidxml::xml_node<> *node);
 
     void updateInFocus() override;
     void updateNoFocus() override;

@@ -24,17 +24,17 @@ public:
      * Parses xml file into internal format
      * @param filename file to parse
      */
-    static WindowConfig *parse(const char *filename);
+    static WindowConfig_ptr parse(const char *filename);
 
     /**
      * Parses a xml node into internal format
      * @param node xml node to parse
      * @return WidgetConfig struct
      */
-    static WidgetConfig *parseWidget(rapidxml::xml_node<> *node);
+    static WidgetConfig_ptr parseWidget(rapidxml::xml_node<> *node);
 
 private:
-    static void parseWidowNode(struct WindowConfig *windowConfig, rapidxml::xml_node<> *node);
+    static void parseWidowNode(WindowConfig_ptr windowConfig, rapidxml::xml_node<> *node);
 
     static bool isConstant(const std::string& val);
     static int getConstVal(const std::string& val);

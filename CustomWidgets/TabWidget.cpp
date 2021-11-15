@@ -4,7 +4,7 @@
 
 #include "TabWidget.h"
 
-TabWidget::TabWidget(QWidget *parent, WidgetConfig *configInfo, WidgetData *widgetData) : BaseWidget(parent, configInfo, widgetData) {
+TabWidget::TabWidget(QWidget *parent, WidgetConfig_ptr configInfo, WidgetData *widgetData) : BaseWidget(parent, configInfo, widgetData) {
     this->setLayout(&layout);
     layout.setMargin(0);
     tabs = new QTabWidget();
@@ -49,7 +49,7 @@ void TabWidget::updateOnInFocus() {
 
 }
 
-void TabWidget::parseXml(struct WidgetConfig *parentConfig, rapidxml::xml_node<> *node) {
+void TabWidget::parseXml(WidgetConfig_ptr parentConfig, rapidxml::xml_node<> *node) {
     for(auto *tab = node->first_node(); tab; tab = tab->next_sibling()) {                           // Iterate over nodes
         std::string tagName = tab->name();
         if(tagName == xmlTabTag) {
@@ -67,9 +67,9 @@ void TabWidget::parseXml(struct WidgetConfig *parentConfig, rapidxml::xml_node<>
     }
 }
 
-void TabWidget::parseTabChildren(struct WidgetConfig *parentConfig, rapidxml::xml_node<> *node) {
+void TabWidget::parseTabChildren(WidgetConfig_ptr parentConfig, rapidxml::xml_node<> *node) {
     //// This calls back to XML input to parse the "sub" widgets ////
-    std::vector<struct WidgetConfig*> widgetsVec;
+    std::vector<WidgetConfig_ptr> widgetsVec;
     for(auto *widget = node->first_node(); widget; widget = widget->next_sibling()) {
         widgetsVec.emplace_back(XMLInput::parseWidget(widget));
     }

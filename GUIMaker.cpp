@@ -2,7 +2,7 @@
 #include <iostream>
 #include <QTabWidget>
 
-BaseWidget *GUIMaker::createWidget(QWidget *parent, WidgetConfig *configInfo, WidgetData *widgetData) {
+BaseWidget *GUIMaker::createWidget(QWidget *parent, WidgetConfig_ptr configInfo, WidgetData *widgetData) {
     if(configInfo->type == textBoxWidgetSTRID) {
         return new TextBoxWidget(parent, configInfo, widgetData);
     } else if(configInfo->type == videoWidgetSTRID) {

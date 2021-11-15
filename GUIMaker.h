@@ -10,7 +10,7 @@
 
 class GUIMaker {
 public:
-    static BaseWidget* createWidget(QWidget *parent, WidgetConfig *configInfo, WidgetData *widgetData);
+    static BaseWidget* createWidget(QWidget *parent, WidgetConfig_ptr configInfo, WidgetData *widgetData);
 };
 
 #endif //ROBOT_GUI_V3_GUIMAKER_H

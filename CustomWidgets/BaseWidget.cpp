@@ -2,7 +2,12 @@
 #include "BaseWidget.h"
 #include <QTabWidget>
 
-BaseWidget::BaseWidget(QWidget *parent, WidgetConfig *configInfo, WidgetData *widgetData) : QWidget(parent) {
+BaseWidget::BaseWidget(QWidget *parent, WidgetConfig_ptr configInfo, WidgetData *widgetData) : QWidget(parent) {
+    startX = 0;
+    startY = 0;
+    startWX = 0;
+    startWY = 0;
+    clicked = false;
     _configInfo = configInfo;
     _widgetData = widgetData;
     _parent = parent;

@@ -23,19 +23,24 @@ struct WidgetConfig {
     /////// Widget specific ///////
     // Tab widget collection
     std::vector<std::string> tabNames;
-    std::vector<std::vector<struct WidgetConfig*>> tabWidgets;
+    std::vector<std::vector<std::shared_ptr<WidgetConfig>>> tabWidgets;
     // Configurable textbox widget
     std::vector<std::vector<std::string>> lines;
 };
 
-
+typedef std::shared_ptr<WidgetConfig> WidgetConfig_ptr;
 
 struct WindowConfig {
     std::string title;
     std::string theme;
     int height;
     int width;
-    struct WidgetConfig *firstChild;
+    WidgetConfig_ptr firstChild;
 };
+
+typedef std::shared_ptr<WindowConfig> WindowConfig_ptr;
+
+
+
 
 #endif //ROBOT_GUI_V3_CONFIGSTRUCTS_H

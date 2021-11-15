@@ -5,14 +5,15 @@
 #include "XMLInput.h"
 #define strFailed -9123931
 
-WindowConfig *XMLInput::parse(const char *filename) {
+WindowConfig_ptr XMLInput::parse(const char *filename) {
     // Open the file and parse it
     rapidxml::file<> xmlFile(filename);
     rapidxml::xml_document<> doc;
     doc.parse<0>(xmlFile.data());
     rapidxml::xml_node<> *windowNode = doc.first_node();                    // Get the first node, which should be the window node
     // Parse into data structure
-    auto windowConfig = new WindowConfig;                                   // Window config struct
+//    auto windowConfig = new WindowConfig;                                   // Window config struct
+    WindowConfig_ptr windowConfig = std::make_shared<WindowConfig>();
     parseWidowNode(windowConfig, windowNode);                               // Gets all attributes from the window tag
 
     windowConfig->firstChild = parseWidget(windowNode->first_node());
@@ -20,8 +21,9 @@ WindowConfig *XMLInput::parse(const char *filename) {
     return windowConfig;
 }
 
-WidgetConfig *XMLInput::parseWidget(rapidxml::xml_node<> *node) {
-    auto newWidgetStruct = new WidgetConfig;                    // Struct to return
+WidgetConfig_ptr XMLInput::parseWidget(rapidxml::xml_node<> *node) {
+//    auto newWidgetStruct = new WidgetConfig;                    // Struct to return
+    WidgetConfig_ptr newWidgetStruct = std::make_shared<WidgetConfig>();
     int tempVal = 0;                                            // Used to keep track of ints parsed from the xml file
     // Parse all basic data into default struct
     for(rapidxml::xml_attribute<> *attr = node->first_attribute(); attr; attr = attr->next_attribute()) {
@@ -80,7 +82,7 @@ WidgetConfig *XMLInput::parseWidget(rapidxml::xml_node<> *node) {
     return newWidgetStruct;
 }
 
-void XMLInput::parseWidowNode(struct WindowConfig *windowConfig, rapidxml::xml_node<> *node) {
+void XMLInput::parseWidowNode(WindowConfig_ptr windowConfig, rapidxml::xml_node<> *node) {
     int tempVal = 0;
     // Iterate though all attributes
     for(rapidxml::xml_attribute<> *attr = node->first_attribute(); attr; attr = attr->next_attribute()) {
