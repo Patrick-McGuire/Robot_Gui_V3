@@ -7,8 +7,10 @@
 #include <QMainWindow>
 #include "CustomWidgets/TabWidget.h"
 #include "ConfigStructs.h"
-#include "QMenuBar"
-#include "Menu.h"
+#include "CustomWidgets/MenuWidget.h"
+#include "iostream"
+#include <vector>
+#include <QApplication>
 
 class RobotGUI : public QObject {
 Q_OBJECT
@@ -24,7 +26,7 @@ private:
 //    WidgetConfig *_config;
     QMainWindow *_mainWindow;
     QBoxLayout *layout;
-    Menu *menu;
+    MenuWidget *menu;
 };
 
 

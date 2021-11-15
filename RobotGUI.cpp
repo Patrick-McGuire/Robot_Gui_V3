@@ -1,11 +1,4 @@
-#include <QMainWindow>
-#include <QApplication>
 #include "RobotGUI.h"
-#include <QTimer>
-#include "iostream"
-#include "WidgetData.h"
-#include <vector>
-#include "GUIMaker.h"
 
 
 RobotGUI::RobotGUI(QWidget *parent, QMainWindow *mainWindow, WidgetData *widgetData, AppConfig *config, const std::string& configPath) : QObject(parent) {
@@ -18,7 +11,7 @@ RobotGUI::RobotGUI(QWidget *parent, QMainWindow *mainWindow, WidgetData *widgetD
 
     layout = new QBoxLayout(QBoxLayout::TopToBottom);
     parent->setLayout(layout);
-    menu = new Menu(_mainWindow, config);
+    menu = new MenuWidget(_mainWindow, testConfig->firstChild, widgetData, config);    //Menu(_mainWindow, config);
     layout->addWidget(menu);
     layout->setMargin(0);
     auto wrap = new QWidget();

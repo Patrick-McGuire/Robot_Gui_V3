@@ -1,0 +1,39 @@
+//
+// Created by patrick on 11/15/21.
+//
+
+#ifndef ROBOT_GUI_V3_MENUWIDGET_H
+#define ROBOT_GUI_V3_MENUWIDGET_H
+
+#include "BaseWidget.h"
+#include <QWidget>
+#include <QLabel>
+#include <string>
+#include <QGridLayout>
+#include "../ConfigStructs.h"
+#include <string>
+#include "../WidgetData.h"
+#include "../Constants.h"
+#include "../XML/XMLConstants.h"
+#include <string>
+#include "QWidget"
+#include "QMouseEvent"
+#include "QMenuBar"
+#include "iostream"
+
+
+///// This is not a configurable widget like most custom widgets, this is hardcoded and created for every GUI
+class MenuWidget : public BaseWidget {
+Q_OBJECT
+public:
+    MenuWidget(QWidget *parent, WidgetConfig *configInfo, WidgetData *widgetData, AppConfig *appConfig_);
+
+public slots:
+    void removeDefaultXML();
+
+private:
+    AppConfig *appConfig;
+};
+
+
+#endif //ROBOT_GUI_V3_MENUWIDGET_H

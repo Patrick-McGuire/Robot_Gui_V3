@@ -7,6 +7,7 @@
 
 #include <string>
 #include <vector>
+#include "XML/AppConfig.h"
 
 struct WidgetConfig {
     std::string title;
@@ -26,6 +27,8 @@ struct WidgetConfig {
     // Configurable textbox widget
     std::vector<std::vector<std::string>> lines;
 };
+
+
 
 struct WindowConfig {
     std::string title;
