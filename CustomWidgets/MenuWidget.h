@@ -23,10 +23,10 @@
 
 
 ///// This is not a configurable widget like most custom widgets, this is hardcoded and created for every GUI
-class MenuWidget : public BaseWidget {
+class MenuWidget : public QMenuBar {
 Q_OBJECT
 public:
-    MenuWidget(QWidget *parent, WidgetConfig *configInfo, WidgetData *widgetData, AppConfig *appConfig_);
+    MenuWidget(QWidget *parent, AppConfig *appConfig_);
 
 public slots:
     void removeDefaultXML();
