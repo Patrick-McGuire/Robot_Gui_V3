@@ -50,6 +50,7 @@ public:
     void setPosition(int x, int y);
 
     void updateData(QWidget *activeParent);
+    void updateData(bool focus);
 
 
 private:

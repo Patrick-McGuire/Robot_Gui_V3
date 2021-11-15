@@ -44,6 +44,10 @@ void BaseWidget::mouseMoveEvent(QMouseEvent *event) {
     }
 }
 
+void BaseWidget::updateData(bool focus) {
+    updateData(focus ? _parent : nullptr);
+}
+
 void BaseWidget::updateData(QWidget *activeParent) {
     if(activeParent == _parent) {
         if(!inFocusLast) {

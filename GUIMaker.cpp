@@ -8,7 +8,7 @@ BaseWidget *GUIMaker::createWidget(QWidget *parent, WidgetConfig *configInfo, Wi
     } else if(configInfo->type == videoWidgetSTRID) {
         return new VideoWidget(parent, configInfo, widgetData);
     } else if(configInfo->type == tabWidgetSTRID) {
-        return new TabWidget(parent, configInfo, widgetData);;
+        return new TabWidget(parent, configInfo, widgetData);
     }
     return nullptr;
 }

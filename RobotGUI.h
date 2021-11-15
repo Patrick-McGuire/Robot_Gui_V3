@@ -11,22 +11,25 @@
 #include "iostream"
 #include <vector>
 #include <QApplication>
+#include "Networking/LocalServer.h"
+
+class LocalServer;
 
 class RobotGUI : public QObject {
 Q_OBJECT
 public:
-    TabWidget *tabWidget;
-    RobotGUI(QWidget *parent, QMainWindow *mainWindow, WidgetData *widgetData, AppConfig *config, const std::string& configPath);
+    RobotGUI(QWidget *parent, QMainWindow *_mainWindow, AppConfig *_appConfig);
 
 public slots:
     void updateGUI();
 
 private:
-    WidgetData *_widgetData;
-//    WidgetConfig *_config;
-    QMainWindow *_mainWindow;
-    QBoxLayout *layout;
+    WidgetData *widgetData;
+    QMainWindow *mainWindow;
     MenuWidget *menu;
+    BaseWidget *coreWidget;
+    LocalServer *server;
+    AppConfig *appConfig;
 };
 
 

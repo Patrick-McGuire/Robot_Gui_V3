@@ -1,26 +1,45 @@
+#include <QFileDialog>
 #include "RobotGUI.h"
 
 
-RobotGUI::RobotGUI(QWidget *parent, QMainWindow *mainWindow, WidgetData *widgetData, AppConfig *config, const std::string& configPath) : QObject(parent) {
-    _widgetData = widgetData;
-    _mainWindow = mainWindow;
+RobotGUI::RobotGUI(QWidget *parent, QMainWindow *_mainWindow, AppConfig *_appConfig) : QObject(parent) {
+    // Save passed variables
+    widgetData = new WidgetData();
+    mainWindow = _mainWindow;
+    appConfig = _appConfig;
 
-    WindowConfig *testConfig = XMLInput::parse(configPath.c_str());
-    _mainWindow->setWindowTitle(QString::fromStdString(testConfig->title));
-    _mainWindow->resize(testConfig->width, testConfig->height);
-    _mainWindow->setMenuBar(new MenuWidget(_mainWindow, config));
+    // Get the app's configuration data
+    appConfig->parse();
+    auto filePath = appConfig->getDefaultXmlPath();
+    if(filePath == appConfigNoXmlPath || !AppConfig::fileExists(filePath)) {
+        filePath = QFileDialog::getOpenFileName(mainWindow, "Open XML Configuration File", "/home", "XML Files (*.xml)").toStdString();
+        appConfig->setDefaultXmlPath(filePath);
+        appConfig->write();
+    }
 
-//    layout = new QBoxLayout(QBoxLayout::TopToBottom);
-//    parent->setLayout(layout);
-//    menu = new MenuWidget(_mainWindow, config);
-//    layout->addWidget(menu);
-//    layout->setMargin(0);
-//    auto wrap = new QWidget();
-//    layout->addWidget(wrap, 1);
-    tabWidget = new TabWidget(parent, testConfig->firstChild, widgetData);
+    // Get the window's configuration information
+    WindowConfig *testConfig = XMLInput::parse(filePath.c_str());
+
+    // Create the menu bar at the top
+    menu = new MenuWidget(mainWindow, appConfig);
+    mainWindow->setMenuBar(menu);
+
+    // Create the core widget for the GUI
+    coreWidget = GUIMaker::createWidget(parent, testConfig->firstChild, widgetData);
+
+    // Create the server that will update data in the GUI
+    server = new LocalServer(parent, widgetData, this);
+    server->StartServer();
+
+    // Initialize the window
+    mainWindow->setWindowTitle(QString::fromStdString(testConfig->title));
+    mainWindow->resize(testConfig->width, testConfig->height);
+    mainWindow->setCentralWidget(parent);
+    parent->show();
+    mainWindow->show();
 }
 
 void RobotGUI::updateGUI() {
-    tabWidget->updateInFocus();
-    _widgetData->resetKeysUpdated();
+    coreWidget->updateData(true);
+    widgetData->resetKeysUpdated();
 }

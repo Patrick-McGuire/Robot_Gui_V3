@@ -6,6 +6,8 @@
 #include "../WidgetData.h"
 #include "../RobotGUI.h"
 
+class RobotGUI;
+
 class LocalServer :  public QTcpServer {
 Q_OBJECT
 
@@ -24,7 +26,7 @@ public slots:
     void receiveData();
 
 private:
-//    std::shared_ptr<WidgetData> _widgetData;
+//    std::shared_ptr<WidgetData> widgetData;
     WidgetData *_widgetData;
     RobotGUI *_robotGui;
     char *dataString;
