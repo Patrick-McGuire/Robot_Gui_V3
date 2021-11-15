@@ -2,11 +2,12 @@
 #include "RobotGUI.h"
 
 
-RobotGUI::RobotGUI(QWidget *parent, QMainWindow *_mainWindow, AppConfig *_appConfig) : QObject(parent) {
+RobotGUI::RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appConfig) : QObject(_parent) {
     // Save passed variables
     widgetData = new WidgetData();
     mainWindow = _mainWindow;
     appConfig = _appConfig;
+    parent = _parent;
 
     // Get the app's configuration data
     appConfig->parse();
@@ -18,6 +19,16 @@ RobotGUI::RobotGUI(QWidget *parent, QMainWindow *_mainWindow, AppConfig *_appCon
     }
 
     // Get the window's configuration information
+//    for(int i = 0; i < 10000000; i++) {
+//        WindowConfig *testConfig = XMLInput::parse(filePath.c_str());
+//        for(int j = 0; j < testConfig->firstChild->tabWidgets.size(); j++) {
+//            for(int k = 0; k < testConfig->firstChild->tabWidgets[j].size(); k++) {
+//                delete testConfig->firstChild->tabWidgets[j][k];
+//            }
+//        }
+//        delete testConfig->firstChild;
+//        delete testConfig;
+//    }
     WindowConfig *testConfig = XMLInput::parse(filePath.c_str());
 
     // Create the menu bar at the top

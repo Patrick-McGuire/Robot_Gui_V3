@@ -18,7 +18,7 @@ class LocalServer;
 class RobotGUI : public QObject {
 Q_OBJECT
 public:
-    RobotGUI(QWidget *parent, QMainWindow *_mainWindow, AppConfig *_appConfig);
+    RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appConfig);
 
 public slots:
     void updateGUI();
@@ -30,6 +30,7 @@ private:
     BaseWidget *coreWidget;
     LocalServer *server;
     AppConfig *appConfig;
+    QWidget *parent;
 };
 
 
