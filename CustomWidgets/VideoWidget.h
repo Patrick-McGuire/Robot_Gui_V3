@@ -27,9 +27,9 @@ public:
      * @param x     x position of the widget
      * @param y     y position of the widget
      */
-    VideoWidget(QWidget *parent, WidgetConfig_ptr configInfo, WidgetData *widgetData);
+    VideoWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, WidgetData *widgetData);
 
-    static void parseXml(WidgetConfig_ptr parentConfig, rapidxml::xml_node<> *node);
+    static void parseXml(const WidgetConfig_ptr& parentConfig, rapidxml::xml_node<> *node);
 
     void updateInFocus() override;
     void updateNoFocus() override;

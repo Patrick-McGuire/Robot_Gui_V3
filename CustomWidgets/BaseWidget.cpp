@@ -2,12 +2,7 @@
 #include "BaseWidget.h"
 #include <QTabWidget>
 
-BaseWidget::BaseWidget(QWidget *parent, WidgetConfig_ptr configInfo, WidgetData *widgetData) : QWidget(parent) {
-    startX = 0;
-    startY = 0;
-    startWX = 0;
-    startWY = 0;
-    clicked = false;
+BaseWidget::BaseWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, WidgetData *widgetData) : QWidget(parent) {
     _configInfo = configInfo;
     _widgetData = widgetData;
     _parent = parent;
@@ -16,14 +11,14 @@ BaseWidget::BaseWidget(QWidget *parent, WidgetConfig_ptr configInfo, WidgetData 
     setPosition(_configInfo->x, _configInfo->y);
 }
 
-void BaseWidget::setPosition(int x, int y) {
+void BaseWidget::setPosition(int _x, int _y) {
     // Clip values to be inside the window
-    if(x < 0) { x = 0; }
-    if(y < 0) { y = 0; }
-    if(x > _parent->size().width() - this->width()) { x = _parent->size().width() - this->width(); }
-    if(y > _parent->size().height() - this->height()) { y = _parent->size().height() - this->height(); }
-    _x = x;
-    _y = y;
+    if(_x < 0) { _x = 0; }
+    if(_y < 0) { _y = 0; }
+    if(_x > _parent->size().width() - this->width()) { _x = _parent->size().width() - this->width(); }
+    if(_y > _parent->size().height() - this->height()) { _y = _parent->size().height() - this->height(); }
+    x = _x;
+    y = _y;
     move(x, y);
 }
 
@@ -32,8 +27,8 @@ void BaseWidget::mousePressEvent(QMouseEvent *event) {
         clicked = true;
         startX = event->globalX();
         startY = event->globalY();
-        startWX = _x;
-        startWY = _y;
+        startWX = x;
+        startWY = y;
     }
 }
 

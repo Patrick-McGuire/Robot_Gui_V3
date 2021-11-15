@@ -24,7 +24,7 @@ WindowConfig_ptr XMLInput::parse(const char *filename) {
 WidgetConfig_ptr XMLInput::parseWidget(rapidxml::xml_node<> *node) {
 //    auto newWidgetStruct = new WidgetConfig;                    // Struct to return
     WidgetConfig_ptr newWidgetStruct = std::make_shared<WidgetConfig>();
-    int tempVal = 0;                                            // Used to keep track of ints parsed from the xml file
+    int tempVal;                                            // Used to keep track of ints parsed from the xml file
     // Parse all basic data into default struct
     for(rapidxml::xml_attribute<> *attr = node->first_attribute(); attr; attr = attr->next_attribute()) {
         std::string attrName = attr->name();                                            // Get the name of the current attribute
@@ -82,8 +82,8 @@ WidgetConfig_ptr XMLInput::parseWidget(rapidxml::xml_node<> *node) {
     return newWidgetStruct;
 }
 
-void XMLInput::parseWidowNode(WindowConfig_ptr windowConfig, rapidxml::xml_node<> *node) {
-    int tempVal = 0;
+void XMLInput::parseWidowNode(const WindowConfig_ptr& windowConfig, rapidxml::xml_node<> *node) {
+    int tempVal;
     // Iterate though all attributes
     for(rapidxml::xml_attribute<> *attr = node->first_attribute(); attr; attr = attr->next_attribute()) {
         std::string attrName = attr->name();                                            // Get the name of the current attribute

@@ -2,7 +2,7 @@
 #include "RobotGUI.h"
 
 
-RobotGUI::RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appConfig) : QObject(_parent) {
+RobotGUI::RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appConfig) : QWidget(_parent) {
     // Save passed variables
     widgetData = new WidgetData();
     mainWindow = _mainWindow;
@@ -32,12 +32,11 @@ RobotGUI::RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appCo
     server = new LocalServer(parent, widgetData, this);
     server->StartServer();
 
-    // Initialize the window
+    // Set up the window
     mainWindow->setWindowTitle(QString::fromStdString(testConfig->title));
     mainWindow->resize(testConfig->width, testConfig->height);
-    mainWindow->setCentralWidget(parent);
+    parent->resize(testConfig->width, testConfig->height);
     parent->show();
-    mainWindow->show();
 }
 
 void RobotGUI::updateGUI() {

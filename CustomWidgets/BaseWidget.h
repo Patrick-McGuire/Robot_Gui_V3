@@ -12,18 +12,17 @@
 class BaseWidget: public QWidget {
 Q_OBJECT
 protected:
+    QWidget *_parent;
     WidgetConfig_ptr _configInfo;
     WidgetData *_widgetData;
     bool inFocusLast;
-    int _x;
-    int _y;
-
-    int startX;
-    int startY;
-    int startWX;
-    int startWY;
-    bool clicked;
-    QWidget *_parent;
+    int x = 0;
+    int y = 0;
+    int startX = 0;
+    int startY = 0;
+    int startWX = 0;
+    int startWY = 0;
+    bool clicked = false;
 
     void mousePressEvent(QMouseEvent *event) override;
     void mouseReleaseEvent(QMouseEvent *event) override;
@@ -38,7 +37,7 @@ public:
      * @param x     x position of the widget
      * @param y     y position of the widget
      */
-    BaseWidget(QWidget *parent, WidgetConfig_ptr configInfo, WidgetData *widgetData);
+    BaseWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, WidgetData *widgetData);
 
     /**
      * Sets the position of the widget on the screen

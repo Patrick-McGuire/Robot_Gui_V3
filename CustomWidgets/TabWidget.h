@@ -23,17 +23,16 @@
 class TabWidget : public BaseWidget  {
 private:
     QGridLayout layout;
-    QWidget *wrapper;
     QTabWidget *tabs;
     std::vector<QWidget*> pages;
     std::vector<BaseWidget*> widgets;
 
-    static void parseTabChildren(WidgetConfig_ptr parentConfig, rapidxml::xml_node<> *node);
+    static void parseTabChildren(const WidgetConfig_ptr& parentConfig, rapidxml::xml_node<> *node);
 
 public:
-    TabWidget(QWidget *parent, WidgetConfig_ptr configInfo, WidgetData *widgetData);
+    TabWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, WidgetData *widgetData);
 
-    static void parseXml(WidgetConfig_ptr parentConfig, rapidxml::xml_node<> *node);
+    static void parseXml(const WidgetConfig_ptr& parentConfig, rapidxml::xml_node<> *node);
 
     void updateInFocus() override;
     void updateNoFocus() override;

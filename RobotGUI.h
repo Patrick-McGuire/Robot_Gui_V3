@@ -15,7 +15,7 @@
 
 class LocalServer;
 
-class RobotGUI : public QObject {
+class RobotGUI : public QWidget {
 Q_OBJECT
 public:
     RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appConfig);

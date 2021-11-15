@@ -34,7 +34,7 @@ public:
     static WidgetConfig_ptr parseWidget(rapidxml::xml_node<> *node);
 
 private:
-    static void parseWidowNode(WindowConfig_ptr windowConfig, rapidxml::xml_node<> *node);
+    static void parseWidowNode(const WindowConfig_ptr& windowConfig, rapidxml::xml_node<> *node);
 
     static bool isConstant(const std::string& val);
     static int getConstVal(const std::string& val);

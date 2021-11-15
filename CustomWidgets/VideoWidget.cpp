@@ -4,13 +4,13 @@
 
 #include "VideoWidget.h"
 
-VideoWidget::VideoWidget(QWidget *parent, WidgetConfig_ptr configInfo, WidgetData *widgetData) : BaseWidget(parent, configInfo, widgetData)  {
+VideoWidget::VideoWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, WidgetData *widgetData) : BaseWidget(parent, configInfo, widgetData)  {
     this->setLayout(&layout);
     layout.addWidget(&videoWidget);
     videoWidget.setFixedSize(480, 320);
 }
 
-void VideoWidget::parseXml(WidgetConfig_ptr parentConfig, rapidxml::xml_node<> *node) {
+void VideoWidget::parseXml(const WidgetConfig_ptr& parentConfig, rapidxml::xml_node<> *node) {
 
 }
 

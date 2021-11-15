@@ -29,7 +29,7 @@ void WidgetData::setBool(const std::string& key, bool value) {
 }
 void WidgetData::setImg(const std::string& key, cv::Mat img) {
     updateKeyType(key, imgType);
-    imgMap[key] = img;
+    imgMap[key] = std::move(img);
 }
 
 std::string WidgetData::getKeyType(const std::string& key) {

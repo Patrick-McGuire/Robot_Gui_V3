@@ -2,9 +2,8 @@
 #include <QString>
 #include <iostream>
 #include <vector>
-#include "../Constants.h"
 
-TextBoxWidget::TextBoxWidget(QWidget *parent, WidgetConfig_ptr configInfo, WidgetData *widgetData) : BaseWidget(parent, configInfo, widgetData) {
+TextBoxWidget::TextBoxWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, WidgetData *widgetData) : BaseWidget(parent, configInfo, widgetData) {
     this->setLayout(&layout);
     layout.addWidget(&titleBox);
     layout.addWidget(&textBox);
@@ -42,7 +41,7 @@ std::string TextBoxWidget::GetInfoString() {
     return output;
 }
 
-void TextBoxWidget::parseXml(WidgetConfig_ptr parentConfig, rapidxml::xml_node<> *node) {
+void TextBoxWidget::parseXml(const WidgetConfig_ptr& parentConfig, rapidxml::xml_node<> *node) {
     // Iterate though all lines
     for(auto *line = node->first_node(); line; line = line->next_sibling()) {
         std::string tagName = line->name();
