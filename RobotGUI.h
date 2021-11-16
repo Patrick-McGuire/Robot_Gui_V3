@@ -31,6 +31,8 @@ signals:
     void restartThing();
 
 private:
+    void setWindowSize();
+
     WindowConfig_ptr config;
     CoreGUI *coreGui;
     WidgetData *widgetData;

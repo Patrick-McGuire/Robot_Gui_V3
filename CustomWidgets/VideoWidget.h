@@ -13,12 +13,14 @@
 #ifndef ROBOT_GUI_V3_VIDEOWIDGET_H
 #define ROBOT_GUI_V3_VIDEOWIDGET_H
 
+#include "../XML/XMLConstants.h"
 
 class VideoWidget : public BaseWidget {
 private:
     QLabel videoWidget;
     QGridLayout layout;
-
+    bool autoWidth = false;
+    bool autoHeight = false;
 
 public:
     /**

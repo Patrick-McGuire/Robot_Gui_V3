@@ -19,6 +19,7 @@
 #include <QTabWidget>
 #include <QString>
 #include "../GUIMaker.h"
+#include <QApplication>
 
 class TabWidget : public BaseWidget  {
 private:

@@ -12,17 +12,10 @@ RobotGUI::RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appCo
     coreGui = _coreGui;
     config = _config;
 
-    // Get the app's configuration data
-//    appConfig->parse();
-//    auto filePath = appConfig->getDefaultXmlPath();
-//    if(filePath == appConfigNoXmlPath || !AppConfig::fileExists(filePath)) {
-//        filePath = QFileDialog::getOpenFileName(mainWindow, "Open XML Configuration File", "/home", "XML Files (*.xml)").toStdString();
-//        appConfig->setDefaultXmlPath(filePath);
-//        appConfig->write();
-//    }
-
-//     Get the window's configuration information
-//    config = XMLInput::parse(filePath.c_str());
+    // Set up the window
+    mainWindow->setWindowTitle(QString::fromStdString(config->title));
+    setWindowSize();
+    parent->resize(mainWindow->width(), mainWindow->height());
 
     // Create the menu bar at the top
     menu = new MenuWidget(mainWindow, appConfig, coreGui);
@@ -35,10 +28,6 @@ RobotGUI::RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appCo
     server = new LocalServer(parent, widgetData, this);
     server->StartServer();
 
-    // Set up the window
-    mainWindow->setWindowTitle(QString::fromStdString(config->title));
-    mainWindow->resize(config->width, config->height);
-    parent->resize(config->width, config->height);
     parent->show();
 }
 
@@ -53,3 +42,10 @@ RobotGUI::~RobotGUI() {
     delete widgetData;
     delete menu;
 }
+
+void RobotGUI::setWindowSize() {
+    int width = config->width == xmlMaxConstID || config->width == xmlAutoConstID ? QApplication::desktop()->availableGeometry().width() : config->width;
+    int height = config->height == xmlMaxConstID || config->height == xmlAutoConstID ? QApplication::desktop()->availableGeometry().height() - 50 : config->height;
+    mainWindow->resize(width, height);
+}
+
