@@ -9,6 +9,7 @@ TabWidget::TabWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, Widget
     layout.setMargin(0);
     tabs = new QTabWidget();
     layout.addWidget(tabs);
+    tabs->setObjectName(QString::fromStdString(configInfo->objectName));
     // Set the size
     int width = configInfo->width == xmlMaxConstID || configInfo->width == xmlAutoConstID ? parent->width() : configInfo->width;
     int height = configInfo->height == xmlMaxConstID || configInfo->height == xmlAutoConstID ? parent->height() : configInfo->height;
@@ -24,8 +25,9 @@ TabWidget::TabWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, Widget
         pages.emplace_back(page);
 
         // Create all widgets in the tab
-        for(auto & j : configInfo->tabWidgets[i]) {
-            widgets.emplace_back(GUIMaker::createWidget(page, j, widgetData));
+        for(int j = 0; j < configInfo->tabWidgets[i].size(); j++) {
+            configInfo->tabWidgets[i][j]->objectName = configInfo->objectName + ":" + std::to_string(i) + "," + std::to_string(j);
+            widgets.emplace_back(GUIMaker::createWidget(page, configInfo->tabWidgets[i][j], widgetData));
         }
     }
     // Just don't even ask
@@ -36,6 +38,12 @@ TabWidget::TabWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, Widget
         tabs->setCurrentIndex(i);
     }
     tabs->setCurrentIndex(0);
+
+//    std::cout << tabs->objectName().toStdString() << "\n";
+//    if(tabs->objectName() != "1") {
+//        std::cout << tabs->objectName().toStdString() << " f\n";
+//        this->setStyleSheet(QString("QTabWidget#") + tabs->objectName() + " { background-color: rgb(125,125,125) }");
+//    }
 }
 
 

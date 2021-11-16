@@ -22,6 +22,7 @@ RobotGUI::RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appCo
     mainWindow->setMenuBar(menu);
 
     // Create the core widget for the GUI
+    config->firstChild->objectName = "1";
     coreWidget = GUIMaker::createWidget(parent, config->firstChild, widgetData);
 
     // Create the server that will update data in the GUI
@@ -29,6 +30,10 @@ RobotGUI::RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appCo
     server->StartServer();
 
     parent->show();
+
+//    parent->setStyleSheet("QWidget {background-color: rgb(125,125,125)}");
+//    this->setStyleSheet(QString("QWidget#") + this->objectName() + "{ background-color: rgb(125,125,125) }");
+
 }
 
 void RobotGUI::setWindowSize() {

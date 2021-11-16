@@ -10,6 +10,7 @@
 #include "../WidgetData.h"
 #include "../Constants.h"
 #include "../XML/XMLConstants.h"
+#include "../Theme.h"
 
 class TextBoxWidget: public BaseWidget  {
 private:

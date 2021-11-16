@@ -121,5 +121,4 @@ private:
     int startWY = 0;
 };
 
-
 #endif //ROBOT_GUI_V3_BASEWIDGET_H

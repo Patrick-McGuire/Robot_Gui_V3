@@ -12,6 +12,12 @@ TextBoxWidget::TextBoxWidget(QWidget *parent, const WidgetConfig_ptr& configInfo
     textBox.setText(QString::fromStdString(GetInfoString()));
     textBox.setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
 
+    Themes theme;
+    theme = Dark;
+
+
+//    this->setStyleSheet(QString("QLabel#") + "1" + "{ background-color: rgb(13,17,23) }");
+
     for(auto it = _configInfo->lines.begin(); it != _configInfo->lines.end(); ++it) {
         lineKeys.push_back(it[0][1]);
     }

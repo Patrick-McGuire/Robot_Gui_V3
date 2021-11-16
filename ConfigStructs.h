@@ -13,6 +13,7 @@ struct WidgetConfig {
     std::string title;
     std::string type;
     std::string id;
+    std::string objectName;
     int x;
     int y;
     int height;

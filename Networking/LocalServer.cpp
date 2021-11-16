@@ -43,7 +43,7 @@ void LocalServer::receiveData() {
 
     if(data.length() > 6) {
         // Get the data about the message
-        auto id = static_cast<messageType>((int) data.at(0));
+        auto id = static_cast<MessageType>((int) data.at(0));
         lengthConverter msgLength{};
         msgLength.in[0] = (uint8_t) data.at(1);
         msgLength.in[1] = (uint8_t) data.at(2);

@@ -16,8 +16,8 @@
         <tab title="Tab3">
             <widget type="tab" title="Dashboard" width="500" height="500" x="50" y="50" draggable="False" static="False">
                 <tab title="Tab1">
-                    <widget title="TestVideo" type="video" height="150" width="200" draggable="True" x="300" y="0" id="1"/>
-                    <widget title = "Power Stats" type = "textBox" x = "500" y = "300" draggable="True">
+                    <widget title="TestVideo" type="video" height="150" width="200" draggable="True" x="100" y="0" id="1"/>
+                    <widget title = "Power Stats" type = "textBox" x = "100" y = "300" draggable="True">
                         <line label = "Thing 1" value = "KEY1"/>
                         <line label = "Thing 2" value = "KEY2"/>
                         <line label = "Thing 3" value = "KEY3"/>

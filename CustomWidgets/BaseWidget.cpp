@@ -6,6 +6,7 @@ BaseWidget::BaseWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, Widg
     _widgetData = widgetData;
     _parent = parent;
     _configInfo->draggable = !staticPos && configInfo->draggable;
+    this->setObjectName(QString::fromStdString(configInfo->objectName));
     // Set up the right click menu
     this->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(this, SIGNAL(customContextMenuRequested(QPoint)),
@@ -23,6 +24,7 @@ void BaseWidget::setPosition(int _x, int _y) {
         if (_y > _parent->size().height() - this->height()) { _y = _parent->size().height() - this->height(); }
         _configInfo->x = _x;
         _configInfo->y = _y;
+        // Move the widget on the screen
         move(_x, _y);
     }
 }

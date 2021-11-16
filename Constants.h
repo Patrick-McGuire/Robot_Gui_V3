@@ -22,7 +22,7 @@
 #define appConfigNoXmlPath "none"
 
 // Custom messageTypes
-enum messageType {
+enum MessageType {
     String=0,
     Int=1,
     Float=2,
