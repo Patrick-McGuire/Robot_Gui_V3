@@ -20,13 +20,17 @@
 #include "QMouseEvent"
 #include "QMenuBar"
 #include "iostream"
+#include "../RobotGUI.h"
+#include "../CoreGUI.h"
 
+class RobotGUI;
+class CoreGUI;
 
 ///// This is not a configurable widget like most custom widgets, this is hardcoded and created for every GUI
 class MenuWidget : public QMenuBar {
 Q_OBJECT
 public:
-    MenuWidget(QWidget *parent, AppConfig *appConfig_);
+    MenuWidget(QWidget *parent, AppConfig *appConfig_, CoreGUI *coreGui);
 
 public slots:
     void removeDefaultXML();

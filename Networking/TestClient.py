@@ -9,6 +9,8 @@ rate = 60       # hz
 
 rate = rate * 3     # 3 messages to send
 
+# rate = 1
+
 boolean = False
 passDict = {
     "KEY1": 3,

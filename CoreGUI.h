@@ -19,6 +19,9 @@
 #include <QFileDialog>
 #include "XML/AppConfig.h"
 
+class RobotGUI;
+class MenuWidget;
+
 class CoreGUI : public QObject{
 Q_OBJECT
 public:

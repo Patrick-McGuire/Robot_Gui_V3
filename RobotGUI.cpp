@@ -1,13 +1,15 @@
 #include <QFileDialog>
 #include "RobotGUI.h"
+#include <chrono>
+#include <thread>
 
-
-RobotGUI::RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appConfig) : QWidget(_parent) {
+RobotGUI::RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appConfig, CoreGUI *_coreGui) : QWidget(_parent) {
     // Save passed variables
     widgetData = new WidgetData();
     mainWindow = _mainWindow;
     appConfig = _appConfig;
     parent = _parent;
+    coreGui = _coreGui;
 
     // Get the app's configuration data
     appConfig->parse();
@@ -22,7 +24,7 @@ RobotGUI::RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appCo
     WindowConfig_ptr testConfig = XMLInput::parse(filePath.c_str());
 
     // Create the menu bar at the top
-    menu = new MenuWidget(mainWindow, appConfig);
+    menu = new MenuWidget(mainWindow, appConfig, coreGui);
     mainWindow->setMenuBar(menu);
 
     // Create the core widget for the GUI
@@ -42,4 +44,11 @@ RobotGUI::RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appCo
 void RobotGUI::updateGUI() {
     coreWidget->updateData(true);
     widgetData->resetKeysUpdated();
+}
+
+RobotGUI::~RobotGUI() {
+    delete server;
+    delete coreWidget;
+    delete widgetData;
+    delete menu;
 }

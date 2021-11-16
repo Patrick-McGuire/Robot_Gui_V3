@@ -12,18 +12,26 @@
 #include <vector>
 #include <QApplication>
 #include "Networking/LocalServer.h"
+#include "CoreGUI.h"
 
 class LocalServer;
+class MenuWidget;
+class CoreGUI;
 
 class RobotGUI : public QWidget {
 Q_OBJECT
 public:
-    RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appConfig);
+    RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appConfig, CoreGUI *_coreGui);
+    ~RobotGUI();
 
 public slots:
     void updateGUI();
 
+signals:
+    void restartThing();
+
 private:
+    CoreGUI *coreGui;
     WidgetData *widgetData;
     QMainWindow *mainWindow;
     MenuWidget *menu;

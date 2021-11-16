@@ -37,5 +37,4 @@ public:
     void customUpdate() override;
 };
 
-//typedef std::shared_ptr<VideoWidget> VideoWidget_ptr;
 #endif //ROBOT_GUI_V3_VIDEOWIDGET_H
