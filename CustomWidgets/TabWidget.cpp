@@ -19,7 +19,7 @@ TabWidget::TabWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, Widget
     for(int i = 0; i < configInfo->tabNames.size(); i++) {
         // Add new tab to tabWidget and setup it's page
         auto *page = new QWidget();
-        page->setFixedSize(tabs->width()-50, tabs->height()-25);
+        page->setFixedSize(tabs->width(), tabs->height()-25);
         tabs->addTab(page, QString::fromStdString(configInfo->tabNames[i]));
         page->show();
         pages.emplace_back(page);
