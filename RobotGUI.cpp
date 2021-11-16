@@ -18,7 +18,7 @@ RobotGUI::RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appCo
     parent->resize(mainWindow->width(), mainWindow->height());
 
     // Create the menu bar at the top
-    menu = new MenuWidget(mainWindow, appConfig, coreGui);
+    menu = new MenuWidget(mainWindow, appConfig, coreGui, this);
     mainWindow->setMenuBar(menu);
 
     // Create the core widget for the GUI
@@ -29,6 +29,12 @@ RobotGUI::RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appCo
     server->StartServer();
 
     parent->show();
+}
+
+void RobotGUI::setWindowSize() {
+    int width = config->width == xmlMaxConstID || config->width == xmlAutoConstID ? QApplication::desktop()->availableGeometry().width() : config->width;
+    int height = config->height == xmlMaxConstID || config->height == xmlAutoConstID ? QApplication::desktop()->availableGeometry().height() - 50 : config->height;
+    mainWindow->resize(width, height);
 }
 
 void RobotGUI::updateGUI() {
@@ -43,9 +49,12 @@ RobotGUI::~RobotGUI() {
     delete menu;
 }
 
-void RobotGUI::setWindowSize() {
-    int width = config->width == xmlMaxConstID || config->width == xmlAutoConstID ? QApplication::desktop()->availableGeometry().width() : config->width;
-    int height = config->height == xmlMaxConstID || config->height == xmlAutoConstID ? QApplication::desktop()->availableGeometry().height() - 50 : config->height;
-    mainWindow->resize(width, height);
+
+void RobotGUI::makeWidgetsDraggable() {
+    coreWidget->setDraggability(true);
+}
+
+void RobotGUI::makeWidgetsFixed() {
+    coreWidget->setDraggability(false);
 }
 

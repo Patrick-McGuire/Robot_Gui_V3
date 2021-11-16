@@ -17,6 +17,7 @@
 #define xmlYPosATR "y"
 #define xmlHiddenATR "hidden"
 #define xmlDraggableATR "draggable"
+#define xmlStaticATR "static"
 #define xmlLabelATR "label"
 #define xmlValueATR "value"
 

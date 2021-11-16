@@ -26,6 +26,8 @@ public:
 
 public slots:
     void updateGUI();
+    void makeWidgetsDraggable();
+    void makeWidgetsFixed();
 
 signals:
     void restartThing();

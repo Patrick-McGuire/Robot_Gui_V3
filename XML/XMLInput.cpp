@@ -39,6 +39,8 @@ WidgetConfig_ptr XMLInput::parseWidget(rapidxml::xml_node<> *node) {
             newWidgetStruct->id = attrVal;
         } else if(attrName == xmlDraggableATR) {
             newWidgetStruct->draggable = (attrVal == xmlTrueCapConst || attrVal == xmlTrueConst);       // Default false
+        }  else if(attrName == xmlStaticATR) {
+            newWidgetStruct->staticPos = (attrVal == xmlTrueCapConst || attrVal == xmlTrueConst);       // Default false
         } else if(attrName == xmlHiddenATR) {
             newWidgetStruct->hidden = (attrVal != xmlFalseCapConst || attrVal != xmlFalseConst);        // Default true
         } else if(attrName == xmlXPosATR) {

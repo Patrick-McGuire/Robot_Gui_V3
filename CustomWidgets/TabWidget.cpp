@@ -47,7 +47,9 @@ void TabWidget::updateInFocus() {
 }
 
 void TabWidget::updateNoFocus() {
-
+    for(auto & widget : widgets) {
+        widget->updateData(false);
+    }
 }
 
 void TabWidget::updateOnInFocus() {
@@ -79,4 +81,10 @@ void TabWidget::parseTabChildren(const WidgetConfig_ptr& parentConfig, rapidxml:
         widgetsVec.emplace_back(XMLInput::parseWidget(widget));
     }
     parentConfig->tabWidgets.emplace_back(widgetsVec);
+}
+
+void TabWidget::customUpdateDraggability(bool _draggable) {
+    for(auto & widget : widgets) {
+        widget->setDraggability(_draggable);
+    }
 }

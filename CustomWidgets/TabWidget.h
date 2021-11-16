@@ -38,6 +38,7 @@ public:
     void updateInFocus() override;
     void updateNoFocus() override;
     void updateOnInFocus() override;
+    void customUpdateDraggability(bool _draggable) override;
 };
 
 

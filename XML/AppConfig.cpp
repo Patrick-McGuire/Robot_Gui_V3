@@ -34,7 +34,7 @@ void AppConfig::setDefaultXmlPath(std::string path) {
     xmlFilepath = std::move(path);
 }
 
-std::string AppConfig::getDefaultXmlPath() {
+std::string AppConfig::getDefaultXmlPath() const {
     return xmlFilepath;
 }
 

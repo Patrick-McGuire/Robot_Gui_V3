@@ -39,7 +39,7 @@ public:
      * Gets the path to the xml config file, parse() needs to be called first
      * @return path to the xml file
      */
-    std::string getDefaultXmlPath();
+    std::string getDefaultXmlPath() const;
 
     /**
      * Checks if a file exists

@@ -1,6 +1,6 @@
 <window title="Probot Control" width="max" height="max" theme="Better Dark">
 <!--    <widget title="ex2" type="video" draggable="True" x="0" y="0" id="2"/>-->
-    <widget type="tab" title="Dashboard" height="max" width="max" x="0" y="0"  draggable="False">
+    <widget type="tab" title="Dashboard" height="max" width="max" x="0" y="0" static="True">
         <tab title="Tab1">
             <widget title="TestVideo" type="video" draggable="True" x="300" y="0" id="1" height="200" width="400"/>
             <widget title = "Power Stats" type = "textBox" x = "500" y = "500" draggable="True">
@@ -14,7 +14,7 @@
             <widget title="ex2" type="video" height="480" width="640" draggable="True" x="0" y="0" id="2"/>
         </tab>
         <tab title="Tab3">
-            <widget type="tab" title="Dashboard" width="max" height="max" x="0" y="0" draggable="False">
+            <widget type="tab" title="Dashboard" width="500" height="500" x="50" y="50" draggable="False" static="False">
                 <tab title="Tab1">
                     <widget title="TestVideo" type="video" height="150" width="200" draggable="True" x="300" y="0" id="1"/>
                     <widget title = "Power Stats" type = "textBox" x = "500" y = "300" draggable="True">

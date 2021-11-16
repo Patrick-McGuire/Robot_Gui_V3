@@ -30,7 +30,7 @@ class CoreGUI;
 class MenuWidget : public QMenuBar {
 Q_OBJECT
 public:
-    MenuWidget(QWidget *parent, AppConfig *appConfig_, CoreGUI *coreGui);
+    MenuWidget(QWidget *parent, AppConfig *appConfig_, CoreGUI *coreGui, RobotGUI *robotGui);
 
 public slots:
     void removeDefaultXML();
