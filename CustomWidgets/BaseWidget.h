@@ -17,27 +17,59 @@ protected:
     QWidget *_parent;
     WidgetConfig_ptr _configInfo;
     WidgetData *_widgetData;
-    bool inFocusLast = true;
-    bool clicked = false;
     const bool staticPos;
 
+    /**
+     * Updates data when widget is in focus, virtual
+     */
     virtual void updateInFocus();
+
+    /**
+     * Updates data when widget is out of focus, virtual
+     */
     virtual void updateNoFocus();
+
+    /**
+     * Updates data when widget comes into focus, virtual
+     */
     virtual void updateOnInFocus();
+
+    /**
+     * Put any code that is common between update functions here and call in the other functions
+     */
     virtual void customUpdate();
+
+    /**
+     * Used by widget collections to call setDraggability() in their children
+     * @param _draggable if the widgets is draggable
+     */
     virtual void customUpdateDraggability(bool _draggable);
 
+    /**
+     * Keeps track of the start of a click for widget dragging
+     * @param event click QMouseEvent
+     */
     void mousePressEvent(QMouseEvent *event) override;
+
+    /**
+     * Keeps track of the end of a click for widget dragging
+     * @param event click QMouseEvent
+     */
     void mouseReleaseEvent(QMouseEvent *event) override;
+
+    /**
+     * Moves the widget based provided event
+     * @param event drag QMouseEvent
+     */
     void mouseMoveEvent(QMouseEvent *event) override;
 
 public:
 
     /**
      * Constructor
-     * @param name  name of widget
-     * @param x     x position of the widget
-     * @param y     y position of the widget
+     * @param parent parent QWidget
+     * @param configInfo config struct to create widget based off of
+     * @param widgetData data passing structure to read data from at runtime
      */
     BaseWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, WidgetData *widgetData);
 
@@ -74,9 +106,15 @@ public slots:
     void toggleDraggability();
 
 private slots:
+    /**
+     * Shows a right click menu with various options
+     * @param pos Point to open menu at
+     */
     void showContextMenu(const QPoint &pos);
 
 private:
+    bool inFocusLast = true;
+    bool clicked = false;
     int startX = 0;
     int startY = 0;
     int startWX = 0;

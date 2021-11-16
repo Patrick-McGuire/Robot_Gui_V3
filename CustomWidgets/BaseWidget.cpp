@@ -8,8 +8,8 @@ BaseWidget::BaseWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, Widg
     _configInfo->draggable = !staticPos && configInfo->draggable;
     // Set up the right click menu
     this->setContextMenuPolicy(Qt::CustomContextMenu);
-    connect(this, SIGNAL(customContextMenuRequested(const QPoint&)),
-            this, SLOT(showContextMenu(const QPoint&)));
+    connect(this, SIGNAL(customContextMenuRequested(QPoint)),
+            this, SLOT(showContextMenu(QPoint)));
     // Initialize position
     move(_configInfo->x, _configInfo->y);
 }
@@ -56,11 +56,13 @@ void BaseWidget::toggleDraggability() {
 }
 
 void BaseWidget::showContextMenu(const QPoint &pos) {
-    QMenu contextMenu(tr(""), this);
+    QMenu contextMenu(this);
+    contextMenu.addSection(QString::fromStdString(_configInfo->title + " : " + _configInfo->type));
     if(!staticPos) {
         contextMenu.addAction("Toggle Draggability", this, SLOT(toggleDraggability()));
+    } else {
+        contextMenu.addMenu("Test1");
     }
-    contextMenu.addMenu("Test1");
     contextMenu.exec(mapToGlobal(pos));
 }
 
