@@ -29,12 +29,18 @@ public:
     int runGUI();
 
 public slots:
-    void restartGUI();
+    void reload();
+    void reparseReload();
+    void openReload();
 
 private:
+    void restartGUI();
+    std::string getFilePath();
+
     int argc;
     char **argv;
-    AppConfig appConfig;
+    WindowConfig_ptr windowConfig;
+    AppConfig *appConfig;
     QApplication app;
     QMainWindow mainWindow;
     QWidget window;

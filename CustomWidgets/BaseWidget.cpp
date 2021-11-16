@@ -8,7 +8,7 @@ BaseWidget::BaseWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, Widg
     _parent = parent;
     draggable = configInfo->draggable;
     inFocusLast = true;
-    setPosition(_configInfo->x, _configInfo->y);
+    move(_configInfo->x, _configInfo->y);     // Using move because setPosition clips the values based on parents size, but parents size is not hectically set yet in constructor
 }
 
 void BaseWidget::setPosition(int _x, int _y) {
@@ -17,9 +17,9 @@ void BaseWidget::setPosition(int _x, int _y) {
     if(_y < 0) { _y = 0; }
     if(_x > _parent->size().width() - this->width()) { _x = _parent->size().width() - this->width(); }
     if(_y > _parent->size().height() - this->height()) { _y = _parent->size().height() - this->height(); }
-    x = _x;
-    y = _y;
-    move(x, y);
+    _configInfo->x = _x;
+    _configInfo->y = _y;
+    move(_x, _y);
 }
 
 void BaseWidget::mousePressEvent(QMouseEvent *event) {
@@ -27,8 +27,8 @@ void BaseWidget::mousePressEvent(QMouseEvent *event) {
         clicked = true;
         startX = event->globalX();
         startY = event->globalY();
-        startWX = x;
-        startWY = y;
+        startWX = _configInfo->x;
+        startWY = _configInfo->y;
     }
 }
 

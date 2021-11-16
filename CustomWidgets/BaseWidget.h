@@ -16,8 +16,6 @@ protected:
     WidgetConfig_ptr _configInfo;
     WidgetData *_widgetData;
     bool inFocusLast;
-    int x = 0;
-    int y = 0;
     int startX = 0;
     int startY = 0;
     int startWX = 0;

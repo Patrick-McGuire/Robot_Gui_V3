@@ -21,7 +21,7 @@ class CoreGUI;
 class RobotGUI : public QWidget {
 Q_OBJECT
 public:
-    RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appConfig, CoreGUI *_coreGui);
+    RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appConfig, CoreGUI *_coreGui, const WindowConfig_ptr& _config);
     ~RobotGUI();
 
 public slots:
@@ -31,6 +31,7 @@ signals:
     void restartThing();
 
 private:
+    WindowConfig_ptr config;
     CoreGUI *coreGui;
     WidgetData *widgetData;
     QMainWindow *mainWindow;
