@@ -35,6 +35,7 @@ public slots:
 
 private:
     void restartGUI();
+    bool safeParse();
     std::string getFilePath();
 
     int argc;

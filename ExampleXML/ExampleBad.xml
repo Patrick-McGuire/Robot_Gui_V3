@@ -1,12 +1,9 @@
 <window title="Probot Control" width="1920" height="1080" theme="Better Dark">
-        <widget title="ex2" type="video" draggable="True" width="500" height="500" x="0" y="0" id="2"/>
+        <widget title="ex2" type="video" draggable="True" x="0" y="0" id="2"/>
     <widget type="tab" title="Dashboard" width="1300" height="900" x="0" y="0" draggable="False">
         <tab title="Tab1">
             <widget title="TestVideo" type="video" draggable="True" x="300" y="0" id="1"/>
-            <widget title = "Power Stats" type = "textBox" x = "500" y = "500" draggable="True">
-                <line label = "Thing 1" value = "KEY1"/>
-                <line label = "Thing 2" value = "KEY2"/>
-                <line label = "Thing 3" value = "KEY3"/>
+            <widget titlhing 3" value = "KEY3"/>
                 <line label = "Thing 4" value = "KEY4"/>
             </widget>
         </tab>

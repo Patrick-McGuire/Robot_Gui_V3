@@ -11,12 +11,16 @@ CoreGUI::CoreGUI(int _argc, char **_argv) : app(_argc, _argv), window(&mainWindo
     window.show();
     mainWindow.show();
     appConfig = new AppConfig();
+    wrapper = nullptr;
+    currentRobotGUI = nullptr;
 }
 
 int CoreGUI::runGUI() {
     qDebug("Starting GUI...");
     appConfig->parse();
-    windowConfig = XMLInput::parse(getFilePath().c_str());
+    while(!safeParse()) {
+        appConfig->parse();
+    }
     qDebug("Creating window");
     wrapper = new QWidget(&window);
     currentRobotGUI = new RobotGUI(wrapper, &mainWindow, appConfig, this, windowConfig);
@@ -28,20 +32,26 @@ void CoreGUI::reload() {
 }
 
 void CoreGUI::openReload() {
-    std::string filePath = QFileDialog::getOpenFileName(&mainWindow, "Open XML Configuration File", "/home", "XML Files (*.xml)").toStdString();
-    appConfig->setDefaultXmlPath(filePath);
-    appConfig->write();
-    windowConfig = XMLInput::parse(getFilePath().c_str());
-    restartGUI();
+    std::string filePath = QFileDialog::getOpenFileName(&mainWindow, "Open XML Configuration File", QString::fromStdString(appConfig->getDefaultXmlPath()), "XML Files (*.xml)").toStdString();
+    if(!filePath.empty()) {
+        appConfig->setDefaultXmlPath(filePath);
+        appConfig->write();
+        while(!safeParse()) {
+            appConfig->parse();
+        }
+        restartGUI();
+    }
 }
 
 void CoreGUI::reparseReload() {
-    windowConfig = XMLInput::parse(getFilePath().c_str());
+    while(!safeParse()) {
+        appConfig->parse();
+    }
     restartGUI();
 }
 
 void CoreGUI::restartGUI() {
-    qDebug("Closing window\n\n");
+    qDebug("Closing window\n");
     delete currentRobotGUI;
     delete wrapper;
     qDebug("Creating window");
@@ -49,11 +59,23 @@ void CoreGUI::restartGUI() {
     currentRobotGUI = new RobotGUI(wrapper, &mainWindow, appConfig, this, windowConfig);
 }
 
+bool CoreGUI::safeParse() {
+    try {
+        windowConfig = XMLInput::parse(getFilePath().c_str());
+        return true;
+    } catch (...) {
+        appConfig->setDefaultXmlPath(appConfigNoXmlPath);
+        appConfig->write();
+        return false;
+    }
+}
+
+
 std::string CoreGUI::getFilePath() {
     appConfig->parse();
     auto filePath = appConfig->getDefaultXmlPath();
     while (filePath == appConfigNoXmlPath || !AppConfig::fileExists(filePath)) {
-        filePath = QFileDialog::getOpenFileName(&mainWindow, "Open XML Configuration File", "/home", "XML Files (*.xml)").toStdString();
+        filePath = QFileDialog::getOpenFileName(&mainWindow, "Open XML Configuration File", QString::fromStdString(appConfig->getDefaultXmlPath()), "XML Files (*.xml)").toStdString();
         appConfig->setDefaultXmlPath(filePath);
         appConfig->write();
     }
