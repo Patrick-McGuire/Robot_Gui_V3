@@ -8,6 +8,8 @@
 #include "../XML/rapidxml/rapidxml.hpp"
 #include "../XML/rapidxml/rapidxml_print.hpp"
 #include "../XML/rapidxml/rapidxml_utils.hpp"
+#include <QTabWidget>
+#include <QMenu>
 
 class BaseWidget: public QWidget {
 Q_OBJECT
@@ -17,7 +19,6 @@ protected:
     WidgetData *_widgetData;
     bool inFocusLast = true;
     bool clicked = false;
-    bool draggable;
     const bool staticPos;
 
     virtual void updateInFocus();
@@ -65,11 +66,15 @@ public:
      */
     void setDraggability(bool _draggable);
 
+
+public slots:
     /**
      * Toggles the draggable state of this widget if widget is not static
      */
     void toggleDraggability();
 
+private slots:
+    void showContextMenu(const QPoint &pos);
 
 private:
     int startX = 0;

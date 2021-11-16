@@ -8,13 +8,12 @@ TabWidget::TabWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, Widget
     this->setLayout(&layout);
     layout.setMargin(0);
     tabs = new QTabWidget();
-    {
-        int width = configInfo->width == xmlMaxConstID || configInfo->width == xmlAutoConstID ? parent->width() : configInfo->width;
-        int height = configInfo->height == xmlMaxConstID || configInfo->height == xmlAutoConstID ? parent->height() : configInfo->height;
-        tabs->setFixedHeight(height);
-        tabs->setFixedWidth(width);
-    }
     layout.addWidget(tabs);
+    // Set the size
+    int width = configInfo->width == xmlMaxConstID || configInfo->width == xmlAutoConstID ? parent->width() : configInfo->width;
+    int height = configInfo->height == xmlMaxConstID || configInfo->height == xmlAutoConstID ? parent->height() : configInfo->height;
+    tabs->setFixedHeight(height);
+    tabs->setFixedWidth(width);
 
     for(int i = 0; i < configInfo->tabNames.size(); i++) {
         // Add new tab to tabWidget and setup it's page

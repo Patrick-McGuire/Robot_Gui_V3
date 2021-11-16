@@ -1,13 +1,17 @@
 #include <iostream>
 #include "BaseWidget.h"
-#include <QTabWidget>
 
 BaseWidget::BaseWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, WidgetData *widgetData) : staticPos(configInfo->staticPos), QWidget(parent) {
     _configInfo = configInfo;
     _widgetData = widgetData;
     _parent = parent;
-    draggable = !staticPos && configInfo->draggable;
-    move(_configInfo->x, _configInfo->y);     // Initialize position
+    _configInfo->draggable = !staticPos && configInfo->draggable;
+    // Set up the right click menu
+    this->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(this, SIGNAL(customContextMenuRequested(const QPoint&)),
+            this, SLOT(showContextMenu(const QPoint&)));
+    // Initialize position
+    move(_configInfo->x, _configInfo->y);
 }
 
 void BaseWidget::setPosition(int _x, int _y) {
@@ -41,18 +45,27 @@ void BaseWidget::updateData(QWidget *activeParent) {
 }
 
 void BaseWidget::setDraggability(bool _draggable) {
-    draggable = !staticPos && _draggable;
+    _configInfo->draggable = !staticPos && _draggable;
     customUpdateDraggability(_draggable);
 }
 
 void BaseWidget::toggleDraggability() {
     if(!staticPos) {
-        draggable = !draggable;
+        _configInfo->draggable = !_configInfo->draggable;
     }
 }
 
+void BaseWidget::showContextMenu(const QPoint &pos) {
+    QMenu contextMenu(tr(""), this);
+    if(!staticPos) {
+        contextMenu.addAction("Toggle Draggability", this, SLOT(toggleDraggability()));
+    }
+    contextMenu.addMenu("Test1");
+    contextMenu.exec(mapToGlobal(pos));
+}
+
 void BaseWidget::mousePressEvent(QMouseEvent *event) {
-    if(!staticPos && draggable) {
+    if(!staticPos && _configInfo->draggable) {
         clicked = true;
         startX = event->globalX();
         startY = event->globalY();
@@ -70,7 +83,7 @@ void BaseWidget::mouseReleaseEvent(QMouseEvent *event) {
 }
 
 void BaseWidget::mouseMoveEvent(QMouseEvent *event) {
-    if(!staticPos && clicked && draggable) {
+    if(!staticPos && clicked && _configInfo->draggable) {
         setPosition(event->globalX() - startX + startWX, event->globalY() - startY + startWY );
     }
 }
@@ -94,6 +107,7 @@ void BaseWidget::customUpdate() {
 void BaseWidget::customUpdateDraggability(bool _draggable) {
 
 }
+
 
 
 
