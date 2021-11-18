@@ -33,7 +33,7 @@ public:
     MenuWidget(QWidget *parent, AppConfig *appConfig_, CoreGUI *coreGui, RobotGUI *robotGui);
 
 public slots:
-    void removeDefaultXML();
+    void removeDefaultXML(QAction *channelAction);
 
 private:
     AppConfig *appConfig;
