@@ -3,7 +3,7 @@
     <widget type="tab" title="Dashboard" height="max" width="max" x="0" y="0" static="True">
         <tab title="Tab1">
             <widget title="TestVideo" type="video" draggable="True" x="300" y="0" id="1" height="200" width="400"/>
-            <widget title = "Power Stats" type = "textBox" x = "500" y = "500" draggable="True">
+            <widget title = "Power Stats" type = "textBox" x = "500" y = "500" draggable="True" background="red">
                 <line label = "Thing 1" value = "KEY1"/>
                 <line label = "Thing 2" value = "KEY2"/>
                 <line label = "Thing 3" value = "KEY3"/>

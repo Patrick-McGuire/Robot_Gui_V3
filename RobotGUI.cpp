@@ -33,6 +33,7 @@ RobotGUI::RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appCo
 
 //    parent->setStyleSheet("QWidget#asdfasfd {background-color: rgb(125,125,125)}");
 //    this->setStyleSheet(QString("QWidget#") + this->objectName() + "{ background-color: rgb(125,125,125) }");
+    mainWindow->setStyleSheet("QWidget { background-color: rgb(125,125,125) }");
     coreWidget->updateTheme();
 }
 

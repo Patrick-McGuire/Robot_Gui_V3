@@ -12,7 +12,6 @@ WindowConfig_ptr XMLInput::parse(const char *filename) {
     doc.parse<0>(xmlFile.data());
     rapidxml::xml_node<> *windowNode = doc.first_node();                    // Get the first node, which should be the window node
     // Parse into data structure
-//    auto windowConfig = new WindowConfig;                                   // Window config struct
     WindowConfig_ptr windowConfig = std::make_shared<WindowConfig>();
     parseWidowNode(windowConfig, windowNode);                               // Gets all attributes from the window tag
 
@@ -71,6 +70,32 @@ WidgetConfig_ptr XMLInput::parseWidget(rapidxml::xml_node<> *node) {
                 tempVal = safeStoi(attrVal);
                 newWidgetStruct->width = tempVal != strFailed ? tempVal : xmlAutoConstID;         // If conversion failed return the "auto" id so the GUI can still be created
             }
+        } else if(attrName == xmlBackgroundColorATR) {
+            newWidgetStruct->backgroundColor = attrVal;
+        } else if(attrName == xmlForegroundColorATR) {
+            newWidgetStruct->foregroundColor = attrVal;
+        } else if(attrName == xmlFontATR) {
+            newWidgetStruct->font = attrVal;
+        } else if(attrName == xmlReliefATR) {
+            newWidgetStruct->relief = attrVal;
+        } else if(attrName == xmlTextColorATR) {
+            newWidgetStruct->textColor = attrVal;
+        } else if(attrName == xmlHeaderColorATR) {
+            newWidgetStruct->headerColor = attrVal;
+        } else if(attrName == xmlFontSizeATR) {
+            if(isConstant(attrVal)) {                                                   // Check if it is one of a few constant types (ie auto, max, min)
+                newWidgetStruct->fontSize = getConstVal(attrVal);
+            } else {
+                tempVal = safeStoi(attrVal);
+                newWidgetStruct->fontSize = tempVal != strFailed ? tempVal : xmlAutoConstID;         // If conversion failed return the "auto" id so the GUI can still be created
+            }
+        } else if(attrName == xmlBorderWidthATR) {
+            if(isConstant(attrVal)) {                                                   // Check if it is one of a few constant types (ie auto, max, min)
+                newWidgetStruct->borderWidth = getConstVal(attrVal);
+            } else {
+                tempVal = safeStoi(attrVal);
+                newWidgetStruct->borderWidth = tempVal != strFailed ? tempVal : xmlAutoConstID;         // If conversion failed return the "auto" id so the GUI can still be created
+            }
         }
     }
     // Call widget specific methods to finish configuring the struct
@@ -122,6 +147,10 @@ int XMLInput::getConstVal(const std::string& val) {
         return xmlMaxConstID;
     } else if(val == xmlAutoConst) {
         return xmlAutoConstID;
+    } else if(val == xmlThemeConst) {
+        return xmlThemeConstID;
+    } else if(val == xmlNoneConst) {
+        return xmlNoneConstID;
     }
     return 0;
 }

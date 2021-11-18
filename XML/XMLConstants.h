@@ -6,7 +6,6 @@
 #define ROBOT_GUI_V3_XMLCONSTANTS_H
 
 //// XML Attributes ////
-#define xmlNameATR "name"
 #define xmlWidthATR "width"
 #define xmlHeightATR "height"
 #define xmlTypeATR "type"
@@ -20,6 +19,16 @@
 #define xmlStaticATR "static"
 #define xmlLabelATR "label"
 #define xmlValueATR "value"
+// Style attr
+#define xmlFontATR "font"
+#define xmlBackgroundColorATR "background"
+#define xmlForegroundColorATR "foreground"
+#define xmlReliefATR "relief"
+#define xmlTextColorATR "textColor"
+#define xmlHeaderColorATR "headerColor"
+#define xmlFontSizeATR "fontSize"
+#define xmlBorderWidthATR "borderWidth"
+
 
 //// XML Tags ////
 #define xmlWindowTag "window"
@@ -36,5 +45,9 @@
 #define xmlMaxConstID -1
 #define xmlAutoConst "auto"
 #define xmlAutoConstID -2
+#define xmlThemeConst "theme"
+#define xmlThemeConstID -3
+#define xmlNoneConst "none"
+#define xmlNoneConstID -4
 
 #endif //ROBOT_GUI_V3_XMLCONSTANTS_H

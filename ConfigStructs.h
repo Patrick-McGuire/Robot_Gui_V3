@@ -8,12 +8,13 @@
 #include <string>
 #include <vector>
 #include "XML/AppConfig.h"
+#include "Theme.h"
 
 struct WidgetConfig {
     std::string title;
     std::string type;
     std::string id;
-    std::string objectName;
+    std::string objectName;         // Not set by XML parser
     int x;
     int y;
     int height;
@@ -21,6 +22,15 @@ struct WidgetConfig {
     bool hidden;
     bool draggable;
     bool staticPos;
+    ////// Style //////
+    std::string font;
+    std::string backgroundColor;
+    std::string foregroundColor;
+    std::string relief;
+    std::string textColor;
+    std::string headerColor;
+    int fontSize;
+    int borderWidth;
     /////// Widget specific ///////
     // Tab widget collection
     std::vector<std::string> tabNames;
