@@ -10,6 +10,9 @@
 #include "../XML/rapidxml/rapidxml_utils.hpp"
 #include <QTabWidget>
 #include <QMenu>
+#include "../Theme.h"
+
+#define contextMenuName "TempContextMenuName"
 
 class BaseWidget: public QWidget {
 Q_OBJECT
@@ -91,6 +94,8 @@ public:
      * @param focus weather or not the widget is in focus
      */
     void updateData(bool focus);
+
+    virtual void updateTheme();
 
     /**
      * Sets the _draggable state of this widget if widget is not static

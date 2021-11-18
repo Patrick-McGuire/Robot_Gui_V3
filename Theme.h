@@ -13,6 +13,8 @@
 #define darkThemeTextColor "rgb(139,148,158)"
 #define darkThemeHeaderTextColor "rgb(88,166,255)"
 #define darkThemeBorderColor "rgb(139,148,158)"
+#define darkThemeRightClickMenuBackgroundColor "rgb(40,40,40)"
+#define darkThemeRightClickMenuHighlightColor "rgb(60,60,60)"
 
 enum Themes {
     Dark=0,
@@ -27,8 +29,10 @@ public:
     static std::string getBackgroundColorStr(Themes theme);
     static std::string getWidgetBackgroundColorStr(Themes theme);
     static std::string getTextColorStr(Themes theme);
-    static std::string getHeaderTextColor(Themes theme);
-    static std::string getThemeBorderColor(Themes theme);
+    static std::string getHeaderTextColorStr(Themes theme);
+    static std::string getBorderColorStr(Themes theme);
+    static std::string getRightClickMenuBackgroundColorStr(Themes theme);
+    static std::string getRightClickMenuHighlightColorStr(Themes themes);
 };
 
 

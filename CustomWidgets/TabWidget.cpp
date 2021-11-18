@@ -26,7 +26,7 @@ TabWidget::TabWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, Widget
 
         // Create all widgets in the tab
         for(int j = 0; j < configInfo->tabWidgets[i].size(); j++) {
-            configInfo->tabWidgets[i][j]->objectName = configInfo->objectName + ":" + std::to_string(i) + "," + std::to_string(j);
+            configInfo->tabWidgets[i][j]->objectName = configInfo->objectName + "A" + std::to_string(i) + "B" + std::to_string(j);
             widgets.emplace_back(GUIMaker::createWidget(page, configInfo->tabWidgets[i][j], widgetData));
         }
     }
@@ -40,9 +40,12 @@ TabWidget::TabWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, Widget
     tabs->setCurrentIndex(0);
 
 //    std::cout << tabs->objectName().toStdString() << "\n";
-//    if(tabs->objectName() != "1") {
+//    if(this->objectName() != "1") {
+//        tabs->setObjectName(QString::fromStdString("asdfasfd"));
 //        std::cout << tabs->objectName().toStdString() << " f\n";
-//        this->setStyleSheet(QString("QTabWidget#") + tabs->objectName() + " { background-color: rgb(125,125,125) }");
+//        this->setStyleSheet(QString("QTabWidget::QTabBar#") + tabs->objectName() + " { background: rgb(125,125,125) } ");
+//        tabs->tabBar()->setStyleSheet();
+//        this->setStyleSheet(QString("QTabBar") + " { background: rgb(125,125,125) } ");
 //    }
 }
 
@@ -94,4 +97,20 @@ void TabWidget::customUpdateDraggability(bool _draggable) {
     for(auto & widget : widgets) {
         widget->setDraggability(_draggable);
     }
+}
+
+void TabWidget::updateTheme() {
+    Themes theme = Dark;
+    QString style = "background-color : " + QString::fromStdString(Theme::getBackgroundColorStr(theme));
+    if(objectName() != "1") {
+        style += "; color : " + QString::fromStdString(Theme::getTextColorStr(theme));
+    } else {
+        style += "; color : blue";
+    }
+    this->setStyleSheet(style);
+
+    for(auto & widget : widgets) {
+        widget->updateTheme();
+    }
+//    tabs->setStyleSheet("text-color : " + QString::fromStdString(Theme::getTextColorStr(theme)));
 }

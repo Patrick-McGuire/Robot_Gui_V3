@@ -31,9 +31,9 @@ RobotGUI::RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appCo
 
     parent->show();
 
-//    parent->setStyleSheet("QWidget {background-color: rgb(125,125,125)}");
+//    parent->setStyleSheet("QWidget#asdfasfd {background-color: rgb(125,125,125)}");
 //    this->setStyleSheet(QString("QWidget#") + this->objectName() + "{ background-color: rgb(125,125,125) }");
-
+    coreWidget->updateTheme();
 }
 
 void RobotGUI::setWindowSize() {

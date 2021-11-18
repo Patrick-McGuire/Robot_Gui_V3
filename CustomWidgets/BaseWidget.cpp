@@ -59,12 +59,24 @@ void BaseWidget::toggleDraggability() {
 
 void BaseWidget::showContextMenu(const QPoint &pos) {
     QMenu contextMenu(this);
-    contextMenu.addSection(QString::fromStdString(_configInfo->title + " : " + _configInfo->type));
+    contextMenu.setObjectName(contextMenuName);
     if(!staticPos) {
         contextMenu.addAction("Toggle Draggability", this, SLOT(toggleDraggability()));
     } else {
         contextMenu.addMenu("Test1");
     }
+    contextMenu.addMenu("Test2");
+    contextMenu.addMenu("Test3");
+    contextMenu.addMenu("Test4");
+    Themes theme = Dark;
+    QString style =
+        "QMenu#" + QString::fromStdString(contextMenuName) + "{"
+            "background-color : " + QString::fromStdString(Theme::getRightClickMenuBackgroundColorStr(theme)) +
+            "; color : " + QString::fromStdString(Theme::getTextColorStr(theme)) +
+        "}" + "QMenu::item:selected#" + QString::fromStdString(contextMenuName) + "{"
+            "background-color :" + QString::fromStdString(Theme::getRightClickMenuHighlightColorStr(theme)) +
+        "}";
+    contextMenu.setStyleSheet(style);
     contextMenu.exec(mapToGlobal(pos));
 }
 
@@ -109,6 +121,10 @@ void BaseWidget::customUpdate() {
 }
 
 void BaseWidget::customUpdateDraggability(bool _draggable) {
+
+}
+
+void BaseWidget::updateTheme() {
 
 }
 

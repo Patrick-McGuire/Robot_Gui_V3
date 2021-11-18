@@ -88,3 +88,7 @@ void TextBoxWidget::updateOnInFocus() {
 void TextBoxWidget::customUpdate() {
     textBox.setText(QString::fromStdString(GetInfoString()));
 }
+
+void TextBoxWidget::updateTheme() {
+
+}
