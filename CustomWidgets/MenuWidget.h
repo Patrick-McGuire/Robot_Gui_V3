@@ -22,6 +22,7 @@
 #include "iostream"
 #include "../RobotGUI.h"
 #include "../CoreGUI.h"
+#include "../Theme.h"
 
 class RobotGUI;
 class CoreGUI;

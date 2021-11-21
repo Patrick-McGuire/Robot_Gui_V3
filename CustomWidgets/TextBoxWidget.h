@@ -14,9 +14,10 @@
 
 class TextBoxWidget: public BaseWidget  {
 private:
-    QLabel textBox;
-    QLabel titleBox;
-    QGridLayout layout;
+    QLabel *textBox;
+    QLabel *titleBox;
+    QGridLayout *layout;
+    QWidget *wrapper;
 
     std::vector<std::string> lineKeys;
 
@@ -36,7 +37,7 @@ public:
     void updateNoFocus() override;
     void updateOnInFocus() override;
     void customUpdate() override;
-    void updateTheme() override;
+    void updateTheme(Themes _theme, bool overwrite) override;
 };
 
 #endif //ROBOT_GUI_V3_TEXTBOXWIDGET_H

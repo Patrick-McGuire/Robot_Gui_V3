@@ -33,8 +33,8 @@ RobotGUI::RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appCo
 
 //    parent->setStyleSheet("QWidget#asdfasfd {background-color: rgb(125,125,125)}");
 //    this->setStyleSheet(QString("QWidget#") + this->objectName() + "{ background-color: rgb(125,125,125) }");
-    mainWindow->setStyleSheet("QWidget { background-color: rgb(125,125,125) }");
-    coreWidget->updateTheme();
+//    mainWindow->setStyleSheet("QWidget { background-color: rgb(125,125,125) }");
+//    coreWidget->updateTheme();
 }
 
 void RobotGUI::setWindowSize() {
@@ -55,6 +55,10 @@ RobotGUI::~RobotGUI() {
     delete menu;
 }
 
+void RobotGUI::updateTheme(QAction *channelAction) {
+    Themes theme = Theme::getThemeFromName(channelAction->data().toString().toStdString());
+    coreWidget->updateTheme(theme, true);
+}
 
 void RobotGUI::makeWidgetsDraggable() {
     coreWidget->setDraggability(true);

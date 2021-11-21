@@ -4,20 +4,18 @@
 #include <vector>
 
 TextBoxWidget::TextBoxWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, WidgetData *widgetData) : BaseWidget(parent, configInfo, widgetData) {
-    this->setLayout(&layout);
-    layout.addWidget(&titleBox);
-    layout.addWidget(&textBox);
+    wrapper = new QWidget();
+    layout = new QGridLayout();
+    titleBox = new QLabel();
+    textBox = new QLabel();
+    layout->addWidget(titleBox);
+    layout->addWidget(textBox);
+    wrapper->setLayout(layout);
 
-    titleBox.setText(QString::fromStdString(configInfo->title));
-    textBox.setText(QString::fromStdString(GetInfoString()));
-    textBox.setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
+    titleBox->setText(QString::fromStdString(configInfo->title));
+    textBox->setText(QString::fromStdString(GetInfoString()));
 
-    Themes theme;
-    theme = Dark;
-
-
-//    this->setStyleSheet(QString("QLabel#") + "1" + "{ background-color: rgb(13,17,23) }");
-
+    wrapper->setParent(this);
     for(auto it = _configInfo->lines.begin(); it != _configInfo->lines.end(); ++it) {
         lineKeys.push_back(it[0][1]);
     }
@@ -38,7 +36,7 @@ std::string TextBoxWidget::GetInfoString() {
         } else if(keyType == boolType) {
             output += _widgetData->getBool(it[0][1]) ? "True" : "False";
         } else {
-            output += "Invalid Key or datatype";
+            output += "Ipe";
         }
         output += "\n";
 
@@ -86,9 +84,27 @@ void TextBoxWidget::updateOnInFocus() {
 }
 
 void TextBoxWidget::customUpdate() {
-    textBox.setText(QString::fromStdString(GetInfoString()));
+    textBox->setText(QString::fromStdString(GetInfoString()));
+    wrapper->adjustSize();
 }
 
-void TextBoxWidget::updateTheme() {
-
+void TextBoxWidget::updateTheme(Themes _theme, bool overwrite) {
+    QString style = "";
+    // Set the background color
+    if(overwrite || _configInfo->backgroundColor == xmlThemeConst) {
+        if(_configInfo->backgroundColor != xmlNoneConst) {
+            style += QString("background: ") + QString::fromStdString(Theme::getBackgroundColorStr(_theme)) + ";"; //Theme::getBackgroundColorStr(_theme)
+        } else {
+            style += "background: transparent;";
+        }
+    } else if(_configInfo->backgroundColor != xmlThemeConst || _configInfo->backgroundColor != xmlNoneConst) {
+        style += QString("background: ") + QString::fromStdString(_configInfo->backgroundColor) + ";";
+    }
+    // Set the text color
+    if(overwrite || _configInfo->textColor == xmlThemeConst) {
+        style += QString("color: ") + QString::fromStdString(Theme::getTextColorStr(_theme)) + ";"; //Theme::getBackgroundColorStr(_theme)
+    } else if(_configInfo->textColor != xmlThemeConst || _configInfo->textColor != xmlNoneConst) {
+        style += QString("color: ") + QString::fromStdString(_configInfo->textColor) + ";";
+    }
+    this->setStyleSheet(style);
 }

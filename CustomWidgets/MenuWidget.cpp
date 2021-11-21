@@ -19,14 +19,14 @@ MenuWidget::MenuWidget(QWidget *parent, AppConfig *appConfig_, CoreGUI *coreGui,
     auto *theme = new QMenu("Theme");
     auto *setTheme = theme->addMenu("Set theme");
 
-    auto *subMenuAct1 = setTheme->addAction("1");
-    subMenuAct1->setData(QString("1"));
-    auto *subMenuAct2 = setTheme->addAction("2");
-    subMenuAct2->setData(QString("2"));
-    auto *subMenuAct3 = setTheme->addAction("3");
-    subMenuAct3->setData(QString("3"));
+    auto *subMenuAct1 = setTheme->addAction(QString::fromStdString(Theme::getThemeName(Themes::Dark)));
+    subMenuAct1->setData(QString::fromStdString(Theme::getThemeName(Themes::Dark)));
+    auto *subMenuAct2 = setTheme->addAction(QString::fromStdString(Theme::getThemeName(Themes::Light)));
+    subMenuAct2->setData(QString::fromStdString(Theme::getThemeName(Themes::Light)));
+    auto *subMenuAct3 = setTheme->addAction(QString::fromStdString(Theme::getThemeName(Themes::Green)));
+    subMenuAct3->setData(QString::fromStdString(Theme::getThemeName(Themes::Green)));
 
-    connect(setTheme, SIGNAL(triggered(QAction*)), this, SLOT(removeDefaultXML(QAction*)));
+    connect(setTheme, SIGNAL(triggered(QAction*)), robotGui, SLOT(updateTheme(QAction*)));
 
     theme->addMenu(setTheme);
     auto *setAll = theme->addMenu("Set theme for all");

@@ -6,8 +6,12 @@
 #define ROBOT_GUI_V3_THEME_H
 #include "string"
 
+#define darkThemeStr "Dark"
+#define lightThemeStr "Light"
+#define greenThemeStr "Green"
+#define qtDefaultThemeStr "QtDefault"
+
 //# Theme colors are defined as Background, WidgetBackground, Default Text, Header Text, Border
-//self.themes["Better Dark"] = ["rgb[13, 17, 23]", "rgb[13, 17, 23]", "rgb[139,148,158]", "rgb[88,166,255]", "rgb[139,148,158]"]
 #define darkThemeBackgroundColor "rgb(13,17,23)"
 #define darkThemeWidgetBackgroundColor "rgb(13, 17, 23)"
 #define darkThemeTextColor "rgb(139,148,158)"
@@ -33,6 +37,8 @@ public:
     static std::string getBorderColorStr(Themes theme);
     static std::string getRightClickMenuBackgroundColorStr(Themes theme);
     static std::string getRightClickMenuHighlightColorStr(Themes themes);
+    static std::string getThemeName(Themes theme);
+    static Themes getThemeFromName(const std::string& name);
 };
 
 

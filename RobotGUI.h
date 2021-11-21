@@ -13,6 +13,7 @@
 #include <QApplication>
 #include "Networking/LocalServer.h"
 #include "CoreGUI.h"
+#include "Theme.h"
 
 class LocalServer;
 class MenuWidget;
@@ -28,6 +29,7 @@ public slots:
     void updateGUI();
     void makeWidgetsDraggable();
     void makeWidgetsFixed();
+    void updateTheme(QAction *channelAction);
 
 signals:
     void restartThing();

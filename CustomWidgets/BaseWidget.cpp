@@ -124,7 +124,7 @@ void BaseWidget::customUpdateDraggability(bool _draggable) {
 
 }
 
-void BaseWidget::updateTheme() {
+void BaseWidget::updateTheme(Themes _theme, bool overwrite) {
 
 }
 

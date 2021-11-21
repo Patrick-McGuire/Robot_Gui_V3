@@ -99,18 +99,17 @@ void TabWidget::customUpdateDraggability(bool _draggable) {
     }
 }
 
-void TabWidget::updateTheme() {
-    Themes theme = Dark;
-    QString style = "background-color : " + QString::fromStdString(Theme::getBackgroundColorStr(theme));
+void TabWidget::updateTheme(Themes _theme, bool overwrite) {
+    QString style = "background-color : " + QString::fromStdString(Theme::getBackgroundColorStr(_theme));
     if(objectName() != "1") {
-        style += "; color : " + QString::fromStdString(Theme::getTextColorStr(theme));
+        style += "; color : " + QString::fromStdString(Theme::getTextColorStr(_theme));
     } else {
         style += "; color : blue";
     }
     this->setStyleSheet(style);
 
     for(auto & widget : widgets) {
-        widget->updateTheme();
+        widget->updateTheme(_theme, overwrite);
     }
 //    tabs->setStyleSheet("text-color : " + QString::fromStdString(Theme::getTextColorStr(theme)));
 }

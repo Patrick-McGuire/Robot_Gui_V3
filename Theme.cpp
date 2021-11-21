@@ -44,3 +44,38 @@ std::string Theme::getRightClickMenuBackgroundColorStr(Themes theme) {
 std::string Theme::getRightClickMenuHighlightColorStr(Themes themes) {
     return darkThemeRightClickMenuHighlightColor;
 }
+
+std::string Theme::getThemeName(Themes theme) {
+    switch (theme) {
+        case Dark: {
+            return darkThemeStr;
+            break;
+        }
+        case Light: {
+            return lightThemeStr;
+            break;
+        }
+        case Green: {
+            return greenThemeStr;
+            break;
+        }
+        case QtDefault: {
+            return qtDefaultThemeStr;
+        }
+    }
+    return qtDefaultThemeStr;
+}
+
+Themes Theme::getThemeFromName(const std::string& name) {
+    Themes out = QtDefault;
+    if(name == darkThemeStr) {
+        out = Dark;
+    } else if(name == lightThemeStr) {
+        out = Light;
+    } else if(name == greenThemeStr) {
+        out = Green;
+    } else if(name == qtDefaultThemeStr) {
+        out = QtDefault;
+    }
+    return out;
+}

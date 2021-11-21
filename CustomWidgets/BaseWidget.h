@@ -95,7 +95,7 @@ public:
      */
     void updateData(bool focus);
 
-    virtual void updateTheme();
+    virtual void updateTheme(Themes _theme, bool overwrite);
 
     /**
      * Sets the _draggable state of this widget if widget is not static
