@@ -13,6 +13,7 @@ std::string Theme::getBackgroundColorStr(Themes theme) {
         case Light: {
             break;
         } case Green: {
+            return greenThemeBackgroundColor;
             break;
         } case QtDefault: {
             break;
@@ -22,27 +23,135 @@ std::string Theme::getBackgroundColorStr(Themes theme) {
 }
 
 std::string Theme::getWidgetBackgroundColorStr(Themes theme) {
-    return darkThemeWidgetBackgroundColor;
+    switch (theme) {
+        case Dark: {
+            return darkThemeWidgetBackgroundColor;
+            break;
+        }
+        case Light: {
+
+            break;
+        }
+        case Green: {
+            return greenThemeWidgetBackgroundColor;
+            break;
+        }
+        case QtDefault: {
+
+            break;
+        }
+    }
+    return "rgb(255,255,255)";
 }
 
 std::string Theme::getTextColorStr(Themes theme) {
-    return darkThemeTextColor;
+    switch (theme) {
+        case Dark: {
+            return darkThemeTextColor;
+            break;
+        }
+        case Light: {
+
+            break;
+        }
+        case Green: {
+            return greenThemeTextColor;
+            break;
+        }
+        case QtDefault: {
+
+            break;
+        }
+    }
+    return "rgb(0,0,0)";
 }
 
 std::string Theme::getHeaderTextColorStr(Themes theme) {
-    return darkThemeHeaderTextColor;
+    switch (theme) {
+        case Dark: {
+            return darkThemeHeaderTextColor;
+            break;
+        }
+        case Light: {
+
+            break;
+        }
+        case Green: {
+            return greenThemeHeaderTextColor;
+            break;
+        }
+        case QtDefault: {
+
+            break;
+        }
+    }
+    return "rgb(0,0,0)";
 }
 
 std::string Theme::getBorderColorStr(Themes theme) {
-    return darkThemeBorderColor;
+    switch (theme) {
+        case Dark: {
+            return darkThemeBorderColor;
+            break;
+        }
+        case Light: {
+
+            break;
+        }
+        case Green: {
+            return greenThemeBorderColor;
+            break;
+        }
+        case QtDefault: {
+
+            break;
+        }
+    }
+    return "rgb(255,255,255)";
 }
 
 std::string Theme::getRightClickMenuBackgroundColorStr(Themes theme) {
-    return darkThemeRightClickMenuBackgroundColor;
+    switch (theme) {
+        case Dark: {
+            return darkThemeRightClickMenuBackgroundColor;
+            break;
+        }
+        case Light: {
+
+            break;
+        }
+        case Green: {
+            return greenThemeRightClickMenuBackgroundColor;
+            break;
+        }
+        case QtDefault: {
+
+            break;
+        }
+    }
+    return "rgb(255,255,255)";
 }
 
-std::string Theme::getRightClickMenuHighlightColorStr(Themes themes) {
-    return darkThemeRightClickMenuHighlightColor;
+std::string Theme::getRightClickMenuHighlightColorStr(Themes theme) {
+    switch (theme) {
+        case Dark: {
+            return darkThemeRightClickMenuHighlightColor;
+            break;
+        }
+        case Light: {
+
+            break;
+        }
+        case Green: {
+            return greenThemeRightClickMenuHighlightColor;
+            break;
+        }
+        case QtDefault: {
+
+            break;
+        }
+    }
+    return "rgb(255,255,255)";
 }
 
 std::string Theme::getThemeName(Themes theme) {

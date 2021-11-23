@@ -12,6 +12,7 @@
 #define qtDefaultThemeStr "QtDefault"
 
 //# Theme colors are defined as Background, WidgetBackground, Default Text, Header Text, Border
+// Dark theme
 #define darkThemeBackgroundColor "rgb(13,17,23)"
 #define darkThemeWidgetBackgroundColor "rgb(13, 17, 23)"
 #define darkThemeTextColor "rgb(139,148,158)"
@@ -19,6 +20,15 @@
 #define darkThemeBorderColor "rgb(139,148,158)"
 #define darkThemeRightClickMenuBackgroundColor "rgb(40,40,40)"
 #define darkThemeRightClickMenuHighlightColor "rgb(60,60,60)"
+//        self.themes["Green Text"] = ["rgb[20, 20, 20]", "rgb[25, 25, 25]", "rgb[150,150,150]", "rgb[10,200,10]", "rgb[50,50,50]"]
+// Green theme
+#define greenThemeBackgroundColor "rgb(20,20,20)"
+#define greenThemeWidgetBackgroundColor "rgb(25, 25, 25)"
+#define greenThemeTextColor "rgb(150,150,150)"
+#define greenThemeHeaderTextColor "rgb(10,200,10)"
+#define greenThemeBorderColor "rgb(50,50,50)"
+#define greenThemeRightClickMenuBackgroundColor "rgb(40,40,40)"
+#define greenThemeRightClickMenuHighlightColor "rgb(60,60,60)"
 
 enum Themes {
     Dark=0,
@@ -36,7 +46,7 @@ public:
     static std::string getHeaderTextColorStr(Themes theme);
     static std::string getBorderColorStr(Themes theme);
     static std::string getRightClickMenuBackgroundColorStr(Themes theme);
-    static std::string getRightClickMenuHighlightColorStr(Themes themes);
+    static std::string getRightClickMenuHighlightColorStr(Themes theme);
     static std::string getThemeName(Themes theme);
     static Themes getThemeFromName(const std::string& name);
 };

@@ -89,22 +89,25 @@ void TextBoxWidget::customUpdate() {
 }
 
 void TextBoxWidget::updateTheme(Themes _theme, bool overwrite) {
-    QString style = "";
+    QString mainWidgetStyle = "";
+    QString headerWidgetStyle = "";
     // Set the background color
     if(overwrite || _configInfo->backgroundColor == xmlThemeConst) {
         if(_configInfo->backgroundColor != xmlNoneConst) {
-            style += QString("background: ") + QString::fromStdString(Theme::getBackgroundColorStr(_theme)) + ";"; //Theme::getBackgroundColorStr(_theme)
+            mainWidgetStyle += QString("background: ") + QString::fromStdString(Theme::getBackgroundColorStr(_theme)) + ";"; //Theme::getBackgroundColorStr(_theme)
         } else {
-            style += "background: transparent;";
+            mainWidgetStyle += "background: transparent;";
         }
     } else if(_configInfo->backgroundColor != xmlThemeConst || _configInfo->backgroundColor != xmlNoneConst) {
-        style += QString("background: ") + QString::fromStdString(_configInfo->backgroundColor) + ";";
+        mainWidgetStyle += QString("background: ") + QString::fromStdString(_configInfo->backgroundColor) + ";";
     }
     // Set the text color
     if(overwrite || _configInfo->textColor == xmlThemeConst) {
-        style += QString("color: ") + QString::fromStdString(Theme::getTextColorStr(_theme)) + ";"; //Theme::getBackgroundColorStr(_theme)
-    } else if(_configInfo->textColor != xmlThemeConst || _configInfo->textColor != xmlNoneConst) {
-        style += QString("color: ") + QString::fromStdString(_configInfo->textColor) + ";";
+        mainWidgetStyle += QString("color: ") + QString::fromStdString(Theme::getTextColorStr(_theme)) + ";";
+        headerWidgetStyle += "color: " + QString::fromStdString(Theme::getHeaderTextColorStr(_theme)) + ";";
+    } else if(_configInfo->textColor != xmlThemeConst) {
+        mainWidgetStyle += QString("color: ") + QString::fromStdString(_configInfo->textColor) + ";";
     }
-    this->setStyleSheet(style);
+    this->setStyleSheet(mainWidgetStyle);
+    titleBox->setStyleSheet(headerWidgetStyle);
 }
