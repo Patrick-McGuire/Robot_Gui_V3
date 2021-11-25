@@ -1,4 +1,4 @@
-<window title="Probot Control" width="max" height="max" theme="Green">
+<window title="Probot Control" width="max" height="max" theme="Dark">
 <!--    <widget title="ex2" type="video" draggable="True" x="0" y="0" id="2"/>-->
     <widget type="tab" title="Dashboard" height="max" width="max" x="0" y="0" static="True" background="theme">
         <tab title="Tab1">

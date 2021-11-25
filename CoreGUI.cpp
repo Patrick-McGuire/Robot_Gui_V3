@@ -16,15 +16,20 @@ CoreGUI::CoreGUI(int _argc, char **_argv) : app(_argc, _argv), window(&mainWindo
 }
 
 int CoreGUI::runGUI() {
-    qDebug("Starting GUI...");
+    qDebug("Starting GUI\n");
     appConfig->parse();
     while(!safeParse()) {
         appConfig->parse();
     }
+    qDebug("............");
     qDebug("Creating window");
     wrapper = new QWidget(&window);
     currentRobotGUI = new RobotGUI(wrapper, &mainWindow, appConfig, this, windowConfig);
-    return QApplication::exec();
+    int out = QApplication::exec();
+    qDebug("............\n");
+    qDebug("Closing GUI");
+    return out;
+
 }
 
 void CoreGUI::reload() {
@@ -51,9 +56,11 @@ void CoreGUI::reparseReload() {
 }
 
 void CoreGUI::restartGUI() {
-    qDebug("Closing window\n");
+    qDebug("Closing window");
+    qDebug("............\n");
     delete currentRobotGUI;
     delete wrapper;
+    qDebug("............");
     qDebug("Creating window");
     wrapper = new QWidget(&window);
     currentRobotGUI = new RobotGUI(wrapper, &mainWindow, appConfig, this, windowConfig);
