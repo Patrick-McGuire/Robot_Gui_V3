@@ -4,6 +4,11 @@
 #include <vector>
 
 TextBoxWidget::TextBoxWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, WidgetData *widgetData) : BaseWidget(parent, configInfo, widgetData) {
+    styledBackground = true;
+    styledHeader = true;
+    styledText = true;
+    styledSeeThroughBackground = true;
+
     layout = new QGridLayout();
     titleBox = new QLabel();
     textBox = new QLabel();
@@ -91,13 +96,13 @@ void TextBoxWidget::customUpdate() {
     this->adjustSize();
 }
 
-void TextBoxWidget::updateTheme(Themes _theme, bool overwrite) {
+void TextBoxWidget::customUpdateStyle(bool overwrite) {
     QString mainWidgetStyle = "";
     QString headerWidgetStyle = "";
     // Set the background color
     if(overwrite || _configInfo->backgroundColor == xmlThemeConst) {
         if(_configInfo->backgroundColor != xmlNoneConst) {
-            mainWidgetStyle += QString("background: ") + QString::fromStdString(Theme::getBackgroundColorStr(_theme)) + ";"; //Theme::getBackgroundColorStr(_theme)
+            mainWidgetStyle += QString("background: ") + QString::fromStdString(Theme::getBackgroundColorStr(currentTheme)) + ";"; //Theme::getBackgroundColorStr(_theme)
         } else {
             mainWidgetStyle += "background: transparent;";
         }
@@ -106,8 +111,8 @@ void TextBoxWidget::updateTheme(Themes _theme, bool overwrite) {
     }
     // Set the text color
     if(overwrite || _configInfo->textColor == xmlThemeConst) {
-        mainWidgetStyle += QString("color: ") + QString::fromStdString(Theme::getTextColorStr(_theme)) + ";";
-        headerWidgetStyle += "color: " + QString::fromStdString(Theme::getHeaderTextColorStr(_theme)) + ";";
+        mainWidgetStyle += QString("color: ") + QString::fromStdString(Theme::getTextColorStr(currentTheme)) + ";";
+        headerWidgetStyle += "color: " + QString::fromStdString(Theme::getHeaderTextColorStr(currentTheme)) + ";";
     } else if(_configInfo->textColor != xmlThemeConst) {
         mainWidgetStyle += QString("color: ") + QString::fromStdString(_configInfo->textColor) + ";";
     }

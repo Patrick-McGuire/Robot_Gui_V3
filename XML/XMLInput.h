@@ -35,10 +35,10 @@ public:
 
 private:
     static void parseWidowNode(const WindowConfig_ptr& windowConfig, rapidxml::xml_node<> *node);
-
     static bool isConstant(const std::string& val);
     static int getConstVal(const std::string& val);
     static int safeStoi(const std::string& val);
+    static void setDefaults (WidgetConfig_ptr widgetConfig);
 };
 
 

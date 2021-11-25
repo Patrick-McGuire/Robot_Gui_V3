@@ -36,7 +36,7 @@ public:
     void updateNoFocus() override;
     void updateOnInFocus() override;
     void customUpdate() override;
-    void updateTheme(Themes _theme, bool overwrite) override;
+    void customUpdateStyle(bool overwrite) override;
 };
 
 #endif //ROBOT_GUI_V3_TEXTBOXWIDGET_H

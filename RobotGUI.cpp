@@ -74,8 +74,6 @@ void RobotGUI::makeWidgetsFixed() {
 void RobotGUI::setTheme(Themes _theme, bool force) {
     mainWindow->setStyleSheet("QWidget { background-color: " + QString::fromStdString(Theme::getBackgroundColorStr(_theme)) + "}");
     menu->updateTheme(_theme);
-    coreWidget->updateTheme(_theme, force);
+    coreWidget->updateStyle(_theme, force);
 }
-
-
 

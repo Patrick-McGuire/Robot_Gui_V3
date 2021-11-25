@@ -37,7 +37,7 @@ void LocalServer::incomingConnection() {
 }
 
 
-void LocalServer::receiveData() {
+    void LocalServer::receiveData() {
     auto *sender = dynamic_cast<QTcpSocket*>(QObject::sender());
     QByteArray data = sender->readAll();
 

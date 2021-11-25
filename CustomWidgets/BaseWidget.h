@@ -21,6 +21,12 @@ protected:
     WidgetConfig_ptr _configInfo;
     WidgetData *_widgetData;
     const bool staticPos;
+    Themes currentTheme;
+    // These are set by derived classes
+    bool styledBackground;
+    bool styledText;
+    bool styledHeader;
+    bool styledSeeThroughBackground;
 
     /**
      * Updates data when widget is in focus, virtual
@@ -95,7 +101,24 @@ public:
      */
     void updateData(bool focus);
 
-    virtual void updateTheme(Themes _theme, bool overwrite);
+    /**
+     * Updates the style of this widget, to be overwritten
+     * @param overwrite weather to overwrite any attributes with theme
+     */
+    virtual void customUpdateStyle(bool overwrite);
+
+//    virtual void updateTextColor(bool overwrite);
+//
+//    virtual void updateBackgroundColor(bool overwrite);
+//
+//    virtual void updateHeaderTextColor(bool overwrite);
+
+    /**
+     * Updates the style of this widget
+     * @param _theme them for this widget to use
+     * @param overwrite weather to overwrite any attributes with theme
+     */
+    void updateStyle(Themes _theme, bool  overwrite);
 
     /**
      * Sets the _draggable state of this widget if widget is not static
@@ -109,6 +132,18 @@ public slots:
      * Toggles the draggable state of this widget if widget is not static
      */
     void toggleDraggability();
+
+    /**
+     * Sets the background color for this widget
+     * @param channelAction Stores the color to set
+     */
+    void setBackgroundColor(QAction *channelAction);
+
+    /**
+     * Sets the text color for this widget
+     * @param channelAction Stores the color to set
+     */
+    void setTextColor(QAction *channelAction);
 
 private slots:
     /**

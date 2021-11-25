@@ -5,6 +5,12 @@
 #include "VideoWidget.h"
 
 VideoWidget::VideoWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, WidgetData *widgetData) : BaseWidget(parent, configInfo, widgetData)  {
+    styledBackground = false;
+    styledHeader = false;
+    styledText = false;
+    styledSeeThroughBackground = false;
+
+
     this->setLayout(&layout);
     layout.addWidget(&videoWidget);
     autoHeight = configInfo->height == xmlAutoConstID;

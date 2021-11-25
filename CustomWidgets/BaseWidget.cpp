@@ -5,6 +5,7 @@ BaseWidget::BaseWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, Widg
     _configInfo = configInfo;
     _widgetData = widgetData;
     _parent = parent;
+    currentTheme = Light;
     _configInfo->draggable = !staticPos && configInfo->draggable;
     this->setObjectName(QString::fromStdString(configInfo->objectName));
     // Set up the right click menu
@@ -58,26 +59,60 @@ void BaseWidget::toggleDraggability() {
 }
 
 void BaseWidget::showContextMenu(const QPoint &pos) {
-    QMenu contextMenu(this);
-    contextMenu.setObjectName(contextMenuName);
+    std::vector<QMenu*> menus;
+    auto contextMenu = new QMenu(this);
+    menus.emplace_back(contextMenu);
+    contextMenu->setObjectName(contextMenuName);
     if(!staticPos) {
-        contextMenu.addAction("Toggle Draggability", this, SLOT(toggleDraggability()));
-    } else {
-        contextMenu.addMenu("Test1");
+        contextMenu->addAction("Toggle Draggability", this, SLOT(toggleDraggability()));
     }
-    contextMenu.addMenu("Test2");
-    contextMenu.addMenu("Test3");
-    contextMenu.addMenu("Test4");
+    if(styledBackground) {
+        auto *backgroundColor = contextMenu->addMenu("Background color");
+        menus.emplace_back(backgroundColor);
+        backgroundColor->setObjectName(QString(contextMenuName) + "BGColor");
+        const char *colors[] = { "theme", "none", "black", "white", "grey", "green", "blue", "red", "orange", "yellow" };
+        for(auto & color : colors) {
+            if(std::strcmp("none", color) != 0 || styledSeeThroughBackground) {
+                auto *sub1 = backgroundColor->addAction(color);
+                sub1->setData(color);
+            }
+        }
+        connect(backgroundColor, SIGNAL(triggered(QAction*)), this, SLOT(setBackgroundColor(QAction*)));
+    }
+    if(styledText) {
+        auto *textColor = contextMenu->addMenu("Text color");
+        menus.emplace_back(textColor);
+        textColor->setObjectName(QString(contextMenuName) + "TXTColor");
+        const char *colors[] = { "theme", "black", "white", "grey", "green", "blue", "red", "orange", "yellow" };
+        for(auto & color : colors) {
+            auto *sub1 = textColor->addAction(color);
+            sub1->setData(color);
+        }
+        connect(textColor, SIGNAL(triggered(QAction*)), this, SLOT(setTextColor(QAction*)));
+    }
+
     Themes theme = Dark;
-    QString style =
-        "QMenu#" + QString::fromStdString(contextMenuName) + "{"
-            "background-color : " + QString::fromStdString(Theme::getRightClickMenuBackgroundColorStr(theme)) +
-            "; color : " + QString::fromStdString(Theme::getTextColorStr(theme)) +
-        "}" + "QMenu::item:selected#" + QString::fromStdString(contextMenuName) + "{"
-            "background-color :" + QString::fromStdString(Theme::getRightClickMenuHighlightColorStr(theme)) +
-        "}";
-    contextMenu.setStyleSheet(style);
-    contextMenu.exec(mapToGlobal(pos));
+    for(auto & element : menus) {
+        QString style =
+                "QMenu#" + element->objectName() + "{"
+                    "background-color : " + QString::fromStdString(Theme::getRightClickMenuBackgroundColorStr(theme)) +
+                "; color : " + QString::fromStdString(Theme::getTextColorStr(theme)) +
+                "}" + "QMenu::item:selected#" + element->objectName() + "{"
+                    "background-color :" + QString::fromStdString(Theme::getRightClickMenuHighlightColorStr(theme)) +
+                "}";
+        element->setStyleSheet(style);
+    }
+    contextMenu->exec(mapToGlobal(pos));
+}
+
+void BaseWidget::setBackgroundColor(QAction *channelAction) {
+    _configInfo->backgroundColor = channelAction->data().toString().toStdString();
+    customUpdateStyle(false);
+}
+
+void BaseWidget::setTextColor(QAction *channelAction) {
+    _configInfo->textColor = channelAction->data().toString().toStdString();
+    customUpdateStyle(false);
 }
 
 void BaseWidget::mousePressEvent(QMouseEvent *event) {
@@ -104,6 +139,11 @@ void BaseWidget::mouseMoveEvent(QMouseEvent *event) {
     }
 }
 
+void BaseWidget::updateStyle(Themes _theme, bool overwrite) {
+    currentTheme = _theme;
+    customUpdateStyle(overwrite);
+}
+
 void BaseWidget::updateInFocus() {
 
 }
@@ -124,10 +164,9 @@ void BaseWidget::customUpdateDraggability(bool _draggable) {
 
 }
 
-void BaseWidget::updateTheme(Themes _theme, bool overwrite) {
+void BaseWidget::customUpdateStyle(bool overwrite) {
 
 }
-
 
 
 

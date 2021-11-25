@@ -5,6 +5,11 @@
 #include "TabWidget.h"
 
 TabWidget::TabWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, WidgetData *widgetData) : BaseWidget(parent, configInfo, widgetData) {
+    styledBackground = true;
+    styledHeader = true;
+    styledText = false;
+    styledSeeThroughBackground = false;
+
     this->setLayout(&layout);
     layout.setMargin(0);
     tabs = new QTabWidget();
@@ -99,23 +104,23 @@ void TabWidget::customUpdateDraggability(bool _draggable) {
     }
 }
 
-void TabWidget::updateTheme(Themes _theme, bool overwrite) {
+void TabWidget::customUpdateStyle(bool overwrite) {
     QString style = "";
     // Set the background color
     if(overwrite || _configInfo->backgroundColor == xmlThemeConst) {
-        style += QString("background: ") + QString::fromStdString(Theme::getBackgroundColorStr(_theme)) + ";"; //Theme::getBackgroundColorStr(_theme)
+        style += QString("background: ") + QString::fromStdString(Theme::getBackgroundColorStr(currentTheme)) + ";"; //Theme::getBackgroundColorStr(_theme)
     } else if(_configInfo->backgroundColor != xmlThemeConst || _configInfo->backgroundColor != xmlNoneConst) {
         style += QString("background: ") + QString::fromStdString(_configInfo->backgroundColor) + ";";
     }
     // Set the text color
     if(overwrite || _configInfo->textColor == xmlThemeConst) {
-        style += "color: " + QString::fromStdString(Theme::getHeaderTextColorStr(_theme)) + ";";
+        style += "color: " + QString::fromStdString(Theme::getHeaderTextColorStr(currentTheme)) + ";";
     } else if(_configInfo->textColor != xmlThemeConst) {
         style += QString("color: ") + QString::fromStdString(_configInfo->textColor) + ";";
     }
 
     for(auto & widget : widgets) {
-        widget->updateTheme(_theme, overwrite);
+        widget->updateStyle(currentTheme, overwrite);
     }
     this->setStyleSheet(style);
 }

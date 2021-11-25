@@ -3,7 +3,7 @@
 //
 
 #include "XMLInput.h"
-#define strFailed -9123931
+#define strFailed -9123931      // Random
 
 WindowConfig_ptr XMLInput::parse(const char *filename) {
     // Open the file and parse it
@@ -106,6 +106,7 @@ WidgetConfig_ptr XMLInput::parseWidget(rapidxml::xml_node<> *node) {
     } else if(newWidgetStruct->type == tabWidgetSTRID) {
         TabWidget::parseXml(newWidgetStruct, node);
     }
+    setDefaults(newWidgetStruct);
     return newWidgetStruct;
 }
 
@@ -160,5 +161,26 @@ int XMLInput::safeStoi(const std::string &val) {
         return std::stoi(val);
     } catch(...) {
         return strFailed;
+    }
+}
+
+void XMLInput::setDefaults(WidgetConfig_ptr widgetConfig) {
+    if(widgetConfig->backgroundColor.empty()) {
+        widgetConfig->backgroundColor = xmlThemeConst;
+    }
+    if(widgetConfig->textColor.empty()) {
+        widgetConfig->textColor = xmlThemeConst;
+    }
+    if(widgetConfig->headerColor.empty()) {
+        widgetConfig->headerColor = xmlThemeConst;
+    }
+    if(widgetConfig->relief.empty()) {
+        widgetConfig->relief = xmlThemeConst;
+    }
+    if(widgetConfig->font.empty()) {
+        widgetConfig->font = xmlThemeConst;
+    }
+    if(widgetConfig->foregroundColor.empty()) {
+        widgetConfig->font = xmlThemeConst;
     }
 }
