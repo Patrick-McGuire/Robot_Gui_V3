@@ -11,6 +11,7 @@ std::string Theme::getBackgroundColorStr(Themes theme) {
             break;
         }
         case Light: {
+            return lightThemeBackgroundColor;
             break;
         } case Green: {
             return greenThemeBackgroundColor;
@@ -29,7 +30,7 @@ std::string Theme::getWidgetBackgroundColorStr(Themes theme) {
             break;
         }
         case Light: {
-
+            return lightThemeWidgetBackgroundColor;
             break;
         }
         case Green: {
@@ -51,7 +52,7 @@ std::string Theme::getTextColorStr(Themes theme) {
             break;
         }
         case Light: {
-
+            return lightThemeTextColor;
             break;
         }
         case Green: {
@@ -73,7 +74,7 @@ std::string Theme::getHeaderTextColorStr(Themes theme) {
             break;
         }
         case Light: {
-
+            return lightThemeHeaderTextColor;
             break;
         }
         case Green: {
@@ -95,7 +96,7 @@ std::string Theme::getBorderColorStr(Themes theme) {
             break;
         }
         case Light: {
-
+            return lightThemeBorderColor;
             break;
         }
         case Green: {
@@ -117,7 +118,7 @@ std::string Theme::getRightClickMenuBackgroundColorStr(Themes theme) {
             break;
         }
         case Light: {
-
+            return lightThemeRightClickMenuBackgroundColor;
             break;
         }
         case Green: {
@@ -139,7 +140,7 @@ std::string Theme::getRightClickMenuHighlightColorStr(Themes theme) {
             break;
         }
         case Light: {
-
+            return lightThemeRightClickMenuHighlightColor;
             break;
         }
         case Green: {

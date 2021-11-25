@@ -24,6 +24,7 @@ Q_OBJECT
 public:
     RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appConfig, CoreGUI *_coreGui, const WindowConfig_ptr& _config);
     ~RobotGUI();
+    void setTheme(Themes _theme, bool force);
 
 public slots:
     void updateGUI();

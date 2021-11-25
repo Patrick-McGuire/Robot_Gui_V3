@@ -28,6 +28,14 @@
 #define greenThemeBorderColor "rgb(50,50,50)"
 #define greenThemeRightClickMenuBackgroundColor "rgb(40,40,40)"
 #define greenThemeRightClickMenuHighlightColor "rgb(60,60,60)"
+// Light theme
+#define lightThemeBackgroundColor "rgb(250,250,250)"
+#define lightThemeWidgetBackgroundColor "rgb(250, 250, 250)"
+#define lightThemeTextColor "rgb(0,0,0)"
+#define lightThemeHeaderTextColor "rgb(0,0,0)"
+#define lightThemeBorderColor "rgb(0,0,0)"
+#define lightThemeRightClickMenuBackgroundColor "rgb(250,250,250)"
+#define lightThemeRightClickMenuHighlightColor "rgb(200,200,200)"
 
 enum Themes {
     Dark=0,
