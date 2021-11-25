@@ -17,7 +17,6 @@ private:
     QLabel *textBox;
     QLabel *titleBox;
     QGridLayout *layout;
-    QWidget *wrapper;
 
     std::vector<std::string> lineKeys;
 

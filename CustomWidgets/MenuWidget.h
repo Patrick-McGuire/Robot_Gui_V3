@@ -27,17 +27,20 @@
 class RobotGUI;
 class CoreGUI;
 
+#define fileMenuName "FileMenu"
+#define settingsMenuName "SettingMenuName"
+#define themeMenuName "ThemeMenu"
+
 ///// This is not a configurable widget like most custom widgets, this is hardcoded and created for every GUI
 class MenuWidget : public QMenuBar {
 Q_OBJECT
 public:
     MenuWidget(QWidget *parent, AppConfig *appConfig_, CoreGUI *coreGui, RobotGUI *robotGui);
-
-public slots:
-    void removeDefaultXML(QAction *channelAction);
+    void updateTheme(Themes _theme);
 
 private:
     AppConfig *appConfig;
+    std::vector<QMenu*> menus;
 };
 
 

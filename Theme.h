@@ -20,7 +20,6 @@
 #define darkThemeBorderColor "rgb(139,148,158)"
 #define darkThemeRightClickMenuBackgroundColor "rgb(40,40,40)"
 #define darkThemeRightClickMenuHighlightColor "rgb(60,60,60)"
-//        self.themes["Green Text"] = ["rgb[20, 20, 20]", "rgb[25, 25, 25]", "rgb[150,150,150]", "rgb[10,200,10]", "rgb[50,50,50]"]
 // Green theme
 #define greenThemeBackgroundColor "rgb(20,20,20)"
 #define greenThemeWidgetBackgroundColor "rgb(25, 25, 25)"

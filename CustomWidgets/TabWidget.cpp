@@ -100,16 +100,22 @@ void TabWidget::customUpdateDraggability(bool _draggable) {
 }
 
 void TabWidget::updateTheme(Themes _theme, bool overwrite) {
-    QString style = "background-color : " + QString::fromStdString(Theme::getBackgroundColorStr(_theme));
-    if(objectName() != "1") {
-        style += "; color : " + QString::fromStdString(Theme::getTextColorStr(_theme));
-    } else {
-        style += "; color : blue";
+    QString style = "";
+    // Set the background color
+    if(overwrite || _configInfo->backgroundColor == xmlThemeConst) {
+        style += QString("background: ") + QString::fromStdString(Theme::getBackgroundColorStr(_theme)) + ";"; //Theme::getBackgroundColorStr(_theme)
+    } else if(_configInfo->backgroundColor != xmlThemeConst || _configInfo->backgroundColor != xmlNoneConst) {
+        style += QString("background: ") + QString::fromStdString(_configInfo->backgroundColor) + ";";
     }
-    this->setStyleSheet(style);
+    // Set the text color
+    if(overwrite || _configInfo->textColor == xmlThemeConst) {
+        style += "color: " + QString::fromStdString(Theme::getHeaderTextColorStr(_theme)) + ";";
+    } else if(_configInfo->textColor != xmlThemeConst) {
+        style += QString("color: ") + QString::fromStdString(_configInfo->textColor) + ";";
+    }
 
     for(auto & widget : widgets) {
         widget->updateTheme(_theme, overwrite);
     }
-//    tabs->setStyleSheet("text-color : " + QString::fromStdString(Theme::getTextColorStr(theme)));
+    this->setStyleSheet(style);
 }

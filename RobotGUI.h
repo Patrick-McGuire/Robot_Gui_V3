@@ -30,6 +30,7 @@ public slots:
     void makeWidgetsDraggable();
     void makeWidgetsFixed();
     void updateTheme(QAction *channelAction);
+    void forceTheme(QAction *channelAction);
 
 signals:
     void restartThing();

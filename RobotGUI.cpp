@@ -31,10 +31,7 @@ RobotGUI::RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appCo
 
     parent->show();
 
-//    parent->setStyleSheet("QWidget#asdfasfd {background-color: rgb(125,125,125)}");
-//    this->setStyleSheet(QString("QWidget#") + this->objectName() + "{ background-color: rgb(125,125,125) }");
-//    mainWindow->setStyleSheet("QWidget { background-color: rgb(125,125,125) }");
-//    coreWidget->updateTheme();
+    updateTheme(new QAction(lightThemeStr));
 }
 
 void RobotGUI::setWindowSize() {
@@ -57,8 +54,18 @@ RobotGUI::~RobotGUI() {
 
 void RobotGUI::updateTheme(QAction *channelAction) {
     Themes theme = Theme::getThemeFromName(channelAction->data().toString().toStdString());
+    mainWindow->setStyleSheet("QWidget { background-color: " + QString::fromStdString(Theme::getBackgroundColorStr(theme)) + "}");
+    menu->updateTheme(theme);
+    coreWidget->updateTheme(theme, false);
+}
+
+void RobotGUI::forceTheme(QAction *channelAction) {
+    Themes theme = Theme::getThemeFromName(channelAction->data().toString().toStdString());
+    mainWindow->setStyleSheet("QWidget { background-color: " + QString::fromStdString(Theme::getBackgroundColorStr(theme)) + "}");
+    menu->updateTheme(theme);
     coreWidget->updateTheme(theme, true);
 }
+
 
 void RobotGUI::makeWidgetsDraggable() {
     coreWidget->setDraggability(true);

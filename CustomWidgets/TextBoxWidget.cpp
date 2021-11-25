@@ -4,18 +4,21 @@
 #include <vector>
 
 TextBoxWidget::TextBoxWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, WidgetData *widgetData) : BaseWidget(parent, configInfo, widgetData) {
-    wrapper = new QWidget();
     layout = new QGridLayout();
     titleBox = new QLabel();
     textBox = new QLabel();
     layout->addWidget(titleBox);
     layout->addWidget(textBox);
-    wrapper->setLayout(layout);
+    this->setLayout(layout);
 
     titleBox->setText(QString::fromStdString(configInfo->title));
     textBox->setText(QString::fromStdString(GetInfoString()));
 
-    wrapper->setParent(this);
+    layout->setMargin(0);
+    titleBox->setMargin(0);
+    textBox->setMargin(0);
+    this->setAttribute(Qt::WA_StyledBackground, true);                                  // QWidget don't have this enabled by default, but most QWidgets do
+
     for(auto it = _configInfo->lines.begin(); it != _configInfo->lines.end(); ++it) {
         lineKeys.push_back(it[0][1]);
     }
@@ -85,7 +88,7 @@ void TextBoxWidget::updateOnInFocus() {
 
 void TextBoxWidget::customUpdate() {
     textBox->setText(QString::fromStdString(GetInfoString()));
-    wrapper->adjustSize();
+    this->adjustSize();
 }
 
 void TextBoxWidget::updateTheme(Themes _theme, bool overwrite) {

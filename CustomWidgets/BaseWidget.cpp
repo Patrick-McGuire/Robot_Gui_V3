@@ -18,10 +18,10 @@ BaseWidget::BaseWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, Widg
 void BaseWidget::setPosition(int _x, int _y) {
     if(!staticPos) {
         // Clip values to be inside the window
-        if (_x < 0) { _x = 0; }
-        if (_y < 0) { _y = 0; }
         if (_x > _parent->size().width() - this->width()) { _x = _parent->size().width() - this->width(); }
         if (_y > _parent->size().height() - this->height()) { _y = _parent->size().height() - this->height(); }
+        if (_x < 0) { _x = 0; }
+        if (_y < 0) { _y = 0; }
         _configInfo->x = _x;
         _configInfo->y = _y;
         // Move the widget on the screen
