@@ -34,6 +34,7 @@ public slots:
     void openReload();
 
 private:
+    bool quit = false;
     void restartGUI();
     bool safeParse();
     std::string getFilePath();

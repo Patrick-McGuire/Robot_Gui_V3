@@ -18,7 +18,7 @@ CoreGUI::CoreGUI(int _argc, char **_argv) : app(_argc, _argv), window(&mainWindo
 int CoreGUI::runGUI() {
     qDebug("Starting GUI\n");
     appConfig->parse();
-    while(!safeParse()) {
+    while(!safeParse() && !quit) {
         appConfig->parse();
     }
     qDebug("............");
@@ -41,7 +41,7 @@ void CoreGUI::openReload() {
     if(!filePath.empty()) {
         appConfig->setDefaultXmlPath(filePath);
         appConfig->write();
-        while(!safeParse()) {
+        while(!safeParse() && !quit) {
             appConfig->parse();
         }
         restartGUI();
@@ -83,6 +83,13 @@ std::string CoreGUI::getFilePath() {
     auto filePath = appConfig->getDefaultXmlPath();
     while (filePath == appConfigNoXmlPath || !AppConfig::fileExists(filePath)) {
         filePath = QFileDialog::getOpenFileName(&mainWindow, "Open XML Configuration File", QString::fromStdString(appConfig->getDefaultXmlPath()), "XML Files (*.xml)").toStdString();
+        if(filePath.empty()) {
+            appConfig->setDefaultXmlPath(appConfigNoXmlPath);
+            appConfig->write();
+            QApplication::quit();
+            quit = true;
+            break;
+        }
         appConfig->setDefaultXmlPath(filePath);
         appConfig->write();
     }
