@@ -5,6 +5,8 @@
 #include <QDebug>
 #include "../WidgetData.h"
 #include "../RobotGUI.h"
+#include "rapidjson/document.h"
+#include "rapidjson/stringbuffer.h"
 
 class RobotGUI;
 
@@ -26,7 +28,8 @@ public slots:
     void receiveData();
 
 private:
-//    std::shared_ptr<WidgetData> widgetData;
+    static WidgetData::internalJSON_ptr parseArray(rapidjson::Value *value);
+//    static WidgetData::
     WidgetData *_widgetData;
     RobotGUI *_robotGui;
     char *dataString;

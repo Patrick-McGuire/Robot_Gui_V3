@@ -4,14 +4,16 @@
 #include <vector>
 
 TextBoxWidget::TextBoxWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, WidgetData *widgetData) : BaseWidget(parent, configInfo, widgetData) {
-    styledBackground = true;
     styledHeader = true;
     styledText = true;
     styledSeeThroughBackground = true;
+    styledWidgetBackgroundColor = true;
 
     layout = new QGridLayout();
     titleBox = new QLabel();
     textBox = new QLabel();
+    titleBox->setObjectName(this->objectName() + textBoxTittleBoxName);
+    textBox->setObjectName(this->objectName() + textBoxTextBoxName);
     layout->addWidget(titleBox);
     layout->addWidget(textBox);
     this->setLayout(layout);
@@ -34,17 +36,17 @@ std::string TextBoxWidget::GetInfoString() {
     for(auto it = _configInfo->lines.begin(); it != _configInfo->lines.end(); ++it) {
         output += it[0][0];
         output += ": ";
-        std::string keyType = _widgetData->getKeyType(it[0][1]); //&it[0][0][1]
-        if (keyType == intType) {
+        WidgetData::internalJsonTypes keyType = _widgetData->getKeyType(it[0][1]); //&it[0][0][1]
+        if (keyType == WidgetData::int_t) {
             output += std::to_string(_widgetData->getInt(it[0][1]));
-        } else if (keyType == doubleType) {
+        } else if (keyType == WidgetData::double_t) {
             output += std::to_string(_widgetData->getDouble(it[0][1]));
-        } else if (keyType == stringType) {
+        } else if (keyType == WidgetData::string_t) {
             output += _widgetData->getString(it[0][1]);
-        } else if(keyType == boolType) {
+        } else if(keyType == WidgetData::bool_t) {
             output += _widgetData->getBool(it[0][1]) ? "True" : "False";
         } else {
-            output += "Ipe";
+            output += "err";
         }
         output += "\n";
 
@@ -75,6 +77,9 @@ void TextBoxWidget::parseXml(const WidgetConfig_ptr& parentConfig, rapidxml::xml
 }
 
 void TextBoxWidget::updateInFocus() {
+//    if(_widgetData->getKeyType("KEY5") == WidgetData::) {
+//        WidgetData::printJSON(_widgetData->getJSON("KEY5"));
+//    }
     for(auto & lineKey : lineKeys) {
         if(_widgetData->keyUpdated(lineKey)) {
             customUpdate();
@@ -97,25 +102,39 @@ void TextBoxWidget::customUpdate() {
 }
 
 void TextBoxWidget::customUpdateStyle(bool overwrite) {
-    QString mainWidgetStyle = "";
-    QString headerWidgetStyle = "";
-    // Set the background color
+
+}
+
+void TextBoxWidget::updateTextColor(bool overwrite) {
+    QString style = "";
+    if(overwrite || _configInfo->textColor == xmlThemeConst) {
+        style += QString("color: ") + QString::fromStdString(Theme::getTextColorStr(currentTheme)) + ";";
+    } else if(_configInfo->textColor != xmlThemeConst) {
+        style += QString("color: ") + QString::fromStdString(_configInfo->textColor) + ";";
+    }
+    this->setStyleSheet(style);
+}
+
+void TextBoxWidget::updateHeaderTextColor(bool overwrite) {
+    QString style = "";
+    if(overwrite || _configInfo->headerColor == xmlThemeConst) {
+        style += "color: " + QString::fromStdString(Theme::getHeaderTextColorStr(currentTheme)) + ";";
+    } else if(_configInfo->headerColor != xmlThemeConst) {
+        style += QString("color: ") + QString::fromStdString(_configInfo->headerColor) + ";";
+    }
+    titleBox->setStyleSheet(style);
+}
+
+void TextBoxWidget::updateWidgetBackgroundColor(bool overwrite) {
+    QString style = "";
     if(overwrite || _configInfo->backgroundColor == xmlThemeConst) {
         if(_configInfo->backgroundColor != xmlNoneConst) {
-            mainWidgetStyle += QString("background: ") + QString::fromStdString(Theme::getBackgroundColorStr(currentTheme)) + ";"; //Theme::getBackgroundColorStr(_theme)
+            style += QString("background: ") + QString::fromStdString(Theme::getWidgetBackgroundColorStr(currentTheme)) + ";";
         } else {
-            mainWidgetStyle += "background: transparent;";
+            style += "background: transparent;";
         }
     } else if(_configInfo->backgroundColor != xmlThemeConst || _configInfo->backgroundColor != xmlNoneConst) {
-        mainWidgetStyle += QString("background: ") + QString::fromStdString(_configInfo->backgroundColor) + ";";
+        style += QString("background: ") + QString::fromStdString(_configInfo->backgroundColor) + ";";
     }
-    // Set the text color
-    if(overwrite || _configInfo->textColor == xmlThemeConst) {
-        mainWidgetStyle += QString("color: ") + QString::fromStdString(Theme::getTextColorStr(currentTheme)) + ";";
-        headerWidgetStyle += "color: " + QString::fromStdString(Theme::getHeaderTextColorStr(currentTheme)) + ";";
-    } else if(_configInfo->textColor != xmlThemeConst) {
-        mainWidgetStyle += QString("color: ") + QString::fromStdString(_configInfo->textColor) + ";";
-    }
-    this->setStyleSheet(mainWidgetStyle);
-    titleBox->setStyleSheet(headerWidgetStyle);
+    this->setStyleSheet(style);
 }

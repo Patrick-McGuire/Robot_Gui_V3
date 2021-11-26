@@ -12,6 +12,7 @@
 #define boolType "bool"
 #define stringType "string"
 #define imgType "img"
+#define jsonType "json"
 #define noType "none"
 
 // AppConfig consts

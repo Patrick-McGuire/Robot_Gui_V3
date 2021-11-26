@@ -5,7 +5,6 @@
 #include <vector>
 #include "rapidjson/document.h"
 #include "rapidjson/stringbuffer.h"
-//192.168.0.8
 
 union lengthConverter {
     std::int32_t length;
@@ -37,7 +36,7 @@ void LocalServer::incomingConnection() {
 }
 
 
-    void LocalServer::receiveData() {
+void LocalServer::receiveData() {
     auto *sender = dynamic_cast<QTcpSocket*>(QObject::sender());
     QByteArray data = sender->readAll();
 
@@ -53,6 +52,7 @@ void LocalServer::incomingConnection() {
         auto imgId = (uint8_t) data.at(6);          // only used by img
         data.remove(0, 6);
 
+
         if(msgLength.length < 0 || data.length() < msgLength.length) {          // Int overflow, message corrupted
             return;
         }
@@ -65,21 +65,9 @@ void LocalServer::incomingConnection() {
             case JSON: {
                 rapidjson::Document doc;
                 doc.Parse(dataString);
-                rapidjson::Value::MemberIterator M;
-                // Iterate though all json keys and save their values to widgetData
-                for (M = doc.MemberBegin(); M != doc.MemberEnd(); M++) {
+                for (rapidjson::Value::MemberIterator M = doc.MemberBegin(); M != doc.MemberEnd(); M++) {
                     std::string keyName = M->name.GetString();
-                    char keyNameCString[20];
-                    std::strcpy(keyNameCString, keyName.c_str());
-                    if (doc[keyNameCString].IsString()) {
-                        _widgetData->setString(keyNameCString, doc[keyNameCString].GetString());
-                    } else if (doc[keyNameCString].IsDouble()) {
-                        _widgetData->setDouble(keyNameCString, doc[keyNameCString].GetDouble());
-                    } else if (doc[keyNameCString].IsInt()) {
-                        _widgetData->setInt(keyNameCString, doc[keyNameCString].GetInt());
-                    } else if(doc[keyNameCString].IsBool()) {
-                        _widgetData->setBool(keyNameCString, doc[keyNameCString].GetBool());
-                    }
+                    _widgetData->setJSON(keyName, parseArray(&doc[keyName.data()]));
                 }
                 break;
             } case IMG: {
@@ -98,4 +86,38 @@ void LocalServer::incomingConnection() {
         }
         emit newData();         // This will cause the function that updates all widgets to run
     }
+}
+
+WidgetData::internalJSON_ptr LocalServer::parseArray(rapidjson::Value *value) {
+    auto rtn = std::make_shared<WidgetData::internalJSON>();
+    rtn->type = WidgetData::vector_t;
+
+    if(value->IsBool()) {
+        rtn->boolVal = value->GetBool();
+        rtn->type = WidgetData::bool_t;
+    } else if(value->IsInt()) {
+        rtn->intVal = value->GetInt();
+        rtn->type = WidgetData::int_t;
+    } else if(value->IsDouble()) {
+        rtn->doubleVal = value->GetDouble();
+        rtn->type = WidgetData::double_t;
+    } else if(value->IsString()) {
+        rtn->stringVal = value->GetString();
+        rtn->type = WidgetData::string_t;
+    } else if(value->IsArray()) {
+        rtn->type = WidgetData::vector_t;
+        auto array = value->GetArray();
+        int count = 0;
+        for (rapidjson::Value::ConstValueIterator itr = array.Begin(); itr != array.End(); ++itr, count++) {
+            rtn->vector.push_back(parseArray(&array[count]));
+        }
+    } else if(value->IsObject()) {
+        rtn->type = WidgetData::map_t;
+        auto obj = value->GetObject();
+        rapidjson::Value::MemberIterator M;
+        for (M = obj.MemberBegin(); M != obj.MemberEnd(); M++) {
+            rtn->map[M->name.GetString()] = parseArray(&obj[M->name]);
+        }
+    }
+    return rtn;
 }

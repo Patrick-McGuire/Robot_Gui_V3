@@ -66,7 +66,7 @@ void BaseWidget::showContextMenu(const QPoint &pos) {
     if(!staticPos) {
         contextMenu->addAction("Toggle Draggability", this, SLOT(toggleDraggability()));
     }
-    if(styledBackground) {
+    if(styledBackground || styledWidgetBackgroundColor) {
         auto *backgroundColor = contextMenu->addMenu("Background color");
         menus.emplace_back(backgroundColor);
         backgroundColor->setObjectName(QString(contextMenuName) + "BGColor");
@@ -105,16 +105,6 @@ void BaseWidget::showContextMenu(const QPoint &pos) {
     contextMenu->exec(mapToGlobal(pos));
 }
 
-void BaseWidget::setBackgroundColor(QAction *channelAction) {
-    _configInfo->backgroundColor = channelAction->data().toString().toStdString();
-    customUpdateStyle(false);
-}
-
-void BaseWidget::setTextColor(QAction *channelAction) {
-    _configInfo->textColor = channelAction->data().toString().toStdString();
-    customUpdateStyle(false);
-}
-
 void BaseWidget::mousePressEvent(QMouseEvent *event) {
     if(!staticPos && _configInfo->draggable) {
         clicked = true;
@@ -139,34 +129,38 @@ void BaseWidget::mouseMoveEvent(QMouseEvent *event) {
     }
 }
 
+// Style
 void BaseWidget::updateStyle(Themes _theme, bool overwrite) {
     currentTheme = _theme;
+    if(styledBackground) { updateBackgroundColor(overwrite); }
+    if(styledWidgetBackgroundColor) { updateWidgetBackgroundColor(overwrite); }
+    if(styledBorderColor) { updateBorderColor(overwrite); }
+    if(styledText) { updateTextColor(overwrite); }
+    if(styledHeader) { updateHeaderTextColor(overwrite); }
     customUpdateStyle(overwrite);
 }
 
-void BaseWidget::updateInFocus() {
-
+void BaseWidget::setBackgroundColor(QAction *channelAction) {
+    _configInfo->backgroundColor = channelAction->data().toString().toStdString();
+    if(styledBackground) { updateBackgroundColor(false); }
+    if(styledWidgetBackgroundColor) { updateWidgetBackgroundColor(false); }
 }
 
-void BaseWidget::updateNoFocus() {
-
+void BaseWidget::setTextColor(QAction *channelAction) {
+    _configInfo->textColor = channelAction->data().toString().toStdString();
+    updateTextColor(false);
 }
 
-void BaseWidget::updateOnInFocus() {
+void BaseWidget::customUpdateStyle(bool overwrite){}
+void BaseWidget::updateTextColor(bool overwrite) {}
+void BaseWidget::updateBackgroundColor(bool overwrite) {}
+void BaseWidget::updateHeaderTextColor(bool overwrite) {}
+void BaseWidget::updateWidgetBackgroundColor(bool overwrite) {}
+void BaseWidget::updateBorderColor(bool overwrite) {}
 
-}
+void BaseWidget::updateInFocus() {}
+void BaseWidget::updateNoFocus() {}
+void BaseWidget::updateOnInFocus() {}
+void BaseWidget::customUpdate() {}
 
-void BaseWidget::customUpdate() {
-
-}
-
-void BaseWidget::customUpdateDraggability(bool _draggable) {
-
-}
-
-void BaseWidget::customUpdateStyle(bool overwrite) {
-
-}
-
-
-
+void BaseWidget::customUpdateDraggability(bool _draggable) {}

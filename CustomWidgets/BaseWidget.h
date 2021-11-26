@@ -22,11 +22,15 @@ protected:
     WidgetData *_widgetData;
     const bool staticPos;
     Themes currentTheme;
-    // These are set by derived classes
-    bool styledBackground;
-    bool styledText;
-    bool styledHeader;
-    bool styledSeeThroughBackground;
+
+    // These register weather or not the current widget can update these attributes
+    // Set these in the constructor of any derived class
+    bool styledBackground = false;
+    bool styledText = false;
+    bool styledHeader = false;
+    bool styledSeeThroughBackground = false;
+    bool styledBorderColor = false;
+    bool styledWidgetBackgroundColor = false;
 
     /**
      * Updates data when widget is in focus, virtual
@@ -102,16 +106,40 @@ public:
     void updateData(bool focus);
 
     /**
-     * Updates the style of this widget, to be overwritten
+     * Updates the style of this widget, to be overwritten by derived
      * @param overwrite weather to overwrite any attributes with theme
      */
     virtual void customUpdateStyle(bool overwrite);
 
-//    virtual void updateTextColor(bool overwrite);
-//
-//    virtual void updateBackgroundColor(bool overwrite);
-//
-//    virtual void updateHeaderTextColor(bool overwrite);
+    /**
+     * Updates the text color of this widget, to be overwritten by derived
+     * @param overwrite weather to overwrite any attributes with theme
+     */
+    virtual void updateTextColor(bool overwrite);
+
+    /**
+     * Updates the background color of this widget, to be overwritten by derived
+     * @param overwrite weather to overwrite any attributes with theme
+     */
+    virtual void updateBackgroundColor(bool overwrite);
+
+    /**
+     * Updates the header text color of this widget, to be overwritten by derived
+     * @param overwrite weather to overwrite any attributes with theme
+     */
+    virtual void updateHeaderTextColor(bool overwrite);
+
+    /**
+     * Updates the widget background color of this widget, to be overwritten by derived
+     * @param overwrite weather to overwrite any attributes with theme
+     */
+    virtual void updateWidgetBackgroundColor(bool overwrite);
+
+    /**
+     * Updates the border color of this widget, to be overwritten by derived
+     * @param overwrite weather to overwrite any attributes with theme
+     */
+    virtual void updateBorderColor(bool overwrite);
 
     /**
      * Updates the style of this widget

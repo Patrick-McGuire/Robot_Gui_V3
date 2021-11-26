@@ -22,7 +22,7 @@
 #define darkThemeRightClickMenuHighlightColor "rgb(60,60,60)"
 // Green theme
 #define greenThemeBackgroundColor "rgb(20,20,20)"
-#define greenThemeWidgetBackgroundColor "rgb(25, 25, 25)"
+#define greenThemeWidgetBackgroundColor "rgb(25,25,25)"
 #define greenThemeTextColor "rgb(150,150,150)"
 #define greenThemeHeaderTextColor "rgb(10,200,10)"
 #define greenThemeBorderColor "rgb(50,50,50)"

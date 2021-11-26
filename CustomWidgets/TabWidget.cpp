@@ -7,8 +7,6 @@
 TabWidget::TabWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, WidgetData *widgetData) : BaseWidget(parent, configInfo, widgetData) {
     styledBackground = true;
     styledHeader = true;
-    styledText = false;
-    styledSeeThroughBackground = false;
 
     this->setLayout(&layout);
     layout.setMargin(0);
@@ -43,15 +41,6 @@ TabWidget::TabWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, Widget
         tabs->setCurrentIndex(i);
     }
     tabs->setCurrentIndex(0);
-
-//    std::cout << tabs->objectName().toStdString() << "\n";
-//    if(this->objectName() != "1") {
-//        tabs->setObjectName(QString::fromStdString("asdfasfd"));
-//        std::cout << tabs->objectName().toStdString() << " f\n";
-//        this->setStyleSheet(QString("QTabWidget::QTabBar#") + tabs->objectName() + " { background: rgb(125,125,125) } ");
-//        tabs->tabBar()->setStyleSheet();
-//        this->setStyleSheet(QString("QTabBar") + " { background: rgb(125,125,125) } ");
-//    }
 }
 
 
