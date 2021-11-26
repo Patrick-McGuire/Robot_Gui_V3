@@ -3,7 +3,6 @@
 #include <utility>
 #include "iostream"
 
-// Getter methods
 std::string WidgetData::getString(const std::string& key) {
     if(jsonMap.count(key)) {
         return jsonMap[key]->stringVal;

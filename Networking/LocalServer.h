@@ -29,7 +29,6 @@ public slots:
 
 private:
     static WidgetData::internalJSON_ptr parseArray(rapidjson::Value *value);
-//    static WidgetData::
     WidgetData *_widgetData;
     RobotGUI *_robotGui;
     char *dataString;
