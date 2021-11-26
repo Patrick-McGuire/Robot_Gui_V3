@@ -24,7 +24,7 @@ void VideoWidget::parseXml(const WidgetConfig_ptr& parentConfig, rapidxml::xml_n
 }
 
 void VideoWidget::updateInFocus() {
-    if(_widgetData->keyUpdated(_configInfo->id)) {
+    if(widgetData->keyUpdated(configInfo->id)) {
         customUpdate();
     }
 }
@@ -38,10 +38,10 @@ void VideoWidget::updateOnInFocus() {
 }
 
 void VideoWidget::customUpdate() {
-    if(_widgetData->imgExits(_configInfo->id)) {
+    if(widgetData->imgExits(configInfo->id)) {
         cv::Mat rgb_image;
-        cv::cvtColor(_widgetData->getImg(_configInfo->id), rgb_image, cv::COLOR_BGR2RGB);
-        videoWidget.setPixmap(QPixmap::fromImage(QImage((unsigned char *) rgb_image.data, rgb_image.cols, rgb_image.rows, QImage::Format_RGB888)).scaled(_configInfo->width, _configInfo->height, Qt::KeepAspectRatio));
+        cv::cvtColor(widgetData->getImg(configInfo->id), rgb_image, cv::COLOR_BGR2RGB);
+        videoWidget.setPixmap(QPixmap::fromImage(QImage((unsigned char *) rgb_image.data, rgb_image.cols, rgb_image.rows, QImage::Format_RGB888)).scaled(configInfo->width, configInfo->height, Qt::KeepAspectRatio));
     }
 }
 

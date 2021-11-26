@@ -22,7 +22,7 @@ TabWidget::TabWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, Widget
     for(int i = 0; i < configInfo->tabNames.size(); i++) {
         // Add new tab to tabWidget and setup it's page
         auto *page = new QWidget();
-        page->setObjectName(QString::fromStdString(_configInfo->objectName) + "Page"); //+ QString::number(i));
+        page->setObjectName(QString::fromStdString(configInfo->objectName) + "Page"); //+ QString::number(i));
         page->setFixedSize(tabs->width(), tabs->height()-25);
         tabs->addTab(page, QString::fromStdString(configInfo->tabNames[i]));
         page->show();
@@ -34,10 +34,8 @@ TabWidget::TabWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, Widget
             widgets.emplace_back(GUIMaker::createWidget(page, configInfo->tabWidgets[i][j], widgetData));
         }
     }
-    // Just don't even ask
-    // Please don't ask
-    // Fine. It's a dumb fix for a problem that makes no sense
-    // Comment this out, configure nested tabs, and enjoy
+
+    // This is a hack fix for a bug when first opening up a GUI with nested tabs
     for(int i = 0; i < widgets.size(); i++) {
         tabs->setCurrentIndex(i);
     }
@@ -61,33 +59,6 @@ void TabWidget::updateOnInFocus() {
 
 }
 
-void TabWidget::parseXml(const WidgetConfig_ptr& parentConfig, rapidxml::xml_node<> *node) {
-    for(auto *tab = node->first_node(); tab; tab = tab->next_sibling()) {                           // Iterate over nodes
-        std::string tagName = tab->name();
-        if(tagName == xmlTabTag) {
-            std::string tabTitle = "No name";
-            for(auto *attr = tab->first_attribute(); attr; attr = attr->next_attribute()) {         // Iterate over attributes
-                std::string attrName = attr->name();
-                std::string attrVal = attr->value();
-                if(attrName == xmlTitleATR) {
-                    tabTitle = attrVal;
-                }
-            }
-            parentConfig->tabNames.emplace_back(tabTitle);
-            parseTabChildren(parentConfig, tab);
-        }
-    }
-}
-
-void TabWidget::parseTabChildren(const WidgetConfig_ptr& parentConfig, rapidxml::xml_node<> *node) {
-    //// This calls back to XML input to parse the "sub" widgets ////
-    std::vector<WidgetConfig_ptr> widgetsVec;
-    for(auto *widget = node->first_node(); widget; widget = widget->next_sibling()) {
-        widgetsVec.emplace_back(XMLInput::parseWidget(widget));
-    }
-    parentConfig->tabWidgets.emplace_back(widgetsVec);
-}
-
 void TabWidget::customUpdateDraggability(bool _draggable) {
     for(auto & widget : widgets) {
         widget->setDraggability(_draggable);
@@ -95,18 +66,18 @@ void TabWidget::customUpdateDraggability(bool _draggable) {
 }
 
 void TabWidget::customUpdateStyle(bool overwrite) {
-    std::string tittleTextColor = _configInfo->headerColor;
-    std::string backgroundColor = _configInfo->backgroundColor;
-    if(overwrite || _configInfo->headerColor == xmlThemeConst) {
+    std::string tittleTextColor = configInfo->headerColor;
+    std::string backgroundColor = configInfo->backgroundColor;
+    if(overwrite || configInfo->headerColor == xmlThemeConst) {
         tittleTextColor = Theme::getHeaderTextColorStr(currentTheme);
     }
-    if(overwrite || _configInfo->backgroundColor == xmlThemeConst) {
-        if(_configInfo->backgroundColor != xmlNoneConst) {
+    if(overwrite || configInfo->backgroundColor == xmlThemeConst) {
+        if(configInfo->backgroundColor != xmlNoneConst) {
             backgroundColor = Theme::getBackgroundColorStr(currentTheme);
         } else {
             backgroundColor = "transparent";
         }
-    } else if(_configInfo->backgroundColor == xmlNoneConst) {
+    } else if(configInfo->backgroundColor == xmlNoneConst) {
         backgroundColor = "transparent";
     }
 
@@ -127,4 +98,31 @@ void TabWidget::updateChildrenStyle(bool overwrite) {
     for(auto & widget : widgets) {
         widget->updateStyle(currentTheme, overwrite);
     }
+}
+
+void TabWidget::parseXml(const WidgetConfig_ptr& parentConfig, rapidxml::xml_node<> *node) {
+    for(auto *tab = node->first_node(); tab; tab = tab->next_sibling()) {                           // Iterate over nodes
+        std::string tagName = tab->name();
+        if(tagName == xmlTabTag) {
+            std::string tabTitle = "No name";
+            for(auto *attr = tab->first_attribute(); attr; attr = attr->next_attribute()) {         // Iterate over attributes
+                std::string attrName = attr->name();
+                std::string attrVal = attr->value();
+                if(attrName == xmlTitleATR) {
+                    tabTitle = attrVal;
+                }
+            }
+            parentConfig->tabNames.emplace_back(tabTitle);
+            parseTabChildren(parentConfig, tab);
+        }
+    }
+}
+
+void TabWidget::parseTabChildren(const WidgetConfig_ptr& parentConfig, rapidxml::xml_node<> *node) {
+    // These calls back to XML input to parse the "sub" widgets
+    std::vector<WidgetConfig_ptr> widgetsVec;
+    for(auto *widget = node->first_node(); widget; widget = widget->next_sibling()) {
+        widgetsVec.emplace_back(XMLInput::parseWidget(widget));
+    }
+    parentConfig->tabWidgets.emplace_back(widgetsVec);
 }

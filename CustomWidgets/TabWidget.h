@@ -1,7 +1,3 @@
-//
-// Created by patrick on 11/6/21.
-//
-
 #ifndef ROBOT_GUI_V3_TABWIDGET_H
 #define ROBOT_GUI_V3_TABWIDGET_H
 
@@ -21,26 +17,75 @@
 #include "../GUIMaker.h"
 #include <QApplication>
 
+/**
+ * @class TabWidget
+ * Custom QWidget that creates tabs with children widgets
+ *
+ * @author Patrick McGuire (Patrick-McGuire)
+ */
 class TabWidget : public BaseWidget  {
+public:
+    /**
+     * Constructor
+     * @param parent QWidget to make parent
+     * @param configInfo configuration data
+     * @param widgetData global widgetData object
+     */
+    TabWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, WidgetData *widgetData);
+
+    /**
+     * Parses a xml node into the config struct
+     * @param parentConfig[out] struct to store data into
+     * @param node[in] xml node to parse
+     */
+    static void parseXml(const WidgetConfig_ptr& parentConfig, rapidxml::xml_node<> *node);
+
+
 private:
     QGridLayout layout;
     QTabWidget *tabs;
     std::vector<QWidget*> pages;
     std::vector<BaseWidget*> widgets;
 
-    static void parseTabChildren(const WidgetConfig_ptr& parentConfig, rapidxml::xml_node<> *node);
-
-public:
-    TabWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, WidgetData *widgetData);
-
-    static void parseXml(const WidgetConfig_ptr& parentConfig, rapidxml::xml_node<> *node);
-
+    /**
+     * Update the widget when in focus
+     */
     void updateInFocus() override;
+
+    /**
+     * Update the widget when not in focus
+     */
     void updateNoFocus() override;
+
+    /**
+     * Update the widget when coming into focus
+     */
     void updateOnInFocus() override;
+
+    /**
+     * Sets draggability of all children
+     * @param _draggable weather or not children should be draggable
+     */
     void customUpdateDraggability(bool _draggable) override;
+
+    /**
+     * Updates the style of this widget
+     * @param overwrite if we should overwrite any attributes with theme
+     */
     void customUpdateStyle(bool overwrite) override;
+
+    /**
+     * Updates the style of this children widgets
+     * @param overwrite if we should overwrite any attributes with theme
+     */
     void updateChildrenStyle(bool overwrite) override;
+
+    /**
+     * Parses xml for all children in the tab
+     * @param parentConfig tab configuration to add children to
+     * @param node xml node containing children
+     */
+    static void parseTabChildren(const WidgetConfig_ptr& parentConfig, rapidxml::xml_node<> *node);
 };
 
 

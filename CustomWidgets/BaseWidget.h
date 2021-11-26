@@ -14,12 +14,18 @@
 
 #define contextMenuName "TempContextMenuName"
 
+/**
+ * @class BaseWidget
+ * Custom QWidget that creates tabs with children widgets
+ *
+ * @author Patrick McGuire (Patrick-McGuire)
+ */
 class BaseWidget: public QWidget {
 Q_OBJECT
 protected:
     QWidget *_parent;
-    WidgetConfig_ptr _configInfo;
-    WidgetData *_widgetData;
+    WidgetConfig_ptr configInfo;
+    WidgetData *widgetData;
     const bool staticPos;
     Themes currentTheme;
 
@@ -80,11 +86,11 @@ public:
 
     /**
      * Constructor
-     * @param parent parent QWidget
-     * @param configInfo config struct to create widget based off of
-     * @param widgetData data passing structure to read data from at runtime
+     * @param _parent_ _parent_ QWidget
+     * @param _configInfo config struct to create widget based off of
+     * @param _widgetData data passing structure to read data from at runtime
      */
-    BaseWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, WidgetData *widgetData);
+    BaseWidget(QWidget *_parent_, const WidgetConfig_ptr& _configInfo, WidgetData *_widgetData);
 
     /**
      * Sets the position of the widget on the screen

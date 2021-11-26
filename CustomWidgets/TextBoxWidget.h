@@ -15,31 +15,61 @@
 #define textBoxTittleBoxName "TITTLE_BOX"
 #define textBoxTextBoxName "TEXT_BOX"
 
+/**
+ * @class TextBoxWidget
+ * Custom QWidget that creates tabs with children widgets
+ *
+ * @author Patrick McGuire (Patrick-McGuire)
+ */
 class TextBoxWidget: public BaseWidget  {
+public:
+    /**
+     * Constructor
+     * @param parent QWidget to make parent
+     * @param configInfo configuration data
+     * @param widgetData global widgetData object
+     */
+    TextBoxWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, WidgetData *widgetData);
+
+    /**
+     * Parses a xml node into the config struct
+     * @param parentConfig[out] struct to store data into
+     * @param node[in] xml node to parse
+     */
+    static void parseXml(const WidgetConfig_ptr& parentConfig, rapidxml::xml_node<> *node);
+
 private:
     QLabel *textBox;
     QLabel *titleBox;
     QGridLayout *layout;
-
     std::vector<std::string> lineKeys;
 
-    std::string GetInfoString();
-public:
     /**
-     * Constructor
-     * @param name  name of widget
-     * @param x     x position of the widget
-     * @param y     y position of the widget
+     * Returns the string for the text box based on widgetData
+     * @return string to display
      */
-    TextBoxWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, WidgetData *widgetData);
+    std::string GetInfoString();
 
-    static void parseXml(const WidgetConfig_ptr& parentConfig, rapidxml::xml_node<> *node);
-
+    /**
+     * Update the widget when in focus
+     */
     void updateInFocus() override;
+
+    /**
+     * Update the widget when not in focus
+     */
     void updateNoFocus() override;
+
+    /**
+     * Update the widget when coming into focus
+     */
     void updateOnInFocus() override;
+
+    /**
+     * Helper function for updating data
+     */
     void customUpdate() override;
-    
+
     /**
      * Updates the style of this widget
      * @param overwrite if we should overwrite any attributes with theme
