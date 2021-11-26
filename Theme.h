@@ -45,16 +45,76 @@ enum Themes {
 };
 
 
+/**
+ * @class Theme
+ * Handles theme constants
+ *
+ * @author Patrick McGuire (Patrick-McGuire)
+ */
 class Theme {
 public:
+
+    /**
+     * Gets the background color rgb string for a given theme
+     * @param theme given theme
+     * @return qStylesheet compatible rgb string
+     */
     static std::string getBackgroundColorStr(Themes theme);
+
+    /**
+     * Gets the widget background color rgb string for a given theme
+     * @param theme given theme
+     * @return qStylesheet compatible rgb string
+     */
     static std::string getWidgetBackgroundColorStr(Themes theme);
+
+    /**
+     * Gets the text color rgb string for a given theme
+     * @param theme given theme
+     * @return qStylesheet compatible rgb string
+     */
     static std::string getTextColorStr(Themes theme);
+
+    /**
+     * Gets the header text color rgb string for a given theme
+     * @param theme given theme
+     * @return qStylesheet compatible rgb string
+     */
     static std::string getHeaderTextColorStr(Themes theme);
+
+    /**
+     * Gets the border color rgb string for a given theme
+     * @param theme given theme
+     * @return qStylesheet compatible rgb string
+     */
     static std::string getBorderColorStr(Themes theme);
+
+    /**
+     * Gets the right click menu background color rgb string for a given theme
+     * @param theme given theme
+     * @return qStylesheet compatible rgb string
+     */
     static std::string getRightClickMenuBackgroundColorStr(Themes theme);
+
+    /**
+     * Gets the right click menu background highlight color rgb string for a given theme
+     * @param theme given theme
+     * @return qStylesheet compatible rgb string
+     */
     static std::string getRightClickMenuHighlightColorStr(Themes theme);
+
+    /**
+     * Gets name of a given theme
+     * @param theme given theme
+     * @return name of theme
+     */
     static std::string getThemeName(Themes theme);
+
+    /**
+     * Gets theme enum for a given theme name
+     * @param theme given theme name
+     * @return theme enum
+     */
     static Themes getThemeFromName(const std::string& name);
 };
 

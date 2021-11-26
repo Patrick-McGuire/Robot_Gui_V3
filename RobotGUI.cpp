@@ -1,6 +1,5 @@
 #include <QFileDialog>
 #include "RobotGUI.h"
-#include <chrono>
 #include <thread>
 
 RobotGUI::RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appConfig, CoreGUI *_coreGui, const WindowConfig_ptr& _config) : QWidget(_parent) {

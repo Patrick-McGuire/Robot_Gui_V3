@@ -8,31 +8,58 @@
 #include "rapidjson/document.h"
 #include "rapidjson/stringbuffer.h"
 
-class RobotGUI;
+class RobotGUI;     // Fixes some reference errors
 
+/**
+ * @class LocalServer
+ * Server that the GUI recives data from
+ *
+ * @author Patrick McGuire (Patrick-McGuire)
+ */
 class LocalServer :  public QTcpServer {
 Q_OBJECT
-
 public:
+    /**
+     * Constructor
+     * @param parent QObject to make parent
+     * @param widgetData global WidgetData object to update when new data is received
+     * @param robotGui RobotGUI object to connect slots
+     */
     explicit LocalServer(QObject *parent, WidgetData *widgetData, RobotGUI *robotGui);
+
     /**
      * Opens the server
      */
     void StartServer();
 
 signals:
+    /**
+     * emitted when new data is received and processed
+     */
     void newData();
 
 public slots:
+    /**
+     * New connection
+     */
     void incomingConnection();
+
+    /**
+     * Receive data from a client and process it
+     */
     void receiveData();
 
 private:
-    static WidgetData::internalJSON_ptr parseArray(rapidjson::Value *value);
     WidgetData *_widgetData;
     RobotGUI *_robotGui;
     char *dataString;
-};
 
+    /**
+     * parses a json value object into the internal json struct format
+     * @param value rapidjson value object to parse
+     * @return custom json struct
+     */
+    static WidgetData::internalJSON_ptr parseArray(rapidjson::Value *value);
+};
 
 #endif //ROBOT_GUI_V3_LOCALSERVER_H

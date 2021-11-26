@@ -1,7 +1,3 @@
-//
-// Created by patrick on 11/15/21.
-//
-
 #include "CoreGUI.h"
 
 CoreGUI::CoreGUI(int _argc, char **_argv) : app(_argc, _argv), window(&mainWindow) {

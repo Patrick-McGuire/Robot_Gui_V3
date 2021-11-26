@@ -8,8 +8,21 @@
 #include <QWidget>
 #include <QTabWidget>
 
+/**
+ * @class GUIMaker
+ * Static class used to generate various parts of the GUI
+ *
+ * @author Patrick McGuire (Patrick-McGuire)
+ */
 class GUIMaker {
 public:
+    /**
+     * Creates a new custom widget
+     * @param parent parent for the widget
+     * @param configInfo configuration info for the widget
+     * @param widgetData global WidgetData object
+     * @return new custom widget
+     */
     static BaseWidget* createWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, WidgetData *widgetData);
 };
 

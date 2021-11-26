@@ -19,24 +19,69 @@ class LocalServer;
 class MenuWidget;
 class CoreGUI;
 
+/**
+ * @class RobotGUI
+ * Runs the GUI
+ *
+ * @author Patrick McGuire (Patrick-McGuire)
+ */
 class RobotGUI : public QWidget {
 Q_OBJECT
 public:
+    /**
+     * Constructor
+     * @param _parent QWidget to make parent
+     * @param _mainWindow main window of the GUI
+     * @param _appConfig global configuration data
+     * @param _coreGui CoreGUI object for connecting slots
+     * @param _config window configuration data
+     */
     RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appConfig, CoreGUI *_coreGui, const WindowConfig_ptr& _config);
+
+    /**
+     * Deconstruct
+     */
     ~RobotGUI();
+
+    /**
+     * Set the theme of the GUI
+     * @param _theme theme to set
+     * @param force whether or not to force the theme on all widgets
+     */
     void setTheme(Themes _theme, bool force);
 
 public slots:
+    /**
+     * Slot that updates the every child custom widget
+     */
     void updateGUI();
+
+    /**
+     * Makes all children custom widgets draggable
+     */
     void makeWidgetsDraggable();
+
+    /**
+     * Makes all children custom widgets fixed
+     */
     void makeWidgetsFixed();
+
+    /**
+     * Sets the theme for the gui
+     * @param channelAction object contain theme to set
+     */
     void updateTheme(QAction *channelAction);
+
+    /**
+     * Forces the theme on to all widgets
+     * @param channelAction object contain theme to set
+     */
     void forceTheme(QAction *channelAction);
 
-signals:
-    void restartThing();
-
 private:
+    /**
+     * Resizes the main window
+     */
     void setWindowSize();
 
     WindowConfig_ptr config;

@@ -1,7 +1,3 @@
-//
-// Created by patrick on 11/15/21.
-//
-
 #ifndef ROBOT_GUI_V3_COREGUI_H
 #define ROBOT_GUI_V3_COREGUI_H
 
@@ -22,23 +18,46 @@
 class RobotGUI;
 class MenuWidget;
 
+/**
+ * @class CoreGUI
+ * Custom Manages the entire GUI
+ *
+ * @author Patrick McGuire (Patrick-McGuire)
+ */
 class CoreGUI : public QObject{
 Q_OBJECT
 public:
+    /**
+     * Constructor
+     * @param argc
+     * @param argv
+     */
     CoreGUI(int argc, char** argv);
+
+    /**
+     * Runs the gui
+     * @return exit code
+     */
     int runGUI();
 
 public slots:
+    /**
+     * Reloads the GUI with the current configuration
+     */
     void reload();
+
+    /**
+     * Reprises the xml file and reloads the GUI
+     */
     void reparseReload();
+
+    /**
+     * Opens a new GUI configuration
+     */
     void openReload();
 
 private:
     bool quit = false;
-    void restartGUI();
-    bool safeParse();
-    std::string getFilePath();
-
     int argc;
     char **argv;
     WindowConfig_ptr windowConfig;
@@ -48,6 +67,23 @@ private:
     QWidget window;
     QWidget *wrapper;
     RobotGUI *currentRobotGUI;
+
+    /**
+     * Restarts the RobotGUI instance
+     */
+    void restartGUI();
+
+    /**
+     * Parses xml, and catches errors
+     * @return if successful
+     */
+    bool safeParse();
+
+    /**
+     * Gets a file path
+     * @return file path
+     */
+    std::string getFilePath();
 };
 
 

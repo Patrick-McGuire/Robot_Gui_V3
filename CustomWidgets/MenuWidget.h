@@ -1,7 +1,3 @@
-//
-// Created by patrick on 11/15/21.
-//
-
 #ifndef ROBOT_GUI_V3_MENUWIDGET_H
 #define ROBOT_GUI_V3_MENUWIDGET_H
 
@@ -31,11 +27,29 @@ class CoreGUI;
 #define settingsMenuName "SettingMenuName"
 #define themeMenuName "ThemeMenu"
 
-///// This is not a configurable widget like most custom widgets, this is hardcoded and created for every GUI
+/**
+ * @class TextBoxWidget
+ * Custom QWidget that creates tabs with children widgets
+ * This is not a configurable widget like most custom widgets, this is hardcoded and created for every GUI
+ *
+ * @author Patrick McGuire (Patrick-McGuire)
+ */
 class MenuWidget : public QMenuBar {
 Q_OBJECT
 public:
+    /**
+     * Constructor
+     * @param parent QWidget to make parent, should be a MainWindow
+     * @param appConfig_ configuration data
+     * @param coreGui CoreGUI class for connecting slot
+     * @param robotGui RobotGUI class for connecting slot
+     */
     MenuWidget(QWidget *parent, AppConfig *appConfig_, CoreGUI *coreGui, RobotGUI *robotGui);
+
+    /**
+     * Updates the menu bar's theme
+     * @param _theme theme to set
+     */
     void updateTheme(Themes _theme);
 
 private:

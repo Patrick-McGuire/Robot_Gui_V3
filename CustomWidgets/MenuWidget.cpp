@@ -1,7 +1,3 @@
-//
-// Created by patrick on 11/15/21.
-//
-
 #include "MenuWidget.h"
 
 MenuWidget::MenuWidget(QWidget *parent, AppConfig *appConfig_, CoreGUI *coreGui, RobotGUI *robotGui) : QMenuBar(parent) {
@@ -55,7 +51,6 @@ MenuWidget::MenuWidget(QWidget *parent, AppConfig *appConfig_, CoreGUI *coreGui,
     this->addMenu(file);
     this->addMenu(settings);
     this->addMenu(theme);
-    this->setObjectName("adsfff");
 }
 
 

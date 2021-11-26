@@ -1,7 +1,3 @@
-//
-// Created by patrick on 10/17/21.
-//
-
 #include "VideoWidget.h"
 
 VideoWidget::VideoWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, WidgetData *widgetData) : BaseWidget(parent, configInfo, widgetData)  {
