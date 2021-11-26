@@ -39,28 +39,12 @@ public:
     void updateNoFocus() override;
     void updateOnInFocus() override;
     void customUpdate() override;
-
-    // Style
+    
+    /**
+     * Updates the style of this widget
+     * @param overwrite if we should overwrite any attributes with theme
+     */
     void customUpdateStyle(bool overwrite) override;
-
-
-    /**
-     * Updates the text color of this widget
-     * @param overwrite weather to overwrite any attributes with theme
-     */
-    void updateTextColor(bool overwrite) override;
-
-    /**
-     * Updates the header text color of this widget
-     * @param overwrite weather to overwrite any attributes with theme
-     */
-    void updateHeaderTextColor(bool overwrite) override;
-
-    /**
-     * Updates the widget background color of this widget
-     * @param overwrite weather to overwrite any attributes with theme
-     */
-    void updateWidgetBackgroundColor(bool overwrite) override;
 };
 
 #endif //ROBOT_GUI_V3_TEXTBOXWIDGET_H

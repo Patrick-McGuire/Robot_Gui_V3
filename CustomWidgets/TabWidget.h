@@ -40,6 +40,7 @@ public:
     void updateOnInFocus() override;
     void customUpdateDraggability(bool _draggable) override;
     void customUpdateStyle(bool overwrite) override;
+    void updateChildrenStyle(bool overwrite) override;
 };
 
 

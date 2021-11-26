@@ -112,34 +112,10 @@ public:
     virtual void customUpdateStyle(bool overwrite);
 
     /**
-     * Updates the text color of this widget, to be overwritten by derived
+     * Updates the style of children widget, to be overwritten by derived
      * @param overwrite weather to overwrite any attributes with theme
      */
-    virtual void updateTextColor(bool overwrite);
-
-    /**
-     * Updates the background color of this widget, to be overwritten by derived
-     * @param overwrite weather to overwrite any attributes with theme
-     */
-    virtual void updateBackgroundColor(bool overwrite);
-
-    /**
-     * Updates the header text color of this widget, to be overwritten by derived
-     * @param overwrite weather to overwrite any attributes with theme
-     */
-    virtual void updateHeaderTextColor(bool overwrite);
-
-    /**
-     * Updates the widget background color of this widget, to be overwritten by derived
-     * @param overwrite weather to overwrite any attributes with theme
-     */
-    virtual void updateWidgetBackgroundColor(bool overwrite);
-
-    /**
-     * Updates the border color of this widget, to be overwritten by derived
-     * @param overwrite weather to overwrite any attributes with theme
-     */
-    virtual void updateBorderColor(bool overwrite);
+    virtual void updateChildrenStyle(bool overwrite);
 
     /**
      * Updates the style of this widget

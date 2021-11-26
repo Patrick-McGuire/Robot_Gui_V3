@@ -77,9 +77,6 @@ void TextBoxWidget::parseXml(const WidgetConfig_ptr& parentConfig, rapidxml::xml
 }
 
 void TextBoxWidget::updateInFocus() {
-//    if(_widgetData->getKeyType("KEY5") == WidgetData::) {
-//        WidgetData::printJSON(_widgetData->getJSON("KEY5"));
-//    }
     for(auto & lineKey : lineKeys) {
         if(_widgetData->keyUpdated(lineKey)) {
             customUpdate();
@@ -102,39 +99,36 @@ void TextBoxWidget::customUpdate() {
 }
 
 void TextBoxWidget::customUpdateStyle(bool overwrite) {
-
-}
-
-void TextBoxWidget::updateTextColor(bool overwrite) {
-    QString style = "";
+    std::string tittleTextColor = _configInfo->headerColor;
+    std::string textColor = _configInfo->textColor;
+    std::string backgroundColor = _configInfo->backgroundColor;
     if(overwrite || _configInfo->textColor == xmlThemeConst) {
-        style += QString("color: ") + QString::fromStdString(Theme::getTextColorStr(currentTheme)) + ";";
-    } else if(_configInfo->textColor != xmlThemeConst) {
-        style += QString("color: ") + QString::fromStdString(_configInfo->textColor) + ";";
+        textColor = Theme::getTextColorStr(currentTheme);
     }
-    this->setStyleSheet(style);
-}
-
-void TextBoxWidget::updateHeaderTextColor(bool overwrite) {
-    QString style = "";
     if(overwrite || _configInfo->headerColor == xmlThemeConst) {
-        style += "color: " + QString::fromStdString(Theme::getHeaderTextColorStr(currentTheme)) + ";";
-    } else if(_configInfo->headerColor != xmlThemeConst) {
-        style += QString("color: ") + QString::fromStdString(_configInfo->headerColor) + ";";
+        tittleTextColor = Theme::getHeaderTextColorStr(currentTheme);
     }
-    titleBox->setStyleSheet(style);
-}
-
-void TextBoxWidget::updateWidgetBackgroundColor(bool overwrite) {
-    QString style = "";
     if(overwrite || _configInfo->backgroundColor == xmlThemeConst) {
         if(_configInfo->backgroundColor != xmlNoneConst) {
-            style += QString("background: ") + QString::fromStdString(Theme::getWidgetBackgroundColorStr(currentTheme)) + ";";
+            backgroundColor = Theme::getWidgetBackgroundColorStr(currentTheme);
         } else {
-            style += "background: transparent;";
+            backgroundColor = "transparent";
         }
-    } else if(_configInfo->backgroundColor != xmlThemeConst || _configInfo->backgroundColor != xmlNoneConst) {
-        style += QString("background: ") + QString::fromStdString(_configInfo->backgroundColor) + ";";
+    } else if(_configInfo->backgroundColor == xmlNoneConst) {
+        backgroundColor = "transparent";
     }
-    this->setStyleSheet(style);
+
+    char buf[400];
+    sprintf(buf, "QWidget#%s{ background: %s } QWidget#%s{ background: %s; color: %s } QWidget#%s{ background: %s; color: %s }",
+            this->objectName().toStdString().c_str(),
+            backgroundColor.c_str(),
+            titleBox->objectName().toStdString().c_str(),
+            backgroundColor.c_str(),
+            tittleTextColor.c_str(),
+            textBox->objectName().toStdString().c_str(),
+            backgroundColor.c_str(),
+            textColor.c_str()
+            );
+    this->setStyleSheet(buf);
 }
+

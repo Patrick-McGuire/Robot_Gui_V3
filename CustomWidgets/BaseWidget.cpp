@@ -132,31 +132,22 @@ void BaseWidget::mouseMoveEvent(QMouseEvent *event) {
 // Style
 void BaseWidget::updateStyle(Themes _theme, bool overwrite) {
     currentTheme = _theme;
-    if(styledBackground) { updateBackgroundColor(overwrite); }
-    if(styledWidgetBackgroundColor) { updateWidgetBackgroundColor(overwrite); }
-    if(styledBorderColor) { updateBorderColor(overwrite); }
-    if(styledText) { updateTextColor(overwrite); }
-    if(styledHeader) { updateHeaderTextColor(overwrite); }
     customUpdateStyle(overwrite);
+    updateChildrenStyle(overwrite);
 }
 
 void BaseWidget::setBackgroundColor(QAction *channelAction) {
     _configInfo->backgroundColor = channelAction->data().toString().toStdString();
-    if(styledBackground) { updateBackgroundColor(false); }
-    if(styledWidgetBackgroundColor) { updateWidgetBackgroundColor(false); }
+    customUpdateStyle(false);
 }
 
 void BaseWidget::setTextColor(QAction *channelAction) {
     _configInfo->textColor = channelAction->data().toString().toStdString();
-    updateTextColor(false);
+    customUpdateStyle(false);
 }
 
 void BaseWidget::customUpdateStyle(bool overwrite){}
-void BaseWidget::updateTextColor(bool overwrite) {}
-void BaseWidget::updateBackgroundColor(bool overwrite) {}
-void BaseWidget::updateHeaderTextColor(bool overwrite) {}
-void BaseWidget::updateWidgetBackgroundColor(bool overwrite) {}
-void BaseWidget::updateBorderColor(bool overwrite) {}
+void BaseWidget::updateChildrenStyle(bool overwrite) {}
 
 void BaseWidget::updateInFocus() {}
 void BaseWidget::updateNoFocus() {}
@@ -164,3 +155,5 @@ void BaseWidget::updateOnInFocus() {}
 void BaseWidget::customUpdate() {}
 
 void BaseWidget::customUpdateDraggability(bool _draggable) {}
+
+

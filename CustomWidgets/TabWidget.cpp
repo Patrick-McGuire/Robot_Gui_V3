@@ -22,6 +22,7 @@ TabWidget::TabWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, Widget
     for(int i = 0; i < configInfo->tabNames.size(); i++) {
         // Add new tab to tabWidget and setup it's page
         auto *page = new QWidget();
+        page->setObjectName(QString::fromStdString(_configInfo->objectName) + "Page"); //+ QString::number(i));
         page->setFixedSize(tabs->width(), tabs->height()-25);
         tabs->addTab(page, QString::fromStdString(configInfo->tabNames[i]));
         page->show();
@@ -94,22 +95,36 @@ void TabWidget::customUpdateDraggability(bool _draggable) {
 }
 
 void TabWidget::customUpdateStyle(bool overwrite) {
-    QString style = "";
-    // Set the background color
-    if(overwrite || _configInfo->backgroundColor == xmlThemeConst) {
-        style += QString("background: ") + QString::fromStdString(Theme::getBackgroundColorStr(currentTheme)) + ";"; //Theme::getBackgroundColorStr(_theme)
-    } else if(_configInfo->backgroundColor != xmlThemeConst || _configInfo->backgroundColor != xmlNoneConst) {
-        style += QString("background: ") + QString::fromStdString(_configInfo->backgroundColor) + ";";
+    std::string tittleTextColor = _configInfo->headerColor;
+    std::string backgroundColor = _configInfo->backgroundColor;
+    if(overwrite || _configInfo->headerColor == xmlThemeConst) {
+        tittleTextColor = Theme::getHeaderTextColorStr(currentTheme);
     }
-    // Set the text color
-    if(overwrite || _configInfo->textColor == xmlThemeConst) {
-        style += "color: " + QString::fromStdString(Theme::getHeaderTextColorStr(currentTheme)) + ";";
-    } else if(_configInfo->textColor != xmlThemeConst) {
-        style += QString("color: ") + QString::fromStdString(_configInfo->textColor) + ";";
+    if(overwrite || _configInfo->backgroundColor == xmlThemeConst) {
+        if(_configInfo->backgroundColor != xmlNoneConst) {
+            backgroundColor = Theme::getBackgroundColorStr(currentTheme);
+        } else {
+            backgroundColor = "transparent";
+        }
+    } else if(_configInfo->backgroundColor == xmlNoneConst) {
+        backgroundColor = "transparent";
     }
 
+    char buf[1000];
+    sprintf(buf, "QWidget#%s{ background: %s; } QWidget#%s{ background: %s; } QTabWidget#%s QTabBar::tab{ background: %s; color: %s }",
+            this->objectName().toStdString().c_str(),
+            backgroundColor.c_str(),
+            pages[0]->objectName().toStdString().c_str(),
+            backgroundColor.c_str(),
+            this->objectName().toStdString().c_str(),
+            backgroundColor.c_str(),
+            tittleTextColor.c_str()
+            );
+    this->setStyleSheet(buf);
+}
+
+void TabWidget::updateChildrenStyle(bool overwrite) {
     for(auto & widget : widgets) {
         widget->updateStyle(currentTheme, overwrite);
     }
-    this->setStyleSheet(style);
 }

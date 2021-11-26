@@ -14,6 +14,7 @@ RobotGUI::RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appCo
 
     // Set up the window
     mainWindow->setWindowTitle(QString::fromStdString(config->title));
+    mainWindow->setObjectName("mainWindow");
     setWindowSize();
     parent->resize(mainWindow->width(), mainWindow->height());
 
@@ -72,7 +73,7 @@ void RobotGUI::makeWidgetsFixed() {
 }
 
 void RobotGUI::setTheme(Themes _theme, bool force) {
-    mainWindow->setStyleSheet("QWidget { background-color: " + QString::fromStdString(Theme::getBackgroundColorStr(_theme)) + "}");
+    mainWindow->setStyleSheet("QWidget#mainWindow { background-color: " + QString::fromStdString(Theme::getBackgroundColorStr(_theme)) + "}");
     menu->updateTheme(_theme);
     coreWidget->updateStyle(_theme, force);
 }
