@@ -5,6 +5,7 @@
 #include "CustomWidgets/TextBoxWidget.h"
 #include "CustomWidgets/TabWidget.h"
 #include "CustomWidgets/VideoWidget.h"
+#include "CustomWidgets/SimpleButtonWidget.h"
 #include <QWidget>
 #include <QTabWidget>
 

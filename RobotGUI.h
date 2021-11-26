@@ -8,6 +8,7 @@
 #include "CustomWidgets/TabWidget.h"
 #include "ConfigStructs.h"
 #include "CustomWidgets/MenuWidget.h"
+#include "CustomWidgets/SimpleButtonWidget.h"
 #include "iostream"
 #include <vector>
 #include <QApplication>

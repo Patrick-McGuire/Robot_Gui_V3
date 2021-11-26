@@ -105,6 +105,8 @@ WidgetConfig_ptr XMLInput::parseWidget(rapidxml::xml_node<> *node) {
         VideoWidget::parseXml(newWidgetStruct, node);
     } else if(newWidgetStruct->type == tabWidgetSTRID) {
         TabWidget::parseXml(newWidgetStruct, node);
+    } else if(newWidgetStruct->type == SIMPLE_BUTTON_WIDGET_STRID) {
+        SimpleButtonWidget::parseXml(newWidgetStruct, node);
     }
     setDefaults(newWidgetStruct);
     return newWidgetStruct;
@@ -164,7 +166,7 @@ int XMLInput::safeStoi(const std::string &val) {
     }
 }
 
-void XMLInput::setDefaults(WidgetConfig_ptr widgetConfig) {
+void XMLInput::setDefaults(const WidgetConfig_ptr& widgetConfig) {
     if(widgetConfig->backgroundColor.empty()) {
         widgetConfig->backgroundColor = xmlThemeConst;
     }

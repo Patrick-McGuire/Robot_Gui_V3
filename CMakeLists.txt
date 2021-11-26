@@ -7,7 +7,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
-add_executable(Robot_Gui_V3 main.cpp XML/rapidxml/rapidxml_print.hpp XML/rapidxml/rapidxml.hpp XML/rapidxml/rapidxml_iterators.hpp XML/rapidxml/rapidxml_utils.hpp GUIMaker.cpp GUIMaker.h CustomWidgets/TextBoxWidget.cpp CustomWidgets/TextBoxWidget.h CustomWidgets/BaseWidget.cpp CustomWidgets/BaseWidget.h RobotGUI.cpp RobotGUI.h WidgetData.cpp WidgetData.h Constants.h Networking/LocalServer.cpp Networking/LocalServer.h CustomWidgets/VideoWidget.cpp CustomWidgets/VideoWidget.h XML/XMLInput.cpp XML/XMLInput.h XML/XMLOutput.cpp XML/XMLOutput.h XML/XMLConstants.h ConfigStructs.h CustomWidgets/TabWidget.cpp CustomWidgets/TabWidget.h XML/AppConfig.cpp XML/AppConfig.h CustomWidgets/MenuWidget.cpp CustomWidgets/MenuWidget.h CoreGUI.cpp CoreGUI.h Theme.cpp Theme.h)
+add_executable(Robot_Gui_V3 main.cpp XML/rapidxml/rapidxml_print.hpp XML/rapidxml/rapidxml.hpp XML/rapidxml/rapidxml_iterators.hpp XML/rapidxml/rapidxml_utils.hpp GUIMaker.cpp GUIMaker.h CustomWidgets/TextBoxWidget.cpp CustomWidgets/TextBoxWidget.h CustomWidgets/BaseWidget.cpp CustomWidgets/BaseWidget.h RobotGUI.cpp RobotGUI.h WidgetData.cpp WidgetData.h Constants.h Networking/LocalServer.cpp Networking/LocalServer.h CustomWidgets/VideoWidget.cpp CustomWidgets/VideoWidget.h XML/XMLInput.cpp XML/XMLInput.h XML/XMLOutput.cpp XML/XMLOutput.h XML/XMLConstants.h ConfigStructs.h CustomWidgets/TabWidget.cpp CustomWidgets/TabWidget.h XML/AppConfig.cpp XML/AppConfig.h CustomWidgets/MenuWidget.cpp CustomWidgets/MenuWidget.h CoreGUI.cpp CoreGUI.h Theme.cpp Theme.h CustomWidgets/SimpleButtonWidget.cpp CustomWidgets/SimpleButtonWidget.h)
 set(SOURCE_FILES main.cpp)
 include_directories(/usr/include/)
 

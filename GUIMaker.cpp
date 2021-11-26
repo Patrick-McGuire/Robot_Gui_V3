@@ -9,6 +9,8 @@ BaseWidget *GUIMaker::createWidget(QWidget *parent, const WidgetConfig_ptr& conf
         return new VideoWidget(parent, configInfo, widgetData);
     } else if(configInfo->type == tabWidgetSTRID) {
         return new TabWidget(parent, configInfo, widgetData);
+    } else if(configInfo->type == SIMPLE_BUTTON_WIDGET_STRID) {
+        return new SimpleButtonWidget(parent, configInfo, widgetData);
     }
     return nullptr;
 }

@@ -22,6 +22,7 @@
  * @author Patrick McGuire (Patrick-McGuire)
  */
 class TextBoxWidget: public BaseWidget  {
+Q_OBJECT
 public:
     /**
      * Constructor

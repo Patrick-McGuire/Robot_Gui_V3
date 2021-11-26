@@ -1,6 +1,5 @@
 #ifndef ROBOT_GUI_V3_XMLINPUT_H
 #define ROBOT_GUI_V3_XMLINPUT_H
-
 #include "rapidxml/rapidxml.hpp"
 #include "rapidxml/rapidxml_print.hpp"
 #include "rapidxml/rapidxml_utils.hpp"
@@ -12,6 +11,7 @@
 #include "../CustomWidgets/TextBoxWidget.h"
 #include "../CustomWidgets/VideoWidget.h"
 #include "../CustomWidgets/TabWidget.h"
+#include "../CustomWidgets/SimpleButtonWidget.h"
 
 /**
  * @class XMLInput
@@ -68,7 +68,7 @@ private:
      * Writes defaults to empty/null attributes of a internal config
      * @param widgetConfig internal config to write defaults to
      */
-    static void setDefaults(WidgetConfig_ptr widgetConfig);
+    static void setDefaults(const WidgetConfig_ptr& widgetConfig);
 };
 
 #endif //ROBOT_GUI_V3_XMLINPUT_H
