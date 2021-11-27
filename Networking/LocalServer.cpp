@@ -14,7 +14,6 @@ union lengthConverter {
 LocalServer::LocalServer(QObject *parent, WidgetData *widgetData, RobotGUI *robotGui) : QTcpServer(parent) {
     _widgetData = widgetData;
     _robotGui = robotGui;
-    std::cout << getOutputJson(ReturnType::None) << "\n";
     connect(this, SIGNAL(newData()), _robotGui, SLOT(updateGUI()));
 }
 
@@ -38,8 +37,9 @@ void LocalServer::incomingConnection() {
 
 
 void LocalServer::receiveData() {
-    auto *sender = dynamic_cast<QTcpSocket*>(QObject::sender());
-    QByteArray data = sender->readAll();
+    auto *senderObj = dynamic_cast<QTcpSocket*>(QObject::sender());
+//    WidgetData a = &senderObj;
+    QByteArray data = senderObj->readAll();
 
     if(data.length() > 6) {
         // Get the data about the message
@@ -92,6 +92,7 @@ void LocalServer::receiveData() {
                 return;         // We don't need to emit new data if we don't have new data
             }
         }
+        writeOutData(None, senderObj);
         emit newData();         // This will cause the function that updates all widgets to run
     }
 }
@@ -144,22 +145,25 @@ void LocalServer::parseArray(rapidjson::Value *value, WidgetData::internalJSON_p
     }
 }
 
-std::string LocalServer::getOutputJson(ReturnType returnType) {
+void LocalServer::writeOutData(ReturnType returnType, QTcpSocket* socket) {
     rapidjson::Document doc;
     doc.SetObject();
 
+    // Create the json output
     rapidjson::Value flags("Flags", 5, doc.GetAllocator());
-//    rapidjson::Value values("Values", 6, doc.GetAllocator());
-
-
-    doc.AddMember(flags, "val", doc.GetAllocator());
+    rapidjson::Value flagsValue;
+    flagsValue.SetObject();
+    for(auto & i : *_widgetData->getFlagOutput()) {
+        rapidjson::Value newVal(i.first.c_str(), i.first.size(), doc.GetAllocator());
+        flagsValue.AddMember(newVal, i.second, doc.GetAllocator());
+    }
+    doc.AddMember(flags, flagsValue, doc.GetAllocator());
 
     // Write to string
     rapidjson::StringBuffer buffer;
     rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
     doc.Accept(writer);
-    std::string s(buffer.GetString(), buffer.GetSize());
-    return s;
+    socket->write(buffer.GetString());
 }
 
 

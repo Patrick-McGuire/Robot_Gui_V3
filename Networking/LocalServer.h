@@ -56,15 +56,18 @@ private:
     char *dataString;
 
     /**
-     * @bug overwrites existing json structs instead of writing to them
-     *
      * parses a json value object into the internal json struct format
      * @param value rapidjson value object to parse
      * @return custom json struct
      */
-    static void parseArray(rapidjson::Value *value, WidgetData::internalJSON_ptr json);
+    void parseArray(rapidjson::Value *value, WidgetData::internalJSON_ptr json);
 
-    static std::string getOutputJson(ReturnType returnType);
+    /**
+     * Writes the output data to a given socket
+     * @param returnType what data to return
+     * @param socket socket to write to
+     */
+    void writeOutData(ReturnType returnType, QTcpSocket* socket);
 };
 
 #endif //ROBOT_GUI_V3_LOCALSERVER_H

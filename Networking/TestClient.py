@@ -55,14 +55,14 @@ if __name__ == '__main__':
         print("Connected")
 
         while True:
-            ret_val, img = cam.read()
-            if sendImg(img, 1, 0):
-                break
-            time.sleep(1 / rate)
-            cv2.rectangle(img, (10, 100), (200, 200), (0, 255, 0))
-            if sendImg(img, 2, 0):
-                break
-            time.sleep(1 / rate)
+            # ret_val, img = cam.read()
+            # if sendImg(img, 1, 0):
+            #     break
+            # time.sleep(1 / rate)
+            # cv2.rectangle(img, (10, 100), (200, 200), (0, 255, 0))
+            # if sendImg(img, 2, 0):
+            #     break
+            # time.sleep(1 / rate)
 
             # JSON
             if random.randint(0, 100) > 85:
@@ -89,5 +89,7 @@ if __name__ == '__main__':
                 s.send(bytesToSend)
             except (BrokenPipeError, ConnectionResetError):
                 break
+
+            print(s.recv(1024))
             time.sleep(1 / rate)
         print("Disconnected")
