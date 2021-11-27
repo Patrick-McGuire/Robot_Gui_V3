@@ -33,8 +33,8 @@ public:
             bool boolVal;
         };
         std::string stringVal;
-        std::vector<std::shared_ptr<internalJSON>> vector;
-        std::map<std::string, std::shared_ptr<internalJSON>> map;
+        std::vector<std::shared_ptr<struct internalJSON>> vector;
+        std::map<std::string, std::shared_ptr<struct internalJSON>> map;
     };
     /**
      * std::shared_ptr for internalJSON
@@ -57,7 +57,7 @@ public:
      * @return value
      */
     internalJSON_ptr getJsonOutput(const std::string &key) {
-        return outJson.count(key) != 0 ? outJson[key] : std::make_shared<WidgetData::internalJSON>();
+        return outJson.count(key) != 0 ? outJson[key] : std::make_shared<struct WidgetData::internalJSON>();
     }
 
     /**
@@ -207,7 +207,7 @@ public:
      * @return json object
      */
     internalJSON_ptr getJSON(const std::string &key) {
-        return jsonMap.count(key) != 0 ? jsonMap[key] : std::make_shared<WidgetData::internalJSON>();
+        return jsonMap.count(key) != 0 ? jsonMap[key] : std::make_shared<struct WidgetData::internalJSON>();
     }
 
     /**
@@ -216,7 +216,7 @@ public:
      * @param img img to set
      */
     void setImg(const std::string& key, cv::Mat img) {
-        setKeyUpdated(key, imgType);
+        setKeyUpdated(key);
         imgMap[key] = std::move(img);
     }
 
@@ -226,10 +226,18 @@ public:
      * @param val value, internalJSON_ptr
      */
     void setJSON(const std::string &key, const internalJSON_ptr &val) {
-        setKeyUpdated(key, jsonType);
+        setKeyUpdated(key);
         jsonMap[key] = val;
     }
 
+    /**
+     * Saves the key type
+     * @param key
+     * @param keyType
+     */
+    void setKeyUpdated(const std::string& key) {
+        keysUpdated[key] = true;
+    }
 
     /**
      * Prints out a internalJSON_ptr
@@ -245,15 +253,6 @@ private:
     // Data out storage
     std::map<std::string, bool> outFlags;
     std::map<std::string, internalJSON_ptr> outJson;
-
-    /**
-     * Saves the key type
-     * @param key
-     * @param keyType
-     */
-    void setKeyUpdated(const std::string& key, const std::string& keyType) {
-        keysUpdated[key] = true;
-    }
 };
 
 

@@ -7,15 +7,6 @@
 #define tabWidgetSTRID "tab"
 #define SIMPLE_BUTTON_WIDGET_STRID "simpleButton"
 
-// WidgetData types
-#define intType "int"
-#define doubleType "double"
-#define boolType "bool"
-#define stringType "string"
-#define imgType "img"
-#define jsonType "json"
-#define noType "none"
-
 // AppConfig consts
 #define appConfigFilePath "/.config/RobotGUI"
 #define appConfigFileName "/RobotGUI_Settings.csv"
@@ -25,11 +16,15 @@
 
 // Custom messageTypes
 enum MessageType {
-    String=0,
-    Int=1,
-    Float=2,
     JSON=3,
     IMG=4,
+};
+
+enum ReturnType {
+    None=0,
+    Flags=1,
+    Values=2,
+    FlagsAndValues=3,
 };
 
 

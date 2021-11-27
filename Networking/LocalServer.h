@@ -7,6 +7,7 @@
 #include "../RobotGUI.h"
 #include "rapidjson/document.h"
 #include "rapidjson/stringbuffer.h"
+#include "rapidjson/writer.h"
 
 class RobotGUI;     // Fixes some reference errors
 
@@ -55,11 +56,15 @@ private:
     char *dataString;
 
     /**
+     * @bug overwrites existing json structs instead of writing to them
+     *
      * parses a json value object into the internal json struct format
      * @param value rapidjson value object to parse
      * @return custom json struct
      */
-    static WidgetData::internalJSON_ptr parseArray(rapidjson::Value *value);
+    static void parseArray(rapidjson::Value *value, WidgetData::internalJSON_ptr json);
+
+    static std::string getOutputJson(ReturnType returnType);
 };
 
 #endif //ROBOT_GUI_V3_LOCALSERVER_H
