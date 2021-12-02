@@ -33,8 +33,8 @@ public:
             bool boolVal;
         };
         std::string stringVal;
-        std::vector<std::shared_ptr<struct internalJSON>> vector;
-        std::map<std::string, std::shared_ptr<struct internalJSON>> map;
+        std::vector<std::shared_ptr<internalJSON>> vector;
+        std::map<std::string, std::shared_ptr<internalJSON>> map;
     };
     /**
      * std::shared_ptr for internalJSON

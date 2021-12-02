@@ -13,7 +13,7 @@ class RobotGUI;     // Fixes some reference errors
 
 /**
  * @class LocalServer
- * Server that the GUI recives data from
+ * Server that the GUI receives data from
  *
  * @author Patrick McGuire (Patrick-McGuire)
  */
@@ -26,7 +26,7 @@ public:
      * @param widgetData global WidgetData object to update when new data is received
      * @param robotGui RobotGUI object to connect slots
      */
-    explicit LocalServer(QObject *parent, WidgetData *widgetData, RobotGUI *robotGui);
+    LocalServer(QObject *parent, WidgetData *widgetData, RobotGUI *robotGui);
 
     /**
      * Opens the server

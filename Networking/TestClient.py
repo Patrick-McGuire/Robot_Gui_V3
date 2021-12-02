@@ -5,11 +5,8 @@ import random
 import string
 import time
 
-rate = 30  # hz
-
+rate = 60  # hz
 rate = rate * 3  # 3 messages to send
-
-# rate = 1
 
 boolean = False
 passDict = {
@@ -19,6 +16,28 @@ passDict = {
 }
 
 cam = cv2.VideoCapture(0)
+s = socket.socket()
+
+data = ""
+
+
+def sendData(dataToSend):
+    global s, data, rate
+    # Attempt to send the data
+    try:
+        s.send(dataToSend)
+    except (BrokenPipeError, ConnectionResetError):
+        return False
+    startTime = time.time()
+    # while startTime > time.time() - .1:
+    #     try:
+    #         data = s.recv(1024).decode('utf-8')
+    #         if data != "":
+    #             break
+    #     except (BrokenPipeError, ConnectionResetError):
+    #         return False
+    time.sleep(1 / rate)
+    return True
 
 
 def sendImg(imgToSend, idThing, rtnCode):
@@ -36,11 +55,7 @@ def sendImg(imgToSend, idThing, rtnCode):
     bytesNEW.insert(0, bytesNum2[0])
     bytesNEW.insert(0, 4)
     # cv2.waitKey(1)
-    try:
-        s.send(bytesNEW)
-    except (BrokenPipeError, ConnectionResetError):
-        return True
-    return False
+    return sendData(bytesNEW)
 
 
 if __name__ == '__main__':
@@ -49,20 +64,21 @@ if __name__ == '__main__':
         while True:
             try:
                 s.connect(('localhost', 1254))
+                # s.setblocking(False)
                 break
             except ConnectionRefusedError:
                 time.sleep(1)
         print("Connected")
 
         while True:
-            # ret_val, img = cam.read()
-            # if sendImg(img, 1, 0):
-            #     break
-            # time.sleep(1 / rate)
-            # cv2.rectangle(img, (10, 100), (200, 200), (0, 255, 0))
-            # if sendImg(img, 2, 0):
-            #     break
-            # time.sleep(1 / rate)
+            ret_val, img = cam.read()
+            if not sendImg(img, 1, 0):
+                break
+            time.sleep(1 / rate)
+            cv2.rectangle(img, (10, 100), (200, 200), (0, 255, 0))
+            if not sendImg(img, 2, 0):
+                break
+            time.sleep(1 / rate)
 
             # JSON
             if random.randint(0, 100) > 85:
@@ -85,11 +101,7 @@ if __name__ == '__main__':
             bytesToSend.insert(0, bytesNum[0])
 
             bytesToSend.insert(0, 3)
-            try:
-                s.send(bytesToSend)
-            except (BrokenPipeError, ConnectionResetError):
+            if not sendData(bytesToSend):
                 break
-
-            print(s.recv(1024))
-            time.sleep(1 / rate)
+            # print(1)
         print("Disconnected")
