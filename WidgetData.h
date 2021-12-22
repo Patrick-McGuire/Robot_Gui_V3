@@ -147,6 +147,15 @@ public:
         return keysUpdated[key];
     }
 
+    bool keyUpdated() {
+        for(auto & it : keysUpdated) {
+            if(keysUpdated[it.first]) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Returns if a key corresponds to a img
      * @param key key to check

@@ -14,6 +14,7 @@ union lengthConverter {
 LocalServer::LocalServer(QObject *parent, WidgetData *widgetData, RobotGUI *robotGui) : QTcpServer(parent) {
     _widgetData = widgetData;
     _robotGui = robotGui;
+    dataInput = new DataInput(_widgetData, DataInput::CUSTOM_MSG_FORMAT);
     connect(this, SIGNAL(newData()), _robotGui, SLOT(updateGUI()));
 }
 
@@ -37,63 +38,16 @@ void LocalServer::incomingConnection() {
 
 
 void LocalServer::receiveData() {
+    // Read all the data from the socket
     auto *senderObj = dynamic_cast<QTcpSocket*>(QObject::sender());
-//    WidgetData a = &senderObj;
     QByteArray data = senderObj->readAll();
 
-    if(data.length() > 6) {
-        // Get the data about the message
-        auto id = static_cast<MessageType>((int) data.at(0));
-        lengthConverter msgLength{};
-        msgLength.in[0] = (uint8_t) data.at(1);
-        msgLength.in[1] = (uint8_t) data.at(2);
-        msgLength.in[2] = (uint8_t) data.at(3);
-        msgLength.in[3] = (uint8_t) data.at(4);
-        auto returnType = static_cast<ReturnType>((int) data.at(5));
-        auto imgId = (uint8_t) data.at(6);          // only used by img
-        data.remove(0, 6);
+    dataInput->parse((char*)data.data(), data.length());        // Parse the data
 
-
-        if(msgLength.length < 0 || data.length() < msgLength.length) {          // Int overflow, message corrupted
-            return;
-        }
-
-        dataString = (char*)(data.data());
-        dataString[msgLength.length] = (char) 0;
-
-        // Different types of messages
-        switch (id) {
-            case JSON: {
-                rapidjson::Document doc;
-                doc.Parse(dataString);
-                for (rapidjson::Value::MemberIterator M = doc.MemberBegin(); M != doc.MemberEnd(); M++) {
-                    std::string keyName = M->name.GetString();
-                    auto currentKeyType = _widgetData->getKeyType(keyName);
-                    auto json = _widgetData->getJSON(keyName);
-                    parseArray(&doc[keyName.data()], json);
-                    if(currentKeyType == WidgetData::img_t || currentKeyType == WidgetData::none_t) {
-                        _widgetData->setJSON(keyName, json);
-                    } else {
-                        _widgetData->setKeyUpdated(keyName);
-                    }
-                }
-                break;
-            } case IMG: {
-                try {
-                    // Decode the image and save it to widgetData
-                    auto imgIdStr = std::to_string(imgId);
-                    _widgetData->setImg(imgIdStr, cv::imdecode(cv::Mat(1, msgLength.length+1, CV_8UC1, dataString+1), cv::IMREAD_ANYCOLOR));
-                } catch (cv::Exception const &e) {
-                    // You sent a bad img
-                    std::cout << "CVERROR\n";
-                }
-                break;
-            } default: {
-                return;         // We don't need to emit new data if we don't have new data
-            }
-        }
-        writeOutData(None, senderObj);
-        emit newData();         // This will cause the function that updates all widgets to run
+    // Check if we received any data
+    if(_widgetData->keyUpdated()) {
+        std::cout << "adsf\n";
+        emit newData();
     }
 }
 

@@ -1,6 +1,7 @@
 #ifndef ROBOT_GUI_V3_DATAINPUT_H
 #define ROBOT_GUI_V3_DATAINPUT_H
 #include "../WidgetData.h"
+#include "opencv2/opencv.hpp"
 
 #define CUSTOM_MSG_HEADER_SIZE 6
 
@@ -27,7 +28,7 @@ public:
      * @param input buffer to parse
      * @param len length of buffer
      */
-    void parse(const char *input, int len);
+    void parse(char *input, int len);
 
 private:
     union LengthConverter {
@@ -50,7 +51,14 @@ private:
      * @param input binary image
      * @param len size of image binary
      */
-    void parseImg(const char *input, int len);
+    void parseImg(char *input, int len);
+
+    /**
+     * Writes the output data to a given socket
+     * @param returnType what data to return
+     * @param socket socket to write to
+     */
+    void parseArray(rapidjson::Value *value, const WidgetData::internalJSON_ptr& json);
 };
 
 

@@ -8,6 +8,7 @@
 #include "rapidjson/document.h"
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/writer.h"
+#include "../Interface/DataInput.h"
 
 class RobotGUI;     // Fixes some reference errors
 
@@ -53,6 +54,7 @@ public slots:
 private:
     WidgetData *_widgetData;
     RobotGUI *_robotGui;
+    DataInput *dataInput;
     char *dataString;
 
     /**
