@@ -46,7 +46,6 @@ void LocalServer::receiveData() {
 
     // Check if we received any data
     if(_widgetData->keyUpdated()) {
-        std::cout << "adsf\n";
         emit newData();
     }
 }

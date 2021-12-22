@@ -15,7 +15,6 @@ void DataInput::parse(char *input, int len) {
     for(int i = 0; i < 4; i++) {
         messageSize.bytes[i] = input[i+1];
     }
-    std::cout << messageSize.length << "\n";
     auto returnType = static_cast<ReturnType>((int) input[5]);
     if(messageSize.length <= 0 || messageSize.length + 6 > len) {       // Corrupted/invalid messages are ignored
         return;
@@ -27,12 +26,10 @@ void DataInput::parse(char *input, int len) {
     // Message type cases
     switch (id) {
         case JSON: {
-            std::cout << "2\n";
             parseJson(input, len);
             break;
         }
         case IMG: {
-            std::cout << "1\n";
             parseImg(input, len);
             break;
         }
