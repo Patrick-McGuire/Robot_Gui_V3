@@ -24,6 +24,7 @@ public:
     };
     /**
      * Stores json data for a key
+     * Self referencing
      */
     struct internalJSON {
         internalJsonTypes type;

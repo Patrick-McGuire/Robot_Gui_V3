@@ -43,58 +43,9 @@ void LocalServer::receiveData() {
     QByteArray data = senderObj->readAll();
 
     dataInput->parse((char*)data.data(), data.length());        // Parse the data
-
     // Check if we received any data
     if(_widgetData->keyUpdated()) {
         emit newData();
-    }
-}
-
-void LocalServer::parseArray(rapidjson::Value *value, WidgetData::internalJSON_ptr json) {
-    if(value->IsBool()) {
-        json->boolVal = value->GetBool();
-        json->type = WidgetData::bool_t;
-    } else if(value->IsInt()) {
-        json->intVal = value->GetInt();
-        json->type = WidgetData::int_t;
-    } else if(value->IsDouble()) {
-        json->doubleVal = value->GetDouble();
-        json->type = WidgetData::double_t;
-    } else if(value->IsString()) {
-        json->stringVal = value->GetString();
-        json->type = WidgetData::string_t;
-    } else if(value->IsArray()) {
-        json->type = WidgetData::vector_t;
-        auto array = value->GetArray();
-        int count = 0;
-        for (rapidjson::Value::ConstValueIterator itr = array.Begin(); itr != array.End(); ++itr, count++) {
-            WidgetData::internalJSON_ptr eleJson;
-            if(count < json->vector.size()) {
-                eleJson = json->vector[count];
-            } else {
-                eleJson = std::make_shared<WidgetData::internalJSON>();
-                json->vector.push_back(eleJson);
-            }
-            parseArray(&array[count], eleJson);
-        }
-        while (json->vector.size() > count) {
-            json->vector.pop_back();
-        }
-    } else if(value->IsObject()) {
-        json->type = WidgetData::map_t;
-        auto obj = value->GetObject();
-        rapidjson::Value::MemberIterator M;
-        for (M = obj.MemberBegin(); M != obj.MemberEnd(); M++) {
-            std::string name = M->name.GetString();
-            WidgetData::internalJSON_ptr eleJson;
-            if(json->map.count(name) != 0) {
-                eleJson = json->map[name];
-            } else {
-                eleJson = std::make_shared<WidgetData::internalJSON>();
-                json->map[name] = eleJson;
-            }
-            parseArray(&obj[M->name], eleJson);
-        }
     }
 }
 
