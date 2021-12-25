@@ -99,12 +99,12 @@ void TabWidget::updateChildrenStyle(bool overwrite) {
 void TabWidget::parseXml(const WidgetConfig_ptr& parentConfig, rapidxml::xml_node<> *node) {
     for(auto *tab = node->first_node(); tab; tab = tab->next_sibling()) {                           // Iterate over nodes
         std::string tagName = tab->name();
-        if(tagName == xmlTabTag) {
+        if(tagName == XML_TAB_TAG) {
             std::string tabTitle = "No name";
             for(auto *attr = tab->first_attribute(); attr; attr = attr->next_attribute()) {         // Iterate over attributes
                 std::string attrName = attr->name();
                 std::string attrVal = attr->value();
-                if(attrName == xmlTitleATR) {
+                if(attrName == XML_TITLE_ATR) {
                     tabTitle = attrVal;
                 }
             }

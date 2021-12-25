@@ -10,6 +10,15 @@
 #include "XML/AppConfig.h"
 #include "Theme.h"
 
+struct GraphLineConfig {
+    std::string type;
+    std::string source;
+    std::string title;
+    double min;
+    double max;
+    std::string colorString;
+};
+
 struct WidgetConfig {
     std::string title;
     std::string type;
@@ -37,6 +46,8 @@ struct WidgetConfig {
     std::vector<std::vector<std::shared_ptr<WidgetConfig>>> tabWidgets;
     // Configurable textbox widget
     std::vector<std::vector<std::string>> lines;
+    // Configurable bar graph widget
+    std::vector<GraphLineConfig> graphLines;
 };
 
 typedef std::shared_ptr<WidgetConfig> WidgetConfig_ptr;
@@ -50,8 +61,6 @@ struct WindowConfig {
 };
 
 typedef std::shared_ptr<WindowConfig> WindowConfig_ptr;
-
-
 
 
 #endif //ROBOT_GUI_V3_CONFIGSTRUCTS_H

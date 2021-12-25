@@ -6,6 +6,7 @@
 #define videoWidgetSTRID "video"
 #define tabWidgetSTRID "tab"
 #define SIMPLE_BUTTON_WIDGET_STRID "simpleButton"
+#define MULTI_BAR_GRAPH_STRID "multiBarGraph"
 
 // AppConfig consts
 #define appConfigFilePath "/.config/RobotGUI"

@@ -1,5 +1,6 @@
 #ifndef ROBOT_GUI_V3_XMLINPUT_H
 #define ROBOT_GUI_V3_XMLINPUT_H
+
 #include "rapidxml/rapidxml.hpp"
 #include "rapidxml/rapidxml_print.hpp"
 #include "rapidxml/rapidxml_utils.hpp"
@@ -12,6 +13,7 @@
 #include "../CustomWidgets/VideoWidget.h"
 #include "../CustomWidgets/TabWidget.h"
 #include "../CustomWidgets/SimpleButtonWidget.h"
+#include "../CustomWidgets/MultiBarGraphWidget.h"
 
 /**
  * @class XMLInput
