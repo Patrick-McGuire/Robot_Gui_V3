@@ -2,9 +2,9 @@
 #include "RobotGUI.h"
 #include <thread>
 
-RobotGUI::RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appConfig, CoreGUI *_coreGui, const WindowConfig_ptr& _config) : QWidget(_parent) {
+RobotGUI::RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appConfig, CoreGUI *_coreGui, const WindowConfig_ptr& _config, WidgetData *_widgetData) : QWidget(_parent) {
     // Save passed variables
-    widgetData = new WidgetData();
+    widgetData = _widgetData;//new WidgetData();
     mainWindow = _mainWindow;
     appConfig = _appConfig;
     parent = _parent;
@@ -48,7 +48,7 @@ void RobotGUI::updateGUI() {
 RobotGUI::~RobotGUI() {
     delete server;
     delete coreWidget;
-    delete widgetData;
+//    delete widgetData;
     delete menu;
 }
 

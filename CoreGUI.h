@@ -15,6 +15,7 @@
 #include <QFileDialog>
 #include "XML/AppConfig.h"
 #include "thread"
+#include "Interface/BaseInterface.h"
 
 class RobotGUI;
 class MenuWidget;
@@ -28,6 +29,8 @@ class MenuWidget;
 class CoreGUI : public QObject{
 Q_OBJECT
 public:
+    BaseInterface *interface;
+
     /**
      * Constructor
      * @param argc
@@ -76,6 +79,7 @@ private:
     QWidget window;
     QWidget *wrapper;
     RobotGUI *currentRobotGUI;
+    WidgetData *widgetData;
 
     /**
      * Restarts the RobotGUI instance

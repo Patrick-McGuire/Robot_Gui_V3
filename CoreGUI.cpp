@@ -1,6 +1,8 @@
 #include "CoreGUI.h"
 
 CoreGUI::CoreGUI(int _argc, char **_argv) : app(_argc, _argv), window(&mainWindow) {
+    widgetData = new WidgetData();
+    interface = new BaseInterface(widgetData);
     argc = _argc;
     argv = _argv;
     mainWindow.setCentralWidget(&window);
@@ -20,7 +22,7 @@ int CoreGUI::runGUI() {
     qDebug("............");
     qDebug("Creating window");
     wrapper = new QWidget(&window);
-    currentRobotGUI = new RobotGUI(wrapper, &mainWindow, appConfig, this, windowConfig);
+    currentRobotGUI = new RobotGUI(wrapper, &mainWindow, appConfig, this, windowConfig, widgetData);
     std::thread thread1(&CoreGUI::test, this, currentRobotGUI->getWidgetData());
 
     int out = QApplication::exec();
@@ -61,7 +63,7 @@ void CoreGUI::restartGUI() {
     qDebug("............");
     qDebug("Creating window");
     wrapper = new QWidget(&window);
-    currentRobotGUI = new RobotGUI(wrapper, &mainWindow, appConfig, this, windowConfig);
+    currentRobotGUI = new RobotGUI(wrapper, &mainWindow, appConfig, this, windowConfig, widgetData);
 }
 
 bool CoreGUI::safeParse() {
@@ -94,23 +96,16 @@ std::string CoreGUI::getFilePath() {
     return filePath;
 }
 
-void CoreGUI::test(WidgetData *widgetData) {
+void CoreGUI::test(WidgetData *_widgetData) {
     while (!widgetData->imgExits("asdf")) {
-        auto currentKeyType = widgetData->getKeyType("KEY1");
-        auto a = widgetData->getJSON("KEY1");
-        a->intVal = rand() % 10;
-        if(currentKeyType == WidgetData::img_t || currentKeyType == WidgetData::none_t) {
-            widgetData->setJSON("KEY1", a);
-        } else {
-            widgetData->setKeyUpdated("KEY1");
-        }
+        interface->setInt("KEY1", rand() % 10);
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
     std::cout << "asdf\n";
 }
 
 WidgetData *CoreGUI::getWidgetData() {
-    return currentRobotGUI->getWidgetData();
+    return widgetData;
 }
 
 

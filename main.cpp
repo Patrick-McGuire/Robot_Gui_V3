@@ -22,6 +22,7 @@
 
 int main(int argc, char** argv) {
     auto gui = new CoreGUI(argc, argv);
+
     return gui->runGUI();
 //    std::thread testThread(doThing);
 //    int lastTest = 0;
