@@ -16,10 +16,16 @@ public:
      * Constructor
      * @param _widgetData
      */
-    explicit ThreadedInterface(WidgetData *_widgetData);
+    explicit ThreadedInterface(CoreGUI *coreGui);
+
+    /**
+     * Waits for this thread to end
+     */
+    void join();
 
 protected:
     virtual void run();
+
 private:
     std::thread thread;
     void startThread();

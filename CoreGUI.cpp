@@ -2,7 +2,7 @@
 
 CoreGUI::CoreGUI(int _argc, char **_argv) : app(_argc, _argv), window(&mainWindow) {
     widgetData = new WidgetData();
-    interface = new BaseInterface(widgetData);
+    interface = new BaseInterface(this);
     argc = _argc;
     argv = _argv;
     mainWindow.setCentralWidget(&window);
@@ -24,6 +24,10 @@ int CoreGUI::runGUI() {
     wrapper = new QWidget(&window);
     currentRobotGUI = new RobotGUI(wrapper, &mainWindow, appConfig, this, windowConfig, widgetData);
     int out = QApplication::exec();
+    widgetData->endGui();
+    for(auto & thread : threads) {
+        thread->join();
+    }
     qDebug("............\n");
     qDebug("Closing GUI");
     return out;
@@ -96,6 +100,10 @@ std::string CoreGUI::getFilePath() {
 
 WidgetData *CoreGUI::getWidgetData() {
     return widgetData;
+}
+
+void CoreGUI::addThread(std::thread *thread) {
+    threads.push_back(thread);
 }
 
 

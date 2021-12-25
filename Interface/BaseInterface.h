@@ -23,9 +23,7 @@ public:
      * Constructor
      * @param coreGui CoreGUI object to interface with
      */
-    explicit BaseInterface(WidgetData *_widgetData) {
-        widgetData = _widgetData;
-    }
+    explicit BaseInterface(CoreGUI *coreGui);
 
     /**
      * Finds the type of data for a given key
@@ -36,6 +34,13 @@ public:
         return widgetData->getKeyType(key);
     }
 
+    /**
+     * Returns if the GUI is active
+     * @return if active
+     */
+    bool isActive() {
+        return widgetData->getGuiActive();
+    }
 
     /**
      * Sets a img
@@ -64,6 +69,7 @@ public:
         auto currentKeyType = widgetData->getKeyType(key);
         auto json = widgetData->getJSON(key);
         json->boolVal = val;
+        json->type = WidgetData::bool_t;
         if(currentKeyType == WidgetData::img_t || currentKeyType == WidgetData::none_t) {
             widgetData->setJSON(key, json);
         } else {
@@ -80,6 +86,7 @@ public:
         auto currentKeyType = widgetData->getKeyType(key);
         auto json = widgetData->getJSON(key);
         json->intVal = val;
+        json->type = WidgetData::int_t;
         if(currentKeyType == WidgetData::img_t || currentKeyType == WidgetData::none_t) {
             widgetData->setJSON(key, json);
         } else {
@@ -96,6 +103,7 @@ public:
         auto currentKeyType = widgetData->getKeyType(key);
         auto json = widgetData->getJSON(key);
         json->doubleVal = val;
+        json->type = WidgetData::double_t;
         if(currentKeyType == WidgetData::img_t || currentKeyType == WidgetData::none_t) {
             widgetData->setJSON(key, json);
         } else {
@@ -112,6 +120,7 @@ public:
         auto currentKeyType = widgetData->getKeyType(key);
         auto json = widgetData->getJSON(key);
         json->stringVal = val;
+        json->type = WidgetData::string_t;
         if(currentKeyType == WidgetData::img_t || currentKeyType == WidgetData::none_t) {
             widgetData->setJSON(key, json);
         } else {

@@ -1,7 +1,7 @@
 #include "ThreadedInterface.h"
 
-ThreadedInterface::ThreadedInterface(WidgetData *_widgetData) : BaseInterface(_widgetData), thread(&ThreadedInterface::startThread, this) {
-
+ThreadedInterface::ThreadedInterface(CoreGUI *coreGui) : BaseInterface(coreGui), thread(&ThreadedInterface::startThread, this) {
+    coreGui->addThread(&thread);
 }
 
 void ThreadedInterface::startThread() {
@@ -15,4 +15,8 @@ void ThreadedInterface::run() {
         setInt("KEY1", rand() % 20);
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
+}
+
+void ThreadedInterface::join() {
+    thread.join();
 }

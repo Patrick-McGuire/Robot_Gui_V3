@@ -51,6 +51,12 @@ public:
      */
     WidgetData *getWidgetData();
 
+    /**
+     * Adds a thread for the GUI to close on exit
+     * @param thread thread to close
+     */
+    void addThread(std::thread *thread);
+
 public slots:
     /**
      * Reloads the GUI with the current configuration
@@ -68,6 +74,7 @@ public slots:
     void openReload();
 
 private:
+    std::vector<std::thread*> threads;
     bool quit = false;
     int argc;
     char **argv;

@@ -285,6 +285,21 @@ public:
     }
 
     /**
+     * Signals to any threads listening to end
+     */
+    void endGui() {
+        guiActive = false;
+    }
+
+    /**
+     * Returns if the GUI is active
+     * @return if active
+     */
+    bool getGuiActive() const {
+        return guiActive;
+    }
+
+    /**
      * Prints out a internalJSON_ptr
      * @param json json to print
      */
@@ -303,6 +318,8 @@ private:
     std::mutex outJsonMutex;
     std::map<std::string, bool> outFlags;
     std::map<std::string, internalJSON_ptr> outJson;
+    // Operation
+    bool guiActive = true;
 };
 
 
