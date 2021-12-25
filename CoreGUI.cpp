@@ -23,8 +23,6 @@ int CoreGUI::runGUI() {
     qDebug("Creating window");
     wrapper = new QWidget(&window);
     currentRobotGUI = new RobotGUI(wrapper, &mainWindow, appConfig, this, windowConfig, widgetData);
-    std::thread thread1(&CoreGUI::test, this, currentRobotGUI->getWidgetData());
-
     int out = QApplication::exec();
     qDebug("............\n");
     qDebug("Closing GUI");
@@ -94,14 +92,6 @@ std::string CoreGUI::getFilePath() {
         appConfig->write();
     }
     return filePath;
-}
-
-void CoreGUI::test(WidgetData *_widgetData) {
-    while (!widgetData->imgExits("asdf")) {
-        interface->setInt("KEY1", rand() % 10);
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
-    }
-    std::cout << "asdf\n";
 }
 
 WidgetData *CoreGUI::getWidgetData() {

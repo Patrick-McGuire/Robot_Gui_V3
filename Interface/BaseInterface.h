@@ -9,6 +9,8 @@
 #include "thread"
 #include "opencv2/opencv.hpp"
 
+class CoreGUI;
+
 /**
  * @class WidgetData
  * Wrapper for WidgetData to be used by Interfaces

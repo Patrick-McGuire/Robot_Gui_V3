@@ -19,6 +19,7 @@
 
 class RobotGUI;
 class MenuWidget;
+class BaseInterface;
 
 /**
  * @class CoreGUI
@@ -49,8 +50,6 @@ public:
      * @return widgetData
      */
     WidgetData *getWidgetData();
-
-    void test(WidgetData *widgetData);
 
 public slots:
     /**
