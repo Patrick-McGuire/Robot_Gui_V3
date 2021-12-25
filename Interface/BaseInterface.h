@@ -30,157 +30,97 @@ public:
      * @param key
      * @return data type <string>
      */
-    WidgetData::internalJsonTypes getKeyType(const std::string& key) {
-        return widgetData->getKeyType(key);
-    }
+    WidgetData::internalJsonTypes getKeyType(const std::string& key);
 
     /**
      * Returns if the GUI is active
      * @return if active
      */
-    bool isActive() {
-        return widgetData->getGuiActive();
-    }
+    bool isActive();
 
     /**
      * Sets a img
      * @param key key for the img
      * @param img img to set
      */
-    void setImg(const std::string& key, const cv::Mat &img) {
-        widgetData->setImg(key, img);
-    }
+    void setImg(const std::string& key, const cv::Mat &img);
 
     /**
      * Sets a json value
      * @param key key for the json value
      * @param val value, internalJSON_ptr
      */
-    void setJSON(const std::string &key, const WidgetData::internalJSON_ptr &val) {
-        widgetData->setJSON(key, val);
-    }
+    void setJSON(const std::string &key, const WidgetData::internalJSON_ptr &val);
 
     /**
      * Sets a boolean in the json map
      * @param key key to set
      * @param val value
      */
-    void setBool(const std::string &key, bool val) {
-        auto currentKeyType = widgetData->getKeyType(key);
-        auto json = widgetData->getJSON(key);
-        json->boolVal = val;
-        json->type = WidgetData::bool_t;
-        if(currentKeyType == WidgetData::img_t || currentKeyType == WidgetData::none_t) {
-            widgetData->setJSON(key, json);
-        } else {
-            widgetData->setKeyUpdated(key);
-        }
-    }
+    void setBool(const std::string &key, bool val);
 
     /**
      * Sets a int in the json map
      * @param key key to set
      * @param val value
      */
-    void setInt(const std::string &key, int val) {
-        auto currentKeyType = widgetData->getKeyType(key);
-        auto json = widgetData->getJSON(key);
-        json->intVal = val;
-        json->type = WidgetData::int_t;
-        if(currentKeyType == WidgetData::img_t || currentKeyType == WidgetData::none_t) {
-            widgetData->setJSON(key, json);
-        } else {
-            widgetData->setKeyUpdated(key);
-        }
-    }
+    void setInt(const std::string &key, int val);
 
     /**
      * Sets a double in the json map
      * @param key key to set
      * @param val value
      */
-    void setDouble(const std::string &key, double val) {
-        auto currentKeyType = widgetData->getKeyType(key);
-        auto json = widgetData->getJSON(key);
-        json->doubleVal = val;
-        json->type = WidgetData::double_t;
-        if(currentKeyType == WidgetData::img_t || currentKeyType == WidgetData::none_t) {
-            widgetData->setJSON(key, json);
-        } else {
-            widgetData->setKeyUpdated(key);
-        }
-    }
+    void setDouble(const std::string &key, double val);
 
     /**
      * Sets a string in the json map
      * @param key key to set
      * @param val value
      */
-    void setString(const std::string &key, const std::string &val) {
-        auto currentKeyType = widgetData->getKeyType(key);
-        auto json = widgetData->getJSON(key);
-        json->stringVal = val;
-        json->type = WidgetData::string_t;
-        if(currentKeyType == WidgetData::img_t || currentKeyType == WidgetData::none_t) {
-            widgetData->setJSON(key, json);
-        } else {
-            widgetData->setKeyUpdated(key);
-        }
-    }
+    void setString(const std::string &key, const std::string &val);
 
     /**
      * Returns bool
      * @param key key to get
      * @return bool
      */
-    bool getBool(const std::string& key) {
-        return widgetData->getBool(key);
-    }
+    bool getBool(const std::string& key);
 
     /**
      * Returns int
      * @param key key to get
      * @return int
      */
-    int getInt(const std::string& key) {
-        return widgetData->getInt(key);
-    }
+    int getInt(const std::string& key);
 
     /**
      * Returns double
      * @param key to get
      * @return double
      */
-    double getDouble(const std::string& key) {
-        return widgetData->getDouble(key);
-    }
+    double getDouble(const std::string& key);
 
     /**
      * Returns a string
      * @param key key to get
      * @return string
      */
-    std::string getString(const std::string& key) {
-        return widgetData->getString(key);
-    }
+    std::string getString(const std::string& key);
 
     /**
      * Returns a img
      * @param key key to get
      * @return img
      */
-    cv::Mat getImg(const std::string &key) {
-        return widgetData->getImg(key);
-    }
+    cv::Mat getImg(const std::string &key);
 
     /**
      * Returns a json value object (internalJSON_ptr)
      * @param key key to get
      * @return json object
      */
-    WidgetData::internalJSON_ptr getJSON(const std::string &key) {
-        return widgetData->getJSON(key);
-    }
+    WidgetData::internalJSON_ptr getJSON(const std::string &key);
 
 private:
     WidgetData *widgetData;

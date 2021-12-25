@@ -11,12 +11,11 @@ void ThreadedInterface::startThread() {
 }
 
 void ThreadedInterface::run() {
-    while (getKeyType("adsf") == WidgetData::none_t) {
-        setInt("KEY1", rand() % 20);
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
-    }
+
 }
 
 void ThreadedInterface::join() {
-    thread.join();
+    if(std::this_thread::get_id() != thread.get_id()) {
+        thread.join();
+    }
 }

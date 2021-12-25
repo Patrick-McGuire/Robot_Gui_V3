@@ -14,21 +14,29 @@ class ThreadedInterface : public BaseInterface {
 public:
     /**
      * Constructor
-     * @param _widgetData
+     * @param coreGui gui object to interface with
      */
     explicit ThreadedInterface(CoreGUI *coreGui);
 
     /**
      * Waits for this thread to end
+     * No memory control here, but nothing will happen if called from this thread
      */
     void join();
 
 protected:
+    /**
+     * Derived class run method of the thread
+     */
     virtual void run();
 
 private:
-    std::thread thread;
+    /**
+     * Run method of the thread
+     */
     void startThread();
+
+    std::thread thread;
 };
 
 

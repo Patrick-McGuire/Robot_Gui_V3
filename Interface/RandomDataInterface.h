@@ -3,6 +3,7 @@
 
 #include "ThreadedInterface.h"
 #include "../WidgetData.h"
+#include "../CoreGUI.h"
 
 /**
  * @class RandomDataInterface
@@ -19,12 +20,20 @@ public:
      */
     RandomDataInterface(CoreGUI *coreGui, int interval);
 
+    /**
+     * Sets random data periodically
+     */
     void run() override;
 
 private:
-    int interval;
-
+    /**
+     * Generates a random alpha-numeric string
+     * @param length length of string
+     * @return random string
+     */
     static std::string randomString(size_t length);
+
+    int interval;
 };
 
 
