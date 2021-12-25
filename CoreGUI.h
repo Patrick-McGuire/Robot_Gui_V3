@@ -14,6 +14,7 @@
 #include "Constants.h"
 #include <QFileDialog>
 #include "XML/AppConfig.h"
+#include "thread"
 
 class RobotGUI;
 class MenuWidget;
@@ -39,6 +40,14 @@ public:
      * @return exit code
      */
     int runGUI();
+
+    /**
+     * Returns widgetData
+     * @return widgetData
+     */
+    WidgetData *getWidgetData();
+
+    void test(WidgetData *widgetData);
 
 public slots:
     /**

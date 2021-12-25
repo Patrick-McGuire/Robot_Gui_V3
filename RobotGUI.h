@@ -51,6 +51,12 @@ public:
      */
     void setTheme(Themes _theme, bool force);
 
+    /**
+     * Returns widgetData
+     * @return widgetData
+     */
+    WidgetData *getWidgetData();
+
 public slots:
     /**
      * Slot that updates the every child custom widget

@@ -21,6 +21,8 @@ int CoreGUI::runGUI() {
     qDebug("Creating window");
     wrapper = new QWidget(&window);
     currentRobotGUI = new RobotGUI(wrapper, &mainWindow, appConfig, this, windowConfig);
+    std::thread thread1(&CoreGUI::test, this, currentRobotGUI->getWidgetData());
+
     int out = QApplication::exec();
     qDebug("............\n");
     qDebug("Closing GUI");
@@ -91,3 +93,24 @@ std::string CoreGUI::getFilePath() {
     }
     return filePath;
 }
+
+void CoreGUI::test(WidgetData *widgetData) {
+    while (!widgetData->imgExits("asdf")) {
+        auto currentKeyType = widgetData->getKeyType("KEY1");
+        auto a = widgetData->getJSON("KEY1");
+        a->intVal = rand() % 10;
+        if(currentKeyType == WidgetData::img_t || currentKeyType == WidgetData::none_t) {
+            widgetData->setJSON("KEY1", a);
+        } else {
+            widgetData->setKeyUpdated("KEY1");
+        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    }
+    std::cout << "asdf\n";
+}
+
+WidgetData *CoreGUI::getWidgetData() {
+    return currentRobotGUI->getWidgetData();
+}
+
+

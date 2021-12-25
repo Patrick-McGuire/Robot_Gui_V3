@@ -10,7 +10,7 @@ rate = rate * 3  # 3 messages to send
 
 boolean = False
 passDict = {
-    "KEY1": 3,
+    # "KEY1": 3,
     "KEY2": 2.1,
     # "KEY3": "afsd",
 }
@@ -30,12 +30,13 @@ def sendData(dataToSend):
         return False
     startTime = time.time()
     # while startTime > time.time() - .1:
-    #     try:
-    #         data = s.recv(1024).decode('utf-8')
+    try:
+        data = s.recv(1024).decode('utf-8')
+        print(data)
     #         if data != "":
     #             break
-    #     except (BrokenPipeError, ConnectionResetError):
-    #         return False
+    except (BrokenPipeError, ConnectionResetError):
+        return False
     time.sleep(1 / rate)
     return True
 
@@ -83,7 +84,7 @@ if __name__ == '__main__':
             # JSON
             if random.randint(0, 100) > 85:
                 boolean = not boolean
-            passDict["KEY1"] = random.randint(0, 100)
+            # passDict["KEY1"] = random.randint(0, 100)
             passDict["KEY2"] = random.randint(0, 100) / 10
             passDict["KEY3"] = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
             passDict["KEY4"] = boolean

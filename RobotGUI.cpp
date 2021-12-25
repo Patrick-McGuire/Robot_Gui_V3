@@ -77,3 +77,7 @@ void RobotGUI::setTheme(Themes _theme, bool force) {
     coreWidget->updateStyle(_theme, force);
 }
 
+WidgetData *RobotGUI::getWidgetData() {
+    return widgetData;
+}
+
