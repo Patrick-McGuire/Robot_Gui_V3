@@ -288,6 +288,7 @@ public:
      * Signals to any threads listening to end
      */
     void endGui() {
+        std::lock_guard<std::mutex> lockGuard(guiActiveMutex);
         guiActive = false;
     }
 
@@ -295,7 +296,8 @@ public:
      * Returns if the GUI is active
      * @return if active
      */
-    bool getGuiActive() const {
+    bool getGuiActive() {
+        std::lock_guard<std::mutex> lockGuard(guiActiveMutex);
         return guiActive;
     }
 
@@ -319,6 +321,7 @@ private:
     std::map<std::string, bool> outFlags;
     std::map<std::string, internalJSON_ptr> outJson;
     // Operation
+    std::mutex guiActiveMutex;
     bool guiActive = true;
 };
 

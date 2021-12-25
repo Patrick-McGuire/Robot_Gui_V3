@@ -1,11 +1,16 @@
 #include "ThreadedInterface.h"
 
-ThreadedInterface::ThreadedInterface(CoreGUI *coreGui) : BaseInterface(coreGui), thread(&ThreadedInterface::startThread, this) {
-    coreGui->addThread(&thread);
+ThreadedInterface::ThreadedInterface() : BaseInterface() {
+    thread = nullptr;
 }
 
 void ThreadedInterface::startThread() {
-    std::cout << "Starting Thread\n";
+    std::lock_guard<std::mutex> lockGuard(threadMutex);
+    thread = new std::thread(&ThreadedInterface::runThread, this);
+}
+
+void ThreadedInterface::runThread() {
+    std::cout << "Starting Thread:\n";
     run();
     std::cout << "Thread Done\n";
 }
@@ -15,7 +20,9 @@ void ThreadedInterface::run() {
 }
 
 void ThreadedInterface::join() {
-    if(std::this_thread::get_id() != thread.get_id()) {
-        thread.join();
+    std::lock_guard<std::mutex> lockGuard(threadMutex);
+    if(std::this_thread::get_id() != thread->get_id()) {
+        thread->join();
     }
 }
+

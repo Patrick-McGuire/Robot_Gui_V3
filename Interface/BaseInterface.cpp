@@ -1,7 +1,11 @@
 #include "BaseInterface.h"
 
-BaseInterface::BaseInterface(CoreGUI *coreGui) {
-    widgetData = coreGui->getWidgetData();
+BaseInterface::BaseInterface() {
+    widgetData = nullptr;
+}
+
+void BaseInterface::setWidgetData(WidgetData *_widgetData) {
+    widgetData = _widgetData;
 }
 
 WidgetData::internalJsonTypes BaseInterface::getKeyType(const std::string &key) {

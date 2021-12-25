@@ -3,6 +3,7 @@
 
 #include "BaseInterface.h"
 #include "thread"
+#include "mutex"
 
 /**
  * @class ThreadedInterface
@@ -14,13 +15,16 @@ class ThreadedInterface : public BaseInterface {
 public:
     /**
      * Constructor
-     * @param coreGui gui object to interface with
      */
-    explicit ThreadedInterface(CoreGUI *coreGui);
+    explicit ThreadedInterface();
+
+    /**
+     * Starts the thread
+     */
+    void startThread();
 
     /**
      * Waits for this thread to end
-     * No memory control here, but nothing will happen if called from this thread
      */
     void join();
 
@@ -31,12 +35,14 @@ protected:
     virtual void run();
 
 private:
+
     /**
      * Run method of the thread
      */
-    void startThread();
+    void runThread();
 
-    std::thread thread;
+    std::thread *thread;
+    std::mutex threadMutex;
 };
 
 

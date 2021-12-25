@@ -2,7 +2,8 @@
 
 CoreGUI::CoreGUI(int _argc, char **_argv) : app(_argc, _argv), window(&mainWindow) {
     widgetData = new WidgetData();
-    interface = new BaseInterface(this);
+    interface = new BaseInterface();
+    interface->setWidgetData(widgetData);
     argc = _argc;
     argv = _argv;
     mainWindow.setCentralWidget(&window);
@@ -25,6 +26,7 @@ int CoreGUI::runGUI() {
     currentRobotGUI = new RobotGUI(wrapper, &mainWindow, appConfig, this, windowConfig, widgetData);
     int out = QApplication::exec();
     widgetData->endGui();
+
     for(auto & thread : threads) {
         thread->join();
     }
@@ -102,7 +104,9 @@ WidgetData *CoreGUI::getWidgetData() {
     return widgetData;
 }
 
-void CoreGUI::addThread(std::thread *thread) {
+void CoreGUI::addThreadedInterface(ThreadedInterface *thread) {
+    thread->setWidgetData(widgetData);
+    thread->startThread();
     threads.push_back(thread);
 }
 

@@ -3,7 +3,6 @@
 
 #include "ThreadedInterface.h"
 #include "../WidgetData.h"
-#include "../CoreGUI.h"
 
 /**
  * @class RandomDataInterface
@@ -15,10 +14,9 @@ class RandomDataInterface : public ThreadedInterface {
 public:
     /**
      * Constructor
-     * @param _widgetData datastructures for interface to use
      * @param interval interval on which to update
      */
-    RandomDataInterface(CoreGUI *coreGui, int interval);
+    explicit RandomDataInterface(int interval);
 
     /**
      * Sets random data periodically

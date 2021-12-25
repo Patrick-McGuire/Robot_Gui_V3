@@ -4,12 +4,10 @@
 #include "iostream"
 #include <vector>
 #include "../WidgetData.h"
-#include "../CoreGUI.h"
 #include "../Constants.h"
 #include "thread"
 #include "opencv2/opencv.hpp"
 
-class CoreGUI;
 
 /**
  * @class WidgetData
@@ -21,9 +19,14 @@ class BaseInterface {
 public:
     /**
      * Constructor
-     * @param coreGui CoreGUI object to interface with
      */
-    explicit BaseInterface(CoreGUI *coreGui);
+    explicit BaseInterface();
+
+    /**
+     * Initializes the interface
+     * @param _widgetData WidgetData to interface with
+     */
+    void setWidgetData(WidgetData *_widgetData);
 
     /**
      * Finds the type of data for a given key

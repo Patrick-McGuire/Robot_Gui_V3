@@ -9,7 +9,8 @@
 
 int main(int argc, char** argv) {
     auto gui = new CoreGUI(argc, argv);
-    RandomDataInterface randomDataInterface(gui, 10);
+    RandomDataInterface randomDataInterface(10);
+    gui->addThreadedInterface(&randomDataInterface);
     return gui->runGUI();
 }
 

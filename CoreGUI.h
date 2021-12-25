@@ -16,10 +16,10 @@
 #include "XML/AppConfig.h"
 #include "thread"
 #include "Interface/BaseInterface.h"
+#include "Interface/ThreadedInterface.h"
 
 class RobotGUI;
 class MenuWidget;
-class BaseInterface;
 
 /**
  * @class CoreGUI
@@ -55,7 +55,7 @@ public:
      * Adds a thread for the GUI to close on exit
      * @param thread thread to close
      */
-    void addThread(std::thread *thread);
+    void addThreadedInterface(ThreadedInterface *thread);
 
 public slots:
     /**
@@ -74,7 +74,7 @@ public slots:
     void openReload();
 
 private:
-    std::vector<std::thread*> threads;
+    std::vector<ThreadedInterface*> threads;
     bool quit = false;
     int argc;
     char **argv;

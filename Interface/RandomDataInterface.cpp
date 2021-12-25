@@ -1,6 +1,6 @@
 #include "RandomDataInterface.h"
 
-RandomDataInterface::RandomDataInterface(CoreGUI *coreGui, int _interval) : ThreadedInterface(coreGui) {
+RandomDataInterface::RandomDataInterface(int _interval) : ThreadedInterface() {
     interval = _interval;
 }
 
@@ -15,7 +15,7 @@ void RandomDataInterface::run() {
 }
 
 std::string RandomDataInterface::randomString(size_t length) {
-    auto randchar = []() -> char {
+    auto randChar = []() -> char {
         const char charset[] =
                 "0123456789"
                 "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -24,6 +24,6 @@ std::string RandomDataInterface::randomString(size_t length) {
         return charset[ rand() % max_index ];
     };
     std::string str(length,0);
-    std::generate_n( str.begin(), length, randchar );
+    std::generate_n(str.begin(), length, randChar );
     return str;
 }
