@@ -1,5 +1,6 @@
 #ifndef ROBOT_GUI_V3_TEXTBOXWIDGET_H
 #define ROBOT_GUI_V3_TEXTBOXWIDGET_H
+
 #include "BaseWidget.h"
 #include <QWidget>
 #include <QLabel>
@@ -10,16 +11,13 @@
 #include "../RobotGui.h"
 #include "../Theme.h"
 
-#define textBoxTittleBoxName "TITTLE_BOX"
-#define textBoxTextBoxName "TEXT_BOX"
-
 /**
  * @class TextBoxWidget
  * Custom QWidget that creates tabs with children widgets
  *
  * @author Patrick McGuire (Patrick-McGuire)
  */
-class TextBoxWidget: public BaseWidget  {
+class TextBoxWidget : public BaseWidget {
 Q_OBJECT
 public:
     /**
@@ -28,14 +26,14 @@ public:
      * @param configInfo configuration data
      * @param widgetData global widgetData object
      */
-    TextBoxWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr& configInfo, WidgetData *widgetData, Theme *_theme);
+    TextBoxWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *_theme);
 
     /**
      * Parses a xml node into the config struct
      * @param parentConfig[out] struct to store data into
      * @param node[in] xml node to parse
      */
-    static void parseXml(const RobotGui::WidgetConfig_ptr& parentConfig, rapidxml::xml_node<> *node);
+    static void parseXml(const RobotGui::WidgetConfig_ptr &parentConfig, rapidxml::xml_node<> *node);
 
 private:
     /**
@@ -74,6 +72,8 @@ private:
     QLabel *titleBox;
     QGridLayout *layout;
     std::vector<std::string> lineKeys;
+    const char *const textBoxTittleBoxName = "TITTLE_BOX";
+    const char *const textBoxTextBoxName = "TEXT_BOX";
 };
 
 #endif //ROBOT_GUI_V3_TEXTBOXWIDGET_H

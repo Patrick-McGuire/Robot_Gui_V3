@@ -21,10 +21,6 @@
 class GuiInstance;
 class CoreGui;
 
-#define FILE_MENU_NAME "FileMenu"
-#define SETTINGS_MENU_NAME "SettingMenuName"
-#define THEME_MENU_NAME "ThemeMenu"
-
 /**
  * @class TextBoxWidget
  * Custom QWidget that creates tabs with children widgets
@@ -54,6 +50,9 @@ private:
     Theme *theme;
     AppConfig *appConfig;
     std::vector<QMenu*> menus;
+    const char *const FILE_MENU_NAME = "FileMenu";
+    const char *const SETTINGS_MENU_NAME = "SettingMenuName";
+    const char *const THEME_MENU_NAME = "ThemeMenu";
 };
 
 

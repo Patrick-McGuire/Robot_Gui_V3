@@ -11,9 +11,7 @@
 #include <QTabWidget>
 #include <QMenu>
 #include "../Theme.h"
-//#include "../CommonFunctions.h"
 
-#define CONTEXT_MENU_NAME "TempContextMenuName"
 
 /**
  * @class BaseWidget
@@ -167,6 +165,7 @@ private slots:
     void showContextMenu(const QPoint &pos);
 
 private:
+    const char *const CONTEXT_MENU_NAME = "TempContextMenuName";
     bool inFocusLast = true;
     bool clicked = false;
     int startX = 0;
