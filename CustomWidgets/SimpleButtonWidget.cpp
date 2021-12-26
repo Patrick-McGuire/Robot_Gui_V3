@@ -3,6 +3,7 @@
 SimpleButtonWidget::SimpleButtonWidget(QWidget *parent, const WidgetConfig_ptr &configInfo, WidgetData *widgetData) : BaseWidget(parent, configInfo, widgetData) {
     styledText = true;
     styledWidgetBackgroundColor = true;
+    drawBorder = false;
 
     button = new QPushButton(this);
     button->setObjectName(this->objectName() + BUTTON_WIDGET_NAME);
@@ -19,7 +20,7 @@ void SimpleButtonWidget::onClick() {
     json->type = WidgetData::bool_t;
     json->boolVal = true;
 
-    if(!widgetData->outputJsonExists(configInfo->id)) {
+    if (!widgetData->outputJsonExists(configInfo->id)) {
         widgetData->setJsonOutput(configInfo->id, json);
     }
 }
@@ -29,7 +30,7 @@ void SimpleButtonWidget::onRelease() {
     json->type = WidgetData::bool_t;
     json->boolVal = false;
 
-    if(!widgetData->outputJsonExists(configInfo->id)) {
+    if (!widgetData->outputJsonExists(configInfo->id)) {
         widgetData->setJsonOutput(configInfo->id, json);
     }
 }
@@ -37,16 +38,16 @@ void SimpleButtonWidget::onRelease() {
 void SimpleButtonWidget::customUpdateStyle(bool overwrite) {
     std::string textColor = configInfo->textColor;
     std::string backgroundColor = configInfo->backgroundColor;
-    if(overwrite || configInfo->textColor == xmlThemeConst) {
+    if (overwrite || configInfo->textColor == xmlThemeConst) {
         textColor = Theme::getTextColorStr(currentTheme);
     }
-    if(overwrite || configInfo->backgroundColor == xmlThemeConst) {
-        if(configInfo->backgroundColor != xmlNoneConst) {
+    if (overwrite || configInfo->backgroundColor == xmlThemeConst) {
+        if (configInfo->backgroundColor != xmlNoneConst) {
             backgroundColor = Theme::getWidgetBackgroundColorStr(currentTheme);
         } else {
             backgroundColor = "transparent";
         }
-    } else if(configInfo->backgroundColor == xmlNoneConst) {
+    } else if (configInfo->backgroundColor == xmlNoneConst) {
         backgroundColor = "transparent";
     }
 

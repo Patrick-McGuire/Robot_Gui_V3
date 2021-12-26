@@ -1,5 +1,6 @@
 #ifndef ROBOT_GUI_V3_BASEWIDGET_H
 #define ROBOT_GUI_V3_BASEWIDGET_H
+
 #include <string>
 #include "QWidget"
 #include "../ConfigStructs.h"
@@ -20,13 +21,14 @@
  *
  * @author Patrick McGuire (Patrick-McGuire)
  */
-class BaseWidget: public QWidget {
+class BaseWidget : public QWidget {
 Q_OBJECT
 protected:
     QWidget *_parent;
     WidgetConfig_ptr configInfo;
     WidgetData *widgetData;
     const bool staticPos;
+    bool drawBorder = true;
     Themes currentTheme;
 
     // These register weather or not the current widget can update these attributes
@@ -64,6 +66,8 @@ protected:
      */
     virtual void customUpdateDraggability(bool _draggable);
 
+    void paintEvent(QPaintEvent *_event) override;
+
     /**
      * Keeps track of the start of a click for widget dragging
      * @param event click QMouseEvent
@@ -90,7 +94,7 @@ public:
      * @param _configInfo config struct to create widget based off of
      * @param _widgetData data passing structure to read data from at runtime
      */
-    BaseWidget(QWidget *_parent_, const WidgetConfig_ptr& _configInfo, WidgetData *_widgetData);
+    BaseWidget(QWidget *_parent_, const WidgetConfig_ptr &_configInfo, WidgetData *_widgetData);
 
     /**
      * Sets the position of the widget on the screen
@@ -128,7 +132,7 @@ public:
      * @param _theme them for this widget to use
      * @param overwrite weather to overwrite any attributes with theme
      */
-    void updateStyle(Themes _theme, bool  overwrite);
+    void updateStyle(Themes _theme, bool overwrite);
 
     /**
      * Sets the _draggable state of this widget if widget is not static
@@ -138,6 +142,7 @@ public:
 
 
 public slots:
+
     /**
      * Toggles the draggable state of this widget if widget is not static
      */
@@ -156,6 +161,7 @@ public slots:
     void setTextColor(QAction *channelAction);
 
 private slots:
+
     /**
      * Shows a right click menu with various options
      * @param pos Point to open menu at

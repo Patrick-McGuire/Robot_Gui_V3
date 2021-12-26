@@ -1,7 +1,8 @@
 #include <iostream>
+#include <QtGui/QPainter>
 #include "BaseWidget.h"
 
-BaseWidget::BaseWidget(QWidget *_parent_, const WidgetConfig_ptr& _configInfo, WidgetData *_widgetData) : staticPos(_configInfo->staticPos), QWidget(_parent_) {
+BaseWidget::BaseWidget(QWidget *_parent_, const WidgetConfig_ptr &_configInfo, WidgetData *_widgetData) : staticPos(_configInfo->staticPos), QWidget(_parent_) {
     configInfo = _configInfo;
     widgetData = _widgetData;
     _parent = _parent_;
@@ -17,7 +18,7 @@ BaseWidget::BaseWidget(QWidget *_parent_, const WidgetConfig_ptr& _configInfo, W
 }
 
 void BaseWidget::setPosition(int _x, int _y) {
-    if(!staticPos) {
+    if (!staticPos) {
         // Clip values to be inside the window
         if (_x > _parent->size().width() - this->width()) { _x = _parent->size().width() - this->width(); }
         if (_y > _parent->size().height() - this->height()) { _y = _parent->size().height() - this->height(); }
@@ -35,8 +36,8 @@ void BaseWidget::updateData(bool focus) {
 }
 
 void BaseWidget::updateData(QWidget *activeParent) {
-    if(activeParent == _parent) {
-        if(!inFocusLast) {
+    if (activeParent == _parent) {
+        if (!inFocusLast) {
             inFocusLast = true;
             updateOnInFocus();
         }
@@ -53,13 +54,22 @@ void BaseWidget::setDraggability(bool _draggable) {
 }
 
 void BaseWidget::toggleDraggability() {
-    if(!staticPos) {
+    if (!staticPos) {
         configInfo->draggable = !configInfo->draggable;
     }
 }
 
+void BaseWidget::paintEvent(QPaintEvent *_event) {
+    QPainter painter(this);
+    if (drawBorder) {
+        std::array<int, 3> borderColor = {100, 100, 100}; //TODO: GET FROM THEME
+        painter.setPen(QColor(borderColor[0], borderColor[1], borderColor[2]));
+        painter.drawRect(0, 0, width() - 1, height() - 1);
+    }
+}
+
 void BaseWidget::mousePressEvent(QMouseEvent *event) {
-    if(!staticPos && configInfo->draggable) {
+    if (!staticPos && configInfo->draggable) {
         clicked = true;
         startX = event->globalX();
         startY = event->globalY();
@@ -69,7 +79,7 @@ void BaseWidget::mousePressEvent(QMouseEvent *event) {
 }
 
 void BaseWidget::mouseReleaseEvent(QMouseEvent *event) {
-    if(!staticPos) {
+    if (!staticPos) {
         clicked = false;
         startX = event->globalX();
         startY = event->globalY();
@@ -77,8 +87,8 @@ void BaseWidget::mouseReleaseEvent(QMouseEvent *event) {
 }
 
 void BaseWidget::mouseMoveEvent(QMouseEvent *event) {
-    if(!staticPos && clicked && configInfo->draggable) {
-        setPosition(event->globalX() - startX + startWX, event->globalY() - startY + startWY );
+    if (!staticPos && clicked && configInfo->draggable) {
+        setPosition(event->globalX() - startX + startWX, event->globalY() - startY + startWY);
     }
 }
 
@@ -100,40 +110,40 @@ void BaseWidget::setTextColor(QAction *channelAction) {
 }
 
 void BaseWidget::showContextMenu(const QPoint &pos) {
-    std::vector<QMenu*> menus;
+    std::vector<QMenu *> menus;
     auto contextMenu = new QMenu(this);
     menus.emplace_back(contextMenu);
     contextMenu->setObjectName(contextMenuName);
-    if(!staticPos) {
+    if (!staticPos) {
         contextMenu->addAction("Toggle Draggability", this, SLOT(toggleDraggability()));
     }
-    if(styledBackground || styledWidgetBackgroundColor) {
+    if (styledBackground || styledWidgetBackgroundColor) {
         auto *backgroundColor = contextMenu->addMenu("Background color");
         menus.emplace_back(backgroundColor);
         backgroundColor->setObjectName(QString(contextMenuName) + "BGColor");
-        const char *colors[] = { "theme", "none", "black", "white", "grey", "green", "blue", "red", "orange", "yellow" };
-        for(auto & color : colors) {
-            if(std::strcmp("none", color) != 0 || styledSeeThroughBackground) {
+        const char *colors[] = {"theme", "none", "black", "white", "grey", "green", "blue", "red", "orange", "yellow"};
+        for (auto &color : colors) {
+            if (std::strcmp("none", color) != 0 || styledSeeThroughBackground) {
                 auto *sub1 = backgroundColor->addAction(color);
                 sub1->setData(color);
             }
         }
-        connect(backgroundColor, SIGNAL(triggered(QAction*)), this, SLOT(setBackgroundColor(QAction*)));
+        connect(backgroundColor, SIGNAL(triggered(QAction * )), this, SLOT(setBackgroundColor(QAction * )));
     }
-    if(styledText) {
+    if (styledText) {
         auto *textColor = contextMenu->addMenu("Text color");
         menus.emplace_back(textColor);
         textColor->setObjectName(QString(contextMenuName) + "TXTColor");
-        const char *colors[] = { "theme", "black", "white", "grey", "green", "blue", "red", "orange", "yellow" };
-        for(auto & color : colors) {
+        const char *colors[] = {"theme", "black", "white", "grey", "green", "blue", "red", "orange", "yellow"};
+        for (auto &color : colors) {
             auto *sub1 = textColor->addAction(color);
             sub1->setData(color);
         }
-        connect(textColor, SIGNAL(triggered(QAction*)), this, SLOT(setTextColor(QAction*)));
+        connect(textColor, SIGNAL(triggered(QAction * )), this, SLOT(setTextColor(QAction * )));
     }
 
     Themes theme = Dark;
-    for(auto & element : menus) {
+    for (auto &element : menus) {
         QString style =
                 "QMenu#" + element->objectName() + "{"
                                                    "background-color : " + QString::fromStdString(Theme::getRightClickMenuBackgroundColorStr(theme)) +
@@ -146,14 +156,16 @@ void BaseWidget::showContextMenu(const QPoint &pos) {
     contextMenu->exec(mapToGlobal(pos));
 }
 
-void BaseWidget::customUpdateStyle(bool overwrite){}
+void BaseWidget::customUpdateStyle(bool overwrite) {}
+
 void BaseWidget::updateChildrenStyle(bool overwrite) {}
 
 void BaseWidget::updateInFocus() {}
+
 void BaseWidget::updateNoFocus() {}
+
 void BaseWidget::updateOnInFocus() {}
+
 void BaseWidget::customUpdate() {}
 
 void BaseWidget::customUpdateDraggability(bool _draggable) {}
-
-

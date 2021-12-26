@@ -2,11 +2,12 @@
 #define ROBOT_GUI_V3_CONSTANTS_H
 
 // Widget types
-#define textBoxWidgetSTRID "textBox"
-#define videoWidgetSTRID "video"
-#define tabWidgetSTRID "tab"
+#define TEXT_BOX_WIDGET_STRID "textBox"
+#define VIDEO_WIDGET_STRID "video"
+#define TAB_WIDGET_STRID "tab"
 #define SIMPLE_BUTTON_WIDGET_STRID "simpleButton"
 #define MULTI_BAR_GRAPH_STRID "multiBarGraph"
+#define BROWSE_STRID "browse"
 
 // AppConfig consts
 #define appConfigFilePath "/.config/RobotGUI"

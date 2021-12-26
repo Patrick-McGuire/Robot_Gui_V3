@@ -27,7 +27,7 @@ set(widget_type_files
         CustomWidgets/TabWidget.cpp CustomWidgets/TabWidget.h
         CustomWidgets/MenuWidget.cpp CustomWidgets/MenuWidget.h
         CustomWidgets/SimpleButtonWidget.cpp CustomWidgets/SimpleButtonWidget.h
-        CustomWidgets/MultiBarGraphWidget.cpp CustomWidgets/MultiBarGraphWidget.h)
+        CustomWidgets/MultiBarGraphWidget.cpp CustomWidgets/MultiBarGraphWidget.h CustomWidgets/Browse.cpp CustomWidgets/Browse.h)
 
 set(widget_part_files
         CustomWidgets/WidgetParts/SimpleBarGraph.cpp CustomWidgets/WidgetParts/BaseGraphDisplay.h

@@ -100,11 +100,11 @@ WidgetConfig_ptr XMLInput::parseWidget(rapidxml::xml_node<> *node) {
         }
     }
     // Call widget specific methods to finish configuring the struct
-    if (newWidgetStruct->type == textBoxWidgetSTRID) {
+    if (newWidgetStruct->type == TEXT_BOX_WIDGET_STRID) {
         TextBoxWidget::parseXml(newWidgetStruct, node);
-    } else if (newWidgetStruct->type == videoWidgetSTRID) {
+    } else if (newWidgetStruct->type == VIDEO_WIDGET_STRID) {
         VideoWidget::parseXml(newWidgetStruct, node);
-    } else if (newWidgetStruct->type == tabWidgetSTRID) {
+    } else if (newWidgetStruct->type == TAB_WIDGET_STRID) {
         TabWidget::parseXml(newWidgetStruct, node);
     } else if (newWidgetStruct->type == SIMPLE_BUTTON_WIDGET_STRID) {
         SimpleButtonWidget::parseXml(newWidgetStruct, node);

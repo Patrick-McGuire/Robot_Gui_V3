@@ -4,6 +4,7 @@
 TabWidget::TabWidget(QWidget *parent, const WidgetConfig_ptr &configInfo, WidgetData *widgetData) : BaseWidget(parent, configInfo, widgetData) {
     styledBackground = true;
     styledHeader = true;
+    drawBorder=false;
 
     this->setLayout(&layout);
     layout.setMargin(0);
