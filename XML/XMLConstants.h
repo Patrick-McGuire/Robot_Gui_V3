@@ -23,6 +23,8 @@
 #define XML_MINIMUM_ATR "minimum"
 #define XML_MAXIMUM_ATR "maximum"
 #define XML_COLOR_ATR "color"
+#define XML_ROW_NUMBER_ATTRIBUTE "row_number"
+#define XML_COLUMN_NUMBER_ATTRIBUTE "column_number"
 
 // Style attr
 #define xmlFontATR "font"

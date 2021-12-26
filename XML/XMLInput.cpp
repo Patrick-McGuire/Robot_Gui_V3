@@ -71,6 +71,10 @@ WidgetConfig_ptr XMLInput::parseWidget(rapidxml::xml_node<> *node) {
                 tempVal = safeStoi(attrVal);
                 newWidgetStruct->width = tempVal != strFailed ? tempVal : xmlAutoConstID;         // If conversion failed return the "auto" id so the GUI can still be created
             }
+        } else if (attrName == XML_ROW_NUMBER_ATTRIBUTE) {
+            newWidgetStruct->rowNumber = std::atoi(attrVal.c_str());
+        } else if (attrName == XML_COLUMN_NUMBER_ATTRIBUTE) {
+            newWidgetStruct->columnNumber = std::atoi(attrVal.c_str());
         } else if (attrName == xmlBackgroundColorATR) {
             newWidgetStruct->backgroundColor = attrVal;
         } else if (attrName == xmlForegroundColorATR) {

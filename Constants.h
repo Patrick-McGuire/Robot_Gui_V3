@@ -7,6 +7,7 @@
 #define TAB_WIDGET_STRID "tab"
 #define SIMPLE_BUTTON_WIDGET_STRID "simpleButton"
 #define MULTI_BAR_GRAPH_STRID "multiBarGraph"
+#define ANNUNCIATOR_PANEL_STRID "annunciatorPanel"
 
 // AppConfig consts
 #define appConfigFilePath "/.config/RobotGUI"

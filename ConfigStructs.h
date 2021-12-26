@@ -48,6 +48,9 @@ struct WidgetConfig {
     std::vector<std::vector<std::string>> lines;
     // Configurable bar graph widget
     std::vector<GraphLineConfig> graphLines;
+    //Annunciator panel
+    int rowNumber;
+    int columnNumber;
 };
 
 typedef std::shared_ptr<WidgetConfig> WidgetConfig_ptr;
