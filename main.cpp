@@ -6,7 +6,7 @@
 
 int main(int argc, char** argv) {
     // Create a GUI object
-    auto gui = new CoreGUI(argc, argv, updatePeriodicOnPost);
+    auto gui = new CoreGUI(argc, argv, UPDATE_PERIODIC_ON_POST);
 
     // Interfaces
     RandomDataInterface randomDataInterface(10);

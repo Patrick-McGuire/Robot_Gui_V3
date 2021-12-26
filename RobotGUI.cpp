@@ -27,13 +27,13 @@ RobotGUI::RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appCo
     coreWidget = GUIMaker::createWidget(parent, config->firstChild, widgetData);
 
     // Create the server that will update data in the GUI
-    if(runState == updateOnPost || runState == updatePeriodicOnPost) {
+    if(runState == UPDATE_ON_POST || runState == UPDATE_PERIODIC_ON_POST) {
         server = new LocalServer(parent, widgetData, this);
         server->StartServer();
     }
 
     // Create a timer to update the GUI
-    if(runState == updatePeriodic || runState == updatePeriodicOnPost) {
+    if(runState == UPDATE_PERIODIC || runState == UPDATE_PERIODIC_ON_POST) {
         qDebug("Starting update timer");
         timer = new QTimer(this);
         connect(timer, SIGNAL(timeout()), this, SLOT(updateGUI()));
@@ -46,8 +46,8 @@ RobotGUI::RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appCo
 }
 
 void RobotGUI::setWindowSize() {
-    int width = config->width == xmlMaxConstID || config->width == xmlAutoConstID ? QApplication::desktop()->availableGeometry().width() : config->width;
-    int height = config->height == xmlMaxConstID || config->height == xmlAutoConstID ? QApplication::desktop()->availableGeometry().height() - 50 : config->height;
+    int width = config->width == XML_MAX_CONST_ID || config->width == XML_AUTO_CONST_ID ? QApplication::desktop()->availableGeometry().width() : config->width;
+    int height = config->height == XML_MAX_CONST_ID || config->height == XML_AUTO_CONST_ID ? QApplication::desktop()->availableGeometry().height() - 50 : config->height;
     mainWindow->resize(width, height);
 }
 

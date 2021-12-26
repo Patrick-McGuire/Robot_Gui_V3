@@ -38,73 +38,73 @@ WidgetConfig_ptr XMLInput::parseWidget(rapidxml::xml_node<> *node) {
         } else if (attrName == XML_ID_ATR) {
             newWidgetStruct->id = attrVal;
         } else if (attrName == XML_DRAGGABLE_ATTRIBUTE) {
-            newWidgetStruct->draggable = (attrVal == xmlTrueCapConst || attrVal == xmlTrueConst);       // Default false
+            newWidgetStruct->draggable = (attrVal == XML_TRUE_CAP_CONST || attrVal == XML_TRUE_CONST);       // Default false
         } else if (attrName == XML_STATIC_ATTRIBUTE) {
-            newWidgetStruct->staticPos = (attrVal == xmlTrueCapConst || attrVal == xmlTrueConst);       // Default false
+            newWidgetStruct->staticPos = (attrVal == XML_TRUE_CAP_CONST || attrVal == XML_TRUE_CONST);       // Default false
         } else if (attrName == XML_HIDDEN_ATTRIBUTE) {
-            newWidgetStruct->hidden = (attrVal != xmlFalseCapConst || attrVal != xmlFalseConst);        // Default true
+            newWidgetStruct->hidden = (attrVal != XML_FALSE_CAP_CONST || attrVal != XML_FALSE_CONST);        // Default true
         } else if (attrName == XML_X_POSITION_ATTRIBUTE) {
             if (isConstant(attrVal)) {                                                         // Check if it is one of a few constant types (ie auto, max, min)
                 newWidgetStruct->x = getConstVal(attrVal);
             } else {
                 tempVal = safeStoi(attrVal);
-                newWidgetStruct->x = tempVal != strFailed ? tempVal : xmlAutoConstID;         // If conversion failed return the "auto" id so the GUI can still be created
+                newWidgetStruct->x = tempVal != strFailed ? tempVal : XML_AUTO_CONST_ID;         // If conversion failed return the "auto" id so the GUI can still be created
             }
         } else if (attrName == XML_Y_POSITION_ATTRIBUTE) {
             if (isConstant(attrVal)) {                                                         // Check if it is one of a few constant types (ie auto, max, min)
                 newWidgetStruct->y = getConstVal(attrVal);
             } else {
                 tempVal = safeStoi(attrVal);
-                newWidgetStruct->y = tempVal != strFailed ? tempVal : xmlAutoConstID;         // If conversion failed return the "auto" id so the GUI can still be created
+                newWidgetStruct->y = tempVal != strFailed ? tempVal : XML_AUTO_CONST_ID;         // If conversion failed return the "auto" id so the GUI can still be created
             }
         } else if (attrName == XML_HEIGHT_ATR) {
             if (isConstant(attrVal)) {                                                   // Check if it is one of a few constant types (ie auto, max, min)
                 newWidgetStruct->height = getConstVal(attrVal);
             } else {
                 tempVal = safeStoi(attrVal);
-                newWidgetStruct->height = tempVal != strFailed ? tempVal : xmlAutoConstID;         // If conversion failed return the "auto" id so the GUI can still be created
+                newWidgetStruct->height = tempVal != strFailed ? tempVal : XML_AUTO_CONST_ID;         // If conversion failed return the "auto" id so the GUI can still be created
             }
         } else if (attrName == XML_WIDTH_ATR) {
             if (isConstant(attrVal)) {                                                   // Check if it is one of a few constant types (ie auto, max, min)
                 newWidgetStruct->width = getConstVal(attrVal);
             } else {
                 tempVal = safeStoi(attrVal);
-                newWidgetStruct->width = tempVal != strFailed ? tempVal : xmlAutoConstID;         // If conversion failed return the "auto" id so the GUI can still be created
+                newWidgetStruct->width = tempVal != strFailed ? tempVal : XML_AUTO_CONST_ID;         // If conversion failed return the "auto" id so the GUI can still be created
             }
-        } else if (attrName == xmlBackgroundColorATR) {
+        } else if (attrName == XML_BACKGROUND_COLOR_ATR) {
             newWidgetStruct->backgroundColor = attrVal;
-        } else if (attrName == xmlForegroundColorATR) {
+        } else if (attrName == XML_FOREGROUND_COLOR_ATR) {
             newWidgetStruct->foregroundColor = attrVal;
-        } else if (attrName == xmlFontATR) {
+        } else if (attrName == XML_FONT_ATR) {
             newWidgetStruct->font = attrVal;
-        } else if (attrName == xmlReliefATR) {
+        } else if (attrName == XML_RELIEF_ATR) {
             newWidgetStruct->relief = attrVal;
-        } else if (attrName == xmlTextColorATR) {
+        } else if (attrName == XML_TEXT_COLOR_ATR) {
             newWidgetStruct->textColor = attrVal;
-        } else if (attrName == xmlHeaderColorATR) {
+        } else if (attrName == XML_HEADER_COLOR_ATR) {
             newWidgetStruct->headerColor = attrVal;
-        } else if (attrName == xmlFontSizeATR) {
+        } else if (attrName == XML_FONT_SIZE_ATR) {
             if (isConstant(attrVal)) {                                                   // Check if it is one of a few constant types (ie auto, max, min)
                 newWidgetStruct->fontSize = getConstVal(attrVal);
             } else {
                 tempVal = safeStoi(attrVal);
-                newWidgetStruct->fontSize = tempVal != strFailed ? tempVal : xmlAutoConstID;         // If conversion failed return the "auto" id so the GUI can still be created
+                newWidgetStruct->fontSize = tempVal != strFailed ? tempVal : XML_AUTO_CONST_ID;         // If conversion failed return the "auto" id so the GUI can still be created
             }
-        } else if (attrName == xmlBorderWidthATR) {
+        } else if (attrName == XML_BORDER_WIDTH_ATR) {
             if (isConstant(attrVal)) {                                                   // Check if it is one of a few constant types (ie auto, max, min)
                 newWidgetStruct->borderWidth = getConstVal(attrVal);
             } else {
                 tempVal = safeStoi(attrVal);
-                newWidgetStruct->borderWidth = tempVal != strFailed ? tempVal : xmlAutoConstID;         // If conversion failed return the "auto" id so the GUI can still be created
+                newWidgetStruct->borderWidth = tempVal != strFailed ? tempVal : XML_AUTO_CONST_ID;         // If conversion failed return the "auto" id so the GUI can still be created
             }
         }
     }
     // Call widget specific methods to finish configuring the struct
-    if (newWidgetStruct->type == textBoxWidgetSTRID) {
+    if (newWidgetStruct->type == TEXT_BOX_WIDGET_STRID) {
         TextBoxWidget::parseXml(newWidgetStruct, node);
-    } else if (newWidgetStruct->type == videoWidgetSTRID) {
+    } else if (newWidgetStruct->type == VIDEO_WIDGET_STRID) {
         VideoWidget::parseXml(newWidgetStruct, node);
-    } else if (newWidgetStruct->type == tabWidgetSTRID) {
+    } else if (newWidgetStruct->type == TAB_WIDGET_STRID) {
         TabWidget::parseXml(newWidgetStruct, node);
     } else if (newWidgetStruct->type == SIMPLE_BUTTON_WIDGET_STRID) {
         SimpleButtonWidget::parseXml(newWidgetStruct, node);
@@ -131,32 +131,32 @@ void XMLInput::parseWidowNode(const WindowConfig_ptr &windowConfig, rapidxml::xm
                 windowConfig->height = getConstVal(attrVal);
             } else {
                 tempVal = safeStoi(attrVal);
-                windowConfig->height = tempVal != strFailed ? tempVal : xmlAutoConstID;         // If conversion failed return the "auto" id so the GUI can still be created
+                windowConfig->height = tempVal != strFailed ? tempVal : XML_AUTO_CONST_ID;         // If conversion failed return the "auto" id so the GUI can still be created
             }
         } else if (attrName == XML_WIDTH_ATR) {
             if (isConstant(attrVal)) {                                                   // Check if it is one of a few constant types (ie auto, max, min)
                 windowConfig->width = getConstVal(attrVal);
             } else {
                 tempVal = safeStoi(attrVal);
-                windowConfig->width = tempVal != strFailed ? tempVal : xmlAutoConstID;         // If conversion failed return the "auto" id so the GUI can still be created
+                windowConfig->width = tempVal != strFailed ? tempVal : XML_AUTO_CONST_ID;         // If conversion failed return the "auto" id so the GUI can still be created
             }
         }
     }
 }
 
 bool XMLInput::isConstant(const std::string &val) {
-    return val == xmlMaxConst || val == xmlAutoConst;
+    return val == XML_MAX_CONST || val == XML_AUTO_CONST;
 }
 
 int XMLInput::getConstVal(const std::string &val) {
-    if (val == xmlMaxConst) {
-        return xmlMaxConstID;
-    } else if (val == xmlAutoConst) {
-        return xmlAutoConstID;
-    } else if (val == xmlThemeConst) {
-        return xmlThemeConstID;
-    } else if (val == xmlNoneConst) {
-        return xmlNoneConstID;
+    if (val == XML_MAX_CONST) {
+        return XML_MAX_CONST_ID;
+    } else if (val == XML_AUTO_CONST) {
+        return XML_AUTO_CONST_ID;
+    } else if (val == XML_THEME_CONST) {
+        return XML_THEME_CONST_ID;
+    } else if (val == XML_NONE_CONST) {
+        return XML_NONE_CONST_ID;
     }
     return 0;
 }
@@ -171,21 +171,21 @@ int XMLInput::safeStoi(const std::string &val) {
 
 void XMLInput::setDefaults(const WidgetConfig_ptr &widgetConfig) {
     if (widgetConfig->backgroundColor.empty()) {
-        widgetConfig->backgroundColor = xmlThemeConst;
+        widgetConfig->backgroundColor = XML_THEME_CONST;
     }
     if (widgetConfig->textColor.empty()) {
-        widgetConfig->textColor = xmlThemeConst;
+        widgetConfig->textColor = XML_THEME_CONST;
     }
     if (widgetConfig->headerColor.empty()) {
-        widgetConfig->headerColor = xmlThemeConst;
+        widgetConfig->headerColor = XML_THEME_CONST;
     }
     if (widgetConfig->relief.empty()) {
-        widgetConfig->relief = xmlThemeConst;
+        widgetConfig->relief = XML_THEME_CONST;
     }
     if (widgetConfig->font.empty()) {
-        widgetConfig->font = xmlThemeConst;
+        widgetConfig->font = XML_THEME_CONST;
     }
     if (widgetConfig->foregroundColor.empty()) {
-        widgetConfig->font = xmlThemeConst;
+        widgetConfig->font = XML_THEME_CONST;
     }
 }

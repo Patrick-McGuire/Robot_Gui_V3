@@ -9,8 +9,8 @@ VideoWidget::VideoWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, Wi
 
     this->setLayout(&layout);
     layout.addWidget(&videoWidget);
-    autoHeight = configInfo->height == xmlAutoConstID;
-    autoWidth = configInfo->width == xmlAutoConstID;
+    autoHeight = configInfo->height == XML_AUTO_CONST_ID;
+    autoWidth = configInfo->width == XML_AUTO_CONST_ID;
     if(!autoHeight) { videoWidget.setFixedHeight(configInfo->height); }
     if(!autoWidth) { videoWidget.setFixedWidth(configInfo->width); }
 }

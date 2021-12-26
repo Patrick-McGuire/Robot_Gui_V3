@@ -1,10 +1,8 @@
 #include "CoreGUI.h"
 
-CoreGUI::CoreGUI(int _argc, char **_argv, GuiRunState _runState) : app(_argc, _argv), window(&mainWindow) {
+CoreGUI::CoreGUI(int argc, char **argv, GuiRunState _runState) : app(argc, argv), window(&mainWindow) {
     // Initialize variables
     runState = _runState;
-    argc = _argc;
-    argv = _argv;
     wrapper = nullptr;
     currentRobotGUI = nullptr;
 
@@ -89,7 +87,7 @@ bool CoreGUI::safeParse() {
         windowConfig = XMLInput::parse(getFilePath().c_str());
         return true;
     } catch (...) {
-        appConfig->setDefaultXmlPath(appConfigNoXmlPath);
+        appConfig->setDefaultXmlPath(APP_CONFIG_NO_XML_PATH);
         appConfig->write();
         return false;
     }
@@ -99,10 +97,10 @@ bool CoreGUI::safeParse() {
 std::string CoreGUI::getFilePath() {
     appConfig->parse();
     auto filePath = appConfig->getDefaultXmlPath();
-    while (filePath == appConfigNoXmlPath || !AppConfig::fileExists(filePath)) {
+    while (filePath == APP_CONFIG_NO_XML_PATH || !AppConfig::fileExists(filePath)) {
         filePath = QFileDialog::getOpenFileName(&mainWindow, "Open XML Configuration File", QString::fromStdString(appConfig->getDefaultXmlPath()), "XML Files (*.xml)").toStdString();
         if(filePath.empty()) {
-            appConfig->setDefaultXmlPath(appConfigNoXmlPath);
+            appConfig->setDefaultXmlPath(APP_CONFIG_NO_XML_PATH);
             appConfig->write();
             QApplication::quit();
             quit = true;

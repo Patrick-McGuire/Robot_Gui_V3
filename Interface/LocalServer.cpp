@@ -47,7 +47,7 @@ void LocalServer::receiveData() {
     if(_widgetData->keyUpdated()) {
         emit newData();
     }
-    writeOutData(None, senderObj);
+    writeOutData(NO_RETURN, senderObj);
 }
 
 void LocalServer::writeOutData(ReturnType returnType, QTcpSocket* socket) {

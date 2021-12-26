@@ -11,8 +11,8 @@ TabWidget::TabWidget(QWidget *parent, const WidgetConfig_ptr &configInfo, Widget
     layout.addWidget(tabs);
     tabs->setObjectName(QString::fromStdString(configInfo->objectName));
     // Set the size
-    int width = configInfo->width == xmlMaxConstID || configInfo->width == xmlAutoConstID ? parent->width() : configInfo->width;
-    int height = configInfo->height == xmlMaxConstID || configInfo->height == xmlAutoConstID ? parent->height() : configInfo->height;
+    int width = configInfo->width == XML_MAX_CONST_ID || configInfo->width == XML_AUTO_CONST_ID ? parent->width() : configInfo->width;
+    int height = configInfo->height == XML_MAX_CONST_ID || configInfo->height == XML_AUTO_CONST_ID ? parent->height() : configInfo->height;
     tabs->setFixedHeight(height);
     tabs->setFixedWidth(width);
 
@@ -67,12 +67,12 @@ void TabWidget::customUpdateStyle(bool overwrite) {
     std::string backgroundColor = configInfo->backgroundColor;
     std::string darkerBackground;
 
-    if (overwrite || configInfo->headerColor == xmlThemeConst) {
+    if (overwrite || configInfo->headerColor == XML_THEME_CONST) {
         tittleTextColor = Theme::getHeaderTextColorStr(currentTheme);
     }
 
-    if (overwrite || configInfo->backgroundColor == xmlThemeConst) {
-        if (configInfo->backgroundColor != xmlNoneConst) {
+    if (overwrite || configInfo->backgroundColor == XML_THEME_CONST) {
+        if (configInfo->backgroundColor != XML_NONE_CONST) {
             backgroundColor = Theme::getBackgroundColorStr(currentTheme);
             auto r_g_b = CommonFunctions::GetRGBFromString(backgroundColor);
             r_g_b[0] = CommonFunctions::Clamp(r_g_b[0] - 10, 0, 255);
@@ -83,7 +83,7 @@ void TabWidget::customUpdateStyle(bool overwrite) {
             backgroundColor = "transparent";
             darkerBackground = backgroundColor;
         }
-    } else if (configInfo->backgroundColor == xmlNoneConst) {
+    } else if (configInfo->backgroundColor == XML_NONE_CONST) {
         backgroundColor = "transparent";
         darkerBackground = backgroundColor;
     }

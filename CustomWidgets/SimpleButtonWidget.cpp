@@ -37,16 +37,16 @@ void SimpleButtonWidget::onRelease() {
 void SimpleButtonWidget::customUpdateStyle(bool overwrite) {
     std::string textColor = configInfo->textColor;
     std::string backgroundColor = configInfo->backgroundColor;
-    if(overwrite || configInfo->textColor == xmlThemeConst) {
+    if(overwrite || configInfo->textColor == XML_THEME_CONST) {
         textColor = Theme::getTextColorStr(currentTheme);
     }
-    if(overwrite || configInfo->backgroundColor == xmlThemeConst) {
-        if(configInfo->backgroundColor != xmlNoneConst) {
+    if(overwrite || configInfo->backgroundColor == XML_THEME_CONST) {
+        if(configInfo->backgroundColor != XML_NONE_CONST) {
             backgroundColor = Theme::getWidgetBackgroundColorStr(currentTheme);
         } else {
             backgroundColor = "transparent";
         }
-    } else if(configInfo->backgroundColor == xmlNoneConst) {
+    } else if(configInfo->backgroundColor == XML_NONE_CONST) {
         backgroundColor = "transparent";
     }
 

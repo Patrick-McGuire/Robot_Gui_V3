@@ -1,7 +1,3 @@
-//
-// Created by patrick on 10/29/21.
-//
-
 #ifndef ROBOT_GUI_V3_XMLCONSTANTS_H
 #define ROBOT_GUI_V3_XMLCONSTANTS_H
 
@@ -25,34 +21,34 @@
 #define XML_COLOR_ATR "color"
 
 // Style attr
-#define xmlFontATR "font"
-#define xmlBackgroundColorATR "background"
-#define xmlForegroundColorATR "foreground"
-#define xmlReliefATR "relief"
-#define xmlTextColorATR "textColor"
-#define xmlHeaderColorATR "headerColor"
-#define xmlFontSizeATR "fontSize"
-#define xmlBorderWidthATR "borderWidth"
+#define XML_FONT_ATR "font"
+#define XML_BACKGROUND_COLOR_ATR "background"
+#define XML_FOREGROUND_COLOR_ATR "foreground"
+#define XML_RELIEF_ATR "relief"
+#define XML_TEXT_COLOR_ATR "textColor"
+#define XML_HEADER_COLOR_ATR "headerColor"
+#define XML_FONT_SIZE_ATR "fontSize"
+#define XML_BORDER_WIDTH_ATR "borderWidth"
 
 
 //// XML Tags ////
-#define xmlWindowTag "window"
-#define xmlWidgetTag "widget"
+#define XML_WINDOW_TAG "window"
+#define XML_WIDGET_TAG "widget"
 #define XML_TAB_TAG "tab"
 #define XML_LINE_TAG "line"
 
 //// XML value constants ////
-#define xmlTrueConst "true"
-#define xmlTrueCapConst "True"
-#define xmlFalseConst "false"
-#define xmlFalseCapConst "False"
-#define xmlMaxConst "max"
-#define xmlMaxConstID -1
-#define xmlAutoConst "auto"
-#define xmlAutoConstID -2
-#define xmlThemeConst "theme"
-#define xmlThemeConstID -3
-#define xmlNoneConst "none"
-#define xmlNoneConstID -4
+#define XML_TRUE_CONST "true"
+#define XML_TRUE_CAP_CONST "True"
+#define XML_FALSE_CONST "false"
+#define XML_FALSE_CAP_CONST "False"
+#define XML_MAX_CONST "max"
+#define XML_MAX_CONST_ID -1
+#define XML_AUTO_CONST "auto"
+#define XML_AUTO_CONST_ID -2
+#define XML_THEME_CONST "theme"
+#define XML_THEME_CONST_ID -3
+#define XML_NONE_CONST "none"
+#define XML_NONE_CONST_ID -4
 
 #endif //ROBOT_GUI_V3_XMLCONSTANTS_H

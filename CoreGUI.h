@@ -36,6 +36,7 @@ public:
      * Constructor
      * @param argc
      * @param argv
+     * @param _runState when to update the gui
      */
     CoreGUI(int argc, char** argv, GuiRunState _runState);
 
@@ -71,8 +72,6 @@ private:
     GuiRunState runState;
     std::vector<ThreadedInterface*> threads;
     bool quit = false;
-    int argc;
-    char **argv;
     WindowConfig_ptr windowConfig;
     AppConfig *appConfig;
     QApplication app;
