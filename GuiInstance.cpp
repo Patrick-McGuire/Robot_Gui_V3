@@ -1,6 +1,8 @@
 #include <QFileDialog>
 #include "GuiInstance.h"
 #include <thread>
+#include "CommonFunctions.h"
+
 
 GuiInstance::GuiInstance(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appConfig, CoreGui *_coreGui, const RobotGui::WindowConfig_ptr& _config, WidgetData *_widgetData, RobotGui::GuiRunState _runState) : QWidget(_parent) {
     // Save passed variables
@@ -21,6 +23,8 @@ GuiInstance::GuiInstance(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *
     // Create the menu bar at the top
     menu = new MenuWidget(mainWindow, appConfig, coreGui, this);
     mainWindow->setMenuBar(menu);
+    mainWindow->menuBar()->setObjectName("menuBar");
+    mainWindow->menuWidget()->setObjectName("menuWidget");
 
     // Create the core widget for the GUI
     config->firstChild->objectName = "1";
@@ -83,9 +87,10 @@ void GuiInstance::makeWidgetsFixed() {
 }
 
 void GuiInstance::setTheme(bool force) {
-    mainWindow->setStyleSheet("QWidget#mainWindow { background-color: " + QString::fromStdString(theme->getBackgroundColorStr()) + "}");
-    menu->updateTheme(theme);
-    coreWidget->updateStyle(theme, force);
+    std::string darker_color = CommonFunctions::GenerateDarkerColor(theme->getBackgroundColorStr(), 10);
+    mainWindow->setStyleSheet("QWidget#mainWindow { background-color: " + QString::fromStdString(darker_color) + "}");
+    menu->updateTheme(_theme);
+    coreWidget->updateStyle(_theme, force);
 }
 
 WidgetData *GuiInstance::getWidgetData() {

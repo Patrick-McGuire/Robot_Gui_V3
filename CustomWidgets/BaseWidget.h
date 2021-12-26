@@ -1,5 +1,6 @@
 #ifndef ROBOT_GUI_V3_BASEWIDGET_H
 #define ROBOT_GUI_V3_BASEWIDGET_H
+
 #include <string>
 #include "QWidget"
 #include "../WidgetData.h"
@@ -9,7 +10,7 @@
 #include "../XML/rapidxml/rapidxml_utils.hpp"
 #include <QTabWidget>
 #include <QMenu>
-#include "../Theme2.h"
+#include "../Theme.h"
 
 #define CONTEXT_MENU_NAME "TempContextMenuName"
 
@@ -19,7 +20,7 @@
  *
  * @author Patrick McGuire (Patrick-McGuire)
  */
-class BaseWidget: public QWidget {
+class BaseWidget : public QWidget {
 Q_OBJECT
 public:
     /**
@@ -79,6 +80,7 @@ protected:
     RobotGui::WidgetConfig_ptr configInfo;
     WidgetData *widgetData;
     const bool staticPos;
+    bool drawBorder = true;
     Themes currentTheme;
 
     // These register weather or not the current widget can update these attributes
@@ -116,6 +118,8 @@ protected:
      */
     virtual void customUpdateDraggability(bool _draggable);
 
+    void paintEvent(QPaintEvent *_event) override;
+
     /**
      * Keeps track of the start of a click for widget dragging
      * @param event click QMouseEvent
@@ -135,6 +139,7 @@ protected:
     void mouseMoveEvent(QMouseEvent *event) override;
 
 public slots:
+
     /**
      * Toggles the draggable state of this widget if widget is not static
      */
@@ -153,6 +158,7 @@ public slots:
     void setTextColor(QAction *channelAction);
 
 private slots:
+
     /**
      * Shows a right click menu with various options
      * @param pos Point to open menu at

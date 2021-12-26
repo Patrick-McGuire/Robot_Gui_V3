@@ -141,3 +141,19 @@ std::string CommonFunctions::GetStringFromRGB(std::array<int, 3> r_g_b) {
     return ("rgb(" + std::to_string(r_g_b[0]) + "," + std::to_string(r_g_b[1]) + "," + std::to_string(r_g_b[2]) + ")");
 }
 
+std::string CommonFunctions::GenerateDarkerColor(const std::string &input_color, int delta) {
+    auto r_g_b = CommonFunctions::GetRGBFromString(input_color);
+    r_g_b[0] = CommonFunctions::Clamp(r_g_b[0] - delta, 0, 255);
+    r_g_b[1] = CommonFunctions::Clamp(r_g_b[1] - delta, 0, 255);
+    r_g_b[2] = CommonFunctions::Clamp(r_g_b[2] - delta, 0, 255);
+    return CommonFunctions::GetStringFromRGB(r_g_b);
+}
+
+std::string CommonFunctions::GetContrastingTextColor(const std::string& background_color) {
+    auto r_g_b = CommonFunctions::GetRGBFromString(background_color);
+    if (fmax(fmax(r_g_b[0], r_g_b[1]), r_g_b[2]) > 127) {
+        return "rgb(0,0,0)";
+    } else {
+        return "rgb(255,255,255)";
+    }
+}

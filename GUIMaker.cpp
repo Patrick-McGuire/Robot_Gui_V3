@@ -15,6 +15,8 @@ BaseWidget *GUIMaker::createWidget(QWidget *parent, const RobotGui::WidgetConfig
         return new SimpleButtonWidget(parent, configInfo, widgetData);
     } else if (configInfo->type == RobotGui::MULTI_BAR_GRAPH_STRID) {
         return new MultiBarGraphWidget(parent, configInfo, widgetData);
+    } else {
+        std::cout << "Can't create widget of type " << configInfo->type << std::endl;
     }
     return nullptr;
 }
