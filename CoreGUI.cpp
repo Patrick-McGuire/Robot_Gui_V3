@@ -1,18 +1,25 @@
 #include "CoreGUI.h"
 
 CoreGUI::CoreGUI(int _argc, char **_argv, GuiRunState _runState) : app(_argc, _argv), window(&mainWindow) {
-    widgetData = new WidgetData();
-    interface = new BaseInterface();
-    interface->setWidgetData(widgetData);
+    // Initialize variables
     runState = _runState;
     argc = _argc;
     argv = _argv;
+    wrapper = nullptr;
+    currentRobotGUI = nullptr;
+
+    // Data input management
+    widgetData = new WidgetData();
+    interface = new BaseInterface();
+    interface->setWidgetData(widgetData);
+
+    // QT initialization
     mainWindow.setCentralWidget(&window);
     window.show();
     mainWindow.show();
+
+    // Houses configuration data
     appConfig = new AppConfig();
-    wrapper = nullptr;
-    currentRobotGUI = nullptr;
 }
 
 int CoreGUI::runGUI() {
@@ -41,7 +48,6 @@ int CoreGUI::runGUI() {
     qDebug("............\n");
     qDebug("Closing GUI");
     return out;
-
 }
 
 void CoreGUI::reload() {
