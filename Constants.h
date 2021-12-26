@@ -7,7 +7,6 @@
 #define TAB_WIDGET_STRID "tab"
 #define SIMPLE_BUTTON_WIDGET_STRID "simpleButton"
 #define MULTI_BAR_GRAPH_STRID "multiBarGraph"
-#define BROWSE_STRID "browse"
 
 // AppConfig consts
 #define appConfigFilePath "/.config/RobotGUI"

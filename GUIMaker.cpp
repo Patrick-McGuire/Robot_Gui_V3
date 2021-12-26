@@ -3,7 +3,6 @@
 #include <QTabWidget>
 
 #include "CustomWidgets/MultiBarGraphWidget.h"
-#include "CustomWidgets/Browse.h"
 
 BaseWidget *GUIMaker::createWidget(QWidget *parent, const WidgetConfig_ptr &configInfo, WidgetData *widgetData) {
     if (configInfo->type == TEXT_BOX_WIDGET_STRID) {
@@ -16,8 +15,8 @@ BaseWidget *GUIMaker::createWidget(QWidget *parent, const WidgetConfig_ptr &conf
         return new SimpleButtonWidget(parent, configInfo, widgetData);
     } else if (configInfo->type == MULTI_BAR_GRAPH_STRID) {
         return new MultiBarGraphWidget(parent, configInfo, widgetData);
-    } else if (configInfo->type == BROWSE_STRID) {
-        return new Browse(parent, configInfo, widgetData);
+    } else {
+        std::cout << "Can't create widget of type " << configInfo->type << std::endl;
     }
     return nullptr;
 }

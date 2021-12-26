@@ -17,7 +17,7 @@
                 <line type="SimpleBarGraph" source="terrainAlt" title="D" minimum="0.0" maximum="100.0" color="rgb(60,255,40)"/>
                 <line type="SimpleBarGraph" source="j" title="Title" minimum="0.0" maximum="360.0" color="rgb(255,255,255)"/>
             </widget>
-            <widget type="browse" x="300 y=500"/>
+            <widget type="aa" x="300 y=500"/>
         </tab>
         <tab title="Tab2">
             <widget title="ex2" type="video" height="480" width="640" draggable="True" x="0" y="0" id="2"/>

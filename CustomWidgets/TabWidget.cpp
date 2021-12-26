@@ -4,7 +4,7 @@
 TabWidget::TabWidget(QWidget *parent, const WidgetConfig_ptr &configInfo, WidgetData *widgetData) : BaseWidget(parent, configInfo, widgetData) {
     styledBackground = true;
     styledHeader = true;
-    drawBorder=false;
+    drawBorder = false;
 
     this->setLayout(&layout);
     layout.setMargin(0);
@@ -29,7 +29,10 @@ TabWidget::TabWidget(QWidget *parent, const WidgetConfig_ptr &configInfo, Widget
         // Create all widgets in the tab
         for (int j = 0; j < configInfo->tabWidgets[i].size(); j++) {
             configInfo->tabWidgets[i][j]->objectName = configInfo->objectName + "A" + std::to_string(i) + "B" + std::to_string(j);
-            widgets.emplace_back(GUIMaker::createWidget(page, configInfo->tabWidgets[i][j], widgetData));
+            auto newWidget = GUIMaker::createWidget(page, configInfo->tabWidgets[i][j], widgetData);
+            if (newWidget != nullptr) {
+                widgets.emplace_back(newWidget);
+            }
         }
     }
 
