@@ -37,5 +37,7 @@ namespace CommonFunctions {
 
     std::map<std::string, std::string> CreateMapFromString(std::string input);
 
-    std::array<int, 3> GetRGBFromString(const std::string& input, std::array<int, 3> default_value = {255, 255, 255});
+    std::array<int, 3> GetRGBFromString(const std::string &input, std::array<int, 3> default_value = {255, 255, 255});
+
+    std::string GetStringFromRGB(std::array<int, 3> r_g_b);
 };

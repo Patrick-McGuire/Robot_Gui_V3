@@ -28,7 +28,6 @@ MultiBarGraphWidget::MultiBarGraphWidget(QWidget *parent, const WidgetConfig_ptr
         } else {
             std::cout << "Unable to add graph of type " << line.type << std::endl;
         }
-
     }
 
     setLayout(layout);
