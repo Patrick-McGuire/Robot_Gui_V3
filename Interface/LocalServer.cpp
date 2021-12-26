@@ -14,7 +14,7 @@ union lengthConverter {
 LocalServer::LocalServer(QObject *parent, WidgetData *widgetData, GuiInstance *robotGui) : QTcpServer(parent) {
     _widgetData = widgetData;
     _robotGui = robotGui;
-    dataInput = new DataInput(_widgetData, DataInput::CUSTOM_MSG_FORMAT);
+    dataInput = new DataInput(_widgetData);
     connect(this, SIGNAL(newData()), _robotGui, SLOT(updateGUI()));
 }
 

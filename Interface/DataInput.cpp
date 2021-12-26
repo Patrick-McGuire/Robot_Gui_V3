@@ -1,12 +1,7 @@
-//
-// Created by patrick on 12/2/21.
-//
-
 #include "DataInput.h"
 
-DataInput::DataInput(WidgetData *_widgetData, DataInput::DataInputType _type) {
+DataInput::DataInput(WidgetData *_widgetData) {
     widgetData = _widgetData;
-    type = _type;
     messageSize.length = 0;
 }
 

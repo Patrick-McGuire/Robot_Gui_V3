@@ -14,14 +14,10 @@
 class DataInput {
 public:
     /**
-     * Different types of inputs
+     * Constructor
+     * @param _widgetData WidgetData object to input to
      */
-    enum DataInputType {
-        CUSTOM_MSG_FORMAT,
-        THREADED,
-    };
-
-    DataInput(WidgetData *_widgetData, DataInputType _type);
+    DataInput(WidgetData *_widgetData);
 
     /**
      * Parses a buffer into widgetData format
@@ -56,9 +52,8 @@ private:
         std::int32_t length;
         std::uint8_t bytes[4];
     };
-    LengthConverter messageSize;
+    LengthConverter messageSize{};
     WidgetData *widgetData;
-    DataInputType type;
 };
 
 
