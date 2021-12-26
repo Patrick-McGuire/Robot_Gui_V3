@@ -9,7 +9,7 @@
 #include "RobotGUI.h"
 #include <vector>
 #include "WidgetData.h"
-#include "Networking/LocalServer.h"
+#include "Interface/LocalServer.h"
 #include <QDesktopWidget>
 #include "Constants.h"
 #include <QFileDialog>

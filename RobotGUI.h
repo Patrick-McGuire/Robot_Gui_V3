@@ -12,7 +12,7 @@
 #include "iostream"
 #include <vector>
 #include <QApplication>
-#include "Networking/LocalServer.h"
+#include "Interface/LocalServer.h"
 #include "CoreGUI.h"
 #include "Theme.h"
 

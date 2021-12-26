@@ -8,7 +8,7 @@
 #include "rapidjson/document.h"
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/writer.h"
-#include "../Interface/DataInput.h"
+#include "DataInput.h"
 
 class RobotGUI;     // Fixes some reference errors
 
