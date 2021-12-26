@@ -1,7 +1,9 @@
 #ifndef ROBOT_GUI_V3_WIDGETDATA_H
 #define ROBOT_GUI_V3_WIDGETDATA_H
+
 #include <map>
 #include "Constants.h"
+#include <utility>
 #include <vector>
 #include "opencv2/opencv.hpp"
 #include "rapidjson/rapidjson.h"
@@ -38,7 +40,7 @@ public:
     struct internalJSON {
         internalJsonTypes type;
         union {                     // Only one of these can be used at a time, so no need to waste memory
-            int intVal=0;
+            int intVal = 0;
             double doubleVal;
             bool boolVal;
         };
@@ -144,7 +146,7 @@ public:
      * @param key
      * @return data type <string>
      */
-    internalJsonTypes getKeyType(const std::string& key) {
+    internalJsonTypes getKeyType(const std::string &key) {
         std::lock_guard<std::mutex> lockGuard(imgMapMutex);
         std::lock_guard<std::mutex> lockGuard2(jsonMapMutex);
         return imgMap.count(key) != 0 ? img_t : jsonMap.count(key) != 0 ? jsonMap[key]->type : none_t;
@@ -155,7 +157,7 @@ public:
      */
     void resetKeysUpdated() {
         std::lock_guard<std::mutex> lockGuard(keysUpdatedMutex);
-        for(auto & it : keysUpdated) {
+        for (auto &it : keysUpdated) {
             keysUpdated[it.first] = false;
         }
     }
@@ -165,15 +167,15 @@ public:
      * @param key key to check
      * @return if key has been updated
      */
-    bool keyUpdated(const std::string& key) {
+    bool keyUpdated(const std::string &key) {
         std::lock_guard<std::mutex> lockGuard(keysUpdatedMutex);
         return keysUpdated[key];
     }
 
     bool keyUpdated() {
         std::lock_guard<std::mutex> lockGuard(keysUpdatedMutex);
-        for(auto & it : keysUpdated) {
-            if(keysUpdated[it.first]) {
+        for (auto &it : keysUpdated) {
+            if (keysUpdated[it.first]) {
                 return true;
             }
         }
@@ -185,7 +187,7 @@ public:
      * @param key key to check
      * @return if key exists
      */
-    bool imgExits(const std::string& key) {
+    bool imgExits(const std::string &key) {
         std::lock_guard<std::mutex> lockGuard(imgMapMutex);
         return imgMap.count(key) != 0;
     }
@@ -195,7 +197,7 @@ public:
      * @param key key to get
      * @return string
      */
-    std::string getString(const std::string& key) {
+    std::string getString(const std::string &key) {
         std::lock_guard<std::mutex> lockGuard(jsonMapMutex);
         return jsonMap.count(key) != 0 ? jsonMap[key]->stringVal : "";
     }
@@ -205,7 +207,7 @@ public:
      * @param key to get
      * @return double
      */
-    double getDouble(const std::string& key) {
+    double getDouble(const std::string &key) {
         std::lock_guard<std::mutex> lockGuard(jsonMapMutex);
         return jsonMap.count(key) != 0 ? jsonMap[key]->doubleVal : 0;
     }
@@ -215,7 +217,7 @@ public:
      * @param key key to get
      * @return int
      */
-    int getInt(const std::string& key) {
+    int getInt(const std::string &key) {
         std::lock_guard<std::mutex> lockGuard(jsonMapMutex);
         return jsonMap.count(key) != 0 ? jsonMap[key]->intVal : 0;
     }
@@ -255,7 +257,7 @@ public:
      * @param key key for the img
      * @param img img to set
      */
-    void setImg(const std::string& key, cv::Mat img) {
+    void setImg(const std::string &key, cv::Mat img) {
         std::lock_guard<std::mutex> lockGuard(keysUpdatedMutex);
         std::lock_guard<std::mutex> lockGuard2(imgMapMutex);
         keysUpdated[key] = true;
@@ -279,7 +281,7 @@ public:
      * @param key
      * @param keyType
      */
-    void setKeyUpdated(const std::string& key) {
+    void setKeyUpdated(const std::string &key) {
         std::lock_guard<std::mutex> lockGuard(keysUpdatedMutex);
         keysUpdated[key] = true;
     }
@@ -305,7 +307,21 @@ public:
      * Prints out a internalJSON_ptr
      * @param json json to print
      */
-    static void printJSON(internalJSON_ptr json, int level=0);
+    static void printJSON(internalJSON_ptr json, int level = 0);
+
+    static internalJSON_ptr getJSONObjectFromString(std::string _string) {
+        WidgetData::internalJSON_ptr out = std::make_shared<struct WidgetData::internalJSON>();
+        out->stringVal = std::move(_string);
+        out->type = WidgetData::string_t;
+        return out;
+    }
+
+    static internalJSON_ptr getJSONObjectFromInt(int _int) {
+        WidgetData::internalJSON_ptr out = std::make_shared<struct WidgetData::internalJSON>();
+        out->intVal = _int;
+        out->type = WidgetData::int_t;
+        return out;
+    }
 
 private:
     // Data in storage

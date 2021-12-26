@@ -75,6 +75,8 @@ WidgetConfig_ptr XMLInput::parseWidget(rapidxml::xml_node<> *node) {
             newWidgetStruct->rowNumber = std::atoi(attrVal.c_str());
         } else if (attrName == XML_COLUMN_NUMBER_ATTRIBUTE) {
             newWidgetStruct->columnNumber = std::atoi(attrVal.c_str());
+        } else if (attrName == XML_SOURCE_ATTRIBUTE) {
+            newWidgetStruct->source = attrVal;
         } else if (attrName == xmlBackgroundColorATR) {
             newWidgetStruct->backgroundColor = attrVal;
         } else if (attrName == xmlForegroundColorATR) {

@@ -13,9 +13,13 @@ class AnnunciatorWidget: public BaseWidget {
 public:
     AnnunciatorWidget(QWidget *parent, const WidgetConfig_ptr &configInfo, WidgetData *widgetData);
 
+    void updateInFocus() override;
+
 private:
     QLabel *titleWidget;
     std::vector<QLabel*> annunciatorWidgetVector;
+
+    std::string source;
 };
 
 

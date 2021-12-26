@@ -25,6 +25,7 @@
 #define XML_COLOR_ATR "color"
 #define XML_ROW_NUMBER_ATTRIBUTE "row_number"
 #define XML_COLUMN_NUMBER_ATTRIBUTE "column_number"
+#define XML_SOURCE_ATTRIBUTE "source"
 
 // Style attr
 #define xmlFontATR "font"

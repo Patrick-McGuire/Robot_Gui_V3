@@ -23,6 +23,7 @@ struct WidgetConfig {
     std::string title;
     std::string type;
     std::string id;
+    std::string source; //Widget data key to pull from
     std::string objectName;         // Not set by XML parser
     int x;
     int y;

@@ -12,18 +12,19 @@ AnnunciatorWidget::AnnunciatorWidget(QWidget *parent, const WidgetConfig_ptr &co
     int columns = 2;
     if (configInfo->rowNumber != 0) { rows = configInfo->rowNumber; }
     if (configInfo->columnNumber != 0) { columns = configInfo->columnNumber; }
+    source = configInfo->source;
 
     titleWidget = new QLabel();
     titleWidget->setText(QString::fromStdString(configInfo->title));
     titleWidget->setAlignment(Qt::AlignCenter | Qt::AlignVCenter);
     titleWidget->show();
-    QGridLayout *layout = new QGridLayout();
+    auto *layout = new QGridLayout();
     layout->addWidget(titleWidget, 0, 0, 1, columns);
     setLayout(layout);
 
     for (int i = 0; i < columns; i++) {
         for (int j = 0; j < rows; j++) {
-            QLabel *box = new QLabel();
+            auto *box = new QLabel();
             box->setMaximumWidth(150);
             box->setMinimumWidth(150);
             box->setStyleSheet("background: green");
@@ -33,4 +34,41 @@ AnnunciatorWidget::AnnunciatorWidget(QWidget *parent, const WidgetConfig_ptr &co
     }
 
     adjustSize();
+}
+
+void AnnunciatorWidget::updateInFocus() {
+    if (widgetData->keyUpdated(source)) {
+        if (widgetData->getKeyType(source) == WidgetData::vector_t) {
+            auto configData = widgetData->getJSON(source);
+            for (int i = 0; i < configData->vector.size(); i++) {
+                auto boxConfig = configData->vector[i];
+                if (boxConfig->vector.size() == 3) {
+                    std::string boxName = boxConfig->vector[0]->stringVal;
+                    int boxState = boxConfig->vector[1]->intVal;
+                    std::string description = boxConfig->vector[2]->stringVal;
+
+                    if (i < annunciatorWidgetVector.size()) {
+                        annunciatorWidgetVector[i]->setText(QString::fromStdString(boxName));
+                        annunciatorWidgetVector[i]->setToolTip(QString::fromStdString(description));
+                        annunciatorWidgetVector[i]->setToolTipDuration(5000);
+
+                        switch (boxState) {
+                            case 0:
+                                annunciatorWidgetVector[i]->setStyleSheet("background: green; color: black");
+                                break;
+                            case 1:
+                                annunciatorWidgetVector[i]->setStyleSheet("background: yellow; color: black");
+                                break;
+                            case 2:
+                                annunciatorWidgetVector[i]->setStyleSheet("background: red; color: black");
+                                break;
+                            default:
+                                annunciatorWidgetVector[i]->setStyleSheet("background: blue; color: black");
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
