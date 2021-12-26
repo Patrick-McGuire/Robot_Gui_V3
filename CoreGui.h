@@ -6,28 +6,28 @@
 #include <QWidget>
 #include "iostream"
 #include <QMainWindow>
-#include "RobotGUI.h"
+#include "GuiInstance.h"
 #include <vector>
 #include "WidgetData.h"
 #include "Interface/LocalServer.h"
 #include <QDesktopWidget>
-#include "Constants.h"
+#include "RobotGui.h"
 #include <QFileDialog>
 #include "XML/AppConfig.h"
 #include "thread"
 #include "Interface/BaseInterface.h"
 #include "Interface/ThreadedInterface.h"
 
-class RobotGUI;
+class GuiInstance;
 class MenuWidget;
 
 /**
- * @class CoreGUI
+ * @class CoreGui
  * Custom Manages the entire GUI
  *
  * @author Patrick McGuire (Patrick-McGuire)
  */
-class CoreGUI : public QObject{
+class CoreGui : public QObject{
 Q_OBJECT
 public:
     BaseInterface *interface;
@@ -38,7 +38,7 @@ public:
      * @param argv
      * @param _runState when to update the gui
      */
-    CoreGUI(int argc, char** argv, GuiRunState _runState);
+    CoreGui(int argc, char** argv, RobotGui::GuiRunState _runState);
 
     /**
      * Runs the gui
@@ -70,7 +70,7 @@ public slots:
 
 private:
     /**
-     * Restarts the RobotGUI instance
+     * Restarts the GuiInstance instance
      */
     void restartGUI();
 
@@ -86,16 +86,16 @@ private:
      */
     std::string getFilePath();
 
-    GuiRunState runState;
+    RobotGui::GuiRunState runState;
     std::vector<ThreadedInterface*> threads;
     bool quit = false;
-    WindowConfig_ptr windowConfig;
+    RobotGui::WindowConfig_ptr windowConfig;
     AppConfig *appConfig;
     QApplication app;
     QMainWindow mainWindow;
     QWidget window;
     QWidget *wrapper;
-    RobotGUI *currentRobotGUI;
+    GuiInstance *currentRobotGUI;
     WidgetData *widgetData;
 };
 

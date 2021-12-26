@@ -5,10 +5,8 @@
 #include "rapidxml/rapidxml_print.hpp"
 #include "rapidxml/rapidxml_utils.hpp"
 #include "iostream"
-#include "XMLConstants.h"
-#include "../Constants.h"
+#include "../RobotGui.h"
 #include <cstring>
-#include "../ConfigStructs.h"
 #include "../CustomWidgets/TextBoxWidget.h"
 #include "../CustomWidgets/VideoWidget.h"
 #include "../CustomWidgets/TabWidget.h"
@@ -28,14 +26,14 @@ public:
      * Parses xml file into internal format
      * @param filename file to parse
      */
-    static WindowConfig_ptr parse(const char *filename);
+    static RobotGui::WindowConfig_ptr parse(const char *filename);
 
     /**
      * Parses a xml node into internal format
      * @param node xml node to parse
      * @return WidgetConfig struct
      */
-    static WidgetConfig_ptr parseWidget(rapidxml::xml_node<> *node);
+    static RobotGui::WidgetConfig_ptr parseWidget(rapidxml::xml_node<> *node);
 
 private:
     /**
@@ -43,7 +41,7 @@ private:
      * @param windowConfig WindowConfig_ptr to parse into
      * @param node rapidxml node to parse
      */
-    static void parseWidowNode(const WindowConfig_ptr& windowConfig, rapidxml::xml_node<> *node);
+    static void parseWidowNode(const RobotGui::WindowConfig_ptr& windowConfig, rapidxml::xml_node<> *node);
 
     /**
      * Checks if a values is a constant defined in XMLConstants.h
@@ -70,7 +68,7 @@ private:
      * Writes defaults to empty/null attributes of a internal config
      * @param widgetConfig internal config to write defaults to
      */
-    static void setDefaults(const WidgetConfig_ptr& widgetConfig);
+    static void setDefaults(const RobotGui::WidgetConfig_ptr& widgetConfig);
 };
 
 #endif //ROBOT_GUI_V3_XMLINPUT_H

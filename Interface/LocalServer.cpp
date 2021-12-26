@@ -11,7 +11,7 @@ union lengthConverter {
     std::uint8_t in[4];
 };
 
-LocalServer::LocalServer(QObject *parent, WidgetData *widgetData, RobotGUI *robotGui) : QTcpServer(parent) {
+LocalServer::LocalServer(QObject *parent, WidgetData *widgetData, GuiInstance *robotGui) : QTcpServer(parent) {
     _widgetData = widgetData;
     _robotGui = robotGui;
     dataInput = new DataInput(_widgetData, DataInput::CUSTOM_MSG_FORMAT);
@@ -47,10 +47,10 @@ void LocalServer::receiveData() {
     if(_widgetData->keyUpdated()) {
         emit newData();
     }
-    writeOutData(NO_RETURN, senderObj);
+    writeOutData(RobotGui::NO_RETURN, senderObj);
 }
 
-void LocalServer::writeOutData(ReturnType returnType, QTcpSocket* socket) {
+void LocalServer::writeOutData(RobotGui::ReturnType returnType, QTcpSocket* socket) {
     rapidjson::Document doc;
     doc.SetObject();
 

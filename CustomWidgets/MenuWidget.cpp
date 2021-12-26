@@ -1,6 +1,6 @@
 #include "MenuWidget.h"
 
-MenuWidget::MenuWidget(QWidget *parent, AppConfig *appConfig_, CoreGUI *coreGui, RobotGUI *robotGui) : QMenuBar(parent) {
+MenuWidget::MenuWidget(QWidget *parent, AppConfig *appConfig_, CoreGui *coreGui, GuiInstance *robotGui) : QMenuBar(parent) {
     appConfig = appConfig_;
     // File menu
     auto *file = new QMenu("File");

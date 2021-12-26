@@ -2,7 +2,6 @@
 #define ROBOT_GUI_V3_BASEWIDGET_H
 #include <string>
 #include "QWidget"
-#include "../ConfigStructs.h"
 #include "../WidgetData.h"
 #include "QMouseEvent"
 #include "../XML/rapidxml/rapidxml.hpp"
@@ -29,7 +28,7 @@ public:
      * @param _configInfo config struct to create widget based off of
      * @param _widgetData data passing structure to read data from at runtime
      */
-    BaseWidget(QWidget *_parent_, const WidgetConfig_ptr& _configInfo, WidgetData *_widgetData);
+    BaseWidget(QWidget *_parent_, const RobotGui::WidgetConfig_ptr& _configInfo, WidgetData *_widgetData);
 
     /**
      * Sets the position of the widget on the screen
@@ -77,7 +76,7 @@ public:
 
 protected:
     QWidget *_parent;
-    WidgetConfig_ptr configInfo;
+    RobotGui::WidgetConfig_ptr configInfo;
     WidgetData *widgetData;
     const bool staticPos;
     Themes currentTheme;

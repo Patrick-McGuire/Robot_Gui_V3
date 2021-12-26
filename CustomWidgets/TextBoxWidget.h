@@ -5,11 +5,9 @@
 #include <QLabel>
 #include <string>
 #include <QGridLayout>
-#include "../ConfigStructs.h"
 #include <string>
 #include "../WidgetData.h"
-#include "../Constants.h"
-#include "../XML/XMLConstants.h"
+#include "../RobotGui.h"
 #include "../Theme.h"
 
 #define textBoxTittleBoxName "TITTLE_BOX"
@@ -30,21 +28,16 @@ public:
      * @param configInfo configuration data
      * @param widgetData global widgetData object
      */
-    TextBoxWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, WidgetData *widgetData);
+    TextBoxWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr& configInfo, WidgetData *widgetData);
 
     /**
      * Parses a xml node into the config struct
      * @param parentConfig[out] struct to store data into
      * @param node[in] xml node to parse
      */
-    static void parseXml(const WidgetConfig_ptr& parentConfig, rapidxml::xml_node<> *node);
+    static void parseXml(const RobotGui::WidgetConfig_ptr& parentConfig, rapidxml::xml_node<> *node);
 
 private:
-    QLabel *textBox;
-    QLabel *titleBox;
-    QGridLayout *layout;
-    std::vector<std::string> lineKeys;
-
     /**
      * Returns the string for the text box based on widgetData
      * @return string to display
@@ -76,6 +69,11 @@ private:
      * @param overwrite if we should overwrite any attributes with theme
      */
     void customUpdateStyle(bool overwrite) override;
+
+    QLabel *textBox;
+    QLabel *titleBox;
+    QGridLayout *layout;
+    std::vector<std::string> lineKeys;
 };
 
 #endif //ROBOT_GUI_V3_TEXTBOXWIDGET_H

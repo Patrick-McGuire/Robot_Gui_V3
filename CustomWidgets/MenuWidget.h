@@ -6,22 +6,20 @@
 #include <QLabel>
 #include <string>
 #include <QGridLayout>
-#include "../ConfigStructs.h"
 #include <string>
 #include "../WidgetData.h"
-#include "../Constants.h"
-#include "../XML/XMLConstants.h"
+#include "../RobotGui.h"
 #include <string>
 #include "QWidget"
 #include "QMouseEvent"
 #include "QMenuBar"
 #include "iostream"
-#include "../RobotGUI.h"
-#include "../CoreGUI.h"
+#include "../GuiInstance.h"
+#include "../CoreGui.h"
 #include "../Theme.h"
 
-class RobotGUI;
-class CoreGUI;
+class GuiInstance;
+class CoreGui;
 
 #define FILE_MENU_NAME "FileMenu"
 #define SETTINGS_MENU_NAME "SettingMenuName"
@@ -41,10 +39,10 @@ public:
      * Constructor
      * @param parent QWidget to make parent, should be a MainWindow
      * @param appConfig_ configuration data
-     * @param coreGui CoreGUI class for connecting slot
-     * @param robotGui RobotGUI class for connecting slot
+     * @param coreGui CoreGui class for connecting slot
+     * @param robotGui GuiInstance class for connecting slot
      */
-    MenuWidget(QWidget *parent, AppConfig *appConfig_, CoreGUI *coreGui, RobotGUI *robotGui);
+    MenuWidget(QWidget *parent, AppConfig *appConfig_, CoreGui *coreGui, GuiInstance *robotGui);
 
     /**
      * Updates the menu bar's theme

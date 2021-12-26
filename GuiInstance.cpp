@@ -1,8 +1,8 @@
 #include <QFileDialog>
-#include "RobotGUI.h"
+#include "GuiInstance.h"
 #include <thread>
 
-RobotGUI::RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appConfig, CoreGUI *_coreGui, const WindowConfig_ptr& _config, WidgetData *_widgetData, GuiRunState _runState) : QWidget(_parent) {
+GuiInstance::GuiInstance(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appConfig, CoreGui *_coreGui, const RobotGui::WindowConfig_ptr& _config, WidgetData *_widgetData, RobotGui::GuiRunState _runState) : QWidget(_parent) {
     // Save passed variables
     runState = _runState;
     widgetData = _widgetData;//new WidgetData();
@@ -27,13 +27,13 @@ RobotGUI::RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appCo
     coreWidget = GUIMaker::createWidget(parent, config->firstChild, widgetData);
 
     // Create the server that will update data in the GUI
-    if(runState == UPDATE_ON_POST || runState == UPDATE_PERIODIC_AND_ON_POST) {
+    if(runState == RobotGui::UPDATE_ON_POST || runState == RobotGui::UPDATE_PERIODIC_AND_ON_POST) {
         server = new LocalServer(parent, widgetData, this);
         server->StartServer();
     }
 
     // Create a timer to update the GUI
-    if(runState == UPDATE_PERIODIC || runState == UPDATE_PERIODIC_AND_ON_POST) {
+    if(runState == RobotGui::UPDATE_PERIODIC || runState == RobotGui::UPDATE_PERIODIC_AND_ON_POST) {
         qDebug("Starting update timer");
         timer = new QTimer(this);
         connect(timer, SIGNAL(timeout()), this, SLOT(updateGUI()));
@@ -45,49 +45,49 @@ RobotGUI::RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appCo
     setTheme(Theme::getThemeFromName(config->theme), false);
 }
 
-void RobotGUI::setWindowSize() {
-    int width = config->width == XML_MAX_CONST_ID || config->width == XML_AUTO_CONST_ID ? QApplication::desktop()->availableGeometry().width() : config->width;
-    int height = config->height == XML_MAX_CONST_ID || config->height == XML_AUTO_CONST_ID ? QApplication::desktop()->availableGeometry().height() - 50 : config->height;
+void GuiInstance::setWindowSize() {
+    int width = config->width == RobotGui::Xml::MAX_CONST_ID || config->width == RobotGui::Xml::AUTO_CONST_ID ? QApplication::desktop()->availableGeometry().width() : config->width;
+    int height = config->height == RobotGui::Xml::MAX_CONST_ID || config->height == RobotGui::Xml::AUTO_CONST_ID ? QApplication::desktop()->availableGeometry().height() - 50 : config->height;
     mainWindow->resize(width, height);
 }
 
-void RobotGUI::updateGUI() {
+void GuiInstance::updateGUI() {
     coreWidget->updateData(true);
     widgetData->resetKeysUpdated();
 }
 
-RobotGUI::~RobotGUI() {
+GuiInstance::~GuiInstance() {
     delete server;
     delete coreWidget;
     delete menu;
 }
 
-void RobotGUI::updateTheme(QAction *channelAction) {
+void GuiInstance::updateTheme(QAction *channelAction) {
     Themes theme = Theme::getThemeFromName(channelAction->data().toString().toStdString());
     setTheme(theme, false);
 }
 
-void RobotGUI::forceTheme(QAction *channelAction) {
+void GuiInstance::forceTheme(QAction *channelAction) {
     Themes theme = Theme::getThemeFromName(channelAction->data().toString().toStdString());
     setTheme(theme, true);
 }
 
 
-void RobotGUI::makeWidgetsDraggable() {
+void GuiInstance::makeWidgetsDraggable() {
     coreWidget->setDraggability(true);
 }
 
-void RobotGUI::makeWidgetsFixed() {
+void GuiInstance::makeWidgetsFixed() {
     coreWidget->setDraggability(false);
 }
 
-void RobotGUI::setTheme(Themes _theme, bool force) {
+void GuiInstance::setTheme(Themes _theme, bool force) {
     mainWindow->setStyleSheet("QWidget#mainWindow { background-color: " + QString::fromStdString(Theme::getBackgroundColorStr(_theme)) + "}");
     menu->updateTheme(_theme);
     coreWidget->updateStyle(_theme, force);
 }
 
-WidgetData *RobotGUI::getWidgetData() {
+WidgetData *GuiInstance::getWidgetData() {
     return widgetData;
 }
 

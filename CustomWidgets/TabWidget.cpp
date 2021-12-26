@@ -1,7 +1,7 @@
 #include "TabWidget.h"
 #include "../CommonFunctions.h"
 
-TabWidget::TabWidget(QWidget *parent, const WidgetConfig_ptr &configInfo, WidgetData *widgetData) : BaseWidget(parent, configInfo, widgetData) {
+TabWidget::TabWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, WidgetData *widgetData) : BaseWidget(parent, configInfo, widgetData) {
     styledBackground = true;
     styledHeader = true;
 
@@ -11,8 +11,8 @@ TabWidget::TabWidget(QWidget *parent, const WidgetConfig_ptr &configInfo, Widget
     layout.addWidget(tabs);
     tabs->setObjectName(QString::fromStdString(configInfo->objectName));
     // Set the size
-    int width = configInfo->width == XML_MAX_CONST_ID || configInfo->width == XML_AUTO_CONST_ID ? parent->width() : configInfo->width;
-    int height = configInfo->height == XML_MAX_CONST_ID || configInfo->height == XML_AUTO_CONST_ID ? parent->height() : configInfo->height;
+    int width = configInfo->width == RobotGui::Xml::MAX_CONST_ID || configInfo->width == RobotGui::Xml::AUTO_CONST_ID ? parent->width() : configInfo->width;
+    int height = configInfo->height == RobotGui::Xml::MAX_CONST_ID || configInfo->height == RobotGui::Xml::AUTO_CONST_ID ? parent->height() : configInfo->height;
     tabs->setFixedHeight(height);
     tabs->setFixedWidth(width);
 
@@ -67,12 +67,12 @@ void TabWidget::customUpdateStyle(bool overwrite) {
     std::string backgroundColor = configInfo->backgroundColor;
     std::string darkerBackground;
 
-    if (overwrite || configInfo->headerColor == XML_THEME_CONST) {
+    if (overwrite || configInfo->headerColor == RobotGui::Xml::THEME_CONST) {
         tittleTextColor = Theme::getHeaderTextColorStr(currentTheme);
     }
 
-    if (overwrite || configInfo->backgroundColor == XML_THEME_CONST) {
-        if (configInfo->backgroundColor != XML_NONE_CONST) {
+    if (overwrite || configInfo->backgroundColor == RobotGui::Xml::THEME_CONST) {
+        if (configInfo->backgroundColor != RobotGui::Xml::NONE_CONST) {
             backgroundColor = Theme::getBackgroundColorStr(currentTheme);
             auto r_g_b = CommonFunctions::GetRGBFromString(backgroundColor);
             r_g_b[0] = CommonFunctions::Clamp(r_g_b[0] - 10, 0, 255);
@@ -83,7 +83,7 @@ void TabWidget::customUpdateStyle(bool overwrite) {
             backgroundColor = "transparent";
             darkerBackground = backgroundColor;
         }
-    } else if (configInfo->backgroundColor == XML_NONE_CONST) {
+    } else if (configInfo->backgroundColor == RobotGui::Xml::NONE_CONST) {
         backgroundColor = "transparent";
         darkerBackground = backgroundColor;
     }
@@ -107,15 +107,15 @@ void TabWidget::updateChildrenStyle(bool overwrite) {
     }
 }
 
-void TabWidget::parseXml(const WidgetConfig_ptr &parentConfig, rapidxml::xml_node<> *node) {
+void TabWidget::parseXml(const RobotGui::WidgetConfig_ptr &parentConfig, rapidxml::xml_node<> *node) {
     for (auto *tab = node->first_node(); tab; tab = tab->next_sibling()) {                           // Iterate over nodes
         std::string tagName = tab->name();
-        if (tagName == XML_TAB_TAG) {
+        if (tagName == RobotGui::Xml::TAB_TAG) {
             std::string tabTitle = "No name";
             for (auto *attr = tab->first_attribute(); attr; attr = attr->next_attribute()) {         // Iterate over attributes
                 std::string attrName = attr->name();
                 std::string attrVal = attr->value();
-                if (attrName == XML_TITLE_ATR) {
+                if (attrName == RobotGui::Xml::TITLE_ATR) {
                     tabTitle = attrVal;
                 }
             }
@@ -125,9 +125,9 @@ void TabWidget::parseXml(const WidgetConfig_ptr &parentConfig, rapidxml::xml_nod
     }
 }
 
-void TabWidget::parseTabChildren(const WidgetConfig_ptr &parentConfig, rapidxml::xml_node<> *node) {
+void TabWidget::parseTabChildren(const RobotGui::WidgetConfig_ptr &parentConfig, rapidxml::xml_node<> *node) {
     // These calls back to XML input to parse the "sub" widgets
-    std::vector<WidgetConfig_ptr> widgetsVec;
+    std::vector<RobotGui::WidgetConfig_ptr> widgetsVec;
     for (auto *widget = node->first_node(); widget; widget = widget->next_sibling()) {
         widgetsVec.emplace_back(XMLInput::parseWidget(widget));
     }

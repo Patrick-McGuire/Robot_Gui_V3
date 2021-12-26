@@ -11,11 +11,11 @@ DataInput::DataInput(WidgetData *_widgetData, DataInput::DataInputType _type) {
 }
 
 void DataInput::parse(char *input, int len) {
-    auto id = static_cast<MessageType>((int) input[0]);
+    auto id = static_cast<RobotGui::MessageType>((int) input[0]);
     for(int i = 0; i < 4; i++) {
         messageSize.bytes[i] = input[i+1];
     }
-    auto returnType = static_cast<ReturnType>((int) input[5]);
+    auto returnType = static_cast<RobotGui::ReturnType>((int) input[5]);
     if(messageSize.length <= 0 || messageSize.length + 6 > len) {       // Corrupted/invalid messages are ignored
         return;
     }
@@ -25,11 +25,11 @@ void DataInput::parse(char *input, int len) {
     input[messageSize.length] = 0;          // Create a null-terminated string
     // Message type cases
     switch (id) {
-        case JSON: {
+        case RobotGui::JSON: {
             parseJson(input, len);
             break;
         }
-        case IMG: {
+        case RobotGui::IMG: {
             parseImg(input, len);
             break;
         }

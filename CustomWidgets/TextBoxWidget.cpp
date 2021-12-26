@@ -3,7 +3,7 @@
 #include <iostream>
 #include <vector>
 
-TextBoxWidget::TextBoxWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, WidgetData *widgetData) : BaseWidget(parent, configInfo, widgetData) {
+TextBoxWidget::TextBoxWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr& configInfo, WidgetData *widgetData) : BaseWidget(parent, configInfo, widgetData) {
     styledHeader = true;
     styledText = true;
     styledSeeThroughBackground = true;
@@ -81,19 +81,19 @@ void TextBoxWidget::customUpdateStyle(bool overwrite) {
     std::string tittleTextColor = configInfo->headerColor;
     std::string textColor = configInfo->textColor;
     std::string backgroundColor = configInfo->backgroundColor;
-    if(overwrite || configInfo->textColor == XML_THEME_CONST) {
+    if(overwrite || configInfo->textColor == RobotGui::Xml::THEME_CONST) {
         textColor = Theme::getTextColorStr(currentTheme);
     }
-    if(overwrite || configInfo->headerColor == XML_THEME_CONST) {
+    if(overwrite || configInfo->headerColor == RobotGui::Xml::THEME_CONST) {
         tittleTextColor = Theme::getHeaderTextColorStr(currentTheme);
     }
-    if(overwrite || configInfo->backgroundColor == XML_THEME_CONST) {
-        if(configInfo->backgroundColor != XML_NONE_CONST) {
+    if(overwrite || configInfo->backgroundColor == RobotGui::Xml::THEME_CONST) {
+        if(configInfo->backgroundColor != RobotGui::Xml::NONE_CONST) {
             backgroundColor = Theme::getWidgetBackgroundColorStr(currentTheme);
         } else {
             backgroundColor = "transparent";
         }
-    } else if(configInfo->backgroundColor == XML_NONE_CONST) {
+    } else if(configInfo->backgroundColor == RobotGui::Xml::NONE_CONST) {
         backgroundColor = "transparent";
     }
 
@@ -111,19 +111,19 @@ void TextBoxWidget::customUpdateStyle(bool overwrite) {
     this->setStyleSheet(buf);
 }
 
-void TextBoxWidget::parseXml(const WidgetConfig_ptr& parentConfig, rapidxml::xml_node<> *node) {
+void TextBoxWidget::parseXml(const RobotGui::WidgetConfig_ptr& parentConfig, rapidxml::xml_node<> *node) {
     // Iterate though all lines
     for(auto *line = node->first_node(); line; line = line->next_sibling()) {
         std::string tagName = line->name();
-        if(tagName == XML_LINE_TAG) {
+        if(tagName == RobotGui::Xml::LINE_TAG) {
             std::string label;
             std::string value;
             for(rapidxml::xml_attribute<> *attr = line->first_attribute(); attr; attr = attr->next_attribute()) {
                 std::string attrName = attr->name();
                 std::string attrVal = attr->value();
-                if(attrName == XML_LABEL_ATTRIBUTE) {
+                if(attrName == RobotGui::Xml::LABEL_ATR) {
                     label = attrVal;
-                } else if(attrName == XML_VALUE_ATTRIBUTE) {
+                } else if(attrName == RobotGui::Xml::VALUE_ATR) {
                     value = attrVal;
                 }
             }
