@@ -115,15 +115,15 @@ void TextBoxWidget::parseXml(const WidgetConfig_ptr& parentConfig, rapidxml::xml
     // Iterate though all lines
     for(auto *line = node->first_node(); line; line = line->next_sibling()) {
         std::string tagName = line->name();
-        if(tagName == xmlLineTag) {
+        if(tagName == XML_LINE_TAG) {
             std::string label;
             std::string value;
             for(rapidxml::xml_attribute<> *attr = line->first_attribute(); attr; attr = attr->next_attribute()) {
                 std::string attrName = attr->name();
                 std::string attrVal = attr->value();
-                if(attrName == xmlLabelATR) {
+                if(attrName == XML_LABEL_ATTRIBUTE) {
                     label = attrVal;
-                } else if(attrName == xmlValueATR) {
+                } else if(attrName == XML_VALUE_ATTRIBUTE) {
                     value = attrVal;
                 }
             }

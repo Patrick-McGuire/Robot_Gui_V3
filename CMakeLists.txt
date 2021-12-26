@@ -7,7 +7,62 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
-add_executable(Robot_Gui_V3 main.cpp XML/rapidxml/rapidxml_print.hpp XML/rapidxml/rapidxml.hpp XML/rapidxml/rapidxml_iterators.hpp XML/rapidxml/rapidxml_utils.hpp GUIMaker.cpp GUIMaker.h CustomWidgets/TextBoxWidget.cpp CustomWidgets/TextBoxWidget.h CustomWidgets/BaseWidget.cpp CustomWidgets/BaseWidget.h RobotGUI.cpp RobotGUI.h WidgetData.cpp WidgetData.h Constants.h Interface/LocalServer.cpp Interface/LocalServer.h CustomWidgets/VideoWidget.cpp CustomWidgets/VideoWidget.h XML/XMLInput.cpp XML/XMLInput.h XML/XMLOutput.cpp XML/XMLOutput.h XML/XMLConstants.h ConfigStructs.h CustomWidgets/TabWidget.cpp CustomWidgets/TabWidget.h XML/AppConfig.cpp XML/AppConfig.h CustomWidgets/MenuWidget.cpp CustomWidgets/MenuWidget.h CoreGUI.cpp CoreGUI.h Theme.cpp Theme.h CustomWidgets/SimpleButtonWidget.cpp CustomWidgets/SimpleButtonWidget.h Interface/DataInput.cpp Interface/DataInput.h Interface/BaseInterface.h Interface/ThreadedInterface.cpp Interface/ThreadedInterface.h Interface/RandomDataInterface.cpp Interface/RandomDataInterface.h Interface/BaseInterface.cpp Interface/WebcamStreamInterface.cpp Interface/WebcamStreamInterface.h)
+set(rapidxml_files
+        XML/rapidxml/rapidxml_print.hpp
+        XML/rapidxml/rapidxml.hpp
+        XML/rapidxml/rapidxml_iterators.hpp
+        XML/rapidxml/rapidxml_utils.hpp
+        )
+
+set(xml_interface_files
+        XML/XMLInput.cpp XML/XMLInput.h
+        XML/XMLOutput.cpp XML/XMLOutput.h
+        XML/XMLConstants.h ConfigStructs.h
+        XML/AppConfig.cpp XML/AppConfig.h)
+
+set(widget_type_files
+        CustomWidgets/VideoWidget.cpp CustomWidgets/VideoWidget.h
+        CustomWidgets/TextBoxWidget.cpp CustomWidgets/TextBoxWidget.h
+        CustomWidgets/BaseWidget.cpp CustomWidgets/BaseWidget.h
+        CustomWidgets/TabWidget.cpp CustomWidgets/TabWidget.h
+        CustomWidgets/MenuWidget.cpp CustomWidgets/MenuWidget.h
+        CustomWidgets/SimpleButtonWidget.cpp CustomWidgets/SimpleButtonWidget.h
+        CustomWidgets/MultiBarGraphWidget.cpp CustomWidgets/MultiBarGraphWidget.h)
+
+set(widget_part_files
+        CustomWidgets/WidgetParts/SimpleBarGraph.cpp CustomWidgets/WidgetParts/BaseGraphDisplay.h CustomWidgets/WidgetParts/CircleBarGraph.cpp CustomWidgets/WidgetParts/CircleBarGraph.h)
+
+set(networking_files
+        Networking/LocalServer.cpp Networking/LocalServer.h
+        )
+
+set(interface_files
+        Interface/DataInput.cpp Interface/DataInput.h
+        Interface/BaseInterface.h
+        Interface/ThreadedInterface.cpp Interface/ThreadedInterface.h
+        Interface/RandomDataInterface.cpp Interface/RandomDataInterface.h
+        )
+
+set(core_files
+        GUIMaker.cpp GUIMaker.h
+        RobotGUI.cpp RobotGUI.h
+        WidgetData.cpp WidgetData.h
+        Constants.h
+        CoreGUI.cpp CoreGUI.h
+        Theme.cpp Theme.h
+        CommonFunctions.cpp CommonFunctions.h
+        )
+
+set(all_gui_files
+        ${rapidxml_files}
+        ${widget_type_files}
+        ${widget_part_files}
+        ${networking_files}
+        ${interface_files}
+        ${xml_interface_files}
+        ${core_files})
+
+add_executable(Robot_Gui_V3 main.cpp ${all_gui_files})
 set(SOURCE_FILES main.cpp)
 include_directories(/usr/include/)
 
@@ -18,7 +73,7 @@ find_package(OpenCV REQUIRED)
 target_link_libraries(Robot_Gui_V3 Qt5::Core Qt5::Widgets Qt5::Network)
 target_link_libraries(Robot_Gui_V3 stdc++fs)
 
-set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -std=c++17")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -no-pie")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 
@@ -28,5 +83,5 @@ message(STATUS ${OpenCV_LIBS})
 
 
 include_directories(${OpenCV_INCLUDE_DIRS})
-target_link_libraries( ${PROJECT_NAME} ${OpenCV_LIBS} )
+target_link_libraries(${PROJECT_NAME} ${OpenCV_LIBS})
 
