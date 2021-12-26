@@ -36,6 +36,8 @@ public:
      * @param _appConfig global configuration data
      * @param _coreGui CoreGUI object for connecting slots
      * @param _config window configuration data
+     * @param _widgetData WidgetData object to display data from
+     * @param _runState where to get data from
      */
     RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appConfig, CoreGUI *_coreGui, const WindowConfig_ptr& _config, WidgetData *_widgetData, GuiRunState _runState);
 

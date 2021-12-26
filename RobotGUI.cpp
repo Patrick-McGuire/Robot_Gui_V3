@@ -27,13 +27,13 @@ RobotGUI::RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appCo
     coreWidget = GUIMaker::createWidget(parent, config->firstChild, widgetData);
 
     // Create the server that will update data in the GUI
-    if(runState == UPDATE_ON_POST || runState == UPDATE_PERIODIC_ON_POST) {
+    if(runState == UPDATE_ON_POST || runState == UPDATE_PERIODIC_AND_ON_POST) {
         server = new LocalServer(parent, widgetData, this);
         server->StartServer();
     }
 
     // Create a timer to update the GUI
-    if(runState == UPDATE_PERIODIC || runState == UPDATE_PERIODIC_ON_POST) {
+    if(runState == UPDATE_PERIODIC || runState == UPDATE_PERIODIC_AND_ON_POST) {
         qDebug("Starting update timer");
         timer = new QTimer(this);
         connect(timer, SIGNAL(timeout()), this, SLOT(updateGUI()));

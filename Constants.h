@@ -31,7 +31,7 @@ enum ReturnType {
 enum GuiRunState {
     UPDATE_ON_POST,
     UPDATE_PERIODIC,
-    UPDATE_PERIODIC_ON_POST,
+    UPDATE_PERIODIC_AND_ON_POST,
 };
 
 #endif //ROBOT_GUI_V3_CONSTANTS_H
