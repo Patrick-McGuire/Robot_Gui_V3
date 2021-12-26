@@ -127,7 +127,7 @@ std::map<std::string, std::string> CommonFunctions::CreateMapFromString(std::str
  * Takes in string like "(r,g,b)" or "{r,g,b}" and returns a std::array of the r,g,b values
  */
 std::array<int, 3> CommonFunctions::GetRGBFromString(const std::string& input, std::array<int, 3> default_value) {
-    auto cut_down_string = CommonFunctions::Strip(input, WHITESPACE + "(){}");
+    auto cut_down_string = CommonFunctions::Strip(input, WHITESPACE + "(){}rgb");
     auto split_string = CommonFunctions::SplitString(cut_down_string, ",");
     if (split_string.size() == 3) {
         std::array<int, 3> output = {std::atoi(split_string[0].c_str()), std::atoi(split_string[1].c_str()), std::atoi(split_string[2].c_str())};

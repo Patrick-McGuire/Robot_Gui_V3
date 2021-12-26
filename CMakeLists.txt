@@ -30,7 +30,7 @@ set(widget_type_files
         CustomWidgets/MultiBarGraphWidget.cpp CustomWidgets/MultiBarGraphWidget.h)
 
 set(widget_part_files
-        CustomWidgets/WidgetParts/SimpleBarGraph.cpp CustomWidgets/WidgetParts/BaseGraphDisplay.h)
+        CustomWidgets/WidgetParts/SimpleBarGraph.cpp CustomWidgets/WidgetParts/BaseGraphDisplay.h CustomWidgets/WidgetParts/CircleBarGraph.cpp CustomWidgets/WidgetParts/CircleBarGraph.h)
 
 set(networking_files
         Networking/LocalServer.cpp Networking/LocalServer.h

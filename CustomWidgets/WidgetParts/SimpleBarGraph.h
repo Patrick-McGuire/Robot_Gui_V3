@@ -10,20 +10,11 @@
 
 class SimpleBarGraph : public BaseGraphDisplay {
 public:
-    explicit SimpleBarGraph(QWidget *parent = nullptr, std::string _title = "Title", double min_value = 0, double _max_value = 100, int _size = 200, const std::string &bar_color = "");
+    explicit SimpleBarGraph(QWidget *parent = nullptr, std::string _title = "Title", double _min_value = 0, double _max_value = 100, int _size = 200, const std::string &bar_color = "");
 
     void setSize(int _size) override;
 
     void paintEvent(QPaintEvent *_event) override;
-
-protected:
-    double dataValue = 0;
-    double minValue;
-    double maxValue;
-    std::string title;
-
-    QColor barColor;
-    QColor textColor;
 };
 
 

@@ -7,7 +7,11 @@
 #include "MultiBarGraphWidget.h"
 #include "../XML/XMLConstants.h"
 
+#include "WidgetParts/SimpleBarGraph.h"
+#include "WidgetParts/CircleBarGraph.h"
+
 #define SIMPLE_BAR_GRAPH_NAME "SimpleBarGraph"
+#define CIRCLE_BAR_GRAPH_NAME "CircleBarGraph"
 
 MultiBarGraphWidget::MultiBarGraphWidget(QWidget *parent, const WidgetConfig_ptr &configInfo, WidgetData *widgetData) : BaseWidget(parent, configInfo, widgetData) {
     auto *layout = new QGridLayout();
@@ -15,13 +19,17 @@ MultiBarGraphWidget::MultiBarGraphWidget(QWidget *parent, const WidgetConfig_ptr
     for (auto &line : configInfo->graphLines) {
         if (line.type == SIMPLE_BAR_GRAPH_NAME) {
             subGraphVector.push_back(new SimpleBarGraph(nullptr, line.title, line.min, line.max, 200, line.colorString));
-            subGraphSourcesVector.emplace_back(line.source);
+            subGraphSourcesVector.push_back(line.source);
+            layout->addWidget(subGraphVector[subGraphVector.size() - 1], 1, subGraphVector.size());
+        } else if (line.type == CIRCLE_BAR_GRAPH_NAME) {
+            subGraphVector.push_back(new CircleBarGraph(nullptr, line.title, line.min, line.max, 200, line.colorString));
+            subGraphSourcesVector.push_back(line.source);
             layout->addWidget(subGraphVector[subGraphVector.size() - 1], 1, subGraphVector.size());
         } else {
             std::cout << "Unable to add graph of type " << line.type << std::endl;
         }
-    }
 
+    }
 
     setLayout(layout);
     adjustSize();
@@ -29,6 +37,20 @@ MultiBarGraphWidget::MultiBarGraphWidget(QWidget *parent, const WidgetConfig_ptr
 }
 
 void MultiBarGraphWidget::updateInFocus() {
+    for (int i = 0; i < subGraphVector.size(); i++) {
+        auto key = subGraphSourcesVector[i];
+        auto subGraph = subGraphVector[i];
+
+        if (widgetData->keyUpdated(key)) {
+            if (widgetData->getKeyType(key) == WidgetData::int_t) {
+                subGraph->setValue(widgetData->getInt(key));
+                subGraph->update();
+            } else if (widgetData->getKeyType(key) == WidgetData::double_t) {
+                subGraph->setValue(widgetData->getDouble(key));
+                subGraph->update();
+            }
+        }
+    }
 }
 
 void MultiBarGraphWidget::parseXml(const WidgetConfig_ptr &parentConfig, rapidxml::xml_node<> *node) {
