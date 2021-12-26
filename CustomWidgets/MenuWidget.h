@@ -16,7 +16,7 @@
 #include "iostream"
 #include "../GuiInstance.h"
 #include "../CoreGui.h"
-#include "../Theme2.h"
+#include "../Theme.h"
 
 class GuiInstance;
 class CoreGui;
@@ -42,15 +42,16 @@ public:
      * @param coreGui CoreGui class for connecting slot
      * @param robotGui GuiInstance class for connecting slot
      */
-    MenuWidget(QWidget *parent, AppConfig *appConfig_, CoreGui *coreGui, GuiInstance *robotGui);
+    MenuWidget(QWidget *parent, AppConfig *appConfig_, CoreGui *coreGui, GuiInstance *robotGui, Theme *_theme);
 
     /**
      * Updates the menu bar's theme
      * @param _theme theme to set
      */
-    void updateTheme(Themes _theme);
+    void updateTheme();
 
 private:
+    Theme *theme;
     AppConfig *appConfig;
     std::vector<QMenu*> menus;
 };

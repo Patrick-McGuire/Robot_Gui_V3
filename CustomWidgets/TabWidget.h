@@ -14,6 +14,7 @@
 #include <QString>
 #include "../GUIMaker.h"
 #include <QApplication>
+#include "../Theme.h"
 
 /**
  * @class TabWidget
@@ -29,7 +30,7 @@ public:
      * @param configInfo configuration data
      * @param widgetData global widgetData object
      */
-    TabWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr& configInfo, WidgetData *widgetData);
+    TabWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr& configInfo, WidgetData *widgetData, Theme *_theme);
 
     /**
      * Parses a xml node into the config struct

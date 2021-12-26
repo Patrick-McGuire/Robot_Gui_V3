@@ -14,6 +14,8 @@ GuiInstance::GuiInstance(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *
     coreGui = _coreGui;
     config = _config;
 
+    theme = new Theme(config->theme);
+
     // Set up the window
     mainWindow->setWindowTitle(QString::fromStdString(config->title));
     mainWindow->setObjectName("mainWindow");
@@ -21,14 +23,14 @@ GuiInstance::GuiInstance(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *
     parent->resize(mainWindow->width(), mainWindow->height());
 
     // Create the menu bar at the top
-    menu = new MenuWidget(mainWindow, appConfig, coreGui, this);
+    menu = new MenuWidget(mainWindow, appConfig, coreGui, this, theme);
     mainWindow->setMenuBar(menu);
     mainWindow->menuBar()->setObjectName("menuBar");
     mainWindow->menuWidget()->setObjectName("menuWidget");
 
     // Create the core widget for the GUI
     config->firstChild->objectName = "1";
-    coreWidget = GUIMaker::createWidget(parent, config->firstChild, widgetData);
+    coreWidget = GUIMaker::createWidget(parent, config->firstChild, widgetData, theme);
 
     // Create the server that will update data in the GUI
     if(runState == RobotGui::UPDATE_ON_POST || runState == RobotGui::UPDATE_PERIODIC_AND_ON_POST) {
@@ -45,9 +47,7 @@ GuiInstance::GuiInstance(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *
     }
 
     parent->show();
-
-    theme = new Theme(config->theme);
-//    setTheme(Theme2::getThemeFromName(config->theme), false);
+    setTheme(false);
 }
 
 void GuiInstance::setWindowSize() {
@@ -65,6 +65,7 @@ GuiInstance::~GuiInstance() {
     delete server;
     delete coreWidget;
     delete menu;
+    delete theme;
 }
 
 void GuiInstance::updateTheme(QAction *channelAction) {
@@ -87,10 +88,10 @@ void GuiInstance::makeWidgetsFixed() {
 }
 
 void GuiInstance::setTheme(bool force) {
-    std::string darker_color = CommonFunctions::GenerateDarkerColor(theme->getBackgroundColorStr(), 10);
+    std::string darker_color = CommonFunctions::GenerateDarkerColor(theme->getBackgroundColor(), 10);
     mainWindow->setStyleSheet("QWidget#mainWindow { background-color: " + QString::fromStdString(darker_color) + "}");
-    menu->updateTheme(_theme);
-    coreWidget->updateStyle(_theme, force);
+    menu->updateTheme();
+    coreWidget->updateStyle(force);
 }
 
 WidgetData *GuiInstance::getWidgetData() {

@@ -10,7 +10,7 @@
 
 class MultiBarGraphWidget : public BaseWidget {
 public:
-    MultiBarGraphWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, WidgetData *widgetData);
+    MultiBarGraphWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *_theme);
 
     void updateInFocus() override;
 

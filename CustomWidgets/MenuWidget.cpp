@@ -1,7 +1,8 @@
 #include "MenuWidget.h"
 #include "../CommonFunctions.h"
 
-MenuWidget::MenuWidget(QWidget *parent, AppConfig *appConfig_, CoreGui *coreGui, GuiInstance *robotGui) : QMenuBar(parent) {
+MenuWidget::MenuWidget(QWidget *parent, AppConfig *appConfig_, CoreGui *coreGui, GuiInstance *robotGui, Theme *_theme) : QMenuBar(parent) {
+    theme = _theme;
     appConfig = appConfig_;
     // File menu
     auto *file = new QMenu("File");
@@ -24,12 +25,12 @@ MenuWidget::MenuWidget(QWidget *parent, AppConfig *appConfig_, CoreGui *coreGui,
     menus.emplace_back(setTheme);
     setTheme->setObjectName(QString(THEME_MENU_NAME) + "1");
 
-    auto *subMenuAct1 = setTheme->addAction(QString::fromStdString(Theme2::getThemeName(Themes::Dark)));
-    subMenuAct1->setData(QString::fromStdString(Theme2::getThemeName(Themes::Dark)));
-    auto *subMenuAct2 = setTheme->addAction(QString::fromStdString(Theme2::getThemeName(Themes::Light)));
-    subMenuAct2->setData(QString::fromStdString(Theme2::getThemeName(Themes::Light)));
-    auto *subMenuAct3 = setTheme->addAction(QString::fromStdString(Theme2::getThemeName(Themes::Green)));
-    subMenuAct3->setData(QString::fromStdString(Theme2::getThemeName(Themes::Green)));
+    auto *subMenuAct1 = setTheme->addAction(QString::fromStdString(Theme::getThemeName(RobotGui::Themes::DARK)));
+    subMenuAct1->setData(QString::fromStdString(Theme::getThemeName(RobotGui::Themes::DARK)));
+    auto *subMenuAct2 = setTheme->addAction(QString::fromStdString(Theme::getThemeName(RobotGui::Themes::LIGHT)));
+    subMenuAct2->setData(QString::fromStdString(Theme::getThemeName(RobotGui::Themes::LIGHT)));
+    auto *subMenuAct3 = setTheme->addAction(QString::fromStdString(Theme::getThemeName(RobotGui::Themes::GREEN)));
+    subMenuAct3->setData(QString::fromStdString(Theme::getThemeName(RobotGui::Themes::GREEN)));
 
     connect(setTheme, SIGNAL(triggered(QAction * )), robotGui, SLOT(updateTheme(QAction * )));
 
@@ -38,12 +39,12 @@ MenuWidget::MenuWidget(QWidget *parent, AppConfig *appConfig_, CoreGui *coreGui,
     menus.emplace_back(setAll);
     setAll->setObjectName(QString(THEME_MENU_NAME) + "2");
 
-    auto *subMenuAct11 = setAll->addAction(QString::fromStdString(Theme2::getThemeName(Themes::Dark)));
-    subMenuAct11->setData(QString::fromStdString(Theme2::getThemeName(Themes::Dark)));
-    auto *subMenuAct22 = setAll->addAction(QString::fromStdString(Theme2::getThemeName(Themes::Light)));
-    subMenuAct22->setData(QString::fromStdString(Theme2::getThemeName(Themes::Light)));
-    auto *subMenuAct33 = setAll->addAction(QString::fromStdString(Theme2::getThemeName(Themes::Green)));
-    subMenuAct33->setData(QString::fromStdString(Theme2::getThemeName(Themes::Green)));
+    auto *subMenuAct11 = setAll->addAction(QString::fromStdString(Theme::getThemeName(RobotGui::Themes::DARK)));
+    subMenuAct11->setData(QString::fromStdString(Theme::getThemeName(RobotGui::Themes::DARK)));
+    auto *subMenuAct22 = setAll->addAction(QString::fromStdString(Theme::getThemeName(RobotGui::Themes::LIGHT)));
+    subMenuAct22->setData(QString::fromStdString(Theme::getThemeName(RobotGui::Themes::LIGHT)));
+    auto *subMenuAct33 = setAll->addAction(QString::fromStdString(Theme::getThemeName(RobotGui::Themes::GREEN)));
+    subMenuAct33->setData(QString::fromStdString(Theme::getThemeName(RobotGui::Themes::GREEN)));
 
     connect(setAll, SIGNAL(triggered(QAction * )), robotGui, SLOT(forceTheme(QAction * )));
 
@@ -55,11 +56,11 @@ MenuWidget::MenuWidget(QWidget *parent, AppConfig *appConfig_, CoreGui *coreGui,
 }
 
 
-void MenuWidget::updateTheme(Themes _theme) {
+void MenuWidget::updateTheme() {
     QString style = "";
-    auto darkerBackground = CommonFunctions::GenerateDarkerColor(Theme::getBackgroundColorStr(_theme), 10);
-    auto textColor = CommonFunctions::GetContrastingTextColor(Theme::getBackgroundColorStr(_theme));
-    auto lighterColor = CommonFunctions::GenerateDarkerColor(Theme::getBackgroundColorStr(_theme), -10);
+    auto darkerBackground = CommonFunctions::GenerateDarkerColor(theme->getBackgroundColor(), 10);
+    auto textColor = CommonFunctions::GetContrastingTextColor(theme->getBackgroundColor());
+    auto lighterColor = CommonFunctions::GenerateDarkerColor(theme->getBackgroundColor(), -10);
 
     style += QString("background: ") + QString::fromStdString(darkerBackground) + ";";
     style += "color: " + QString::fromStdString(textColor) + ";";
@@ -67,7 +68,7 @@ void MenuWidget::updateTheme(Themes _theme) {
 
     for (auto &element : menus) {
         style = "QMenu#" + element->objectName() + "{background-color : " + QString::fromStdString(lighterColor) + "; color : " + QString::fromStdString(textColor) + "}" +
-                "QMenu::item:selected#" + element->objectName() + "{background-color :" + QString::fromStdString(Theme::getRightClickMenuHighlightColorStr(_theme)) + "}";
+                "QMenu::item:selected#" + element->objectName() + "{background-color :" + QString::fromStdString(theme->getHighlightColor()) + "}";
         element->setStyleSheet(style);
     }
 }

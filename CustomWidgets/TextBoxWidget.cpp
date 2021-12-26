@@ -3,7 +3,7 @@
 #include <iostream>
 #include <vector>
 
-TextBoxWidget::TextBoxWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr& configInfo, WidgetData *widgetData) : BaseWidget(parent, configInfo, widgetData) {
+TextBoxWidget::TextBoxWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr& configInfo, WidgetData *widgetData, Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
     styledHeader = true;
     styledText = true;
     styledSeeThroughBackground = true;
@@ -82,14 +82,14 @@ void TextBoxWidget::customUpdateStyle(bool overwrite) {
     std::string textColor = configInfo->textColor;
     std::string backgroundColor = configInfo->backgroundColor;
     if(overwrite || configInfo->textColor == RobotGui::Xml::THEME_CONST) {
-        textColor = Theme2::getTextColorStr(currentTheme);
+        textColor = theme->getTextColor();
     }
     if(overwrite || configInfo->headerColor == RobotGui::Xml::THEME_CONST) {
-        tittleTextColor = Theme2::getHeaderTextColorStr(currentTheme);
+        tittleTextColor = theme->getHeaderTextColor();
     }
     if(overwrite || configInfo->backgroundColor == RobotGui::Xml::THEME_CONST) {
         if(configInfo->backgroundColor != RobotGui::Xml::NONE_CONST) {
-            backgroundColor = Theme2::getWidgetBackgroundColorStr(currentTheme);
+            backgroundColor = theme->getWidgetBackgroundColor();
         } else {
             backgroundColor = "transparent";
         }

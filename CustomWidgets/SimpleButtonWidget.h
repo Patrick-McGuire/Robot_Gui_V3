@@ -6,7 +6,7 @@
 #include <QPushButton>
 #include "../WidgetData.h"
 #include "../RobotGui.h"
-#include "../Theme2.h"
+#include "../Theme.h"
 
 #define BUTTON_WIDGET_NAME "BUTTON"
 
@@ -25,7 +25,7 @@ public:
      * @param configInfo configuration data
      * @param widgetData global widgetData object
      */
-    SimpleButtonWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr& configInfo, WidgetData *widgetData);
+    SimpleButtonWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr& configInfo, WidgetData *widgetData, Theme *_theme);
 
     /**
      * Parses a xml node into the config struct

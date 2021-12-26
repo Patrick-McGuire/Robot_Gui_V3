@@ -20,7 +20,7 @@ public:
      * @param x     x position of the widget
      * @param y     y position of the widget
      */
-    VideoWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr& configInfo, WidgetData *widgetData);
+    VideoWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr& configInfo, WidgetData *widgetData, Theme *_theme);
 
     /**
      * Parses a xml node into the config struct

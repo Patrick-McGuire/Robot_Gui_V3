@@ -8,7 +8,7 @@
 #include <string>
 #include "../WidgetData.h"
 #include "../RobotGui.h"
-#include "../Theme2.h"
+#include "../Theme.h"
 
 #define textBoxTittleBoxName "TITTLE_BOX"
 #define textBoxTextBoxName "TEXT_BOX"
@@ -28,7 +28,7 @@ public:
      * @param configInfo configuration data
      * @param widgetData global widgetData object
      */
-    TextBoxWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr& configInfo, WidgetData *widgetData);
+    TextBoxWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr& configInfo, WidgetData *widgetData, Theme *_theme);
 
     /**
      * Parses a xml node into the config struct

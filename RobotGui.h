@@ -4,7 +4,6 @@
 #include <string>
 #include <vector>
 #include "XML/AppConfig.h"
-#include "Theme2.h"
 #include "array"
 
 namespace RobotGui {

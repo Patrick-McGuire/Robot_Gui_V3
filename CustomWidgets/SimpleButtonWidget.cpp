@@ -1,6 +1,6 @@
 #include "SimpleButtonWidget.h"
 
-SimpleButtonWidget::SimpleButtonWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, WidgetData *widgetData) : BaseWidget(parent, configInfo, widgetData) {
+SimpleButtonWidget::SimpleButtonWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
     styledText = true;
     styledWidgetBackgroundColor = true;
     drawBorder = false;
@@ -38,16 +38,16 @@ void SimpleButtonWidget::onRelease() {
 void SimpleButtonWidget::customUpdateStyle(bool overwrite) {
     std::string textColor = configInfo->textColor;
     std::string backgroundColor = configInfo->backgroundColor;
-    if (overwrite || configInfo->textColor == xmlThemeConst) {
-        textColor = Theme::getTextColorStr(currentTheme);
+    if (overwrite || configInfo->textColor == RobotGui::Xml::THEME_CONST) {
+        textColor = theme->getTextColor();
     }
-    if (overwrite || configInfo->backgroundColor == xmlThemeConst) {
-        if (configInfo->backgroundColor != xmlNoneConst) {
-            backgroundColor = Theme::getWidgetBackgroundColorStr(currentTheme);
+    if (overwrite || configInfo->backgroundColor == RobotGui::Xml::THEME_CONST) {
+        if (configInfo->backgroundColor != RobotGui::Xml::NONE_CONST) {
+            backgroundColor = theme->getWidgetBackgroundColor();
         } else {
             backgroundColor = "transparent";
         }
-    } else if (configInfo->backgroundColor == xmlNoneConst) {
+    } else if (configInfo->backgroundColor == RobotGui::Xml::NONE_CONST) {
         backgroundColor = "transparent";
     }
 

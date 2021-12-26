@@ -8,6 +8,7 @@
 #include "rapidjson/document.h"
 #include "thread"
 #include "mutex"
+#include "Theme.h"
 
 /**
  * @class WidgetData

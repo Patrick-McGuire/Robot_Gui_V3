@@ -1,12 +1,13 @@
 #include <iostream>
 #include <QtGui/QPainter>
 #include "BaseWidget.h"
+#include "../CommonFunctions.h"
 
-BaseWidget::BaseWidget(QWidget *_parent_, const RobotGui::WidgetConfig_ptr& _configInfo, WidgetData *_widgetData) : staticPos(_configInfo->staticPos), QWidget(_parent_) {
+BaseWidget::BaseWidget(QWidget *_parent_, const RobotGui::WidgetConfig_ptr& _configInfo, WidgetData *_widgetData, Theme *_theme) : staticPos(_configInfo->staticPos), QWidget(_parent_) {
     configInfo = _configInfo;
     widgetData = _widgetData;
     _parent = _parent_;
-    currentTheme = Light;
+    theme = _theme;
     configInfo->draggable = !staticPos && _configInfo->draggable;
     this->setObjectName(QString::fromStdString(_configInfo->objectName));
     // Set up the right click menu
@@ -93,8 +94,7 @@ void BaseWidget::mouseMoveEvent(QMouseEvent *event) {
 }
 
 // Style
-void BaseWidget::updateStyle(Themes _theme, bool overwrite) {
-    currentTheme = _theme;
+void BaseWidget::updateStyle(bool overwrite) {
     customUpdateStyle(overwrite);
     updateChildrenStyle(overwrite);
 }
@@ -142,14 +142,13 @@ void BaseWidget::showContextMenu(const QPoint &pos) {
         connect(textColor, SIGNAL(triggered(QAction * )), this, SLOT(setTextColor(QAction * )));
     }
 
-    Themes theme = Dark;
     for (auto &element : menus) {
         QString style =
                 "QMenu#" + element->objectName() + "{"
-                                                   "background-color : " + QString::fromStdString(Theme2::getRightClickMenuBackgroundColorStr(theme)) +
-                "; color : " + QString::fromStdString(Theme2::getTextColorStr(theme)) +
+                                                   "background-color : " + QString::fromStdString(theme->getBackgroundColor()) +
+                "; color : " + QString::fromStdString(CommonFunctions::GetContrastingTextColor(theme->getBackgroundColor())) +
                 "}" + "QMenu::item:selected#" + element->objectName() + "{"
-                                                                        "background-color :" + QString::fromStdString(Theme2::getRightClickMenuHighlightColorStr(theme)) +
+                                                                        "background-color :" + QString::fromStdString(theme->getHighlightColor()) +
                 "}";
         element->setStyleSheet(style);
     }

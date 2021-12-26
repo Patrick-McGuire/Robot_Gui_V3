@@ -1,7 +1,7 @@
 #include "TabWidget.h"
 #include "../CommonFunctions.h"
 
-TabWidget::TabWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, WidgetData *widgetData) : BaseWidget(parent, configInfo, widgetData) {
+TabWidget::TabWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
     styledBackground = true;
     styledHeader = true;
     drawBorder = false;
@@ -29,7 +29,7 @@ TabWidget::TabWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configIn
         // Create all widgets in the tab
         for (int j = 0; j < configInfo->tabWidgets[i].size(); j++) {
             configInfo->tabWidgets[i][j]->objectName = configInfo->objectName + "A" + std::to_string(i) + "B" + std::to_string(j);
-            auto newWidget = GUIMaker::createWidget(page, configInfo->tabWidgets[i][j], widgetData);
+            auto newWidget = GUIMaker::createWidget(page, configInfo->tabWidgets[i][j], widgetData, theme);
             if (newWidget != nullptr) {
                 widgets.emplace_back(newWidget);
             }
@@ -75,12 +75,12 @@ void TabWidget::customUpdateStyle(bool overwrite) {
     std::string darkerDarkerBorder;
 
     if (overwrite || configInfo->headerColor == RobotGui::Xml::THEME_CONST) {
-        tittleTextColor = Theme2::getHeaderTextColorStr(currentTheme);
+        tittleTextColor = theme->getHeaderTextColor();
     }
 
-    if (overwrite || configInfo->backgroundColor == xmlThemeConst) {
-        if (configInfo->backgroundColor != xmlNoneConst) {
-            backgroundColor = Theme::getBackgroundColorStr(currentTheme);
+    if (overwrite || configInfo->backgroundColor == RobotGui::Xml::THEME_CONST) {
+        if (configInfo->backgroundColor != RobotGui::Xml::NONE_CONST) {
+            backgroundColor = theme->getBackgroundColor();
             darkerBackground = CommonFunctions::GenerateDarkerColor(backgroundColor, 10);
             darkerDarkerBorder = CommonFunctions::GenerateDarkerColor(darkerBackground, 10);
             textColor = CommonFunctions::GetContrastingTextColor(backgroundColor);
@@ -111,7 +111,7 @@ void TabWidget::customUpdateStyle(bool overwrite) {
 
 void TabWidget::updateChildrenStyle(bool overwrite) {
     for (auto &widget : widgets) {
-        widget->updateStyle(currentTheme, overwrite);
+        widget->updateStyle(overwrite);
     }
 }
 

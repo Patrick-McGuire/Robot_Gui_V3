@@ -11,6 +11,7 @@
 #include <QTabWidget>
 #include <QMenu>
 #include "../Theme.h"
+//#include "../CommonFunctions.h"
 
 #define CONTEXT_MENU_NAME "TempContextMenuName"
 
@@ -29,7 +30,7 @@ public:
      * @param _configInfo config struct to create widget based off of
      * @param _widgetData data passing structure to read data from at runtime
      */
-    BaseWidget(QWidget *_parent_, const RobotGui::WidgetConfig_ptr& _configInfo, WidgetData *_widgetData);
+    BaseWidget(QWidget *_parent_, const RobotGui::WidgetConfig_ptr& _configInfo, WidgetData *_widgetData, Theme *_theme);
 
     /**
      * Sets the position of the widget on the screen
@@ -67,7 +68,7 @@ public:
      * @param _theme them for this widget to use
      * @param overwrite weather to overwrite any attributes with theme
      */
-    void updateStyle(Themes _theme, bool  overwrite);
+    void updateStyle(bool  overwrite);
 
     /**
      * Sets the _draggable state of this widget if widget is not static
@@ -81,7 +82,7 @@ protected:
     WidgetData *widgetData;
     const bool staticPos;
     bool drawBorder = true;
-    Themes currentTheme;
+    Theme *theme;
 
     // These register weather or not the current widget can update these attributes
     // Set these in the constructor of any derived class
