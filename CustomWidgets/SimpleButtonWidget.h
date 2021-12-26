@@ -37,18 +37,25 @@ public:
      static void parseXml(const WidgetConfig_ptr& parentConfig, rapidxml::xml_node<> *node);
 
 private slots:
+    /**
+     * Onclick slot
+     */
     void onClick();
+
+    /**
+     * On release slot
+     */
     void onRelease();
 
 private:
-    QPushButton *button;
-    bool state = false;
-
     /**
      * Updates the style of this widget
      * @param overwrite if we should overwrite any attributes with theme
      */
     void customUpdateStyle(bool overwrite) override;
+
+    QPushButton *button;
+    bool state = false;
 };
 
 

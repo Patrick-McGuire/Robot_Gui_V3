@@ -4,24 +4,24 @@ MenuWidget::MenuWidget(QWidget *parent, AppConfig *appConfig_, CoreGUI *coreGui,
     appConfig = appConfig_;
     // File menu
     auto *file = new QMenu("File");
-    file->setObjectName(fileMenuName);
+    file->setObjectName(FILE_MENU_NAME);
     menus.emplace_back(file);
     file->addAction("Open", coreGui, SLOT(openReload()));
     file->addAction("Reload", coreGui, SLOT(reload()));
     file->addAction("Reparse", coreGui, SLOT(reparseReload()));
     // Settings menu
     auto *settings = new QMenu("Settings");
-    settings->setObjectName(settingsMenuName);
+    settings->setObjectName(SETTINGS_MENU_NAME);
     menus.emplace_back(settings);
     settings->addAction("Make all draggable", robotGui, SLOT(makeWidgetsDraggable()));
     settings->addAction("Make all fixed", robotGui, SLOT(makeWidgetsFixed()));
     // Theme menu
     auto *theme = new QMenu("Theme");
-    theme->setObjectName(themeMenuName);
+    theme->setObjectName(THEME_MENU_NAME);
     menus.emplace_back(theme);
     auto *setTheme = theme->addMenu("Set theme");
     menus.emplace_back(setTheme);
-    setTheme->setObjectName(QString(themeMenuName) + "1");
+    setTheme->setObjectName(QString(THEME_MENU_NAME) + "1");
 
     auto *subMenuAct1 = setTheme->addAction(QString::fromStdString(Theme::getThemeName(Themes::Dark)));
     subMenuAct1->setData(QString::fromStdString(Theme::getThemeName(Themes::Dark)));
@@ -35,7 +35,7 @@ MenuWidget::MenuWidget(QWidget *parent, AppConfig *appConfig_, CoreGUI *coreGui,
     theme->addMenu(setTheme);
     auto *setAll = theme->addMenu("Set theme for all");
     menus.emplace_back(setAll);
-    setAll->setObjectName(QString(themeMenuName) + "2");
+    setAll->setObjectName(QString(THEME_MENU_NAME) + "2");
 
     auto *subMenuAct11 = setAll->addAction(QString::fromStdString(Theme::getThemeName(Themes::Dark)));
     subMenuAct11->setData(QString::fromStdString(Theme::getThemeName(Themes::Dark)));

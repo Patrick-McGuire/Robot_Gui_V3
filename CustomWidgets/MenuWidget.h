@@ -23,9 +23,9 @@
 class RobotGUI;
 class CoreGUI;
 
-#define fileMenuName "FileMenu"
-#define settingsMenuName "SettingMenuName"
-#define themeMenuName "ThemeMenu"
+#define FILE_MENU_NAME "FileMenu"
+#define SETTINGS_MENU_NAME "SettingMenuName"
+#define THEME_MENU_NAME "ThemeMenu"
 
 /**
  * @class TextBoxWidget

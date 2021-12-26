@@ -12,7 +12,7 @@
 #include <QMenu>
 #include "../Theme.h"
 
-#define contextMenuName "TempContextMenuName"
+#define CONTEXT_MENU_NAME "TempContextMenuName"
 
 /**
  * @class BaseWidget
@@ -22,6 +22,59 @@
  */
 class BaseWidget: public QWidget {
 Q_OBJECT
+public:
+    /**
+     * Constructor
+     * @param _parent_ _parent_ QWidget
+     * @param _configInfo config struct to create widget based off of
+     * @param _widgetData data passing structure to read data from at runtime
+     */
+    BaseWidget(QWidget *_parent_, const WidgetConfig_ptr& _configInfo, WidgetData *_widgetData);
+
+    /**
+     * Sets the position of the widget on the screen
+     * @param x     x position of the widget
+     * @param y     y position of the widget
+     */
+    void setPosition(int x, int y);
+
+    /**
+     * Updates the widget from data passed though widgetData
+     * @param activeParent QWidget, should be the parent of this instance if that parent is currently visible
+     */
+    void updateData(QWidget *activeParent);
+
+    /**
+     * Updates the widget from data passed though widgetData
+     * @param focus weather or not the widget is in focus
+     */
+    void updateData(bool focus);
+
+    /**
+     * Updates the style of this widget, to be overwritten by derived
+     * @param overwrite weather to overwrite any attributes with theme
+     */
+    virtual void customUpdateStyle(bool overwrite);
+
+    /**
+     * Updates the style of children widget, to be overwritten by derived
+     * @param overwrite weather to overwrite any attributes with theme
+     */
+    virtual void updateChildrenStyle(bool overwrite);
+
+    /**
+     * Updates the style of this widget
+     * @param _theme them for this widget to use
+     * @param overwrite weather to overwrite any attributes with theme
+     */
+    void updateStyle(Themes _theme, bool  overwrite);
+
+    /**
+     * Sets the _draggable state of this widget if widget is not static
+     * @param _draggable
+     */
+    void setDraggability(bool _draggable);
+
 protected:
     QWidget *_parent;
     WidgetConfig_ptr configInfo;
@@ -81,61 +134,6 @@ protected:
      * @param event drag QMouseEvent
      */
     void mouseMoveEvent(QMouseEvent *event) override;
-
-public:
-
-    /**
-     * Constructor
-     * @param _parent_ _parent_ QWidget
-     * @param _configInfo config struct to create widget based off of
-     * @param _widgetData data passing structure to read data from at runtime
-     */
-    BaseWidget(QWidget *_parent_, const WidgetConfig_ptr& _configInfo, WidgetData *_widgetData);
-
-    /**
-     * Sets the position of the widget on the screen
-     * @param x     x position of the widget
-     * @param y     y position of the widget
-     */
-    void setPosition(int x, int y);
-
-    /**
-     * Updates the widget from data passed though widgetData
-     * @param activeParent QWidget, should be the parent of this instance if that parent is currently visible
-     */
-    void updateData(QWidget *activeParent);
-
-    /**
-     * Updates the widget from data passed though widgetData
-     * @param focus weather or not the widget is in focus
-     */
-    void updateData(bool focus);
-
-    /**
-     * Updates the style of this widget, to be overwritten by derived
-     * @param overwrite weather to overwrite any attributes with theme
-     */
-    virtual void customUpdateStyle(bool overwrite);
-
-    /**
-     * Updates the style of children widget, to be overwritten by derived
-     * @param overwrite weather to overwrite any attributes with theme
-     */
-    virtual void updateChildrenStyle(bool overwrite);
-
-    /**
-     * Updates the style of this widget
-     * @param _theme them for this widget to use
-     * @param overwrite weather to overwrite any attributes with theme
-     */
-    void updateStyle(Themes _theme, bool  overwrite);
-
-    /**
-     * Sets the _draggable state of this widget if widget is not static
-     * @param _draggable
-     */
-    void setDraggability(bool _draggable);
-
 
 public slots:
     /**

@@ -1,15 +1,11 @@
-//
-// Created by patrick on 11/16/21.
-//
-
 #ifndef ROBOT_GUI_V3_THEME_H
 #define ROBOT_GUI_V3_THEME_H
+
 #include "string"
 
-#define darkThemeStr "Dark"
-#define lightThemeStr "Light"
-#define greenThemeStr "Green"
-#define qtDefaultThemeStr "QtDefault"
+#define DARK_THEME_STR "Dark"
+#define LIGHT_THEME_STR "Light"
+#define GREEN_THEME_STR "Green"
 
 //# Theme colors are defined as Background, WidgetBackground, Default Text, Header Text, Border
 // Dark theme
@@ -41,7 +37,6 @@ enum Themes {
     Dark=0,
     Light=1,
     Green=2,
-    QtDefault=3,
 };
 
 
@@ -117,6 +112,5 @@ public:
      */
     static Themes getThemeFromName(const std::string& name);
 };
-
 
 #endif //ROBOT_GUI_V3_THEME_H

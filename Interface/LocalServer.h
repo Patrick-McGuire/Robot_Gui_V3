@@ -52,24 +52,17 @@ public slots:
     void receiveData();
 
 private:
-    WidgetData *_widgetData;
-    RobotGUI *_robotGui;
-    DataInput *dataInput;
-    char *dataString;
-
-    /**
-     * parses a json value object into the internal json struct format
-     * @param value rapidjson value object to parse
-     * @return custom json struct
-     */
-    void parseArray(rapidjson::Value *value, WidgetData::internalJSON_ptr json);
-
     /**
      * Writes the output data to a given socket
      * @param returnType what data to return
      * @param socket socket to write to
      */
     void writeOutData(ReturnType returnType, QTcpSocket* socket);
+
+    WidgetData *_widgetData;
+    RobotGUI *_robotGui;
+    DataInput *dataInput;
+    char *dataString;
 };
 
 #endif //ROBOT_GUI_V3_LOCALSERVER_H

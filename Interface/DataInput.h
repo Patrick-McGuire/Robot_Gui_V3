@@ -31,14 +31,6 @@ public:
     void parse(char *input, int len);
 
 private:
-    union LengthConverter {
-        std::int32_t length;
-        std::uint8_t bytes[4];
-    };
-    LengthConverter messageSize;
-    WidgetData *widgetData;
-    DataInputType type;
-
     /**
      * Parses a json string into widgetData format
      * @param input json to parse
@@ -59,6 +51,14 @@ private:
      * @param socket socket to write to
      */
     void parseArray(rapidjson::Value *value, const WidgetData::internalJSON_ptr& json);
+
+    union LengthConverter {
+        std::int32_t length;
+        std::uint8_t bytes[4];
+    };
+    LengthConverter messageSize;
+    WidgetData *widgetData;
+    DataInputType type;
 };
 
 

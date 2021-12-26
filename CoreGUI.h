@@ -69,18 +69,6 @@ public slots:
     void openReload();
 
 private:
-    GuiRunState runState;
-    std::vector<ThreadedInterface*> threads;
-    bool quit = false;
-    WindowConfig_ptr windowConfig;
-    AppConfig *appConfig;
-    QApplication app;
-    QMainWindow mainWindow;
-    QWidget window;
-    QWidget *wrapper;
-    RobotGUI *currentRobotGUI;
-    WidgetData *widgetData;
-
     /**
      * Restarts the RobotGUI instance
      */
@@ -97,6 +85,18 @@ private:
      * @return file path
      */
     std::string getFilePath();
+
+    GuiRunState runState;
+    std::vector<ThreadedInterface*> threads;
+    bool quit = false;
+    WindowConfig_ptr windowConfig;
+    AppConfig *appConfig;
+    QApplication app;
+    QMainWindow mainWindow;
+    QWidget window;
+    QWidget *wrapper;
+    RobotGUI *currentRobotGUI;
+    WidgetData *widgetData;
 };
 
 

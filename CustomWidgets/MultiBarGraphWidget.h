@@ -12,7 +12,7 @@ class MultiBarGraphWidget : public BaseWidget {
 public:
     MultiBarGraphWidget(QWidget *parent, const WidgetConfig_ptr &configInfo, WidgetData *widgetData);
 
-    void updateInFocus();
+    void updateInFocus() override;
 
     static void parseXml(const WidgetConfig_ptr &parentConfig, rapidxml::xml_node<> *node);
 

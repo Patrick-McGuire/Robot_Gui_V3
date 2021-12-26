@@ -103,14 +103,14 @@ void BaseWidget::showContextMenu(const QPoint &pos) {
     std::vector<QMenu*> menus;
     auto contextMenu = new QMenu(this);
     menus.emplace_back(contextMenu);
-    contextMenu->setObjectName(contextMenuName);
+    contextMenu->setObjectName(CONTEXT_MENU_NAME);
     if(!staticPos) {
         contextMenu->addAction("Toggle Draggability", this, SLOT(toggleDraggability()));
     }
     if(styledBackground || styledWidgetBackgroundColor) {
         auto *backgroundColor = contextMenu->addMenu("Background color");
         menus.emplace_back(backgroundColor);
-        backgroundColor->setObjectName(QString(contextMenuName) + "BGColor");
+        backgroundColor->setObjectName(QString(CONTEXT_MENU_NAME) + "BGColor");
         const char *colors[] = { "theme", "none", "black", "white", "grey", "green", "blue", "red", "orange", "yellow" };
         for(auto & color : colors) {
             if(std::strcmp("none", color) != 0 || styledSeeThroughBackground) {
@@ -123,7 +123,7 @@ void BaseWidget::showContextMenu(const QPoint &pos) {
     if(styledText) {
         auto *textColor = contextMenu->addMenu("Text color");
         menus.emplace_back(textColor);
-        textColor->setObjectName(QString(contextMenuName) + "TXTColor");
+        textColor->setObjectName(QString(CONTEXT_MENU_NAME) + "TXTColor");
         const char *colors[] = { "theme", "black", "white", "grey", "green", "blue", "red", "orange", "yellow" };
         for(auto & color : colors) {
             auto *sub1 = textColor->addAction(color);
