@@ -50,7 +50,7 @@ public:
      * @param _theme theme to set
      * @param force whether or not to force the theme on all widgets
      */
-    void setTheme(Themes _theme, bool force);
+    void setTheme(bool force);
 
     /**
      * Returns widgetData
@@ -93,6 +93,7 @@ private:
     void setWindowSize();
 
     int timerUpdateTime = 10;
+    Theme *theme;
     QTimer *timer;
     RobotGui::GuiRunState runState;
     RobotGui::WindowConfig_ptr config;

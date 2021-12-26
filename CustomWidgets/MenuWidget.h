@@ -16,7 +16,7 @@
 #include "iostream"
 #include "../GuiInstance.h"
 #include "../CoreGui.h"
-#include "../Theme.h"
+#include "../Theme2.h"
 
 class GuiInstance;
 class CoreGui;

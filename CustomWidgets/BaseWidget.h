@@ -9,7 +9,7 @@
 #include "../XML/rapidxml/rapidxml_utils.hpp"
 #include <QTabWidget>
 #include <QMenu>
-#include "../Theme.h"
+#include "../Theme2.h"
 
 #define CONTEXT_MENU_NAME "TempContextMenuName"
 

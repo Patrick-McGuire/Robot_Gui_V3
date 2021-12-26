@@ -82,14 +82,14 @@ void TextBoxWidget::customUpdateStyle(bool overwrite) {
     std::string textColor = configInfo->textColor;
     std::string backgroundColor = configInfo->backgroundColor;
     if(overwrite || configInfo->textColor == RobotGui::Xml::THEME_CONST) {
-        textColor = Theme::getTextColorStr(currentTheme);
+        textColor = Theme2::getTextColorStr(currentTheme);
     }
     if(overwrite || configInfo->headerColor == RobotGui::Xml::THEME_CONST) {
-        tittleTextColor = Theme::getHeaderTextColorStr(currentTheme);
+        tittleTextColor = Theme2::getHeaderTextColorStr(currentTheme);
     }
     if(overwrite || configInfo->backgroundColor == RobotGui::Xml::THEME_CONST) {
         if(configInfo->backgroundColor != RobotGui::Xml::NONE_CONST) {
-            backgroundColor = Theme::getWidgetBackgroundColorStr(currentTheme);
+            backgroundColor = Theme2::getWidgetBackgroundColorStr(currentTheme);
         } else {
             backgroundColor = "transparent";
         }

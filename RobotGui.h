@@ -4,7 +4,8 @@
 #include <string>
 #include <vector>
 #include "XML/AppConfig.h"
-#include "Theme.h"
+#include "Theme2.h"
+#include "array"
 
 namespace RobotGui {
     //// Enums ////
@@ -141,6 +142,29 @@ namespace RobotGui {
         WidgetConfig_ptr firstChild;
     };
     typedef std::shared_ptr<WindowConfig> WindowConfig_ptr;
+
+    //// Theme2 color constants ////
+    namespace Themes {
+        // Enum to house all possible themes
+        enum Type {
+            DARK,
+            LIGHT,
+            GREEN,
+        };
+        // Used to define different formats
+        struct Format {
+            const char *backgroundColor;
+            const char *widgetBackgroundColor;
+            const char *bodyTextColor;
+            const char *titleTextColor;
+            const char *borderColor;
+        };
+        // Names of all themes
+        const char *const DARK_THEME_STR = "Dark";
+        const char *const LIGHT_THEME_STR = "Light";
+        const char *const GREEN_THEME_STR = "Green";
+
+    }
 }
 
 #endif //ROBOT_GUI_V3_ROBOTGUI_H

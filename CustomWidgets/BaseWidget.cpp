@@ -136,10 +136,10 @@ void BaseWidget::showContextMenu(const QPoint &pos) {
     for(auto & element : menus) {
         QString style =
                 "QMenu#" + element->objectName() + "{"
-                                                   "background-color : " + QString::fromStdString(Theme::getRightClickMenuBackgroundColorStr(theme)) +
-                "; color : " + QString::fromStdString(Theme::getTextColorStr(theme)) +
+                                                   "background-color : " + QString::fromStdString(Theme2::getRightClickMenuBackgroundColorStr(theme)) +
+                "; color : " + QString::fromStdString(Theme2::getTextColorStr(theme)) +
                 "}" + "QMenu::item:selected#" + element->objectName() + "{"
-                                                                        "background-color :" + QString::fromStdString(Theme::getRightClickMenuHighlightColorStr(theme)) +
+                                                                        "background-color :" + QString::fromStdString(Theme2::getRightClickMenuHighlightColorStr(theme)) +
                 "}";
         element->setStyleSheet(style);
     }

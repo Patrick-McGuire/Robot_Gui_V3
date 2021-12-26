@@ -8,7 +8,7 @@
 #include <string>
 #include "../WidgetData.h"
 #include "../RobotGui.h"
-#include "../Theme.h"
+#include "../Theme2.h"
 
 #define textBoxTittleBoxName "TITTLE_BOX"
 #define textBoxTextBoxName "TEXT_BOX"

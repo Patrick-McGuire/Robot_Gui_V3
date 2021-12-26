@@ -2,6 +2,7 @@
 #include "iostream"
 #include "Interface/RandomDataInterface.h"
 #include "Interface/WebcamStreamInterface.h"
+#include "Theme2.h"
 
 
 int main(int argc, char** argv) {

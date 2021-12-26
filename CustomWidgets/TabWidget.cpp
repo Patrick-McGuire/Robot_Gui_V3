@@ -68,12 +68,12 @@ void TabWidget::customUpdateStyle(bool overwrite) {
     std::string darkerBackground;
 
     if (overwrite || configInfo->headerColor == RobotGui::Xml::THEME_CONST) {
-        tittleTextColor = Theme::getHeaderTextColorStr(currentTheme);
+        tittleTextColor = Theme2::getHeaderTextColorStr(currentTheme);
     }
 
     if (overwrite || configInfo->backgroundColor == RobotGui::Xml::THEME_CONST) {
         if (configInfo->backgroundColor != RobotGui::Xml::NONE_CONST) {
-            backgroundColor = Theme::getBackgroundColorStr(currentTheme);
+            backgroundColor = Theme2::getBackgroundColorStr(currentTheme);
             auto r_g_b = CommonFunctions::GetRGBFromString(backgroundColor);
             r_g_b[0] = CommonFunctions::Clamp(r_g_b[0] - 10, 0, 255);
             r_g_b[1] = CommonFunctions::Clamp(r_g_b[1] - 10, 0, 255);

@@ -6,7 +6,7 @@
 #include <QPushButton>
 #include "../WidgetData.h"
 #include "../RobotGui.h"
-#include "../Theme.h"
+#include "../Theme2.h"
 
 #define BUTTON_WIDGET_NAME "BUTTON"
 
