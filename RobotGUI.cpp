@@ -1,8 +1,10 @@
 #include <QFileDialog>
 #include "RobotGUI.h"
 #include <thread>
+#include "CommonFunctions.h"
 
-RobotGUI::RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appConfig, CoreGUI *_coreGui, const WindowConfig_ptr& _config, WidgetData *_widgetData, GuiRunState _runState) : QWidget(_parent) {
+
+RobotGUI::RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appConfig, CoreGUI *_coreGui, const WindowConfig_ptr &_config, WidgetData *_widgetData, GuiRunState _runState) : QWidget(_parent) {
     // Save passed variables
     runState = _runState;
     widgetData = _widgetData;//new WidgetData();
@@ -21,19 +23,21 @@ RobotGUI::RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appCo
     // Create the menu bar at the top
     menu = new MenuWidget(mainWindow, appConfig, coreGui, this);
     mainWindow->setMenuBar(menu);
+    mainWindow->menuBar()->setObjectName("menuBar");
+    mainWindow->menuWidget()->setObjectName("menuWidget");
 
     // Create the core widget for the GUI
     config->firstChild->objectName = "1";
     coreWidget = GUIMaker::createWidget(parent, config->firstChild, widgetData);
 
     // Create the server that will update data in the GUI
-    if(runState == updateOnPost || runState == updatePeriodicOnPost) {
+    if (runState == updateOnPost || runState == updatePeriodicOnPost) {
         server = new LocalServer(parent, widgetData, this);
         server->StartServer();
     }
 
     // Create a timer to update the GUI
-    if(runState == updatePeriodic || runState == updatePeriodicOnPost) {
+    if (runState == updatePeriodic || runState == updatePeriodicOnPost) {
         qDebug("Starting update timer");
         timer = new QTimer(this);
         connect(timer, SIGNAL(timeout()), this, SLOT(updateGUI()));
@@ -82,7 +86,8 @@ void RobotGUI::makeWidgetsFixed() {
 }
 
 void RobotGUI::setTheme(Themes _theme, bool force) {
-    mainWindow->setStyleSheet("QWidget#mainWindow { background-color: " + QString::fromStdString(Theme::getBackgroundColorStr(_theme)) + "}");
+    std::string darker_color = CommonFunctions::GenerateDarkerColor(Theme::getBackgroundColorStr(_theme), 10);
+    mainWindow->setStyleSheet("QWidget#mainWindow { background-color: " + QString::fromStdString(darker_color) + "}");
     menu->updateTheme(_theme);
     coreWidget->updateStyle(_theme, force);
 }

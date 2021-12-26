@@ -65,7 +65,10 @@ void TabWidget::customUpdateDraggability(bool _draggable) {
 void TabWidget::customUpdateStyle(bool overwrite) {
     std::string tittleTextColor = configInfo->headerColor;
     std::string backgroundColor = configInfo->backgroundColor;
+    std::string textColor = "rgb(0,0,0)";
+    std::string borderColor = "rgb(50,50,50)";
     std::string darkerBackground;
+    std::string darkerDarkerBorder;
 
     if (overwrite || configInfo->headerColor == xmlThemeConst) {
         tittleTextColor = Theme::getHeaderTextColorStr(currentTheme);
@@ -74,31 +77,32 @@ void TabWidget::customUpdateStyle(bool overwrite) {
     if (overwrite || configInfo->backgroundColor == xmlThemeConst) {
         if (configInfo->backgroundColor != xmlNoneConst) {
             backgroundColor = Theme::getBackgroundColorStr(currentTheme);
-            auto r_g_b = CommonFunctions::GetRGBFromString(backgroundColor);
-            r_g_b[0] = CommonFunctions::Clamp(r_g_b[0] - 10, 0, 255);
-            r_g_b[1] = CommonFunctions::Clamp(r_g_b[1] - 10, 0, 255);
-            r_g_b[2] = CommonFunctions::Clamp(r_g_b[2] - 10, 0, 255);
-            darkerBackground = CommonFunctions::GetStringFromRGB(r_g_b);
+            darkerBackground = CommonFunctions::GenerateDarkerColor(backgroundColor, 10);
+            darkerDarkerBorder = CommonFunctions::GenerateDarkerColor(darkerBackground, 10);
+            textColor = CommonFunctions::GetContrastingTextColor(backgroundColor);
         } else {
             backgroundColor = "transparent";
             darkerBackground = backgroundColor;
+            darkerDarkerBorder = backgroundColor;
         }
     } else if (configInfo->backgroundColor == xmlNoneConst) {
         backgroundColor = "transparent";
         darkerBackground = backgroundColor;
+        darkerDarkerBorder = backgroundColor;
     }
 
-    char buf[1000];
-    sprintf(buf, "QWidget#%s{ background: %s; } QWidget#%s{ background: %s; } QTabWidget#%s QTabBar::tab{ background: %s; color: %s }",
-            this->objectName().toStdString().c_str(),
-            backgroundColor.c_str(),
-            pages[0]->objectName().toStdString().c_str(),
-            backgroundColor.c_str(),
-            this->objectName().toStdString().c_str(),
-            darkerBackground.c_str(),
-            tittleTextColor.c_str()
-    );
-    this->setStyleSheet(buf);
+    std::string stylesheetString = std::string("QTabWidget::pane { border: 1px solid " + borderColor + ";}") +
+                                   "QTabWidget::tab-bar {left: 5px; }" +
+                                   "QTabBar::tab {background: " + darkerBackground + "; color: " + textColor + ";border: 1px solid " + borderColor + ";border-bottom-color: " + darkerDarkerBorder + "; border-top-left-radius: 2px;border-top-right-radius: 2px;min-width: 8ex;padding: 2px;}" +
+                                   "QTabBar::tab:selected, QTabBar::tab:hover {background: " + darkerBackground + "}" +
+                                   "QTabBar::tab:selected {border-color: " + borderColor + ";border-bottom-color: " + darkerDarkerBorder + "; }" +
+                                   "QTabBar::tab:!selected {margin-top: 2px;}";
+
+    tabs->setStyleSheet(QString::fromStdString(stylesheetString));
+    this->setStyleSheet("QWidget#" + objectName() + "{ background: " + QString::fromStdString(backgroundColor) + ";");
+    for (auto &page : pages) {
+        page->setStyleSheet("QWidget#" + pages[0]->objectName() + "{ background: " + QString::fromStdString(backgroundColor) + "}");
+    }
 }
 
 void TabWidget::updateChildrenStyle(bool overwrite) {

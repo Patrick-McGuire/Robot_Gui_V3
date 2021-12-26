@@ -40,4 +40,8 @@ namespace CommonFunctions {
     std::array<int, 3> GetRGBFromString(const std::string &input, std::array<int, 3> default_value = {255, 255, 255});
 
     std::string GetStringFromRGB(std::array<int, 3> r_g_b);
+
+    std::string GenerateDarkerColor(const std::string& input_color, int delta);
+
+    std::string GetContrastingTextColor(const std::string& background_color);
 };
