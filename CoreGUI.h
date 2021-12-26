@@ -37,19 +37,13 @@ public:
      * @param argc
      * @param argv
      */
-    CoreGUI(int argc, char** argv);
+    CoreGUI(int argc, char** argv, GuiRunState _runState);
 
     /**
      * Runs the gui
      * @return exit code
      */
     int runGUI();
-
-    /**
-     * Returns widgetData
-     * @return widgetData
-     */
-    WidgetData *getWidgetData();
 
     /**
      * Adds a thread for the GUI to close on exit
@@ -74,6 +68,7 @@ public slots:
     void openReload();
 
 private:
+    GuiRunState runState;
     std::vector<ThreadedInterface*> threads;
     bool quit = false;
     int argc;

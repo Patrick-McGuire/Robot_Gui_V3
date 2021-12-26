@@ -27,5 +27,10 @@ enum ReturnType {
     FlagsAndValues=3,
 };
 
+enum GuiRunState {
+    updateOnPost,
+    updatePeriodic,
+    updatePeriodicOnPost,
+};
 
 #endif //ROBOT_GUI_V3_CONSTANTS_H

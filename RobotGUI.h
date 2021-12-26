@@ -37,7 +37,7 @@ public:
      * @param _coreGui CoreGUI object for connecting slots
      * @param _config window configuration data
      */
-    RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appConfig, CoreGUI *_coreGui, const WindowConfig_ptr& _config, WidgetData *_widgetData);
+    RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appConfig, CoreGUI *_coreGui, const WindowConfig_ptr& _config, WidgetData *_widgetData, GuiRunState _runState);
 
     /**
      * Deconstruct
@@ -91,6 +91,9 @@ private:
      */
     void setWindowSize();
 
+    int timerUpdateTime = 10;
+    QTimer *timer;
+    GuiRunState runState;
     WindowConfig_ptr config;
     CoreGUI *coreGui;
     WidgetData *widgetData;

@@ -1,9 +1,10 @@
 #include "CoreGUI.h"
 
-CoreGUI::CoreGUI(int _argc, char **_argv) : app(_argc, _argv), window(&mainWindow) {
+CoreGUI::CoreGUI(int _argc, char **_argv, GuiRunState _runState) : app(_argc, _argv), window(&mainWindow) {
     widgetData = new WidgetData();
     interface = new BaseInterface();
     interface->setWidgetData(widgetData);
+    runState = _runState;
     argc = _argc;
     argv = _argv;
     mainWindow.setCentralWidget(&window);
@@ -16,20 +17,27 @@ CoreGUI::CoreGUI(int _argc, char **_argv) : app(_argc, _argv), window(&mainWindo
 
 int CoreGUI::runGUI() {
     qDebug("Starting GUI\n");
+
+    // Parse the configuration data
     appConfig->parse();
     while(!safeParse() && !quit) {
         appConfig->parse();
     }
+
     qDebug("............");
     qDebug("Creating window");
-    wrapper = new QWidget(&window);
-    currentRobotGUI = new RobotGUI(wrapper, &mainWindow, appConfig, this, windowConfig, widgetData);
-    int out = QApplication::exec();
-    widgetData->endGui();
 
+    // Create the GUI and start the app
+    wrapper = new QWidget(&window);
+    currentRobotGUI = new RobotGUI(wrapper, &mainWindow, appConfig, this, windowConfig, widgetData, runState);
+    int out = QApplication::exec();
+
+    // Close all the threads
+    widgetData->endGui();
     for(auto & thread : threads) {
         thread->join();
     }
+
     qDebug("............\n");
     qDebug("Closing GUI");
     return out;
@@ -67,7 +75,7 @@ void CoreGUI::restartGUI() {
     qDebug("............");
     qDebug("Creating window");
     wrapper = new QWidget(&window);
-    currentRobotGUI = new RobotGUI(wrapper, &mainWindow, appConfig, this, windowConfig, widgetData);
+    currentRobotGUI = new RobotGUI(wrapper, &mainWindow, appConfig, this, windowConfig, widgetData, runState);
 }
 
 bool CoreGUI::safeParse() {
@@ -98,10 +106,6 @@ std::string CoreGUI::getFilePath() {
         appConfig->write();
     }
     return filePath;
-}
-
-WidgetData *CoreGUI::getWidgetData() {
-    return widgetData;
 }
 
 void CoreGUI::addThreadedInterface(ThreadedInterface *thread) {

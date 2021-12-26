@@ -2,8 +2,9 @@
 #include "RobotGUI.h"
 #include <thread>
 
-RobotGUI::RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appConfig, CoreGUI *_coreGui, const WindowConfig_ptr& _config, WidgetData *_widgetData) : QWidget(_parent) {
+RobotGUI::RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appConfig, CoreGUI *_coreGui, const WindowConfig_ptr& _config, WidgetData *_widgetData, GuiRunState _runState) : QWidget(_parent) {
     // Save passed variables
+    runState = _runState;
     widgetData = _widgetData;//new WidgetData();
     mainWindow = _mainWindow;
     appConfig = _appConfig;
@@ -26,8 +27,18 @@ RobotGUI::RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appCo
     coreWidget = GUIMaker::createWidget(parent, config->firstChild, widgetData);
 
     // Create the server that will update data in the GUI
-    server = new LocalServer(parent, widgetData, this);
-    server->StartServer();
+    if(runState == updateOnPost || runState == updatePeriodicOnPost) {
+        server = new LocalServer(parent, widgetData, this);
+        server->StartServer();
+    }
+
+    // Create a timer to update the GUI
+    if(runState == updatePeriodic || runState == updatePeriodicOnPost) {
+        qDebug("Starting update timer");
+        timer = new QTimer(this);
+        connect(timer, SIGNAL(timeout()), this, SLOT(updateGUI()));
+        timer->start(timerUpdateTime);
+    }
 
     parent->show();
 
@@ -48,7 +59,6 @@ void RobotGUI::updateGUI() {
 RobotGUI::~RobotGUI() {
     delete server;
     delete coreWidget;
-//    delete widgetData;
     delete menu;
 }
 

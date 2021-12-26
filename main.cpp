@@ -8,7 +8,7 @@
 
 
 int main(int argc, char** argv) {
-    auto gui = new CoreGUI(argc, argv);
+    auto gui = new CoreGUI(argc, argv, updatePeriodicOnPost);
     RandomDataInterface randomDataInterface(10);
     gui->addThreadedInterface(&randomDataInterface);
     return gui->runGUI();
