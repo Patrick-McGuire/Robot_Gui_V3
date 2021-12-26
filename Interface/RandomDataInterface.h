@@ -16,7 +16,7 @@ public:
      * Constructor
      * @param interval interval on which to update
      */
-    explicit RandomDataInterface(int interval);
+    explicit RandomDataInterface(int _interval);
 
     /**
      * Sets random data periodically

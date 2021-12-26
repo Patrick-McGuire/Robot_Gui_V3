@@ -10,9 +10,7 @@ void ThreadedInterface::startThread() {
 }
 
 void ThreadedInterface::runThread() {
-    std::cout << "Starting Thread:\n";
     run();
-    std::cout << "Thread Done\n";
 }
 
 void ThreadedInterface::run() {

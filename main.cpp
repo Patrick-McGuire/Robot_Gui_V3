@@ -1,16 +1,19 @@
 #include "CoreGUI.h"
 #include "iostream"
-#include "opencv2/opencv.hpp"
-#include "thread"
-#include "mutex"
-#include "Interface/ThreadedInterface.h"
 #include "Interface/RandomDataInterface.h"
+#include "Interface/WebcamStreamInterface.h"
 
 
 int main(int argc, char** argv) {
+    // Create a GUI object
     auto gui = new CoreGUI(argc, argv, updatePeriodicOnPost);
+
+    // Interfaces
     RandomDataInterface randomDataInterface(10);
+    WebcamStreamInterface webcamStreamInterface(10);
     gui->addThreadedInterface(&randomDataInterface);
+    gui->addThreadedInterface(&webcamStreamInterface);
+
+    // Run the GUI
     return gui->runGUI();
 }
-
