@@ -99,7 +99,7 @@ void TabWidget::customUpdateStyle(bool overwrite) {
                                    "QTabBar::tab:!selected {margin-top: 2px;}";
 
     tabs->setStyleSheet(QString::fromStdString(stylesheetString));
-    this->setStyleSheet("QWidget#" + objectName() + "{ background: " + QString::fromStdString(backgroundColor) + ";");
+    this->setStyleSheet("QWidget#" + objectName() + "{ background: " + QString::fromStdString(backgroundColor) + "}");
     for (auto &page : pages) {
         page->setStyleSheet("QWidget#" + pages[0]->objectName() + "{ background: " + QString::fromStdString(backgroundColor) + "}");
     }
