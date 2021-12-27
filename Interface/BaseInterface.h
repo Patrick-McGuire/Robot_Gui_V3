@@ -124,6 +124,32 @@ public:
      */
     WidgetData::internalJSON_ptr getJSON(const std::string &key);
 
+    /**
+     * Gets if a key exists in the output flags map
+     * @param key key to check
+     * @return if key exists
+     */
+    bool outputFlagExists(const std::string &key);
+
+    /**
+     * Gets a output flag
+     * @param key key to get
+     * @return flag value
+     */
+    bool getFlagOutput(const std::string &key);
+
+    /**
+     * Gets the entire return flags data map
+     * @return output flags map
+     */
+    std::map<std::string, bool> *getFlagOutput();
+
+    /**
+     * Sets a flag low in the output flags
+     * @param key key to set low
+     */
+    void clearOutputFlag(const std::string &key);
+
 private:
     WidgetData *widgetData;
 };

@@ -2,6 +2,7 @@
 #include "iostream"
 #include "Interface/RandomDataInterface.h"
 #include "Interface/WebcamStreamInterface.h"
+#include "Interface/FlagCheckerInterface.h"
 #include "Theme.h"
 
 
@@ -12,6 +13,8 @@ int main(int argc, char** argv) {
     // Interfaces
     RandomDataInterface randomDataInterface(10);
     WebcamStreamInterface webcamStreamInterface(10);
+    FlagCheckerInterface flagCheckerInterface(10);
+    gui->addThreadedInterface(&flagCheckerInterface);
     gui->addThreadedInterface(&randomDataInterface);
     gui->addThreadedInterface(&webcamStreamInterface);
 

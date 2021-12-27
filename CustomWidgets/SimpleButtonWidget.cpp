@@ -5,9 +5,10 @@ SimpleButtonWidget::SimpleButtonWidget(QWidget *parent, const RobotGui::WidgetCo
     styledWidgetBackgroundColor = true;
     drawBorder = false;
 
-    button = new QPushButton(this);
+    button = new QPushButton(QString::fromStdString(configInfo->title), this);
+//    button->setFixedWidth(300);
+//    button->setSizePolicy(QSizePolicy::, QSizePolicy::Expanding);
     button->setObjectName(this->objectName() + BUTTON_WIDGET_NAME);
-    button->setText(QString::fromStdString(configInfo->title));
 
     connect(button, SIGNAL(pressed()), this, SLOT(onClick()));
     connect(button, SIGNAL(released()), this, SLOT(onRelease()));
