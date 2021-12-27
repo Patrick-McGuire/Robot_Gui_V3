@@ -1,4 +1,5 @@
 #include "RandomDataInterface.h"
+#include "../CustomJSONStructure.h"
 
 RandomDataInterface::RandomDataInterface(int _interval) : ThreadedInterface() {
     interval = _interval;
@@ -24,18 +25,12 @@ void RandomDataInterface::run() {
         setDouble("j", j);
         setDouble("slowSweep", 1 - float(j) / 180.0);
 
-        auto annunciatorData = std::make_shared<struct WidgetData::internalJSON>();
-        annunciatorData->type = WidgetData::vector_t;
+        AnnunciatorJSONStruct annunciator;
         for (int k = 0; k < 5; k++) {
-            WidgetData::internalJSON_ptr a = std::make_shared<struct WidgetData::internalJSON>();
-            a->type = WidgetData::vector_t;
-            a->vector.push_back(WidgetData::getJSONObjectFromString(std::to_string(k) + " " + std::to_string(i)));
-            a->vector.push_back(WidgetData::getJSONObjectFromInt(int(j / 20.0) % 3));
-            a->vector.push_back(WidgetData::getJSONObjectFromString("Description"));
-            annunciatorData->vector.push_back(a);
+            annunciator.addAnnunciator(std::to_string(k) + " " + std::to_string(i), int(j / 20.0) % 3, "description");
         }
-        setJSON("annunciator", annunciatorData);
-        setJSON("annunciator_2", annunciatorData);
+        setJSON("annunciator", annunciator.getStruct());
+        setJSON("annunciator_2", annunciator.getStruct());
 
         std::this_thread::sleep_for(std::chrono::milliseconds(interval));
 

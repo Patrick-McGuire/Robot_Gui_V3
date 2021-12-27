@@ -50,7 +50,7 @@ set(core_files
         CoreGui.cpp CoreGui.h
         Theme.cpp Theme.h
         CommonFunctions.cpp CommonFunctions.h
-        )
+        CustomJSONStructure.h)
 
 set(all_gui_files
         ${rapidxml_files}
