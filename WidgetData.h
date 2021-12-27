@@ -38,8 +38,8 @@ public:
      * Self referencing
      */
     struct internalJSON {
-        internalJsonTypes type;
-        union {                     // Only one of these can be used at a time, so no need to waste memory
+        internalJsonTypes type = none_t;
+        union {                             // Only one of these can be used at a time, so no need to waste memory
             int intVal = 0;
             double doubleVal;
             bool boolVal;

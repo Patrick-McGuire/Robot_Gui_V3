@@ -95,3 +95,19 @@ cv::Mat BaseInterface::getImg(const std::string &key) {
 WidgetData::internalJSON_ptr BaseInterface::getJSON(const std::string &key) {
     return widgetData->getJSON(key);
 }
+
+bool BaseInterface::outputFlagExists(const std::string &key) {
+    return widgetData->outputFlagExists(key);
+}
+
+bool BaseInterface::getFlagOutput(const std::string &key) {
+    return widgetData->getFlagOutput(key);
+}
+
+void BaseInterface::clearOutputFlag(const std::string &key) {
+    widgetData->clearOutputFlag(key);
+}
+
+std::map<std::string, bool> *BaseInterface::getFlagOutput() {
+    return widgetData->getFlagOutput();
+}

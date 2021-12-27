@@ -77,36 +77,17 @@ void TextBoxWidget::customUpdate() {
     this->adjustSize();
 }
 
-void TextBoxWidget::customUpdateStyle(bool overwrite) {
-    std::string tittleTextColor = configInfo->headerColor;
-    std::string textColor = configInfo->textColor;
-    std::string backgroundColor = configInfo->backgroundColor;
-    if(overwrite || configInfo->textColor == RobotGui::Xml::THEME_CONST) {
-        textColor = theme->getTextColor();
-    }
-    if(overwrite || configInfo->headerColor == RobotGui::Xml::THEME_CONST) {
-        tittleTextColor = theme->getHeaderTextColor();
-    }
-    if(overwrite || configInfo->backgroundColor == RobotGui::Xml::THEME_CONST) {
-        if(configInfo->backgroundColor != RobotGui::Xml::NONE_CONST) {
-            backgroundColor = theme->getWidgetBackgroundColor();
-        } else {
-            backgroundColor = "transparent";
-        }
-    } else if(configInfo->backgroundColor == RobotGui::Xml::NONE_CONST) {
-        backgroundColor = "transparent";
-    }
-
+void TextBoxWidget::customUpdateStyle() {
     char buf[400];
     sprintf(buf, "QWidget#%s{ background: %s } QWidget#%s{ background: %s; color: %s } QWidget#%s{ background: %s; color: %s }",
             this->objectName().toStdString().c_str(),
             backgroundColor.c_str(),
             titleBox->objectName().toStdString().c_str(),
             backgroundColor.c_str(),
-            tittleTextColor.c_str(),
+            titleTextColor.c_str(),
             textBox->objectName().toStdString().c_str(),
             backgroundColor.c_str(),
-            textColor.c_str()
+            bodyTextColor.c_str()
             );
     this->setStyleSheet(buf);
 }

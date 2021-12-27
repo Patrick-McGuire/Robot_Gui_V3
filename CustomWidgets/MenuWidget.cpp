@@ -35,20 +35,7 @@ MenuWidget::MenuWidget(QWidget *parent, AppConfig *appConfig_, CoreGui *coreGui,
     connect(setTheme, SIGNAL(triggered(QAction * )), robotGui, SLOT(updateTheme(QAction * )));
 
     theme->addMenu(setTheme);
-    auto *setAll = theme->addMenu("Set theme for all");
-    menus.emplace_back(setAll);
-    setAll->setObjectName(QString(THEME_MENU_NAME) + "2");
 
-    auto *subMenuAct11 = setAll->addAction(QString::fromStdString(Theme::getThemeName(RobotGui::Themes::DARK)));
-    subMenuAct11->setData(QString::fromStdString(Theme::getThemeName(RobotGui::Themes::DARK)));
-    auto *subMenuAct22 = setAll->addAction(QString::fromStdString(Theme::getThemeName(RobotGui::Themes::LIGHT)));
-    subMenuAct22->setData(QString::fromStdString(Theme::getThemeName(RobotGui::Themes::LIGHT)));
-    auto *subMenuAct33 = setAll->addAction(QString::fromStdString(Theme::getThemeName(RobotGui::Themes::GREEN)));
-    subMenuAct33->setData(QString::fromStdString(Theme::getThemeName(RobotGui::Themes::GREEN)));
-
-    connect(setAll, SIGNAL(triggered(QAction * )), robotGui, SLOT(forceTheme(QAction * )));
-
-    theme->addMenu(setAll);
     // Finishing up
     this->addMenu(file);
     this->addMenu(settings);

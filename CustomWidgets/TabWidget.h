@@ -71,13 +71,13 @@ private:
      * Updates the style of this widget
      * @param overwrite if we should overwrite any attributes with theme
      */
-    void customUpdateStyle(bool overwrite) override;
+    void customUpdateStyle() override;
 
     /**
      * Updates the style of this children widgets
      * @param overwrite if we should overwrite any attributes with theme
      */
-    void updateChildrenStyle(bool overwrite) override;
+    void updateChildrenStyle() override;
 
     /**
      * Parses xml for all children in the tab

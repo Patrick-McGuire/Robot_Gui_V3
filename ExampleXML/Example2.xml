@@ -3,6 +3,8 @@
     <widget type="tab" title="Dashboard" height="max" width="max" x="0" y="0" static="True" background="theme">
         <tab title="Tab1">
             <widget title="test button" type="simpleButton" x="100" y="200" id="simpleButtonOut"/>
+            <widget title="Destroy the world" type="simpleButton" x="100" y="300" id="button2"/>
+            <widget title="Evaporate mars" type="simpleButton" x="100" y="400" id="button3"/>
             <widget title="TestVideo" type="video" draggable="True" x="300" y="0" id="1" height="200" width="400"/>
             <widget title="Power Stats" type="textBox" x="0" y="0" draggable="True" background="none" textColor="red">
                 <line label="Thing 1" value="KEY1"/>

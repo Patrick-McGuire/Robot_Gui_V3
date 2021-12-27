@@ -47,7 +47,7 @@ GuiInstance::GuiInstance(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *
     }
 
     parent->show();
-    setTheme(false);
+    setTheme();
 }
 
 void GuiInstance::setWindowSize() {
@@ -70,12 +70,12 @@ GuiInstance::~GuiInstance() {
 
 void GuiInstance::updateTheme(QAction *channelAction) {
     theme->setTheme(channelAction->data().toString().toStdString());
-    setTheme(false);
+    setTheme();
 }
 
 void GuiInstance::forceTheme(QAction *channelAction) {
     theme->setTheme(channelAction->data().toString().toStdString());
-    setTheme(true);
+    setTheme();
 }
 
 
@@ -87,11 +87,11 @@ void GuiInstance::makeWidgetsFixed() {
     coreWidget->setDraggability(false);
 }
 
-void GuiInstance::setTheme(bool force) {
+void GuiInstance::setTheme() {
     std::string darker_color = CommonFunctions::GenerateDarkerColor(theme->getBackgroundColor(), 10);
     mainWindow->setStyleSheet("QWidget#mainWindow { background-color: " + QString::fromStdString(darker_color) + "}");
     menu->updateTheme();
-    coreWidget->updateStyle(force);
+    coreWidget->updateStyle();
 }
 
 WidgetData *GuiInstance::getWidgetData() {

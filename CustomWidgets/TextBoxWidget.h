@@ -66,7 +66,7 @@ private:
      * Updates the style of this widget
      * @param overwrite if we should overwrite any attributes with theme
      */
-    void customUpdateStyle(bool overwrite) override;
+    void customUpdateStyle() override;
 
     QLabel *textBox;
     QLabel *titleBox;

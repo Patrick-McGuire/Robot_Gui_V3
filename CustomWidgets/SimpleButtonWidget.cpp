@@ -5,9 +5,10 @@ SimpleButtonWidget::SimpleButtonWidget(QWidget *parent, const RobotGui::WidgetCo
     styledWidgetBackgroundColor = true;
     drawBorder = false;
 
-    button = new QPushButton(this);
+    button = new QPushButton(QString::fromStdString(configInfo->title), this);
+//    button->setFixedWidth(300);
+//    button->setSizePolicy(QSizePolicy::, QSizePolicy::Expanding);
     button->setObjectName(this->objectName() + BUTTON_WIDGET_NAME);
-    button->setText(QString::fromStdString(configInfo->title));
 
     connect(button, SIGNAL(pressed()), this, SLOT(onClick()));
     connect(button, SIGNAL(released()), this, SLOT(onRelease()));
@@ -35,27 +36,12 @@ void SimpleButtonWidget::onRelease() {
     }
 }
 
-void SimpleButtonWidget::customUpdateStyle(bool overwrite) {
-    std::string textColor = configInfo->textColor;
-    std::string backgroundColor = configInfo->backgroundColor;
-    if (overwrite || configInfo->textColor == RobotGui::Xml::THEME_CONST) {
-        textColor = theme->getTextColor();
-    }
-    if (overwrite || configInfo->backgroundColor == RobotGui::Xml::THEME_CONST) {
-        if (configInfo->backgroundColor != RobotGui::Xml::NONE_CONST) {
-            backgroundColor = theme->getWidgetBackgroundColor();
-        } else {
-            backgroundColor = "transparent";
-        }
-    } else if (configInfo->backgroundColor == RobotGui::Xml::NONE_CONST) {
-        backgroundColor = "transparent";
-    }
-
+void SimpleButtonWidget::customUpdateStyle() {
     char buf[400];
     sprintf(buf, "QWidget#%s{ background: %s; color: %s }",
             button->objectName().toStdString().c_str(),
             backgroundColor.c_str(),
-            textColor.c_str()
+            bodyTextColor.c_str()
     );
     this->setStyleSheet(buf);
 }

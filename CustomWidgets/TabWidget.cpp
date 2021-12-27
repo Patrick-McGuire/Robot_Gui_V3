@@ -66,40 +66,17 @@ void TabWidget::customUpdateDraggability(bool _draggable) {
     }
 }
 
-void TabWidget::customUpdateStyle(bool overwrite) {
-    std::string tittleTextColor = configInfo->headerColor;
-    std::string backgroundColor = configInfo->backgroundColor;
-    std::string textColor = "rgb(0,0,0)";
-    std::string borderColor = "rgb(50,50,50)";
-    std::string darkerBackground;
-    std::string darkerDarkerBorder;
+void TabWidget::customUpdateStyle() {
+    std::string textColor = CommonFunctions::GetContrastingTextColor(backgroundColor);
+    std::string darkerBackground = CommonFunctions::GenerateDarkerColor(backgroundColor, 10);;
+    std::string darkerDarkerBorder = CommonFunctions::GenerateDarkerColor(darkerBackground, 10);
+    std::string newBorderColor = "rgb(50,50,50)";
 
-    if (overwrite || configInfo->headerColor == RobotGui::Xml::THEME_CONST) {
-        tittleTextColor = theme->getHeaderTextColor();
-    }
-
-    if (overwrite || configInfo->backgroundColor == RobotGui::Xml::THEME_CONST) {
-        if (configInfo->backgroundColor != RobotGui::Xml::NONE_CONST) {
-            backgroundColor = theme->getBackgroundColor();
-            darkerBackground = CommonFunctions::GenerateDarkerColor(backgroundColor, 10);
-            darkerDarkerBorder = CommonFunctions::GenerateDarkerColor(darkerBackground, 10);
-            textColor = CommonFunctions::GetContrastingTextColor(backgroundColor);
-        } else {
-            backgroundColor = "transparent";
-            darkerBackground = backgroundColor;
-            darkerDarkerBorder = backgroundColor;
-        }
-    } else if (configInfo->backgroundColor == RobotGui::Xml::NONE_CONST) {
-        backgroundColor = "transparent";
-        darkerBackground = backgroundColor;
-        darkerDarkerBorder = backgroundColor;
-    }
-
-    std::string stylesheetString = std::string("QTabWidget::pane { border: 1px solid " + borderColor + ";}") +
-                                   "QTabWidget::tab-bar {left: 5px; }" +
-                                   "QTabBar::tab {background: " + darkerBackground + "; color: " + textColor + ";border: 1px solid " + borderColor + ";border-bottom-color: " + darkerDarkerBorder + "; border-top-left-radius: 2px;border-top-right-radius: 2px;min-width: 8ex;padding: 2px;}" +
+    std::string stylesheetString = std::string("QTabWidget::pane { border: 1px solid " + newBorderColor + ";}") +
+                                   "QTabWidget::tab-bar {left: 0px; }" +
+                                   "QTabBar::tab {background: " + darkerBackground + "; color: " + textColor + ";border: 1px solid " + newBorderColor + ";border-bottom-color: " + darkerDarkerBorder + "; border-top-left-radius: 2px;border-top-right-radius: 2px;min-width: 8ex;padding: 2px;}" +
                                    "QTabBar::tab:selected, QTabBar::tab:hover {background: " + darkerBackground + "}" +
-                                   "QTabBar::tab:selected {border-color: " + borderColor + ";border-bottom-color: " + darkerDarkerBorder + "; }" +
+                                   "QTabBar::tab:selected {border-color: " + newBorderColor + ";border-bottom-color: " + darkerDarkerBorder + "; }" +
                                    "QTabBar::tab:!selected {margin-top: 2px;}";
 
     tabs->setStyleSheet(QString::fromStdString(stylesheetString));
@@ -109,9 +86,9 @@ void TabWidget::customUpdateStyle(bool overwrite) {
     }
 }
 
-void TabWidget::updateChildrenStyle(bool overwrite) {
+void TabWidget::updateChildrenStyle() {
     for (auto &widget : widgets) {
-        widget->updateStyle(overwrite);
+        widget->updateStyle();
     }
 }
 

@@ -1,7 +1,3 @@
-//
-// Created by patrick on 10/22/21.
-//
-
 #include "XMLInput.h"
 
 #define strFailed -9123931      // Random

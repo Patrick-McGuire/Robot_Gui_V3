@@ -28,7 +28,7 @@ public:
      * @param _configInfo config struct to create widget based off of
      * @param _widgetData data passing structure to read data from at runtime
      */
-    BaseWidget(QWidget *_parent_, const RobotGui::WidgetConfig_ptr& _configInfo, WidgetData *_widgetData, Theme *_theme);
+    BaseWidget(QWidget *_parent_, const RobotGui::WidgetConfig_ptr &_configInfo, WidgetData *_widgetData, Theme *_theme);
 
     /**
      * Sets the position of the widget on the screen
@@ -53,20 +53,20 @@ public:
      * Updates the style of this widget, to be overwritten by derived
      * @param overwrite weather to overwrite any attributes with theme
      */
-    virtual void customUpdateStyle(bool overwrite);
+    virtual void customUpdateStyle();
 
     /**
      * Updates the style of children widget, to be overwritten by derived
      * @param overwrite weather to overwrite any attributes with theme
      */
-    virtual void updateChildrenStyle(bool overwrite);
+    virtual void updateChildrenStyle();
 
     /**
      * Updates the style of this widget
      * @param _theme them for this widget to use
      * @param overwrite weather to overwrite any attributes with theme
      */
-    void updateStyle(bool  overwrite);
+    void updateStyle();
 
     /**
      * Sets the _draggable state of this widget if widget is not static
@@ -75,22 +75,6 @@ public:
     void setDraggability(bool _draggable);
 
 protected:
-    QWidget *_parent;
-    RobotGui::WidgetConfig_ptr configInfo;
-    WidgetData *widgetData;
-    const bool staticPos;
-    bool drawBorder = true;
-    Theme *theme;
-
-    // These register weather or not the current widget can update these attributes
-    // Set these in the constructor of any derived class
-    bool styledBackground = false;
-    bool styledText = false;
-    bool styledHeader = false;
-    bool styledSeeThroughBackground = false;
-    bool styledBorderColor = false;
-    bool styledWidgetBackgroundColor = false;
-
     /**
      * Updates data when widget is in focus, virtual
      */
@@ -136,6 +120,29 @@ protected:
      * @param event drag QMouseEvent
      */
     void mouseMoveEvent(QMouseEvent *event) override;
+
+    QWidget *_parent;
+    RobotGui::WidgetConfig_ptr configInfo;
+    WidgetData *widgetData;
+    const bool staticPos;
+    bool drawBorder = true;
+    Theme *theme;
+
+    // These register weather or not the current widget can update these attributes
+    // Set these in the constructor of any derived class
+    bool styledBackground = false;
+    bool styledText = false;
+    bool styledHeader = false;
+    bool styledSeeThroughBackground = false;
+    bool styledBorderColor = false;
+    bool styledWidgetBackgroundColor = false;
+
+    // Style
+    std::string backgroundColor;
+    std::string widgetBackgroundColor;
+    std::string bodyTextColor;
+    std::string titleTextColor;
+    std::string borderColor;
 
 public slots:
 
