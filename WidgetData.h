@@ -33,6 +33,7 @@ public:
         img_t,
         none_t,
     };
+
     /**
      * Stores json data for a key
      * Self referencing
@@ -202,6 +203,11 @@ public:
         return jsonMap.count(key) != 0 ? jsonMap[key]->stringVal : "";
     }
 
+    std::string getString(const std::string &key, std::string _default_value) {
+        if (getKeyType(key) == string_t) { return getString(key); }
+        else { return _default_value; }
+    }
+
     /**
      * Returns double
      * @param key to get
@@ -222,6 +228,11 @@ public:
         return jsonMap.count(key) != 0 ? jsonMap[key]->intVal : 0;
     }
 
+    int getInt(const std::string &key, int _default_value) {
+        if (getKeyType(key) == int_t) { return getBool(key); }
+        else { return _default_value; }
+    }
+
     /**
      * Returns bool
      * @param key key to get
@@ -230,6 +241,11 @@ public:
     bool getBool(const std::string &key) {
         std::lock_guard<std::mutex> lockGuard(jsonMapMutex);
         return jsonMap.count(key) != 0 && jsonMap[key]->boolVal;
+    }
+
+    bool getBool(const std::string &key, bool _default_value) {
+        if (getKeyType(key) == bool_t) { return getBool(key); }
+        else { return _default_value; }
     }
 
     /**

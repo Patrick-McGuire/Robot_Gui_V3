@@ -6,6 +6,7 @@ SimpleButtonWidget::SimpleButtonWidget(QWidget *parent, const RobotGui::WidgetCo
     drawBorder = false;
 
     button = new QPushButton(QString::fromStdString(configInfo->title), this);
+    adjustSize();
 //    button->setFixedWidth(300);
 //    button->setSizePolicy(QSizePolicy::, QSizePolicy::Expanding);
     button->setObjectName(this->objectName() + BUTTON_WIDGET_NAME);
@@ -44,6 +45,7 @@ void SimpleButtonWidget::customUpdateStyle() {
             titleTextColor.c_str()
     );
     this->setStyleSheet(buf);
+    adjustSize();
 }
 
 void SimpleButtonWidget::parseXml(const RobotGui::WidgetConfig_ptr &parentConfig, rapidxml::xml_node<> *node) {

@@ -41,6 +41,8 @@ namespace CommonFunctions {
 
     std::map<std::string, std::string> CreateMapFromString(std::string input);
 
+    std::string GetStringFromMap(std::map<std::string, std::string> _map, const std::string& _key, std::string _default_value = "");
+
     std::array<int, 3> GetRGBFromString(const std::string &input, std::array<int, 3> default_value = {255, 255, 255});
 
     QColor GetQColorFromString(const std::string &input, std::array<int, 3> default_value = {255, 255, 255});

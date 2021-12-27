@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <map>
 #include "XML/AppConfig.h"
 #include "array"
 
@@ -36,6 +37,7 @@ namespace RobotGui {
     const char *const MULTI_BAR_GRAPH_STRID = "multiBarGraph";
     const char *const ANNUNCIATOR_PANEL_STRID = "annunciatorPanel";
     const char *const SIMPLE_CONSOLE_WIDGET_STRID = "simpleConsole";
+    const char *const ROV_STATUS_WIDGET_STRID = "ROVStatusWidget";
     // AppConfig consts
     const char *const APP_CONFIG_FILE_PATH = "/.config/RobotGUI";
     const char *const APP_CONFIG_FILE_NAME = "/RobotGUI_Settings.csv";
@@ -68,6 +70,7 @@ namespace RobotGui {
         const char *const ROW_NUMBER_ATTRIBUTE = "row_number";
         const char *const COLUMN_NUMBER_ATTRIBUTE = "column_number";
         const char *const SOURCE_ATTRIBUTE = "source";
+        const char *const SIZE_ATTRIBUTE = "size";
         // Style attributes
         const char *const FONT_ATR = "font";
         const char *const BACKGROUND_COLOR_ATR = "background";
@@ -117,10 +120,12 @@ namespace RobotGui {
         int y;
         int height;
         int width;
+        int size;
         bool hidden;
         bool draggable;
         bool staticPos;
         std::string source;
+        std::map<std::string, std::string> sourceMap;
         ////// Style //////
         std::string font;
         std::string backgroundColor;

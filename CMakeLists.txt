@@ -27,7 +27,7 @@ set(widget_type_files
         CustomWidgets/MenuWidget.cpp CustomWidgets/MenuWidget.h
         CustomWidgets/SimpleButtonWidget.cpp CustomWidgets/SimpleButtonWidget.h
         CustomWidgets/MultiBarGraphWidget.cpp CustomWidgets/MultiBarGraphWidget.h
-        CustomWidgets/AnnunciatorWidget.cpp CustomWidgets/AnnunciatorWidget.h CustomWidgets/SimpleConsoleWidget.cpp CustomWidgets/SimpleConsoleWidget.h)
+        CustomWidgets/AnnunciatorWidget.cpp CustomWidgets/AnnunciatorWidget.h CustomWidgets/SimpleConsoleWidget.cpp CustomWidgets/SimpleConsoleWidget.h CustomWidgets/ROVStatusWidget.cpp CustomWidgets/ROVStatusWidget.h)
 
 set(widget_part_files
         CustomWidgets/WidgetParts/SimpleBarGraph.cpp CustomWidgets/WidgetParts/BaseGraphDisplay.h

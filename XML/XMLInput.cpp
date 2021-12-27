@@ -73,6 +73,10 @@ RobotGui::WidgetConfig_ptr XMLInput::parseWidget(rapidxml::xml_node<> *node) {
             newWidgetStruct->columnNumber = std::atoi(attrVal.c_str());
         } else if (attrName == RobotGui::Xml::SOURCE_ATTRIBUTE) {
             newWidgetStruct->source = attrVal;
+        } else if (attrName.find("Source") != std::string::npos) {
+            newWidgetStruct->sourceMap[attrName] = attrVal;
+        } else if (attrName == RobotGui::Xml::SIZE_ATTRIBUTE) {
+            newWidgetStruct->size = std::atoi(attrVal.c_str());
         } else if (attrName == RobotGui::Xml::BACKGROUND_COLOR_ATR) {
             newWidgetStruct->backgroundColor = attrVal;
         } else if (attrName == RobotGui::Xml::FOREGROUND_COLOR_ATR) {

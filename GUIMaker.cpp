@@ -5,6 +5,7 @@
 #include "CustomWidgets/MultiBarGraphWidget.h"
 #include "CustomWidgets/AnnunciatorWidget.h"
 #include "CustomWidgets/SimpleConsoleWidget.h"
+#include "CustomWidgets/ROVStatusWidget.h"
 
 /*
  * Gets called in tabWidget to create a new subwidgets
@@ -24,6 +25,8 @@ BaseWidget *GUIMaker::createWidget(QWidget *parent, const RobotGui::WidgetConfig
         return new AnnunciatorWidget(parent, configInfo, widgetData, theme);
     } else if (configInfo->type == RobotGui::SIMPLE_CONSOLE_WIDGET_STRID) {
         return new SimpleConsoleWidget(parent, configInfo, widgetData, theme);
+    } else if (configInfo->type == RobotGui::ROV_STATUS_WIDGET_STRID) {
+        return new ROVStatusWidget(parent, configInfo, widgetData, theme);
     }
     else {
         std::cout << "Can't create widget of type " << configInfo->type << std::endl;

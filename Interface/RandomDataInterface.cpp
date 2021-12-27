@@ -37,6 +37,10 @@ void RandomDataInterface::run() {
         console.addLog("AAA " + std::to_string(j), int(j / 20.0) % 3);
         setJSON("testarray", console.getStruct());
 
+        setBool("allowedToArm", i >= 100);
+        setBool("armed", i >= 200);
+        setInt("status", int((float(i) / 360.0) * 3));
+
         std::this_thread::sleep_for(std::chrono::milliseconds(interval));
 
         i += 3;
