@@ -47,7 +47,7 @@
             <widget type="textBox" x="646" y="397" title="Power4asdff Stats" hidden="False" draggable="True" font="Arial" fontsize="20"/>
             <widget type="textBox" x="180" y="657" title="Powera5sdff Stats" hidden="False" draggable="True" font="Arial" fontsize="20"/>
             <widget type="textBox" x="1055" y="580" title="Poweras6dff Stats" hidden="False" draggable="True" font="Arial" fontsize="20"/>
-            <widget type="SimpleConsole" x="1446" y="313" title="TEST CONSOLE" source="testarray" hidden="False" draggable="True" font="Arial" fontsize="14"/>
+            <widget type="simpleConsole" x="1446" y="313" title="TEST CONSOLE" source="testarray" hidden="False" draggable="True" font="Arial" fontsize="14"/>
             <widget type="CompleteConsole" x="1063" y="476" title="No Title" source="_" hidden="False" draggable="True" font="Arial" fontsize="12"/>
             <widget type="compass" x="122" y="196" size="200" transparent="True" hidden="False" draggable="True" font="Arial" fontsize="12"/>
             <widget type="AttitudeWidget" x="397" y="156" size="200" transparent="True" hidden="False" draggable="True" font="Arial" fontsize="12" pitchSource="pitch" rollSource="roll"/>

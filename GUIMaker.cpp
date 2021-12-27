@@ -4,7 +4,7 @@
 
 #include "CustomWidgets/MultiBarGraphWidget.h"
 #include "CustomWidgets/AnnunciatorWidget.h"
-
+#include "CustomWidgets/SimpleConsoleWidget.h"
 
 /*
  * Gets called in tabWidget to create a new subwidgets
@@ -22,7 +22,10 @@ BaseWidget *GUIMaker::createWidget(QWidget *parent, const RobotGui::WidgetConfig
         return new MultiBarGraphWidget(parent, configInfo, widgetData, theme);
     } else if (configInfo->type == RobotGui::ANNUNCIATOR_PANEL_STRID) {
         return new AnnunciatorWidget(parent, configInfo, widgetData, theme);
-    } else {
+    } else if (configInfo->type == RobotGui::SIMPLE_CONSOLE_WIDGET_STRID) {
+        return new SimpleConsoleWidget(parent, configInfo, widgetData, theme);
+    }
+    else {
         std::cout << "Can't create widget of type " << configInfo->type << std::endl;
     }
     return nullptr;

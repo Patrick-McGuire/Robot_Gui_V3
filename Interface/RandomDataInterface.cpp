@@ -9,6 +9,8 @@ void RandomDataInterface::run() {
     double i = 0;
     double j = 0;
 
+    ConsoleJSONStruct console(5);
+
     while (isActive()) {
         setInt("KEY1", rand() % 10);
         setDouble("KEY2", (double) (rand() % 100) / 10);
@@ -27,10 +29,13 @@ void RandomDataInterface::run() {
 
         AnnunciatorJSONStruct annunciator;
         for (int k = 0; k < 5; k++) {
-            annunciator.addAnnunciator(std::to_string(k) + " " + std::to_string(i), int(j / 20.0) % 3, "description");
+            annunciator.addAnnunciator(std::to_string(k) + " " + std::to_string(i), int((j / 20.0) + k) % 4, "description");
         }
         setJSON("annunciator", annunciator.getStruct());
         setJSON("annunciator_2", annunciator.getStruct());
+
+        console.addLog("AAA " + std::to_string(i), int(j / 20.0) % 3);
+        setJSON("testarray", console.getStruct());
 
         std::this_thread::sleep_for(std::chrono::milliseconds(interval));
 

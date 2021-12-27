@@ -35,6 +35,7 @@ namespace RobotGui {
     const char *const SIMPLE_BUTTON_WIDGET_STRID = "simpleButton";
     const char *const MULTI_BAR_GRAPH_STRID = "multiBarGraph";
     const char *const ANNUNCIATOR_PANEL_STRID = "annunciatorPanel";
+    const char *const SIMPLE_CONSOLE_WIDGET_STRID = "simpleConsole";
     // AppConfig consts
     const char *const APP_CONFIG_FILE_PATH = "/.config/GuiInstance";
     const char *const APP_CONFIG_FILE_NAME = "/RobotGUI_Settings.csv";
