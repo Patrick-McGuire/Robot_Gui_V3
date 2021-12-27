@@ -77,7 +77,7 @@ void TextBoxWidget::customUpdate() {
     this->adjustSize();
 }
 
-void TextBoxWidget::customUpdateStyle(const std::string &backgroundColor, const std::string &widgetBackgroundColor, const std::string &bodyTextColor, const std::string &titleTextColor, const std::string &borderColor) {
+void TextBoxWidget::customUpdateStyle() {
     char buf[400];
     sprintf(buf, "QWidget#%s{ background: %s } QWidget#%s{ background: %s; color: %s } QWidget#%s{ background: %s; color: %s }",
             this->objectName().toStdString().c_str(),

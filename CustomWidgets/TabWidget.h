@@ -71,7 +71,7 @@ private:
      * Updates the style of this widget
      * @param overwrite if we should overwrite any attributes with theme
      */
-    void customUpdateStyle(const std::string &backgroundColor, const std::string &widgetBackgroundColor, const std::string &bodyTextColor, const std::string &titleTextColor, const std::string &borderColor) override;
+    void customUpdateStyle() override;
 
     /**
      * Updates the style of this children widgets

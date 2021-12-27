@@ -36,7 +36,7 @@ void SimpleButtonWidget::onRelease() {
     }
 }
 
-void SimpleButtonWidget::customUpdateStyle(const std::string &backgroundColor, const std::string &widgetBackgroundColor, const std::string &bodyTextColor, const std::string &titleTextColor, const std::string &borderColor) {
+void SimpleButtonWidget::customUpdateStyle() {
     char buf[400];
     sprintf(buf, "QWidget#%s{ background: %s; color: %s }",
             button->objectName().toStdString().c_str(),

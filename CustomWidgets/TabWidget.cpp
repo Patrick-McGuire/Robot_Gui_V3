@@ -66,7 +66,7 @@ void TabWidget::customUpdateDraggability(bool _draggable) {
     }
 }
 
-void TabWidget::customUpdateStyle(const std::string &backgroundColor, const std::string &widgetBackgroundColor, const std::string &bodyTextColor, const std::string &titleTextColor, const std::string &borderColor) {
+void TabWidget::customUpdateStyle() {
     std::string textColor = CommonFunctions::GetContrastingTextColor(backgroundColor);
     std::string darkerBackground = CommonFunctions::GenerateDarkerColor(backgroundColor, 10);;
     std::string darkerDarkerBorder = CommonFunctions::GenerateDarkerColor(darkerBackground, 10);

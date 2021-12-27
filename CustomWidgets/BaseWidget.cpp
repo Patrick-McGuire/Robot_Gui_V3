@@ -3,7 +3,7 @@
 #include "BaseWidget.h"
 #include "../CommonFunctions.h"
 
-BaseWidget::BaseWidget(QWidget *_parent_, const RobotGui::WidgetConfig_ptr& _configInfo, WidgetData *_widgetData, Theme *_theme) : staticPos(_configInfo->staticPos), QWidget(_parent_) {
+BaseWidget::BaseWidget(QWidget *_parent_, const RobotGui::WidgetConfig_ptr &_configInfo, WidgetData *_widgetData, Theme *_theme) : staticPos(_configInfo->staticPos), QWidget(_parent_) {
     configInfo = _configInfo;
     widgetData = _widgetData;
     _parent = _parent_;
@@ -16,6 +16,7 @@ BaseWidget::BaseWidget(QWidget *_parent_, const RobotGui::WidgetConfig_ptr& _con
             this, SLOT(showContextMenu(QPoint)));
     // Initialize position
     move(configInfo->x, configInfo->y);
+    updateStyle();
 }
 
 void BaseWidget::setPosition(int _x, int _y) {
@@ -95,38 +96,38 @@ void BaseWidget::mouseMoveEvent(QMouseEvent *event) {
 
 // Style
 void BaseWidget::updateStyle() {
-    std::string backgroundColor = configInfo->backgroundColor;
-    std::string widgetBackgroundColor = configInfo->backgroundColor;
-    std::string bodyTextColor = configInfo->textColor;
-    std::string titleTextColor = configInfo->headerColor;
-    std::string borderColor = "theme";
+    backgroundColor = configInfo->backgroundColor;
+    widgetBackgroundColor = configInfo->backgroundColor;
+    bodyTextColor = configInfo->textColor;
+    titleTextColor = configInfo->headerColor;
+    borderColor = "theme";
     // Check background color
-    if(backgroundColor == RobotGui::Xml::THEME_CONST) {
+    if (backgroundColor == RobotGui::Xml::THEME_CONST) {
         backgroundColor = theme->getBackgroundColor();
-    } else if(backgroundColor == RobotGui::Xml::NONE_CONST) {
+    } else if (backgroundColor == RobotGui::Xml::NONE_CONST) {
         backgroundColor = RobotGui::TRANSPARENT_STYLE;
     }
     // Check widget background color
-    if(widgetBackgroundColor == RobotGui::Xml::THEME_CONST) {
+    if (widgetBackgroundColor == RobotGui::Xml::THEME_CONST) {
         widgetBackgroundColor = theme->getWidgetBackgroundColor();
-    } else if(widgetBackgroundColor == RobotGui::Xml::NONE_CONST) {
+    } else if (widgetBackgroundColor == RobotGui::Xml::NONE_CONST) {
         widgetBackgroundColor = RobotGui::TRANSPARENT_STYLE;
     }
     // Check body text
-    if(bodyTextColor == RobotGui::Xml::THEME_CONST) {
+    if (bodyTextColor == RobotGui::Xml::THEME_CONST) {
         bodyTextColor = theme->getBodyTextColor();
     }
     // Check title text color
-    if(titleTextColor == RobotGui::Xml::THEME_CONST) {
+    if (titleTextColor == RobotGui::Xml::THEME_CONST) {
         titleTextColor = theme->getTitleTextColor();
     }
     // Check border color
-    if(borderColor == RobotGui::Xml::THEME_CONST) {
+    if (borderColor == RobotGui::Xml::THEME_CONST) {
         borderColor = theme->getBorderColor();
-    } else if(borderColor == RobotGui::Xml::NONE_CONST) {
+    } else if (borderColor == RobotGui::Xml::NONE_CONST) {
         borderColor = RobotGui::TRANSPARENT_STYLE;
     }
-    customUpdateStyle(backgroundColor, widgetBackgroundColor, bodyTextColor, titleTextColor, borderColor);
+    customUpdateStyle();
     updateChildrenStyle();
 }
 
@@ -145,16 +146,16 @@ void BaseWidget::showContextMenu(const QPoint &pos) {
     auto contextMenu = new QMenu(this);
     menus.emplace_back(contextMenu);
     contextMenu->setObjectName(CONTEXT_MENU_NAME);
-    if(!staticPos) {
+    if (!staticPos) {
         contextMenu->addAction("Toggle Draggability", this, SLOT(toggleDraggability()));
     }
     if (styledBackground || styledWidgetBackgroundColor) {
         auto *backgroundColor = contextMenu->addMenu("Background color");
         menus.emplace_back(backgroundColor);
         backgroundColor->setObjectName(QString(CONTEXT_MENU_NAME) + "BGColor");
-        const char *colors[] = { "theme", "none", "black", "white", "grey", "green", "blue", "red", "orange", "yellow" };
-        for(auto & color : colors) {
-            if(std::strcmp("none", color) != 0 || styledSeeThroughBackground) {
+        const char *colors[] = {"theme", "none", "black", "white", "grey", "green", "blue", "red", "orange", "yellow"};
+        for (auto &color: colors) {
+            if (std::strcmp("none", color) != 0 || styledSeeThroughBackground) {
                 auto *sub1 = backgroundColor->addAction(color);
                 sub1->setData(color);
             }
@@ -165,15 +166,15 @@ void BaseWidget::showContextMenu(const QPoint &pos) {
         auto *textColor = contextMenu->addMenu("Text color");
         menus.emplace_back(textColor);
         textColor->setObjectName(QString(CONTEXT_MENU_NAME) + "TXTColor");
-        const char *colors[] = { "theme", "black", "white", "grey", "green", "blue", "red", "orange", "yellow" };
-        for(auto & color : colors) {
+        const char *colors[] = {"theme", "black", "white", "grey", "green", "blue", "red", "orange", "yellow"};
+        for (auto &color: colors) {
             auto *sub1 = textColor->addAction(color);
             sub1->setData(color);
         }
         connect(textColor, SIGNAL(triggered(QAction * )), this, SLOT(setTextColor(QAction * )));
     }
 
-    for (auto &element : menus) {
+    for (auto &element: menus) {
         QString style =
                 "QMenu#" + element->objectName() + "{"
                                                    "background-color : " + QString::fromStdString(theme->getBackgroundColor()) +
@@ -186,7 +187,7 @@ void BaseWidget::showContextMenu(const QPoint &pos) {
     contextMenu->exec(mapToGlobal(pos));
 }
 
-void BaseWidget::customUpdateStyle(const std::string &backgroundColor, const std::string &widgetBackgroundColor, const std::string &bodyTextColor, const std::string &titleTextColor, const std::string &borderColor) {}
+void BaseWidget::customUpdateStyle() {}
 
 void BaseWidget::updateChildrenStyle() {}
 

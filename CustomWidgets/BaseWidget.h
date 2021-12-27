@@ -53,8 +53,7 @@ public:
      * Updates the style of this widget, to be overwritten by derived
      * @param overwrite weather to overwrite any attributes with theme
      */
-    virtual void customUpdateStyle(const std::string &backgroundColor, const std::string &widgetBackgroundColor, const std::string &bodyTextColor, const std::string &titleTextColor,
-                                   const std::string &borderColor);
+    virtual void customUpdateStyle();
 
     /**
      * Updates the style of children widget, to be overwritten by derived
@@ -137,6 +136,13 @@ protected:
     bool styledSeeThroughBackground = false;
     bool styledBorderColor = false;
     bool styledWidgetBackgroundColor = false;
+
+    // Style
+    std::string backgroundColor;
+    std::string widgetBackgroundColor;
+    std::string bodyTextColor;
+    std::string titleTextColor;
+    std::string borderColor;
 
 public slots:
 
