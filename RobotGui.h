@@ -36,11 +36,13 @@ namespace RobotGui {
     const char *const MULTI_BAR_GRAPH_STRID = "multiBarGraph";
     const char *const ANNUNCIATOR_PANEL_STRID = "annunciatorPanel";
     // AppConfig consts
-    const char *const APP_CONFIG_FILE_PATH = "/.config/GuiInstance";
+    const char *const APP_CONFIG_FILE_PATH = "/.config/RobotGUI";
     const char *const APP_CONFIG_FILE_NAME = "/RobotGUI_Settings.csv";
     const char *const APP_CONFIG_XML_PATH = "XML_PATH";
     const char *const APP_CONFIG_NO_XML_PATH = "none";
     const char APP_CONFIG_SEP = ',';
+    // Stylesheets
+    const char *const TRANSPARENT_STYLE = "transparent";
 
     //// XML Constants ////
     namespace Xml {

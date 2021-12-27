@@ -66,7 +66,7 @@ private:
      * Updates the style of this widget
      * @param overwrite if we should overwrite any attributes with theme
      */
-    void customUpdateStyle(bool overwrite) override;
+    void customUpdateStyle(const std::string &backgroundColor, const std::string &widgetBackgroundColor, const std::string &bodyTextColor, const std::string &titleTextColor, const std::string &borderColor) override;
 
     QLabel *textBox;
     QLabel *titleBox;

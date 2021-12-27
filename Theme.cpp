@@ -21,11 +21,11 @@ std::string Theme::getWidgetBackgroundColor() {
     return stringFormats[currentTheme].widgetBackgroundColor;
 }
 
-std::string Theme::getTextColor() {
+std::string Theme::getBodyTextColor() {
     return stringFormats[currentTheme].bodyTextColor;
 }
 
-std::string Theme::getHeaderTextColor() {
+std::string Theme::getTitleTextColor() {
     return stringFormats[currentTheme].titleTextColor;
 }
 

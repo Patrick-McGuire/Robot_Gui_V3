@@ -94,19 +94,50 @@ void BaseWidget::mouseMoveEvent(QMouseEvent *event) {
 }
 
 // Style
-void BaseWidget::updateStyle(bool overwrite) {
-    customUpdateStyle(overwrite);
-    updateChildrenStyle(overwrite);
+void BaseWidget::updateStyle() {
+    std::string backgroundColor = configInfo->backgroundColor;
+    std::string widgetBackgroundColor = configInfo->backgroundColor;
+    std::string bodyTextColor = configInfo->textColor;
+    std::string titleTextColor = configInfo->headerColor;
+    std::string borderColor = "theme";
+    // Check background color
+    if(backgroundColor == RobotGui::Xml::THEME_CONST) {
+        backgroundColor = theme->getBackgroundColor();
+    } else if(backgroundColor == RobotGui::Xml::NONE_CONST) {
+        backgroundColor = RobotGui::TRANSPARENT_STYLE;
+    }
+    // Check widget background color
+    if(widgetBackgroundColor == RobotGui::Xml::THEME_CONST) {
+        widgetBackgroundColor = theme->getWidgetBackgroundColor();
+    } else if(widgetBackgroundColor == RobotGui::Xml::NONE_CONST) {
+        widgetBackgroundColor = RobotGui::TRANSPARENT_STYLE;
+    }
+    // Check body text
+    if(bodyTextColor == RobotGui::Xml::THEME_CONST) {
+        bodyTextColor = theme->getBodyTextColor();
+    }
+    // Check title text color
+    if(titleTextColor == RobotGui::Xml::THEME_CONST) {
+        titleTextColor = theme->getTitleTextColor();
+    }
+    // Check border color
+    if(borderColor == RobotGui::Xml::THEME_CONST) {
+        borderColor = theme->getBorderColor();
+    } else if(borderColor == RobotGui::Xml::NONE_CONST) {
+        borderColor = RobotGui::TRANSPARENT_STYLE;
+    }
+    customUpdateStyle(backgroundColor, widgetBackgroundColor, bodyTextColor, titleTextColor, borderColor);
+    updateChildrenStyle();
 }
 
 void BaseWidget::setBackgroundColor(QAction *channelAction) {
     configInfo->backgroundColor = channelAction->data().toString().toStdString();
-    customUpdateStyle(false);
+    updateStyle();
 }
 
 void BaseWidget::setTextColor(QAction *channelAction) {
     configInfo->textColor = channelAction->data().toString().toStdString();
-    customUpdateStyle(false);
+    updateStyle();
 }
 
 void BaseWidget::showContextMenu(const QPoint &pos) {
@@ -155,9 +186,9 @@ void BaseWidget::showContextMenu(const QPoint &pos) {
     contextMenu->exec(mapToGlobal(pos));
 }
 
-void BaseWidget::customUpdateStyle(bool overwrite) {}
+void BaseWidget::customUpdateStyle(const std::string &backgroundColor, const std::string &widgetBackgroundColor, const std::string &bodyTextColor, const std::string &titleTextColor, const std::string &borderColor) {}
 
-void BaseWidget::updateChildrenStyle(bool overwrite) {}
+void BaseWidget::updateChildrenStyle() {}
 
 void BaseWidget::updateInFocus() {}
 

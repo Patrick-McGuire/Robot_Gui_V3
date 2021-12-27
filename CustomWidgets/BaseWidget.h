@@ -28,7 +28,7 @@ public:
      * @param _configInfo config struct to create widget based off of
      * @param _widgetData data passing structure to read data from at runtime
      */
-    BaseWidget(QWidget *_parent_, const RobotGui::WidgetConfig_ptr& _configInfo, WidgetData *_widgetData, Theme *_theme);
+    BaseWidget(QWidget *_parent_, const RobotGui::WidgetConfig_ptr &_configInfo, WidgetData *_widgetData, Theme *_theme);
 
     /**
      * Sets the position of the widget on the screen
@@ -53,20 +53,20 @@ public:
      * Updates the style of this widget, to be overwritten by derived
      * @param overwrite weather to overwrite any attributes with theme
      */
-    virtual void customUpdateStyle(bool overwrite);
+    virtual void customUpdateStyle(const std::string &backgroundColor, const std::string &widgetBackgroundColor, const std::string &bodyTextColor, const std::string &titleTextColor, const std::string &borderColor);
 
     /**
      * Updates the style of children widget, to be overwritten by derived
      * @param overwrite weather to overwrite any attributes with theme
      */
-    virtual void updateChildrenStyle(bool overwrite);
+    virtual void updateChildrenStyle();
 
     /**
      * Updates the style of this widget
      * @param _theme them for this widget to use
      * @param overwrite weather to overwrite any attributes with theme
      */
-    void updateStyle(bool  overwrite);
+    void updateStyle();
 
     /**
      * Sets the _draggable state of this widget if widget is not static

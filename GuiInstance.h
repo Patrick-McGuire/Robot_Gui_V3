@@ -50,7 +50,7 @@ public:
      * @param _theme theme to set
      * @param force whether or not to force the theme on all widgets
      */
-    void setTheme(bool force);
+    void setTheme();
 
     /**
      * Returns widgetData

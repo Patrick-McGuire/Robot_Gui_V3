@@ -35,13 +35,13 @@ public:
      * Returns a string containing the text color for the current theme
      * @return text color string
      */
-    std::string getTextColor();
+    std::string getBodyTextColor();
 
     /**
      * Returns a string containing the header text color for the current theme
      * @return header text color string
      */
-    std::string getHeaderTextColor();
+    std::string getTitleTextColor();
 
     /**
      * Returns a string containing the border color for the current theme

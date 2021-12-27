@@ -35,27 +35,12 @@ void SimpleButtonWidget::onRelease() {
     }
 }
 
-void SimpleButtonWidget::customUpdateStyle(bool overwrite) {
-    std::string textColor = configInfo->textColor;
-    std::string backgroundColor = configInfo->backgroundColor;
-    if (overwrite || configInfo->textColor == RobotGui::Xml::THEME_CONST) {
-        textColor = theme->getTextColor();
-    }
-    if (overwrite || configInfo->backgroundColor == RobotGui::Xml::THEME_CONST) {
-        if (configInfo->backgroundColor != RobotGui::Xml::NONE_CONST) {
-            backgroundColor = theme->getWidgetBackgroundColor();
-        } else {
-            backgroundColor = "transparent";
-        }
-    } else if (configInfo->backgroundColor == RobotGui::Xml::NONE_CONST) {
-        backgroundColor = "transparent";
-    }
-
+void SimpleButtonWidget::customUpdateStyle(const std::string &backgroundColor, const std::string &widgetBackgroundColor, const std::string &bodyTextColor, const std::string &titleTextColor, const std::string &borderColor) {
     char buf[400];
     sprintf(buf, "QWidget#%s{ background: %s; color: %s }",
             button->objectName().toStdString().c_str(),
             backgroundColor.c_str(),
-            textColor.c_str()
+            bodyTextColor.c_str()
     );
     this->setStyleSheet(buf);
 }
