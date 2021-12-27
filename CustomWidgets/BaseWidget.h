@@ -53,7 +53,8 @@ public:
      * Updates the style of this widget, to be overwritten by derived
      * @param overwrite weather to overwrite any attributes with theme
      */
-    virtual void customUpdateStyle(const std::string &backgroundColor, const std::string &widgetBackgroundColor, const std::string &bodyTextColor, const std::string &titleTextColor, const std::string &borderColor);
+    virtual void customUpdateStyle(const std::string &backgroundColor, const std::string &widgetBackgroundColor, const std::string &bodyTextColor, const std::string &titleTextColor,
+                                   const std::string &borderColor);
 
     /**
      * Updates the style of children widget, to be overwritten by derived
@@ -75,22 +76,6 @@ public:
     void setDraggability(bool _draggable);
 
 protected:
-    QWidget *_parent;
-    RobotGui::WidgetConfig_ptr configInfo;
-    WidgetData *widgetData;
-    const bool staticPos;
-    bool drawBorder = true;
-    Theme *theme;
-
-    // These register weather or not the current widget can update these attributes
-    // Set these in the constructor of any derived class
-    bool styledBackground = false;
-    bool styledText = false;
-    bool styledHeader = false;
-    bool styledSeeThroughBackground = false;
-    bool styledBorderColor = false;
-    bool styledWidgetBackgroundColor = false;
-
     /**
      * Updates data when widget is in focus, virtual
      */
@@ -136,6 +121,22 @@ protected:
      * @param event drag QMouseEvent
      */
     void mouseMoveEvent(QMouseEvent *event) override;
+
+    QWidget *_parent;
+    RobotGui::WidgetConfig_ptr configInfo;
+    WidgetData *widgetData;
+    const bool staticPos;
+    bool drawBorder = true;
+    Theme *theme;
+
+    // These register weather or not the current widget can update these attributes
+    // Set these in the constructor of any derived class
+    bool styledBackground = false;
+    bool styledText = false;
+    bool styledHeader = false;
+    bool styledSeeThroughBackground = false;
+    bool styledBorderColor = false;
+    bool styledWidgetBackgroundColor = false;
 
 public slots:
 
