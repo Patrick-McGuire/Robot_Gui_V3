@@ -16,6 +16,8 @@ public:
 
     static void parseXml(const RobotGui::WidgetConfig_ptr &parentConfig, rapidxml::xml_node<> *node);
 
+    void customUpdateStyle() override;
+
 protected:
     int size = 200;
 

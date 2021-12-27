@@ -18,7 +18,7 @@ MenuWidget::MenuWidget(QWidget *parent, AppConfig *appConfig_, CoreGui *coreGui,
     settings->addAction("Make all draggable", robotGui, SLOT(makeWidgetsDraggable()));
     settings->addAction("Make all fixed", robotGui, SLOT(makeWidgetsFixed()));
     // Theme2 menu
-    auto *theme = new QMenu("Theme2");
+    auto *theme = new QMenu("Theme");
     theme->setObjectName(THEME_MENU_NAME);
     menus.emplace_back(theme);
     auto *setTheme = theme->addMenu("Set theme");

@@ -73,7 +73,6 @@ void AnnunciatorWidget::updateInFocus() {
     }
 }
 
-//void AnnunciatorWidget::customUpdateStyle(bool overwrite) {
-//    std::string tittleTextColor = Theme::getHeaderTextColor();
-//    titleWidget->setStyleSheet(QString::fromStdString("color: " + tittleTextColor));
-//}
+void AnnunciatorWidget::customUpdateStyle() {
+    titleWidget->setStyleSheet(QString::fromStdString("color: " + titleTextColor));
+}

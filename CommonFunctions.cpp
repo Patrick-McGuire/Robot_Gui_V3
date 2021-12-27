@@ -137,6 +137,15 @@ std::array<int, 3> CommonFunctions::GetRGBFromString(const std::string &input, s
     }
 }
 
+QColor CommonFunctions::GetQColorFromString(const std::string &input, std::array<int, 3> default_value) {
+    if (input.find("rgb(") == std::string::npos) {
+        return QColor(input.c_str());
+    } else {
+        auto r_g_b = CommonFunctions::GetRGBFromString(input, default_value);
+        return {r_g_b[0], r_g_b[1], r_g_b[2]};
+    }
+}
+
 std::string CommonFunctions::GetStringFromRGB(std::array<int, 3> r_g_b) {
     return ("rgb(" + std::to_string(r_g_b[0]) + "," + std::to_string(r_g_b[1]) + "," + std::to_string(r_g_b[2]) + ")");
 }
@@ -149,7 +158,7 @@ std::string CommonFunctions::GenerateDarkerColor(const std::string &input_color,
     return CommonFunctions::GetStringFromRGB(r_g_b);
 }
 
-std::string CommonFunctions::GetContrastingTextColor(const std::string& background_color) {
+std::string CommonFunctions::GetContrastingTextColor(const std::string &background_color) {
     auto r_g_b = CommonFunctions::GetRGBFromString(background_color);
     if (fmax(fmax(r_g_b[0], r_g_b[1]), r_g_b[2]) > 127) {
         return "rgb(0,0,0)";

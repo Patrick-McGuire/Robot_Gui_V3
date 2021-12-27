@@ -64,8 +64,10 @@ void BaseWidget::toggleDraggability() {
 void BaseWidget::paintEvent(QPaintEvent *_event) {
     QPainter painter(this);
     if (drawBorder) {
-        std::array<int, 3> borderColor = {100, 100, 100}; //TODO: GET FROM THEME
-        painter.setPen(QColor(borderColor[0], borderColor[1], borderColor[2]));
+        painter.setPen(CommonFunctions::GetQColorFromString(borderColor));
+        if (backgroundColor != RobotGui::TRANSPARENT_STYLE) {
+            painter.setBrush(CommonFunctions::GetQColorFromString(widgetBackgroundColor));
+        }
         painter.drawRect(0, 0, width() - 1, height() - 1);
     }
 }

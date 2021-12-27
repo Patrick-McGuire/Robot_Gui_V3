@@ -2,11 +2,15 @@
 // Created by nathan on 10/30/20.
 //
 
+#ifndef ROBOT_GUI_V3_COMMONFUNCTIONS_H
+#define ROBOT_GUI_V3_COMMONFUNCTIONS_H
+
 #include <vector>
 #include <map>
 #include <string>
 #include <cmath>
 #include <iostream>
+#include <QColor>
 
 namespace CommonFunctions {
     double Clamp(double value, double minValue, double maxValue);
@@ -39,9 +43,13 @@ namespace CommonFunctions {
 
     std::array<int, 3> GetRGBFromString(const std::string &input, std::array<int, 3> default_value = {255, 255, 255});
 
+    QColor GetQColorFromString(const std::string &input, std::array<int, 3> default_value = {255, 255, 255});
+
     std::string GetStringFromRGB(std::array<int, 3> r_g_b);
 
-    std::string GenerateDarkerColor(const std::string& input_color, int delta);
+    std::string GenerateDarkerColor(const std::string &input_color, int delta);
 
-    std::string GetContrastingTextColor(const std::string& background_color);
+    std::string GetContrastingTextColor(const std::string &background_color);
 };
+
+#endif //ROBOT_GUI_V3_COMMONFUNCTIONS_H

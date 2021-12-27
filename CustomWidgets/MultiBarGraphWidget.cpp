@@ -80,3 +80,9 @@ void MultiBarGraphWidget::parseXml(const RobotGui::WidgetConfig_ptr &parentConfi
         }
     }
 }
+
+void MultiBarGraphWidget::customUpdateStyle() {
+    for (auto &graph : subGraphVector) {
+        graph->setTextColor(bodyTextColor);
+    }
+}

@@ -15,7 +15,7 @@ public:
 
     void updateInFocus() override;
 
-//    void customUpdateStyle(bool overwrite) override;
+    void customUpdateStyle() override;
 
 private:
     QLabel *titleWidget;

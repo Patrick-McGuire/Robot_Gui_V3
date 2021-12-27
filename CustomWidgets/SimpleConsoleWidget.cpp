@@ -4,6 +4,7 @@
 
 #include <QtGui/QPainter>
 #include "SimpleConsoleWidget.h"
+#include "../CommonFunctions.h"
 
 SimpleConsoleWidget::SimpleConsoleWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *theme) : BaseWidget(parent, configInfo, widgetData, theme) {
     source = configInfo->source;
@@ -31,7 +32,7 @@ void SimpleConsoleWidget::paintEvent(QPaintEvent *_event) {
     QPainter painter(this);
 
     if (drawTitle) {
-        painter.setPen(QColor("blue"));
+        painter.setPen(CommonFunctions::GetQColorFromString(titleTextColor));
         painter.drawText(5, fontHeight, QString::fromStdString(title));
         titleHeight = fontHeight;
         numberOfLines = int(consoleData.size());
@@ -47,7 +48,7 @@ void SimpleConsoleWidget::paintEvent(QPaintEvent *_event) {
         maxLineWidth = fmax(maxLineWidth, line.length());
 
         if (status == 0) {
-            painter.setPen(QColor("white"));
+            painter.setPen(CommonFunctions::GetQColorFromString(bodyTextColor));
         } else if (status == 1) {
             painter.setPen(QColor("yellow"));
         } else if (status == 2) {

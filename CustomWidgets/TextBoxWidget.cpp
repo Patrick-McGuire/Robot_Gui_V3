@@ -3,7 +3,7 @@
 #include <iostream>
 #include <vector>
 
-TextBoxWidget::TextBoxWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr& configInfo, WidgetData *widgetData, Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
+TextBoxWidget::TextBoxWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
     styledHeader = true;
     styledText = true;
     styledSeeThroughBackground = true;
@@ -26,14 +26,14 @@ TextBoxWidget::TextBoxWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr& 
     textBox->setMargin(0);
     this->setAttribute(Qt::WA_StyledBackground, true);                                  // QWidget don't have this enabled by default, but most QWidgets do
 
-    for(auto it = configInfo->lines.begin(); it != configInfo->lines.end(); ++it) {
+    for (auto it = configInfo->lines.begin(); it != configInfo->lines.end(); ++it) {
         lineKeys.push_back(it[0][1]);
     }
 }
 
 std::string TextBoxWidget::GetInfoString() {
     std::string output;
-    for(auto it = configInfo->lines.begin(); it != configInfo->lines.end(); ++it) {
+    for (auto it = configInfo->lines.begin(); it != configInfo->lines.end(); ++it) {
         output += it[0][0];
         output += ": ";
         WidgetData::internalJsonTypes keyType = widgetData->getKeyType(it[0][1]); //&it[0][0][1]
@@ -43,7 +43,7 @@ std::string TextBoxWidget::GetInfoString() {
             output += std::to_string(widgetData->getDouble(it[0][1]));
         } else if (keyType == WidgetData::string_t) {
             output += widgetData->getString(it[0][1]);
-        } else if(keyType == WidgetData::bool_t) {
+        } else if (keyType == WidgetData::bool_t) {
             output += widgetData->getBool(it[0][1]) ? "True" : "False";
         } else {
             output += "err";
@@ -56,8 +56,8 @@ std::string TextBoxWidget::GetInfoString() {
 }
 
 void TextBoxWidget::updateInFocus() {
-    for(auto & lineKey : lineKeys) {
-        if(widgetData->keyUpdated(lineKey)) {
+    for (auto &lineKey : lineKeys) {
+        if (widgetData->keyUpdated(lineKey)) {
             customUpdate();
             return;
         }
@@ -79,36 +79,34 @@ void TextBoxWidget::customUpdate() {
 
 void TextBoxWidget::customUpdateStyle() {
     char buf[400];
-    sprintf(buf, "QWidget#%s{ background: %s } QWidget#%s{ background: %s; color: %s } QWidget#%s{ background: %s; color: %s }",
-            this->objectName().toStdString().c_str(),
-            backgroundColor.c_str(),
+    sprintf(buf, "QWidget#%s{ background: %s; color: %s } QWidget#%s{ background: %s; color: %s }",
             titleBox->objectName().toStdString().c_str(),
-            backgroundColor.c_str(),
+            "transparent",
             titleTextColor.c_str(),
             textBox->objectName().toStdString().c_str(),
-            backgroundColor.c_str(),
+            "transparent",
             bodyTextColor.c_str()
-            );
+    );
     this->setStyleSheet(buf);
 }
 
-void TextBoxWidget::parseXml(const RobotGui::WidgetConfig_ptr& parentConfig, rapidxml::xml_node<> *node) {
+void TextBoxWidget::parseXml(const RobotGui::WidgetConfig_ptr &parentConfig, rapidxml::xml_node<> *node) {
     // Iterate though all lines
-    for(auto *line = node->first_node(); line; line = line->next_sibling()) {
+    for (auto *line = node->first_node(); line; line = line->next_sibling()) {
         std::string tagName = line->name();
-        if(tagName == RobotGui::Xml::LINE_TAG) {
+        if (tagName == RobotGui::Xml::LINE_TAG) {
             std::string label;
             std::string value;
-            for(rapidxml::xml_attribute<> *attr = line->first_attribute(); attr; attr = attr->next_attribute()) {
+            for (rapidxml::xml_attribute<> *attr = line->first_attribute(); attr; attr = attr->next_attribute()) {
                 std::string attrName = attr->name();
                 std::string attrVal = attr->value();
-                if(attrName == RobotGui::Xml::LABEL_ATR) {
+                if (attrName == RobotGui::Xml::LABEL_ATR) {
                     label = attrVal;
-                } else if(attrName == RobotGui::Xml::VALUE_ATR) {
+                } else if (attrName == RobotGui::Xml::VALUE_ATR) {
                     value = attrVal;
                 }
             }
-            parentConfig->lines.emplace_back(std::vector<std::string> {label, value});
+            parentConfig->lines.emplace_back(std::vector<std::string>{label, value});
         }
     }
 }
