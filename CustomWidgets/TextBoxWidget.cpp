@@ -19,9 +19,10 @@ TextBoxWidget::TextBoxWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &
     this->setLayout(layout);
 
     titleBox->setText(QString::fromStdString(configInfo->title));
+    titleBox->setAlignment(Qt::AlignCenter | Qt::AlignVCenter);
     textBox->setText(QString::fromStdString(GetInfoString()));
 
-    layout->setMargin(0);
+    layout->setMargin(5);
     titleBox->setMargin(0);
     textBox->setMargin(0);
     this->setAttribute(Qt::WA_StyledBackground, true);                                  // QWidget don't have this enabled by default, but most QWidgets do
@@ -29,6 +30,9 @@ TextBoxWidget::TextBoxWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &
     for (auto it = configInfo->lines.begin(); it != configInfo->lines.end(); ++it) {
         lineKeys.push_back(it[0][1]);
     }
+
+    titleBox->setFont(QFont(font()));
+    textBox->setFont(QFont("monospace", font().pointSize()));
 }
 
 std::string TextBoxWidget::GetInfoString() {
@@ -88,6 +92,13 @@ void TextBoxWidget::customUpdateStyle() {
             bodyTextColor.c_str()
     );
     this->setStyleSheet(buf);
+
+    titleBox->setFont(QFont(font()));
+    textBox->setFont(QFont("monospace", font().pointSize()));
+    titleBox->update();
+    textBox->update();
+    update();
+    adjustSize();
 }
 
 void TextBoxWidget::parseXml(const RobotGui::WidgetConfig_ptr &parentConfig, rapidxml::xml_node<> *node) {

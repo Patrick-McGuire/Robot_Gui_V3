@@ -75,4 +75,5 @@ void AnnunciatorWidget::updateInFocus() {
 
 void AnnunciatorWidget::customUpdateStyle() {
     titleWidget->setStyleSheet(QString::fromStdString("color: " + titleTextColor));
+    titleWidget->setFont(font());
 }

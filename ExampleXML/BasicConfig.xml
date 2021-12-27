@@ -3,13 +3,13 @@
     <widget type="tab" title="Dashboard" height="max" width="max" x="0" y="0" static="True" background="theme">
         <tab title="Dashboard">
             <widget type="video" x="0" y="0" title="VideoWidget_10" id="1" hidden="False" draggable="False" fullscreen="True" lockAspectRatio="true" height="640" width="480"/>
-            <widget type="simpleButton" x="500" y="253" title="Test Button" source="button1" hidden="False" draggable="True" font="Arial" fontsize="12"/>
-            <widget type="compass" x="1681" y="324" source="current" size="200" transparent="True" hidden="False" draggable="True" font="Arial" fontsize="12"/>
-            <widget type="DropDownTextBox" x="246" y="17" title="Error: no title" source="diagnostics_agg" hidden="False" draggable="True" font="Arial" fontsize="12"/>
-            <widget type="annunciatorPanel" x="33" y="710" title="Annunciator1" source="annunciator" hidden="False" draggable="True" font="Arial" fontsize="12" row_number="10" column_number="5"/>
-            <widget type="annunciatorPanel" x="0" y="408" title="Annunciator2" source="annunciator_2" hidden="False" draggable="True" font="Arial" fontsize="14" row_number="10" column_number="2"/>
-            <widget type="CompleteConsole" x="24" y="4" title="Test Console 2" source="complete_console_test" hidden="False" draggable="True" font="Arial" fontsize="12"/>
-            <widget type="textBox" x="1495" y="552" title="Power Stats" hidden="False" draggable="True" font="Arial" fontsize="12">
+            <widget type="simpleButton" x="500" y="253" title="Test Button" source="button1" hidden="False" draggable="True" font="Arial" font_size="12"/>
+            <widget type="compass" x="1681" y="324" source="current" size="200" transparent="True" hidden="False" draggable="True" font="Arial" font_size="12"/>
+            <widget type="DropDownTextBox" x="246" y="17" title="Error: no title" source="diagnostics_agg" hidden="False" draggable="True" font="Arial" font_size="12"/>
+            <widget type="annunciatorPanel" x="33" y="710" title="Annunciator1" source="annunciator" hidden="False" draggable="True" font="Arial" font_size="12" row_number="10" column_number="5"/>
+            <widget type="annunciatorPanel" x="0" y="408" title="Annunciator2" source="annunciator_2" hidden="False" draggable="True" font="Arial" font_size="14" row_number="10" column_number="2"/>
+            <widget type="CompleteConsole" x="24" y="4" title="Test Console 2" source="complete_console_test" hidden="False" draggable="True" font="Arial" font_size="12"/>
+            <widget type="textBox" x="1495" y="552" title="Power Stats" hidden="False" draggable="True" font="Arial" font_size="12">
                 <line label="Battery Voltage" value="batteryVoltage"/>
                 <line label="5v Bus Voltage" value="v5Voltage"/>
                 <line label="3.3v Bus Voltage" value="v33Voltage"/>
@@ -17,7 +17,7 @@
                 <line label="Loop Time" value="fullLoopTime"/>
                 <line label="Frame Rate" value="frameRate"/>
             </widget>
-            <widget type="FullFlightDisplay" x="1306" y="19" size="200" transparent="False" hidden="False" draggable="True" font="Arial" fontsize="12">
+            <widget type="FullFlightDisplay" x="1306" y="19" size="200" transparent="False" hidden="False" draggable="True" font="Arial" font_size="12">
                 <attitude rollSource="roll" pitchSource="pitch"/>
                 <compass yawSource="yaw" compassBelow="False"/>
                 <vSpeed source="verticalSpeed" useAltVSpeedWidget="False" scale="1.0"/>
@@ -25,7 +25,7 @@
                 <altitude source="altitude" scale="1"/>
                 <groundSpeed source="groundSpeed"/>
             </widget>
-            <widget type="multiBarGraph" x="1554" y="728" size="200" transparent="False" hidden="False" draggable="True" font="Arial" fontsize="12">
+            <widget type="multiBarGraph" x="1554" y="728" size="200" transparent="False" hidden="False" draggable="True" font="Arial" font_size="12">
                 <line type="SimpleBarGraph" source="verticalSpeed" title="Title" minimum="0.0" maximum="100.0" color="rgb(50,50,255)"/>
                 <line type="CircleBarGraph" source="roll" title="Title" minimum="0.0" maximum="360.0" color="rgb(50,50,255)"/>
             </widget>
@@ -33,29 +33,29 @@
             <widget type="ROVStatusWidget" x="858" y="781" size="30" hidden="False" draggable="True" statusSource="status" armedSource="armed" allowedToArmSource="allowedToArm" modeSource="driveMode" runtimeSource="runtime"/>
         </tab>
         <tab title="Config">
-            <widget type="textBox" x="300" y="800" title="Po1werasdff Stats" hidden="False" draggable="True" font="Arial" fontsize="20"/>
-            <widget type="textBox" x="310" y="539" title="Pow2erasdff Stats" hidden="False" draggable="False" font="Arial" fontsize="20"/>
-            <widget type="textBox" x="1152" y="16" title="Powe3rasdff Stats" hidden="False" draggable="False" font="Arial" fontsize="20"/>
-            <widget type="textBox" x="822" y="810" title="Power4asdff Stats" hidden="False" draggable="True" font="Arial" fontsize="22"/>
-            <widget type="textBox" x="112" y="813" title="Powera5sdff Stats" hidden="False" draggable="False" font="Arial" fontsize="20"/>
-            <widget type="textBox" x="863" y="912" title="Poweras6dff Stats" hidden="False" draggable="False" font="Arial" fontsize="20"/>
-            <widget type="textBox" x="1195" y="306" title="Poweras6dff Stats" hidden="False" draggable="False" font="Arial" fontsize="20"/>
-            <widget type="textBox" x="111" y="52" title="Powerasd7ff Stats" hidden="False" draggable="False" font="Arial" fontsize="20"/>
-            <widget type="textBox" x="1216" y="41" title="Powerasdff Stats" hidden="False" draggable="False" font="Arial" fontsize="20"/>
-            <widget type="textBox" x="205" y="483" title="Po1werasdff Stats" hidden="False" draggable="False" font="Arial" fontsize="20"/>
-            <widget type="textBox" x="666" y="94" title="Powe3rasdff Stats" hidden="False" draggable="False" font="Arial" fontsize="20"/>
-            <widget type="textBox" x="646" y="397" title="Power4asdff Stats" hidden="False" draggable="True" font="Arial" fontsize="20"/>
-            <widget type="textBox" x="180" y="657" title="Powera5sdff Stats" hidden="False" draggable="True" font="Arial" fontsize="20"/>
-            <widget type="textBox" x="1055" y="580" title="Poweras6dff Stats" hidden="False" draggable="True" font="Arial" fontsize="20"/>
-            <widget type="simpleConsole" x="1446" y="313" title="TEST CONSOLE" source="testarray" hidden="False" draggable="True" font="Arial" fontsize="14"/>
-            <widget type="CompleteConsole" x="1063" y="476" title="No Title" source="_" hidden="False" draggable="True" font="Arial" fontsize="12"/>
-            <widget type="compass" x="122" y="196" size="200" transparent="True" hidden="False" draggable="True" font="Arial" fontsize="12"/>
-            <widget type="AttitudeWidget" x="397" y="156" size="200" transparent="True" hidden="False" draggable="True" font="Arial" fontsize="12" pitchSource="pitch" rollSource="roll"/>
+            <widget type="textBox" x="300" y="800" title="Po1werasdff Stats" hidden="False" draggable="True" font="Arial" font_size="20"/>
+            <widget type="textBox" x="310" y="539" title="Pow2erasdff Stats" hidden="False" draggable="False" font="Arial" font_size="20"/>
+            <widget type="textBox" x="1152" y="16" title="Powe3rasdff Stats" hidden="False" draggable="False" font="Arial" font_size="20"/>
+            <widget type="textBox" x="822" y="810" title="Power4asdff Stats" hidden="False" draggable="True" font="Arial" font_size="22"/>
+            <widget type="textBox" x="112" y="813" title="Powera5sdff Stats" hidden="False" draggable="False" font="Arial" font_size="20"/>
+            <widget type="textBox" x="863" y="912" title="Poweras6dff Stats" hidden="False" draggable="False" font="Arial" font_size="20"/>
+            <widget type="textBox" x="1195" y="306" title="Poweras6dff Stats" hidden="False" draggable="False" font="Arial" font_size="20"/>
+            <widget type="textBox" x="111" y="52" title="Powerasd7ff Stats" hidden="False" draggable="False" font="Arial" font_size="20"/>
+            <widget type="textBox" x="1216" y="41" title="Powerasdff Stats" hidden="False" draggable="False" font="Arial" font_size="20"/>
+            <widget type="textBox" x="205" y="483" title="Po1werasdff Stats" hidden="False" draggable="False" font="Arial" font_size="20"/>
+            <widget type="textBox" x="666" y="94" title="Powe3rasdff Stats" hidden="False" draggable="False" font="Arial" font_size="20"/>
+            <widget type="textBox" x="646" y="397" title="Power4asdff Stats" hidden="False" draggable="True" font="Arial" font_size="20"/>
+            <widget type="textBox" x="180" y="657" title="Powera5sdff Stats" hidden="False" draggable="True" font="Arial" font_size="20"/>
+            <widget type="textBox" x="1055" y="580" title="Poweras6dff Stats" hidden="False" draggable="True" font="Arial" font_size="20"/>
+            <widget type="simpleConsole" x="1446" y="313" title="TEST CONSOLE" source="testarray" hidden="False" draggable="True" font="Arial" font_size="14"/>
+            <widget type="CompleteConsole" x="1063" y="476" title="No Title" source="_" hidden="False" draggable="True" font="Arial" font_size="12"/>
+            <widget type="compass" x="122" y="196" size="200" transparent="True" hidden="False" draggable="True" font="Arial" font_size="12"/>
+            <widget type="AttitudeWidget" x="397" y="156" size="200" transparent="True" hidden="False" draggable="True" font="Arial" font_size="12" pitchSource="pitch" rollSource="roll"/>
         </tab>
         <tab title="test">
-            <widget type="video" x="298" y="0" title="Camera 1" source="webcam" hidden="False" draggable="False" fullscreen="True" lockAspectRatio="true" dimensions="1320x990"/>
+            <widget type="video" x="298" y="0" title="Camera 1" id="1" hidden="False" draggable="False" fullscreen="True" lockAspectRatio="true" height="1320" width="990"/>
             <widget type="MapWidget" x="463" y="0" title="Test Map" size="400" transparent="True" hidden="True" draggable="False" XSource="x_position_global" YSource="y_position_global" PointsToKeep="200" PointSpacing="0.1" fullscreen="True"/>
-            <widget type="FullFlightDisplay" x="1482" y="0" size="200" transparent="False" hidden="False" draggable="True" font="Arial" fontsize="12">
+            <widget type="FullFlightDisplay" x="1482" y="0" size="200" transparent="False" hidden="False" draggable="True" font="Arial" font_size="12">
                 <attitude rollSource="roll" pitchSource="pitch"/>
                 <compass yawSource="yaw" compassBelow="True"/>
                 <vSpeed source="slowSweep" useAltVSpeedWidget="True" scale="1.0"/>
@@ -63,14 +63,14 @@
                 <altitude source="altitude" scale="5"/>
                 <groundSpeed source="groundSpeed"/>
             </widget>
-            <widget type="multiBarGraph" x="12" y="433" size="200" transparent="False" hidden="False" draggable="True" font="Arial" fontsize="12">
+            <widget type="multiBarGraph" x="12" y="433" size="200" transparent="False" hidden="False" draggable="True" font="Arial" font_size="12">
                 <line type="SimpleBarGraph" source="roll" title="A" minimum="-20.0" maximum="20.0" color="rgb(0,0,255)"/>
                 <line type="CircleBarGraph" source="j" title="B" minimum="0.0" maximum="360.0" color="rgb(255,0,0)"/>
                 <line type="SimpleBarGraph" source="verticalSpeed" title="Graph C" minimum="0.0" maximum="20.0" color="rgb(255,0,158)"/>
                 <line type="SimpleBarGraph" source="terrainAlt" title="D" minimum="0.0" maximum="100.0" color="rgb(60,255,40)"/>
                 <line type="SimpleBarGraph" source="j" title="Title" minimum="0.0" maximum="360.0" color="rgb(255,255,255)"/>
             </widget>
-            <widget type="VideoSwitcherWidget" x="127" y="102" hidden="False" draggable="True" font="Arial" fontsize="12"/>
+            <widget type="VideoSwitcherWidget" x="127" y="102" hidden="False" draggable="True" font="Arial" font_size="12"/>
         </tab>
     </widget>
 </window>

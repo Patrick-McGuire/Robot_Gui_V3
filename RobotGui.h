@@ -75,7 +75,7 @@ namespace RobotGui {
         const char *const RELIEF_ATR = "relief";
         const char *const TEXT_COLOR_ATR = "textColor";
         const char *const HEADER_COLOR_ATR = "headerColor";
-        const char *const FONT_SIZE_ATR = "fontSize";
+        const char *const FONT_SIZE_ATR = "font_size";
         const char *const BORDER_WIDTH_ATR = "borderWidth";
         // XML Tags
         const char *const WINDOW_TAG = "window";

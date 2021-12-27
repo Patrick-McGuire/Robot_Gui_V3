@@ -41,7 +41,7 @@ void SimpleButtonWidget::customUpdateStyle() {
     sprintf(buf, "QWidget#%s{ background: %s; color: %s }",
             button->objectName().toStdString().c_str(),
             backgroundColor.c_str(),
-            bodyTextColor.c_str()
+            titleTextColor.c_str()
     );
     this->setStyleSheet(buf);
 }

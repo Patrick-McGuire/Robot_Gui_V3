@@ -9,7 +9,7 @@ void RandomDataInterface::run() {
     double i = 0;
     double j = 0;
 
-    ConsoleJSONStruct console(5);
+    ConsoleJSONStruct console(10);
 
     while (isActive()) {
         setInt("KEY1", rand() % 10);
@@ -34,7 +34,7 @@ void RandomDataInterface::run() {
         setJSON("annunciator", annunciator.getStruct());
         setJSON("annunciator_2", annunciator.getStruct());
 
-        console.addLog("AAA " + std::to_string(i), int(j / 20.0) % 3);
+        console.addLog("AAA " + std::to_string(j), int(j / 20.0) % 3);
         setJSON("testarray", console.getStruct());
 
         std::this_thread::sleep_for(std::chrono::milliseconds(interval));

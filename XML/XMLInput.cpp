@@ -101,6 +101,7 @@ RobotGui::WidgetConfig_ptr XMLInput::parseWidget(rapidxml::xml_node<> *node) {
             }
         }
     }
+
     // Call widget specific methods to finish configuring the struct
     if (newWidgetStruct->type == RobotGui::TEXT_BOX_WIDGET_STRID) {
         TextBoxWidget::parseXml(newWidgetStruct, node);
@@ -113,6 +114,7 @@ RobotGui::WidgetConfig_ptr XMLInput::parseWidget(rapidxml::xml_node<> *node) {
     } else if (newWidgetStruct->type == RobotGui::MULTI_BAR_GRAPH_STRID) {
         MultiBarGraphWidget::parseXml(newWidgetStruct, node);
     }
+
     setDefaults(newWidgetStruct);
     return newWidgetStruct;
 }
@@ -188,6 +190,6 @@ void XMLInput::setDefaults(const RobotGui::WidgetConfig_ptr &widgetConfig) {
         widgetConfig->font = RobotGui::Xml::THEME_CONST;
     }
     if (widgetConfig->foregroundColor.empty()) {
-        widgetConfig->font = RobotGui::Xml::THEME_CONST;
+        widgetConfig->foregroundColor = RobotGui::Xml::THEME_CONST;
     }
 }

@@ -10,10 +10,17 @@ BaseWidget::BaseWidget(QWidget *_parent_, const RobotGui::WidgetConfig_ptr &_con
     theme = _theme;
     configInfo->draggable = !staticPos && _configInfo->draggable;
     this->setObjectName(QString::fromStdString(_configInfo->objectName));
+
+    std::string fontName = configInfo->font;
+    if (!fontName.empty() and fontName != RobotGui::Xml::THEME_CONST) {
+        int fontSize = configInfo->fontSize;
+        setFont(QFont(QString::fromStdString(fontName), fontSize));
+    }
+
     // Set up the right click menu
     this->setContextMenuPolicy(Qt::CustomContextMenu);
-    connect(this, SIGNAL(customContextMenuRequested(QPoint)),
-            this, SLOT(showContextMenu(QPoint)));
+    connect(this, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showContextMenu(QPoint)));
+
     // Initialize position
     move(configInfo->x, configInfo->y);
     updateStyle();
