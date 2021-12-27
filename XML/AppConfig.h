@@ -5,12 +5,11 @@
 #include "experimental/filesystem"
 #include <fstream>
 #include <pwd.h>
-#include "../ConfigStructs.h"
-#include "../Constants.h"
+#include "../RobotGui.h"
 
 /* Notes:
- * Configuration data is stored in usr/<username>/home/.config/RobotGUI
- * This auto creates the RobotGUI folder + config file when it runs the first time
+ * Configuration data is stored in usr/<username>/home/.config/GuiInstance
+ * This auto creates the GuiInstance folder + config file when it runs the first time
  * AppConfig data is stored in RobotGUI_Settings.csv in csv format
  */
 /**
@@ -54,13 +53,13 @@ private:
     std::string xmlFilepath;
 
     /**
-     * Trys to create the directory ~/.config/RobotGUI
+     * Trys to create the directory ~/.config/GuiInstance
      * @return true if created, false if already exists
      */
     static bool createDir();
 
     /**
-     * Creates the config file in ~/.config/RobotGUI
+     * Creates the config file in ~/.config/GuiInstance
      */
     static void createFile();
 

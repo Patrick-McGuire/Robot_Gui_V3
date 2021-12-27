@@ -5,15 +5,13 @@
 #include <QGridLayout>
 
 #include "MultiBarGraphWidget.h"
-#include "../XML/XMLConstants.h"
-
 #include "WidgetParts/SimpleBarGraph.h"
 #include "WidgetParts/CircleBarGraph.h"
 
 #define SIMPLE_BAR_GRAPH_NAME "SimpleBarGraph"
 #define CIRCLE_BAR_GRAPH_NAME "CircleBarGraph"
 
-MultiBarGraphWidget::MultiBarGraphWidget(QWidget *parent, const WidgetConfig_ptr &configInfo, WidgetData *widgetData) : BaseWidget(parent, configInfo, widgetData) {
+MultiBarGraphWidget::MultiBarGraphWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
     auto *layout = new QGridLayout();
 
     for (auto &line : configInfo->graphLines) {
@@ -52,28 +50,28 @@ void MultiBarGraphWidget::updateInFocus() {
     }
 }
 
-void MultiBarGraphWidget::parseXml(const WidgetConfig_ptr &parentConfig, rapidxml::xml_node<> *node) {
+void MultiBarGraphWidget::parseXml(const RobotGui::WidgetConfig_ptr &parentConfig, rapidxml::xml_node<> *node) {
     // Iterate though all lines
     for (auto *line = node->first_node(); line; line = line->next_sibling()) {
         std::string tagName = line->name();
-        if (tagName == XML_LINE_TAG) {
-            GraphLineConfig configStruct;
+        if (tagName == RobotGui::Xml::LINE_TAG) {
+            RobotGui::GraphLineConfig configStruct;
 
             for (rapidxml::xml_attribute<> *attr = line->first_attribute(); attr; attr = attr->next_attribute()) {
                 std::string attrName = attr->name();
                 std::string attrVal = attr->value();
 
-                if (attrName == XML_TYPE_ATR) {
+                if (attrName == RobotGui::Xml::TYPE_ATR) {
                     configStruct.type = attrVal;
-                } else if (attrName == XML_SOURCE_ATR) {
+                } else if (attrName == RobotGui::Xml::SOURCE_ATR) {
                     configStruct.source = attrVal;
-                } else if (attrName == XML_TITLE_ATR) {
+                } else if (attrName == RobotGui::Xml::TITLE_ATR) {
                     configStruct.title = attrVal;
-                } else if (attrName == XML_MINIMUM_ATR) {
+                } else if (attrName == RobotGui::Xml::MINIMUM_ATR) {
                     configStruct.min = std::atof(attrVal.c_str());
-                } else if (attrName == XML_MAXIMUM_ATR) {
+                } else if (attrName == RobotGui::Xml::MAXIMUM_ATR) {
                     configStruct.max = std::atof(attrVal.c_str());
-                } else if (attrName == XML_COLOR_ATR) {
+                } else if (attrName == RobotGui::Xml::COLOR_ATR) {
                     configStruct.colorString = attrVal;
                 }
             }

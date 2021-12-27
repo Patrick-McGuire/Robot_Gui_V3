@@ -1,10 +1,8 @@
-#include "CoreGUI.h"
+#include "CoreGui.h"
 
-CoreGUI::CoreGUI(int _argc, char **_argv, GuiRunState _runState) : app(_argc, _argv), window(&mainWindow) {
+CoreGui::CoreGui(int argc, char **argv, RobotGui::GuiRunState _runState) : app(argc, argv), window(&mainWindow) {
     // Initialize variables
     runState = _runState;
-    argc = _argc;
-    argv = _argv;
     wrapper = nullptr;
     currentRobotGUI = nullptr;
 
@@ -22,7 +20,7 @@ CoreGUI::CoreGUI(int _argc, char **_argv, GuiRunState _runState) : app(_argc, _a
     appConfig = new AppConfig();
 }
 
-int CoreGUI::runGUI() {
+int CoreGui::runGUI() {
     qDebug("Starting GUI\n");
 
     // Parse the configuration data
@@ -36,7 +34,7 @@ int CoreGUI::runGUI() {
 
     // Create the GUI and start the app
     wrapper = new QWidget(&window);
-    currentRobotGUI = new RobotGUI(wrapper, &mainWindow, appConfig, this, windowConfig, widgetData, runState);
+    currentRobotGUI = new GuiInstance(wrapper, &mainWindow, appConfig, this, windowConfig, widgetData, runState);
     int out = QApplication::exec();
 
     // Close all the threads
@@ -50,11 +48,11 @@ int CoreGUI::runGUI() {
     return out;
 }
 
-void CoreGUI::reload() {
+void CoreGui::reload() {
     restartGUI();
 }
 
-void CoreGUI::openReload() {
+void CoreGui::openReload() {
     std::string filePath = QFileDialog::getOpenFileName(&mainWindow, "Open XML Configuration File", QString::fromStdString(appConfig->getDefaultXmlPath()), "XML Files (*.xml)").toStdString();
     if(!filePath.empty()) {
         appConfig->setDefaultXmlPath(filePath);
@@ -66,14 +64,14 @@ void CoreGUI::openReload() {
     }
 }
 
-void CoreGUI::reparseReload() {
+void CoreGui::reparseReload() {
     while(!safeParse()) {
         appConfig->parse();
     }
     restartGUI();
 }
 
-void CoreGUI::restartGUI() {
+void CoreGui::restartGUI() {
     qDebug("Closing window");
     qDebug("............\n");
     delete currentRobotGUI;
@@ -81,28 +79,28 @@ void CoreGUI::restartGUI() {
     qDebug("............");
     qDebug("Creating window");
     wrapper = new QWidget(&window);
-    currentRobotGUI = new RobotGUI(wrapper, &mainWindow, appConfig, this, windowConfig, widgetData, runState);
+    currentRobotGUI = new GuiInstance(wrapper, &mainWindow, appConfig, this, windowConfig, widgetData, runState);
 }
 
-bool CoreGUI::safeParse() {
+bool CoreGui::safeParse() {
     try {
         windowConfig = XMLInput::parse(getFilePath().c_str());
         return true;
     } catch (...) {
-        appConfig->setDefaultXmlPath(appConfigNoXmlPath);
+        appConfig->setDefaultXmlPath(RobotGui::APP_CONFIG_NO_XML_PATH);
         appConfig->write();
         return false;
     }
 }
 
 
-std::string CoreGUI::getFilePath() {
+std::string CoreGui::getFilePath() {
     appConfig->parse();
     auto filePath = appConfig->getDefaultXmlPath();
-    while (filePath == appConfigNoXmlPath || !AppConfig::fileExists(filePath)) {
+    while (filePath == RobotGui::APP_CONFIG_NO_XML_PATH || !AppConfig::fileExists(filePath)) {
         filePath = QFileDialog::getOpenFileName(&mainWindow, "Open XML Configuration File", QString::fromStdString(appConfig->getDefaultXmlPath()), "XML Files (*.xml)").toStdString();
         if(filePath.empty()) {
-            appConfig->setDefaultXmlPath(appConfigNoXmlPath);
+            appConfig->setDefaultXmlPath(RobotGui::APP_CONFIG_NO_XML_PATH);
             appConfig->write();
             QApplication::quit();
             quit = true;
@@ -114,7 +112,7 @@ std::string CoreGUI::getFilePath() {
     return filePath;
 }
 
-void CoreGUI::addThreadedInterface(ThreadedInterface *thread) {
+void CoreGui::addThreadedInterface(ThreadedInterface *thread) {
     thread->setWidgetData(widgetData);
     thread->startThread();
     threads.push_back(thread);

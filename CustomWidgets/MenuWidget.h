@@ -6,26 +6,20 @@
 #include <QLabel>
 #include <string>
 #include <QGridLayout>
-#include "../ConfigStructs.h"
 #include <string>
 #include "../WidgetData.h"
-#include "../Constants.h"
-#include "../XML/XMLConstants.h"
+#include "../RobotGui.h"
 #include <string>
 #include "QWidget"
 #include "QMouseEvent"
 #include "QMenuBar"
 #include "iostream"
-#include "../RobotGUI.h"
-#include "../CoreGUI.h"
+#include "../GuiInstance.h"
+#include "../CoreGui.h"
 #include "../Theme.h"
 
-class RobotGUI;
-class CoreGUI;
-
-#define fileMenuName "FileMenu"
-#define settingsMenuName "SettingMenuName"
-#define themeMenuName "ThemeMenu"
+class GuiInstance;
+class CoreGui;
 
 /**
  * @class TextBoxWidget
@@ -41,20 +35,24 @@ public:
      * Constructor
      * @param parent QWidget to make parent, should be a MainWindow
      * @param appConfig_ configuration data
-     * @param coreGui CoreGUI class for connecting slot
-     * @param robotGui RobotGUI class for connecting slot
+     * @param coreGui CoreGui class for connecting slot
+     * @param robotGui GuiInstance class for connecting slot
      */
-    MenuWidget(QWidget *parent, AppConfig *appConfig_, CoreGUI *coreGui, RobotGUI *robotGui);
+    MenuWidget(QWidget *parent, AppConfig *appConfig_, CoreGui *coreGui, GuiInstance *robotGui, Theme *_theme);
 
     /**
      * Updates the menu bar's theme
      * @param _theme theme to set
      */
-    void updateTheme(Themes _theme);
+    void updateTheme();
 
 private:
+    Theme *theme;
     AppConfig *appConfig;
     std::vector<QMenu*> menus;
+    const char *const FILE_MENU_NAME = "FileMenu";
+    const char *const SETTINGS_MENU_NAME = "SettingMenuName";
+    const char *const THEME_MENU_NAME = "ThemeMenu";
 };
 
 

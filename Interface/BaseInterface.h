@@ -4,10 +4,9 @@
 #include "iostream"
 #include <vector>
 #include "../WidgetData.h"
-#include "../Constants.h"
+#include "../RobotGui.h"
 #include "thread"
 #include "opencv2/opencv.hpp"
-
 
 /**
  * @class WidgetData

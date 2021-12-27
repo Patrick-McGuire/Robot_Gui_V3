@@ -17,7 +17,6 @@ set(rapidxml_files
 set(xml_interface_files
         XML/XMLInput.cpp XML/XMLInput.h
         XML/XMLOutput.cpp XML/XMLOutput.h
-        XML/XMLConstants.h ConfigStructs.h
         XML/AppConfig.cpp XML/AppConfig.h)
 
 set(widget_type_files
@@ -45,10 +44,10 @@ set(interface_files
 
 set(core_files
         GUIMaker.cpp GUIMaker.h
-        RobotGUI.cpp RobotGUI.h
+        GuiInstance.cpp GuiInstance.h
         WidgetData.cpp WidgetData.h
-        Constants.h
-        CoreGUI.cpp CoreGUI.h
+        RobotGui.h
+        CoreGui.cpp CoreGui.h
         Theme.cpp Theme.h
         CommonFunctions.cpp CommonFunctions.h
         )

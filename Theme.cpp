@@ -1,191 +1,106 @@
-//
-// Created by patrick on 11/16/21.
-//
-
 #include "Theme.h"
+#include "RobotGui.h"
+#include "CommonFunctions.h"
 
-std::string Theme::getBackgroundColorStr(Themes theme) {
-    switch (theme) {
-        case Dark: {
-            return darkThemeBackgroundColor;
-            break;
-        }
-        case Light: {
-            return lightThemeBackgroundColor;
-            break;
-        } case Green: {
-            return greenThemeBackgroundColor;
-            break;
-        } case QtDefault: {
-            break;
-        }
-    }
-    return "rgb(255,255,255)";
+Theme::Theme(RobotGui::Themes::Type type) {
+    currentTheme = type;
+    initFormats();
 }
 
-std::string Theme::getWidgetBackgroundColorStr(Themes theme) {
-    switch (theme) {
-        case Dark: {
-            return darkThemeWidgetBackgroundColor;
-            break;
-        }
-        case Light: {
-            return lightThemeWidgetBackgroundColor;
-            break;
-        }
-        case Green: {
-            return greenThemeWidgetBackgroundColor;
-            break;
-        }
-        case QtDefault: {
-
-            break;
-        }
-    }
-    return "rgb(255,255,255)";
+Theme::Theme(const std::string &type) {
+    currentTheme = RobotGui::Themes::LIGHT;
+    setTheme(type);
+    initFormats();
 }
 
-std::string Theme::getTextColorStr(Themes theme) {
-    switch (theme) {
-        case Dark: {
-            return darkThemeTextColor;
-            break;
-        }
-        case Light: {
-            return lightThemeTextColor;
-            break;
-        }
-        case Green: {
-            return greenThemeTextColor;
-            break;
-        }
-        case QtDefault: {
-
-            break;
-        }
-    }
-    return "rgb(0,0,0)";
+std::string Theme::getBackgroundColor() {
+    return stringFormats[currentTheme].backgroundColor;
 }
 
-std::string Theme::getHeaderTextColorStr(Themes theme) {
-    switch (theme) {
-        case Dark: {
-            return darkThemeHeaderTextColor;
-            break;
-        }
-        case Light: {
-            return lightThemeHeaderTextColor;
-            break;
-        }
-        case Green: {
-            return greenThemeHeaderTextColor;
-            break;
-        }
-        case QtDefault: {
-
-            break;
-        }
-    }
-    return "rgb(0,0,0)";
+std::string Theme::getWidgetBackgroundColor() {
+    return stringFormats[currentTheme].widgetBackgroundColor;
 }
 
-std::string Theme::getBorderColorStr(Themes theme) {
-    switch (theme) {
-        case Dark: {
-            return darkThemeBorderColor;
-            break;
-        }
-        case Light: {
-            return lightThemeBorderColor;
-            break;
-        }
-        case Green: {
-            return greenThemeBorderColor;
-            break;
-        }
-        case QtDefault: {
-
-            break;
-        }
-    }
-    return "rgb(255,255,255)";
+std::string Theme::getTextColor() {
+    return stringFormats[currentTheme].bodyTextColor;
 }
 
-std::string Theme::getRightClickMenuBackgroundColorStr(Themes theme) {
-    switch (theme) {
-        case Dark: {
-            return darkThemeRightClickMenuBackgroundColor;
-            break;
-        }
-        case Light: {
-            return lightThemeRightClickMenuBackgroundColor;
-            break;
-        }
-        case Green: {
-            return greenThemeRightClickMenuBackgroundColor;
-            break;
-        }
-        case QtDefault: {
-
-            break;
-        }
-    }
-    return "rgb(255,255,255)";
+std::string Theme::getHeaderTextColor() {
+    return stringFormats[currentTheme].titleTextColor;
 }
 
-std::string Theme::getRightClickMenuHighlightColorStr(Themes theme) {
-    switch (theme) {
-        case Dark: {
-            return darkThemeRightClickMenuHighlightColor;
-            break;
-        }
-        case Light: {
-            return lightThemeRightClickMenuHighlightColor;
-            break;
-        }
-        case Green: {
-            return greenThemeRightClickMenuHighlightColor;
-            break;
-        }
-        case QtDefault: {
-
-            break;
-        }
-    }
-    return "rgb(255,255,255)";
+std::string Theme::getBorderColor() {
+    return stringFormats[currentTheme].borderColor;
 }
 
-std::string Theme::getThemeName(Themes theme) {
-    switch (theme) {
-        case Dark: {
-            return darkThemeStr;
-            break;
-        }
-        case Light: {
-            return lightThemeStr;
-            break;
-        }
-        case Green: {
-            return greenThemeStr;
-            break;
-        }
-        case QtDefault: {
-            return qtDefaultThemeStr;
-        }
+void Theme::setTheme(const std::string &name) {
+    if (name == RobotGui::Themes::DARK_THEME_STR) {
+        currentTheme = RobotGui::Themes::DARK;
+    } else if (name == RobotGui::Themes::LIGHT_THEME_STR) {
+        currentTheme = RobotGui::Themes::LIGHT;
+    } else if (name == RobotGui::Themes::GREEN_THEME_STR) {
+        currentTheme = RobotGui::Themes::GREEN;
     }
-    return qtDefaultThemeStr;
 }
 
-Themes Theme::getThemeFromName(const std::string& name) {
-    Themes out = QtDefault;
-    if(name == darkThemeStr) {
-        out = Dark;
-    } else if(name == lightThemeStr) {
-        out = Light;
-    } else if(name == greenThemeStr) {
-        out = Green;
-    } else if(name == qtDefaultThemeStr) {
-        out = QtDefault;
+void Theme::setTheme(enum RobotGui::Themes::Type themeType) {
+    currentTheme = themeType;
+}
+
+RobotGui::Themes::Type Theme::getTheme() {
+    return currentTheme;
+}
+
+std::string Theme::getThemeName(RobotGui::Themes::Type themeType) {
+    switch (themeType) {
+        case RobotGui::Themes::DARK: {
+            return RobotGui::Themes::DARK_THEME_STR;
+            break;
+        }
+        case RobotGui::Themes::LIGHT: {
+            return RobotGui::Themes::LIGHT_THEME_STR;
+            break;
+        }
+        case RobotGui::Themes::GREEN: {
+            return RobotGui::Themes::GREEN_THEME_STR;
+            break;
+        }
     }
-    return out;
+    return RobotGui::Themes::LIGHT_THEME_STR;
+}
+
+void Theme::initFormats() {
+    // Initialize all themes
+    stringFormats[RobotGui::Themes::DARK] = RobotGui::Themes::Format{
+            "rgb(13,17,23)",
+            "rgb(13, 17, 23)",
+            "rgb(139,148,158)",
+            "rgb(88,166,255)",
+            "rgb(139,148,158)"
+    };
+    themeIsLight[RobotGui::Themes::DARK] = false;
+    stringFormats[RobotGui::Themes::LIGHT] = RobotGui::Themes::Format{
+            "rgb(250,250,250)",
+            "rgb(250, 250, 250)",
+            "rgb(0,0,0)",
+            "rgb(0,0,0)",
+            "rgb(0,0,0)"
+    };
+    themeIsLight[RobotGui::Themes::LIGHT] = true;
+    stringFormats[RobotGui::Themes::GREEN] = RobotGui::Themes::Format{
+            "rgb(20,20,20)",
+            "rgb(25,25,25)",
+            "rgb(150,150,150)",
+            "rgb(10,200,10)",
+            "rgb(50,50,50)"
+    };
+    themeIsLight[RobotGui::Themes::GREEN] = false;
+}
+
+bool Theme::isLight() {
+    return themeIsLight[currentTheme];
+}
+
+std::string Theme::getHighlightColor() {
+    return CommonFunctions::GenerateDarkerColor(getBackgroundColor(), 20 * (isLight() ? 1 : -1));
 }

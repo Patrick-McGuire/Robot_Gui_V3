@@ -1,6 +1,6 @@
 #include "VideoWidget.h"
 
-VideoWidget::VideoWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, WidgetData *widgetData) : BaseWidget(parent, configInfo, widgetData)  {
+VideoWidget::VideoWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr& configInfo, WidgetData *widgetData, Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme)  {
     styledBackground = false;
     styledHeader = false;
     styledText = false;
@@ -9,13 +9,13 @@ VideoWidget::VideoWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, Wi
 
     this->setLayout(&layout);
     layout.addWidget(&videoWidget);
-    autoHeight = configInfo->height == xmlAutoConstID;
-    autoWidth = configInfo->width == xmlAutoConstID;
+    autoHeight = configInfo->height == RobotGui::Xml::AUTO_CONST_ID;
+    autoWidth = configInfo->width == RobotGui::Xml::AUTO_CONST_ID;
     if(!autoHeight) { videoWidget.setFixedHeight(configInfo->height); }
     if(!autoWidth) { videoWidget.setFixedWidth(configInfo->width); }
 }
 
-void VideoWidget::parseXml(const WidgetConfig_ptr& parentConfig, rapidxml::xml_node<> *node) {
+void VideoWidget::parseXml(const RobotGui::WidgetConfig_ptr& parentConfig, rapidxml::xml_node<> *node) {
 
 }
 

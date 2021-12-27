@@ -2,14 +2,14 @@
 #define ROBOT_GUI_V3_WIDGETDATA_H
 
 #include <map>
-#include "Constants.h"
-#include <utility>
+#include "RobotGui.h"
 #include <vector>
 #include "opencv2/opencv.hpp"
 #include "rapidjson/rapidjson.h"
 #include "rapidjson/document.h"
 #include "thread"
 #include "mutex"
+#include "Theme.h"
 
 /**
  * @class WidgetData

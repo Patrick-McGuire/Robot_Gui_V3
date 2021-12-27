@@ -24,7 +24,7 @@ public:
      * @param widgetData global WidgetData object
      * @return new custom widget
      */
-    static BaseWidget* createWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, WidgetData *widgetData);
+    static BaseWidget* createWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr& configInfo, WidgetData *widgetData, Theme *theme);
 };
 
 #endif //ROBOT_GUI_V3_GUIMAKER_H

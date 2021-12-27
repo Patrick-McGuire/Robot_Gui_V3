@@ -11,7 +11,7 @@
 
 class AnnunciatorWidget: public BaseWidget {
 public:
-    AnnunciatorWidget(QWidget *parent, const WidgetConfig_ptr &configInfo, WidgetData *widgetData);
+    AnnunciatorWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *_theme);
 
     void updateInFocus() override;
 

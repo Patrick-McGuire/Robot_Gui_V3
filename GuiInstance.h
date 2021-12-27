@@ -1,32 +1,31 @@
-#ifndef ROBOT_GUI_V3_ROBOTGUI_H
-#define ROBOT_GUI_V3_ROBOTGUI_H
+#ifndef ROBOT_GUI_V3_GUIINSTANCE_H
+#define ROBOT_GUI_V3_GUIINSTANCE_H
 #include <QObject>
 #include <QTimer>
 #include "WidgetData.h"
 #include "GUIMaker.h"
 #include <QMainWindow>
 #include "CustomWidgets/TabWidget.h"
-#include "ConfigStructs.h"
 #include "CustomWidgets/MenuWidget.h"
 #include "CustomWidgets/SimpleButtonWidget.h"
 #include "iostream"
 #include <vector>
 #include <QApplication>
 #include "Interface/LocalServer.h"
-#include "CoreGUI.h"
+#include "CoreGui.h"
 #include "Theme.h"
 
 class LocalServer;
 class MenuWidget;
-class CoreGUI;
+class CoreGui;
 
 /**
- * @class RobotGUI
+ * @class GuiInstance
  * Runs the GUI
  *
  * @author Patrick McGuire (Patrick-McGuire)
  */
-class RobotGUI : public QWidget {
+class GuiInstance : public QWidget {
 Q_OBJECT
 public:
     /**
@@ -34,22 +33,24 @@ public:
      * @param _parent QWidget to make parent
      * @param _mainWindow main window of the GUI
      * @param _appConfig global configuration data
-     * @param _coreGui CoreGUI object for connecting slots
+     * @param _coreGui CoreGui object for connecting slots
      * @param _config window configuration data
+     * @param _widgetData WidgetData object to display data from
+     * @param _runState where to get data from
      */
-    RobotGUI(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appConfig, CoreGUI *_coreGui, const WindowConfig_ptr& _config, WidgetData *_widgetData, GuiRunState _runState);
+    GuiInstance(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appConfig, CoreGui *_coreGui, const RobotGui::WindowConfig_ptr& _config, WidgetData *_widgetData, RobotGui::GuiRunState _runState);
 
     /**
      * Deconstruct
      */
-    ~RobotGUI();
+    ~GuiInstance();
 
     /**
      * Set the theme of the GUI
      * @param _theme theme to set
      * @param force whether or not to force the theme on all widgets
      */
-    void setTheme(Themes _theme, bool force);
+    void setTheme(bool force);
 
     /**
      * Returns widgetData
@@ -92,10 +93,11 @@ private:
     void setWindowSize();
 
     int timerUpdateTime = 10;
+    Theme *theme;
     QTimer *timer;
-    GuiRunState runState;
-    WindowConfig_ptr config;
-    CoreGUI *coreGui;
+    RobotGui::GuiRunState runState;
+    RobotGui::WindowConfig_ptr config;
+    CoreGui *coreGui;
     WidgetData *widgetData;
     QMainWindow *mainWindow;
     MenuWidget *menu;
@@ -106,4 +108,4 @@ private:
 };
 
 
-#endif //ROBOT_GUI_V3_ROBOTGUI_H
+#endif //ROBOT_GUI_V3_GUIINSTANCE_H

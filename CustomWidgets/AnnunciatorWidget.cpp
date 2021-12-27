@@ -7,7 +7,7 @@
 #include <QLabel>
 #include <QGridLayout>
 
-AnnunciatorWidget::AnnunciatorWidget(QWidget *parent, const WidgetConfig_ptr &configInfo, WidgetData *widgetData) : BaseWidget(parent, configInfo, widgetData) {
+AnnunciatorWidget::AnnunciatorWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *_theme) : BaseWidget(parent, configInfo, widgetData, theme) {
     int rows = 10;
     int columns = 2;
     if (configInfo->rowNumber != 0) { rows = configInfo->rowNumber; }

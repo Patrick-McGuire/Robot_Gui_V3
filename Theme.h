@@ -1,121 +1,100 @@
-//
-// Created by patrick on 11/16/21.
-//
-
 #ifndef ROBOT_GUI_V3_THEME_H
 #define ROBOT_GUI_V3_THEME_H
+
 #include "string"
+#include "map"
+#include "RobotGui.h"
 
-#define darkThemeStr "Dark"
-#define lightThemeStr "Light"
-#define greenThemeStr "Green"
-#define qtDefaultThemeStr "QtDefault"
-
-//# Theme colors are defined as Background, WidgetBackground, Default Text, Header Text, Border
-// Dark theme
-#define darkThemeBackgroundColor "rgb(13,17,23)"
-#define darkThemeWidgetBackgroundColor "rgb(13, 17, 23)"
-#define darkThemeTextColor "rgb(139,148,158)"
-#define darkThemeHeaderTextColor "rgb(88,166,255)"
-#define darkThemeBorderColor "rgb(139,148,158)"
-#define darkThemeRightClickMenuBackgroundColor "rgb(40,40,40)"
-#define darkThemeRightClickMenuHighlightColor "rgb(60,60,60)"
-// Green theme
-#define greenThemeBackgroundColor "rgb(20,20,20)"
-#define greenThemeWidgetBackgroundColor "rgb(25,25,25)"
-#define greenThemeTextColor "rgb(150,150,150)"
-#define greenThemeHeaderTextColor "rgb(10,200,10)"
-#define greenThemeBorderColor "rgb(50,50,50)"
-#define greenThemeRightClickMenuBackgroundColor "rgb(40,40,40)"
-#define greenThemeRightClickMenuHighlightColor "rgb(60,60,60)"
-// Light theme
-#define lightThemeBackgroundColor "rgb(250,250,250)"
-#define lightThemeWidgetBackgroundColor "rgb(250, 250, 250)"
-#define lightThemeTextColor "rgb(0,0,0)"
-#define lightThemeHeaderTextColor "rgb(0,0,0)"
-#define lightThemeBorderColor "rgb(0,0,0)"
-#define lightThemeRightClickMenuBackgroundColor "rgb(250,250,250)"
-#define lightThemeRightClickMenuHighlightColor "rgb(200,200,200)"
-
-enum Themes {
-    Dark=0,
-    Light=1,
-    Green=2,
-    QtDefault=3,
-};
-
-
-/**
- * @class Theme
- * Handles theme constants
- *
- * @author Patrick McGuire (Patrick-McGuire)
- */
 class Theme {
 public:
+    /**
+     * Constructor
+     * @param type Theme type
+     */
+    explicit Theme(RobotGui::Themes::Type type);
 
     /**
-     * Gets the background color rgb string for a given theme
-     * @param theme given theme
-     * @return qStylesheet compatible rgb string
+     * Constructor
+     * @param type Theme type
      */
-    static std::string getBackgroundColorStr(Themes theme);
+    explicit Theme(const std::string &type);
 
     /**
-     * Gets the widget background color rgb string for a given theme
-     * @param theme given theme
-     * @return qStylesheet compatible rgb string
+     * Returns a string containing the background color for the current theme
+     * @return background color string
      */
-    static std::string getWidgetBackgroundColorStr(Themes theme);
+    std::string getBackgroundColor();
 
     /**
-     * Gets the text color rgb string for a given theme
-     * @param theme given theme
-     * @return qStylesheet compatible rgb string
+     * Returns a string containing the widget background color for the current theme
+     * @return widget background color string
      */
-    static std::string getTextColorStr(Themes theme);
+    std::string getWidgetBackgroundColor();
 
     /**
-     * Gets the header text color rgb string for a given theme
-     * @param theme given theme
-     * @return qStylesheet compatible rgb string
+     * Returns a string containing the text color for the current theme
+     * @return text color string
      */
-    static std::string getHeaderTextColorStr(Themes theme);
+    std::string getTextColor();
 
     /**
-     * Gets the border color rgb string for a given theme
-     * @param theme given theme
-     * @return qStylesheet compatible rgb string
+     * Returns a string containing the header text color for the current theme
+     * @return header text color string
      */
-    static std::string getBorderColorStr(Themes theme);
+    std::string getHeaderTextColor();
 
     /**
-     * Gets the right click menu background color rgb string for a given theme
-     * @param theme given theme
-     * @return qStylesheet compatible rgb string
+     * Returns a string containing the border color for the current theme
+     * @return border color string
      */
-    static std::string getRightClickMenuBackgroundColorStr(Themes theme);
+    std::string getBorderColor();
 
     /**
-     * Gets the right click menu background highlight color rgb string for a given theme
-     * @param theme given theme
-     * @return qStylesheet compatible rgb string
+     * Returns a string containing the highlight color for the current theme
+     * @return highlight color string
      */
-    static std::string getRightClickMenuHighlightColorStr(Themes theme);
+    std::string getHighlightColor();
 
     /**
-     * Gets name of a given theme
-     * @param theme given theme
-     * @return name of theme
+     * Sets the current theme
+     * @param name name of theme to set
      */
-    static std::string getThemeName(Themes theme);
+    void setTheme(const std::string &name);
 
     /**
-     * Gets theme enum for a given theme name
-     * @param theme given theme name
-     * @return theme enum
+     * Sets the current theme
+     * @param themeType theme to set
      */
-    static Themes getThemeFromName(const std::string& name);
+    void setTheme(enum RobotGui::Themes::Type themeType);
+
+    /**
+     * Returns the current theme
+     * @return current theme
+     */
+    RobotGui::Themes::Type getTheme();
+
+    /**
+     * Returns if the current theme is a "light" theme
+     * @return if light
+     */
+    bool isLight();
+
+    /**
+     * Gets name of a theme enum
+     * @param themeType Theme to get name of
+     * @return Name of the theme
+     */
+    static std::string getThemeName(RobotGui::Themes::Type themeType);
+
+private:
+    /**
+     * Initializes the format maps with theme format colors
+     */
+    void initFormats();
+
+    RobotGui::Themes::Type currentTheme;
+    std::map<RobotGui::Themes::Type, RobotGui::Themes::Format> stringFormats;
+    std::map<RobotGui::Themes::Type, bool> themeIsLight;
 };
 
 

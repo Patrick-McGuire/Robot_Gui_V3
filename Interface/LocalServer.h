@@ -4,13 +4,13 @@
 #include <QTcpServer>
 #include <QDebug>
 #include "../WidgetData.h"
-#include "../RobotGUI.h"
+#include "../GuiInstance.h"
 #include "rapidjson/document.h"
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/writer.h"
 #include "DataInput.h"
 
-class RobotGUI;     // Fixes some reference errors
+class GuiInstance;     // Fixes some reference errors
 
 /**
  * @class LocalServer
@@ -25,9 +25,9 @@ public:
      * Constructor
      * @param parent QObject to make parent
      * @param widgetData global WidgetData object to update when new data is received
-     * @param robotGui RobotGUI object to connect slots
+     * @param robotGui GuiInstance object to connect slots
      */
-    LocalServer(QObject *parent, WidgetData *widgetData, RobotGUI *robotGui);
+    LocalServer(QObject *parent, WidgetData *widgetData, GuiInstance *robotGui);
 
     /**
      * Opens the server
@@ -52,24 +52,17 @@ public slots:
     void receiveData();
 
 private:
-    WidgetData *_widgetData;
-    RobotGUI *_robotGui;
-    DataInput *dataInput;
-    char *dataString;
-
-    /**
-     * parses a json value object into the internal json struct format
-     * @param value rapidjson value object to parse
-     * @return custom json struct
-     */
-    void parseArray(rapidjson::Value *value, WidgetData::internalJSON_ptr json);
-
     /**
      * Writes the output data to a given socket
      * @param returnType what data to return
      * @param socket socket to write to
      */
-    void writeOutData(ReturnType returnType, QTcpSocket* socket);
+    void writeOutData(RobotGui::ReturnType returnType, QTcpSocket* socket);
+
+    WidgetData *_widgetData;
+    GuiInstance *_robotGui;
+    DataInput *dataInput;
+    char *dataString;
 };
 
 #endif //ROBOT_GUI_V3_LOCALSERVER_H

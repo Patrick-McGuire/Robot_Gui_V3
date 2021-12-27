@@ -8,14 +8,14 @@
 
 void AppConfig::parse() {
     if(createDir()) {
-        xmlFilepath = appConfigNoXmlPath;
+        xmlFilepath = RobotGui::APP_CONFIG_NO_XML_PATH;
     } else {
-        std::ifstream file(getPath() + std::string(appConfigFileName));
+        std::ifstream file(getPath() + std::string(RobotGui::APP_CONFIG_FILE_NAME));
         std::string activeLine;
         while (std::getline(file, activeLine)) {
-            std::string key = splitStr(activeLine, appConfigSep, 0);
-            std::string val = splitStr(activeLine, appConfigSep, 1);
-            if(key == appConfigXmlPath) {
+            std::string key = splitStr(activeLine, RobotGui::APP_CONFIG_SEP, 0);
+            std::string val = splitStr(activeLine, RobotGui::APP_CONFIG_SEP, 1);
+            if(key == RobotGui::APP_CONFIG_XML_PATH) {
                 xmlFilepath = val;
             }
         }
@@ -25,8 +25,8 @@ void AppConfig::parse() {
 
 void AppConfig::write() {
     std::ofstream outfile;
-    outfile.open(getPath() + std::string(appConfigFileName), std::ofstream::out | std::ofstream::trunc);
-    outfile << appConfigXmlPath << appConfigSep << xmlFilepath << std::endl;
+    outfile.open(getPath() + std::string(RobotGui::APP_CONFIG_FILE_NAME), std::ofstream::out | std::ofstream::trunc);
+    outfile << RobotGui::APP_CONFIG_XML_PATH << RobotGui::APP_CONFIG_SEP << xmlFilepath << std::endl;
     outfile.close();
 }
 
@@ -42,7 +42,7 @@ bool AppConfig::createDir() {
     if(std::experimental::filesystem::create_directories(getPath())) {
         createFile();
         return true;
-    } else if(!fileExists(getPath() + std::string(appConfigFileName))) {
+    } else if(!fileExists(getPath() + std::string(RobotGui::APP_CONFIG_FILE_NAME))) {
         createFile();
         return true;
     }
@@ -50,13 +50,13 @@ bool AppConfig::createDir() {
 }
 
 void AppConfig::createFile() {
-    std::ofstream outfile (getPath() + std::string(appConfigFileName));
-    outfile << appConfigXmlPath << appConfigSep << appConfigNoXmlPath << std::endl;
+    std::ofstream outfile (getPath() + std::string(RobotGui::APP_CONFIG_FILE_NAME));
+    outfile << RobotGui::APP_CONFIG_XML_PATH << RobotGui::APP_CONFIG_SEP << RobotGui::APP_CONFIG_NO_XML_PATH << std::endl;
     outfile.close();
 }
 
 std::string AppConfig::getPath() {
-    return getpwuid(getuid())->pw_dir + std::string(appConfigFilePath);
+    return getpwuid(getuid())->pw_dir + std::string(RobotGui::APP_CONFIG_FILE_PATH);
 }
 
 std::string AppConfig::splitStr(const std::string &str, char delim, int index) {

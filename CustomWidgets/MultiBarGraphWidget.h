@@ -10,11 +10,11 @@
 
 class MultiBarGraphWidget : public BaseWidget {
 public:
-    MultiBarGraphWidget(QWidget *parent, const WidgetConfig_ptr &configInfo, WidgetData *widgetData);
+    MultiBarGraphWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *_theme);
 
-    void updateInFocus();
+    void updateInFocus() override;
 
-    static void parseXml(const WidgetConfig_ptr &parentConfig, rapidxml::xml_node<> *node);
+    static void parseXml(const RobotGui::WidgetConfig_ptr &parentConfig, rapidxml::xml_node<> *node);
 
 protected:
     int size = 200;

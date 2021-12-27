@@ -6,16 +6,15 @@
 #include <QLabel>
 #include <string>
 #include <QGridLayout>
-#include "../ConfigStructs.h"
 #include <string>
 #include "../WidgetData.h"
-#include "../Constants.h"
-#include "../XML/XMLConstants.h"
+#include "../RobotGui.h"
 #include "../XML/XMLInput.h"
 #include <QTabWidget>
 #include <QString>
 #include "../GUIMaker.h"
 #include <QApplication>
+#include "../Theme.h"
 
 /**
  * @class TabWidget
@@ -31,14 +30,14 @@ public:
      * @param configInfo configuration data
      * @param widgetData global widgetData object
      */
-    TabWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, WidgetData *widgetData);
+    TabWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr& configInfo, WidgetData *widgetData, Theme *_theme);
 
     /**
      * Parses a xml node into the config struct
      * @param parentConfig[out] struct to store data into
      * @param node[in] xml node to parse
      */
-    static void parseXml(const WidgetConfig_ptr& parentConfig, rapidxml::xml_node<> *node);
+    static void parseXml(const RobotGui::WidgetConfig_ptr& parentConfig, rapidxml::xml_node<> *node);
 
 
 private:
@@ -85,7 +84,7 @@ private:
      * @param parentConfig tab configuration to add children to
      * @param node xml node containing children
      */
-    static void parseTabChildren(const WidgetConfig_ptr& parentConfig, rapidxml::xml_node<> *node);
+    static void parseTabChildren(const RobotGui::WidgetConfig_ptr& parentConfig, rapidxml::xml_node<> *node);
 };
 
 
