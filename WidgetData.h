@@ -203,9 +203,14 @@ public:
         return jsonMap.count(key) != 0 ? jsonMap[key]->stringVal : "";
     }
 
-    std::string getString(const std::string &key, std::string _default_value) {
-        if (getKeyType(key) == string_t) { return getString(key); }
-        else { return _default_value; }
+    /**
+     * Returns string or default value
+     * @param key key to get
+     * @param _default_value value to return if key does not exist
+     * @return string
+     */
+    std::string getString(const std::string &key, const std::string &_default_value) {
+        return getKeyType(key) == string_t ? getString(key) : _default_value;
     }
 
     /**
@@ -219,6 +224,16 @@ public:
     }
 
     /**
+     * Returns double or default value
+     * @param key key to get
+     * @param _default_value value to return if key does not exist
+     * @return double
+     */
+    double getDouble(const std::string &key, double _default_value) {
+        return getKeyType(key) == double_t ? getDouble(key) : _default_value;
+    }
+
+    /**
      * Returns int
      * @param key key to get
      * @return int
@@ -228,9 +243,14 @@ public:
         return jsonMap.count(key) != 0 ? jsonMap[key]->intVal : 0;
     }
 
+    /**
+     * Returns int or default value
+     * @param key key to get
+     * @param _default_value value to return if key does not exist
+     * @return int
+     */
     int getInt(const std::string &key, int _default_value) {
-        if (getKeyType(key) == int_t) { return getBool(key); }
-        else { return _default_value; }
+        return getKeyType(key) == int_t ? getInt(key) : _default_value;
     }
 
     /**
@@ -243,9 +263,14 @@ public:
         return jsonMap.count(key) != 0 && jsonMap[key]->boolVal;
     }
 
+    /**
+     * Returns bool or default value
+     * @param key key to get
+     * @param _default_value value to return if key does not exist
+     * @return bool
+     */
     bool getBool(const std::string &key, bool _default_value) {
-        if (getKeyType(key) == bool_t) { return getBool(key); }
-        else { return _default_value; }
+        return getKeyType(key) == bool_t ? getBool(key) : _default_value;
     }
 
     /**
