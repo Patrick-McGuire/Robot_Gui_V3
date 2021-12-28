@@ -14,6 +14,7 @@
 #include "Interface/LocalServer.h"
 #include "CoreGui.h"
 #include "Theme.h"
+#include "XML/XMLOutput.h"
 
 class LocalServer;
 class MenuWidget;
@@ -85,6 +86,16 @@ public slots:
      * @param channelAction object contain theme to set
      */
     void forceTheme(QAction *channelAction);
+
+    /**
+     * Saves the curren config to XML
+     */
+    void save();
+
+    /**
+     * Saves the current config to XML
+     */
+     void saveAs();
 
 private:
     /**

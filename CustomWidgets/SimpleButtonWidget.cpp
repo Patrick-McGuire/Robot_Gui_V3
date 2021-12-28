@@ -4,6 +4,7 @@ SimpleButtonWidget::SimpleButtonWidget(QWidget *parent, const RobotGui::WidgetCo
     styledText = true;
     styledWidgetBackgroundColor = true;
     drawBorder = false;
+    configurablePos = true;
 
     button = new QPushButton(QString::fromStdString(configInfo->title), this);
     adjustSize();
@@ -50,4 +51,8 @@ void SimpleButtonWidget::customUpdateStyle() {
 
 void SimpleButtonWidget::parseXml(const RobotGui::WidgetConfig_ptr &parentConfig, rapidxml::xml_node<> *node) {
 
+}
+
+void SimpleButtonWidget::outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) {
+    node->append_attribute(doc->allocate_attribute(RobotGui::Xml::ID_ATR, configInfo->id.c_str()));
 }

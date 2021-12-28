@@ -5,6 +5,9 @@ VideoWidget::VideoWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr& conf
     styledHeader = false;
     styledText = false;
     styledSeeThroughBackground = false;
+    configurablePos = true;
+    configurableHeight = true;
+    configurableWidth = true;
 
 
     this->setLayout(&layout);
@@ -17,6 +20,10 @@ VideoWidget::VideoWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr& conf
 
 void VideoWidget::parseXml(const RobotGui::WidgetConfig_ptr& parentConfig, rapidxml::xml_node<> *node) {
 
+}
+
+void VideoWidget::outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) {
+    node->append_attribute(doc->allocate_attribute(RobotGui::Xml::ID_ATR, configInfo->id.c_str()));
 }
 
 void VideoWidget::updateInFocus() {
@@ -40,4 +47,5 @@ void VideoWidget::customUpdate() {
         videoWidget.setPixmap(QPixmap::fromImage(QImage((unsigned char *) rgb_image.data, rgb_image.cols, rgb_image.rows, QImage::Format_RGB888)).scaled(configInfo->width, configInfo->height, Qt::KeepAspectRatio));
     }
 }
+
 

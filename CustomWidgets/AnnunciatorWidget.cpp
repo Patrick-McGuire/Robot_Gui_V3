@@ -1,7 +1,3 @@
-//
-// Created by nathan on 12/26/21.
-//
-
 #include "AnnunciatorWidget.h"
 
 #include <QLabel>
@@ -21,6 +17,7 @@ AnnunciatorWidget::AnnunciatorWidget(QWidget *parent, const RobotGui::WidgetConf
     auto *layout = new QGridLayout();
     layout->addWidget(titleWidget, 0, 0, 1, columns);
     setLayout(layout);
+    configurablePos = true;
 
     for (int i = 0; i < columns; i++) {
         for (int j = 0; j < rows; j++) {

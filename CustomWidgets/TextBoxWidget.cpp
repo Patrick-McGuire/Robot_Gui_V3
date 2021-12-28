@@ -8,6 +8,7 @@ TextBoxWidget::TextBoxWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &
     styledText = true;
     styledSeeThroughBackground = true;
     styledWidgetBackgroundColor = true;
+    configurablePos = true;
 
     layout = new QGridLayout();
     titleBox = new QLabel();
@@ -119,6 +120,15 @@ void TextBoxWidget::parseXml(const RobotGui::WidgetConfig_ptr &parentConfig, rap
             }
             parentConfig->lines.emplace_back(std::vector<std::string>{label, value});
         }
+    }
+}
+
+void TextBoxWidget::outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) {
+    for(auto & lineConfig : configInfo->lines) {
+        rapidxml::xml_node<> *line = doc->allocate_node(rapidxml::node_element, RobotGui::Xml::LINE_TAG);
+        node->append_node(line);
+        line->append_attribute(doc->allocate_attribute(RobotGui::Xml::LABEL_ATR, lineConfig[0].c_str()));
+        line->append_attribute(doc->allocate_attribute(RobotGui::Xml::VALUE_ATR, lineConfig[1].c_str()));
     }
 }
 

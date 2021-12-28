@@ -1,5 +1,78 @@
-//
-// Created by patrick on 10/22/21.
-//
-
 #include "XMLOutput.h"
+#include "rapidxml/rapidxml.hpp"
+#include "rapidxml/rapidxml_print.hpp"
+#include "rapidxml/rapidxml_utils.hpp"
+
+void XMLOutput::output(const char *filename, const RobotGui::WindowConfig_ptr &windowConfig, BaseWidget *firstWidget) {
+    rapidxml::xml_document<> doc;
+    auto windowNode = createWindowNode(windowConfig, &doc);
+    windowNode->append_node(createWidget(&doc, firstWidget));
+    write(filename, &doc);
+}
+
+rapidxml::xml_node<> *XMLOutput::createWidget(rapidxml::xml_document<> *doc, BaseWidget *widget) {
+    rapidxml::xml_node<> *node = doc->allocate_node(rapidxml::node_element, RobotGui::Xml::WIDGET_TAG);
+    node->append_attribute(doc->allocate_attribute(RobotGui::Xml::TYPE_ATR, widget->getConfig()->type.c_str()));
+    node->append_attribute(doc->allocate_attribute(RobotGui::Xml::TITLE_ATR, widget->getConfig()->title.c_str()));
+    node->append_attribute(doc->allocate_attribute(RobotGui::Xml::DRAGGABLE_ATR, doc->allocate_string(getAttributeString(widget->getConfig()->draggable).c_str())));
+    node->append_attribute(doc->allocate_attribute(RobotGui::Xml::STATIC_ATR, doc->allocate_string(getAttributeString(widget->getConfig()->staticPos).c_str())));
+    if(widget->styledBackground || widget->styledWidgetBackgroundColor) {
+        node->append_attribute(doc->allocate_attribute(RobotGui::Xml::BACKGROUND_COLOR_ATR, widget->getConfig()->backgroundColor.c_str()));
+    }
+    if(widget->styledText) {
+        node->append_attribute(doc->allocate_attribute(RobotGui::Xml::TEXT_COLOR_ATR, widget->getConfig()->textColor.c_str()));
+    }
+    if(widget->styledHeader) {
+        node->append_attribute(doc->allocate_attribute(RobotGui::Xml::HEADER_COLOR_ATR, widget->getConfig()->headerColor.c_str()));
+    }
+    if(widget->configurableHeight) {
+        node->append_attribute(doc->allocate_attribute(RobotGui::Xml::HEIGHT_ATR, doc->allocate_string(getAttributeString(widget->getConfig()->height).c_str())));
+    }
+    if(widget->configurableWidth) {
+        node->append_attribute(doc->allocate_attribute(RobotGui::Xml::WIDTH_ATR, doc->allocate_string(getAttributeString(widget->getConfig()->width).c_str())));
+    }
+    if(widget->configurablePos) {
+        node->append_attribute(doc->allocate_attribute(RobotGui::Xml::X_POS_ATR, doc->allocate_string(getAttributeString(widget->getConfig()->x).c_str())));
+        node->append_attribute(doc->allocate_attribute(RobotGui::Xml::Y_POS_ATR, doc->allocate_string(getAttributeString(widget->getConfig()->y).c_str())));
+    }
+    if(widget->configurableID) {
+        node->append_attribute(doc->allocate_attribute(RobotGui::Xml::ID_ATR, widget->getConfig()->id.c_str()));
+    }
+    widget->outputXML(node, doc);
+    return node;
+}
+
+
+rapidxml::xml_node<> *XMLOutput::createWindowNode(const RobotGui::WindowConfig_ptr &windowConfig, rapidxml::xml_document<> *doc) {
+    rapidxml::xml_node<> *node = doc->allocate_node(rapidxml::node_element, RobotGui::Xml::WINDOW_TAG);
+    doc->append_node(node);
+    node->append_attribute(doc->allocate_attribute(RobotGui::Xml::TITLE_ATR, windowConfig->title.c_str()));
+    node->append_attribute(doc->allocate_attribute(RobotGui::Xml::THEME_ATR, windowConfig->theme.c_str()));
+    node->append_attribute(doc->allocate_attribute(RobotGui::Xml::WIDTH_ATR, doc->allocate_string(getAttributeString(windowConfig->width).c_str())));
+    node->append_attribute(doc->allocate_attribute(RobotGui::Xml::HEIGHT_ATR, doc->allocate_string(getAttributeString(windowConfig->height).c_str())));
+    return node;
+}
+
+void XMLOutput::write(const char *filename, rapidxml::xml_document<> *doc) {
+    std::ofstream ofs;
+    ofs.open(filename, std::ofstream::out | std::ofstream::trunc);
+    ofs << *doc;
+    ofs.close();
+}
+
+std::string XMLOutput::getAttributeString(int val) {
+        if (val == RobotGui::Xml::MAX_CONST_ID) {
+            return RobotGui::Xml::MAX_CONST;
+        } else if (val == RobotGui::Xml::AUTO_CONST_ID) {
+            return RobotGui::Xml::AUTO_CONST;
+        } else if (val == RobotGui::Xml::THEME_CONST_ID) {
+            return RobotGui::Xml::THEME_CONST;
+        } else if (val == RobotGui::Xml::NONE_CONST_ID) {
+            return RobotGui::Xml::NONE_CONST;
+        }
+        return std::to_string(val);
+}
+
+std::string XMLOutput::getAttributeString(bool val) {
+    return val ? "true" : "false";
+}

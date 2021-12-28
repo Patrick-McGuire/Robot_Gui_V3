@@ -70,11 +70,13 @@ GuiInstance::~GuiInstance() {
 
 void GuiInstance::updateTheme(QAction *channelAction) {
     theme->setTheme(channelAction->data().toString().toStdString());
+    config->theme = Theme::getThemeName(theme->getTheme());
     setTheme();
 }
 
 void GuiInstance::forceTheme(QAction *channelAction) {
     theme->setTheme(channelAction->data().toString().toStdString());
+    config->theme = Theme::getThemeName(theme->getTheme());
     setTheme();
 }
 
@@ -96,5 +98,19 @@ void GuiInstance::setTheme() {
 
 WidgetData *GuiInstance::getWidgetData() {
     return widgetData;
+}
+
+void GuiInstance::save() {
+    // "/home/patrick/Robot_Gui_V3/ExampleXML/TestWrite.xml"
+    XMLOutput::output(appConfig->getDefaultXmlPath().c_str(), config, coreWidget);
+}
+
+void GuiInstance::saveAs() {
+    std::string filePath = QFileDialog::getSaveFileName(mainWindow, "Save as", QString::fromStdString(appConfig->getDefaultXmlPath()), "XML Files (*.xml)").toStdString();
+    if(!filePath.empty()) {
+        appConfig->setDefaultXmlPath(filePath);
+        appConfig->write();
+        XMLOutput::output(filePath.c_str(), config, coreWidget);
+    }
 }
 

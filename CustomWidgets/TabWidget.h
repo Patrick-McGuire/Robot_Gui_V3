@@ -15,6 +15,9 @@
 #include "../GUIMaker.h"
 #include <QApplication>
 #include "../Theme.h"
+#include "../XML/XMLOutput.h"
+
+class XMLOutput;
 
 /**
  * @class TabWidget
@@ -40,11 +43,17 @@ public:
     static void parseXml(const RobotGui::WidgetConfig_ptr& parentConfig, rapidxml::xml_node<> *node);
 
 
+    /**
+     * Saves any configuration data to a xml node
+     * @param node node to output to
+     */
+    void outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) override;
+
 private:
     QGridLayout layout;
     QTabWidget *tabs;
     std::vector<QWidget*> pages;
-    std::vector<BaseWidget*> widgets;
+    std::vector<std::vector<BaseWidget*>> widgets;
 
     /**
      * Update the widget when in focus
