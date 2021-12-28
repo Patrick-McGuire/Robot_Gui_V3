@@ -70,7 +70,7 @@
                 <line type="SimpleBarGraph" source="terrainAlt" title="D" minimum="0.0" maximum="100.0" color="rgb(60,255,40)"/>
                 <line type="SimpleBarGraph" source="j" title="Title" minimum="0.0" maximum="360.0" color="rgb(255,255,255)"/>
             </widget>
-            <widget type="VideoSwitcherWidget" x="127" y="102" hidden="False" draggable="True" font="Arial" font_size="12"/>
+            <!--widget type="VideoSwitcherWidget" x="127" y="102" hidden="False" draggable="True" font="Arial" font_size="12"/-->
         </tab>
     </widget>
 </window>
