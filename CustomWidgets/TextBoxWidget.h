@@ -35,6 +35,12 @@ public:
      */
     static void parseXml(const RobotGui::WidgetConfig_ptr &parentConfig, rapidxml::xml_node<> *node);
 
+    /**
+     * Saves any configuration data to a xml node
+     * @param node node to output to
+     */
+    void outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) override;
+
 private:
     /**
      * Returns the string for the text box based on widgetData

@@ -15,7 +15,7 @@
 
 /**
  * @class XMLInput
- * Static class that parses xml files into the internal configuation format
+ * Static class that parses xml files into the internal configuration format
  *
  * @author Patrick McGuire (Patrick-McGuire)
  */

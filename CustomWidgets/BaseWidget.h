@@ -74,6 +74,32 @@ public:
      */
     void setDraggability(bool _draggable);
 
+    /**
+     * Saves any configuration data to a xml node
+     * @param node node to output to
+     */
+    virtual void outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc);
+
+    /**
+     * Gets the config info for this widget
+     * @return config info
+     */
+    RobotGui::WidgetConfig_ptr getConfig();
+
+    // These register weather or not the current widget can update these attributes
+    // Set these in the constructor of any derived class
+    bool styledBackground = false;
+    bool styledText = false;
+    bool styledHeader = false;
+    bool styledSeeThroughBackground = false;
+    bool styledBorderColor = false;
+    bool styledWidgetBackgroundColor = false;
+    bool configurableHeight = false;
+    bool configurableWidth = false;
+    bool configurablePos = false;
+    bool configurableID = false;
+
+
 protected:
     /**
      * Updates data when widget is in focus, virtual
@@ -127,15 +153,6 @@ protected:
     const bool staticPos;
     bool drawBorder = true;
     Theme *theme;
-
-    // These register weather or not the current widget can update these attributes
-    // Set these in the constructor of any derived class
-    bool styledBackground = false;
-    bool styledText = false;
-    bool styledHeader = false;
-    bool styledSeeThroughBackground = false;
-    bool styledBorderColor = false;
-    bool styledWidgetBackgroundColor = false;
 
     // Style
     std::string backgroundColor;

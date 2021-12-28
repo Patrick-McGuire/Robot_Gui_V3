@@ -1,0 +1,49 @@
+<window title="Probot Control" theme="Dark" width="max" height="max">
+	<widget type="tab" title="Dashboard" draggable="false" static="true" background="theme" headerColor="theme" height="max" width="max" x="0" y="0">
+		<tab title="Dashboard">
+			<widget type="video" title="VideoWidget_10" draggable="false" static="false" height="640" width="480" x="0" y="0" id="1"/>
+			<widget type="simpleButton" title="Test Button" draggable="true" static="false" background="theme" textColor="theme" x="500" y="253" id=""/>
+			<widget type="annunciatorPanel" title="Annunciator1" draggable="true" static="false" x="33" y="710"/>
+			<widget type="annunciatorPanel" title="Annunciator2" draggable="true" static="false" x="0" y="408"/>
+			<widget type="textBox" title="Power Stats" draggable="true" static="false" background="theme" textColor="theme" headerColor="theme" x="1495" y="552">
+				<line label="Battery Voltage" value="batteryVoltage"/>
+				<line label="5v Bus Voltage" value="v5Voltage"/>
+				<line label="3.3v Bus Voltage" value="v33Voltage"/>
+				<line label="Current Draw" value="current"/>
+				<line label="Loop Time" value="fullLoopTime"/>
+				<line label="Frame Rate" value="frameRate"/>
+			</widget>
+			<widget type="multiBarGraph" title="" draggable="true" static="false" x="1554" y="728">
+				<line type="SimpleBarGraph" source="verticalSpeed" title="Title" minimum="0.000000" maximum="100.000000" color="rgb(50,50,255)"/>
+				<line type="CircleBarGraph" source="roll" title="Title" minimum="0.000000" maximum="360.000000" color="rgb(50,50,255)"/>
+			</widget>
+		</tab>
+		<tab title="Config">
+			<widget type="textBox" title="Po1werasdff Stats" draggable="true" static="false" background="theme" textColor="theme" headerColor="theme" x="300" y="800"/>
+			<widget type="textBox" title="Pow2erasdff Stats" draggable="false" static="false" background="theme" textColor="theme" headerColor="theme" x="310" y="539"/>
+			<widget type="textBox" title="Powe3rasdff Stats" draggable="false" static="false" background="theme" textColor="theme" headerColor="theme" x="1152" y="16"/>
+			<widget type="textBox" title="Power4asdff Stats" draggable="true" static="false" background="theme" textColor="theme" headerColor="theme" x="822" y="810"/>
+			<widget type="textBox" title="Powera5sdff Stats" draggable="false" static="false" background="theme" textColor="theme" headerColor="theme" x="112" y="813"/>
+			<widget type="textBox" title="Poweras6dff Stats" draggable="false" static="false" background="theme" textColor="theme" headerColor="theme" x="863" y="912"/>
+			<widget type="textBox" title="Poweras6dff Stats" draggable="false" static="false" background="theme" textColor="theme" headerColor="theme" x="1195" y="306"/>
+			<widget type="textBox" title="Powerasd7ff Stats" draggable="false" static="false" background="theme" textColor="theme" headerColor="theme" x="111" y="52"/>
+			<widget type="textBox" title="Powerasdff Stats" draggable="false" static="false" background="theme" textColor="theme" headerColor="theme" x="1216" y="41"/>
+			<widget type="textBox" title="Po1werasdff Stats" draggable="false" static="false" background="theme" textColor="theme" headerColor="theme" x="205" y="483"/>
+			<widget type="textBox" title="Powe3rasdff Stats" draggable="false" static="false" background="theme" textColor="theme" headerColor="theme" x="666" y="94"/>
+			<widget type="textBox" title="Power4asdff Stats" draggable="true" static="false" background="theme" textColor="theme" headerColor="theme" x="646" y="397"/>
+			<widget type="textBox" title="Powera5sdff Stats" draggable="true" static="false" background="theme" textColor="theme" headerColor="theme" x="180" y="657"/>
+			<widget type="textBox" title="Poweras6dff Stats" draggable="true" static="false" background="theme" textColor="theme" headerColor="theme" x="1055" y="580"/>
+		</tab>
+		<tab title="test">
+			<widget type="video" title="Camera 1" draggable="false" static="false" height="0" width="0" x="298" y="0" id=""/>
+			<widget type="multiBarGraph" title="" draggable="true" static="false" x="12" y="433">
+				<line type="SimpleBarGraph" source="roll" title="A" minimum="-20.000000" maximum="20.000000" color="rgb(0,0,255)"/>
+				<line type="CircleBarGraph" source="j" title="B" minimum="0.000000" maximum="360.000000" color="rgb(255,0,0)"/>
+				<line type="SimpleBarGraph" source="verticalSpeed" title="Graph C" minimum="0.000000" maximum="20.000000" color="rgb(255,0,158)"/>
+				<line type="SimpleBarGraph" source="terrainAlt" title="D" minimum="0.000000" maximum="100.000000" color="rgb(60,255,40)"/>
+				<line type="SimpleBarGraph" source="j" title="Title" minimum="0.000000" maximum="360.000000" color="rgb(255,255,255)"/>
+			</widget>
+		</tab>
+	</widget>
+</window>
+

@@ -200,3 +200,11 @@ void BaseWidget::updateOnInFocus() {}
 void BaseWidget::customUpdate() {}
 
 void BaseWidget::customUpdateDraggability(bool _draggable) {}
+
+void BaseWidget::outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) {
+
+}
+
+RobotGui::WidgetConfig_ptr BaseWidget::getConfig() {
+    return configInfo;
+}

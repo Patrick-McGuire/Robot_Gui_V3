@@ -11,6 +11,8 @@ MenuWidget::MenuWidget(QWidget *parent, AppConfig *appConfig_, CoreGui *coreGui,
     file->addAction("Open", coreGui, SLOT(openReload()));
     file->addAction("Reload", coreGui, SLOT(reload()));
     file->addAction("Reparse", coreGui, SLOT(reparseReload()));
+    file->addAction("Save", robotGui, SLOT(save()));
+    file->addAction("Save as", robotGui, SLOT(saveAs()));
     // Settings menu
     auto *settings = new QMenu("Settings");
     settings->setObjectName(SETTINGS_MENU_NAME);
@@ -18,28 +20,23 @@ MenuWidget::MenuWidget(QWidget *parent, AppConfig *appConfig_, CoreGui *coreGui,
     settings->addAction("Make all draggable", robotGui, SLOT(makeWidgetsDraggable()));
     settings->addAction("Make all fixed", robotGui, SLOT(makeWidgetsFixed()));
     // Theme2 menu
-    auto *theme = new QMenu("Theme2");
-    theme->setObjectName(THEME_MENU_NAME);
-    menus.emplace_back(theme);
-    auto *setTheme = theme->addMenu("Set theme");
-    menus.emplace_back(setTheme);
-    setTheme->setObjectName(QString(THEME_MENU_NAME) + "1");
+    auto *themeMenu = new QMenu("Theme");
+    themeMenu->setObjectName(THEME_MENU_NAME);
+    menus.emplace_back(themeMenu);
 
-    auto *subMenuAct1 = setTheme->addAction(QString::fromStdString(Theme::getThemeName(RobotGui::Themes::DARK)));
+    auto *subMenuAct1 = themeMenu->addAction(QString::fromStdString(Theme::getThemeName(RobotGui::Themes::DARK)));
     subMenuAct1->setData(QString::fromStdString(Theme::getThemeName(RobotGui::Themes::DARK)));
-    auto *subMenuAct2 = setTheme->addAction(QString::fromStdString(Theme::getThemeName(RobotGui::Themes::LIGHT)));
+    auto *subMenuAct2 = themeMenu->addAction(QString::fromStdString(Theme::getThemeName(RobotGui::Themes::LIGHT)));
     subMenuAct2->setData(QString::fromStdString(Theme::getThemeName(RobotGui::Themes::LIGHT)));
-    auto *subMenuAct3 = setTheme->addAction(QString::fromStdString(Theme::getThemeName(RobotGui::Themes::GREEN)));
+    auto *subMenuAct3 = themeMenu->addAction(QString::fromStdString(Theme::getThemeName(RobotGui::Themes::GREEN)));
     subMenuAct3->setData(QString::fromStdString(Theme::getThemeName(RobotGui::Themes::GREEN)));
 
-    connect(setTheme, SIGNAL(triggered(QAction * )), robotGui, SLOT(updateTheme(QAction * )));
-
-    theme->addMenu(setTheme);
+    connect(themeMenu, SIGNAL(triggered(QAction * )), robotGui, SLOT(updateTheme(QAction * )));
 
     // Finishing up
     this->addMenu(file);
     this->addMenu(settings);
-    this->addMenu(theme);
+    this->addMenu(themeMenu);
 }
 
 

@@ -12,6 +12,7 @@
 #define CIRCLE_BAR_GRAPH_NAME "CircleBarGraph"
 
 MultiBarGraphWidget::MultiBarGraphWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
+    configurablePos = true;
     auto *layout = new QGridLayout();
 
     for (auto &line : configInfo->graphLines) {
@@ -78,5 +79,20 @@ void MultiBarGraphWidget::parseXml(const RobotGui::WidgetConfig_ptr &parentConfi
 
             parentConfig->graphLines.push_back(configStruct);
         }
+    }
+}
+
+void MultiBarGraphWidget::outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) {
+    for(auto & lineConfig : configInfo->graphLines) {
+        rapidxml::xml_node<> *line = doc->allocate_node(rapidxml::node_element, RobotGui::Xml::LINE_TAG);
+        node->append_node(line);
+        line->append_attribute(doc->allocate_attribute(RobotGui::Xml::TYPE_ATR, lineConfig.type.c_str()));
+        line->append_attribute(doc->allocate_attribute(RobotGui::Xml::SOURCE_ATR, lineConfig.source.c_str()));
+        line->append_attribute(doc->allocate_attribute(RobotGui::Xml::TITLE_ATR, lineConfig.title.c_str()));
+
+        line->append_attribute(doc->allocate_attribute(RobotGui::Xml::MINIMUM_ATR, doc->allocate_string(std::to_string(lineConfig.min).c_str())));
+        line->append_attribute(doc->allocate_attribute(RobotGui::Xml::MAXIMUM_ATR, doc->allocate_string(std::to_string(lineConfig.max).c_str())));
+
+        line->append_attribute(doc->allocate_attribute(RobotGui::Xml::COLOR_ATR, lineConfig.colorString.c_str()));
     }
 }

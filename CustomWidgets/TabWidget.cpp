@@ -5,6 +5,9 @@ TabWidget::TabWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configIn
     styledBackground = true;
     styledHeader = true;
     drawBorder = false;
+    configurablePos = true;
+    configurableWidth = true;
+    configurableHeight = true;
 
     this->setLayout(&layout);
     layout.setMargin(0);
@@ -25,34 +28,66 @@ TabWidget::TabWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configIn
         tabs->addTab(page, QString::fromStdString(configInfo->tabNames[i]));
         page->show();
         pages.emplace_back(page);
-
+        widgets.emplace_back(std::vector<BaseWidget*>());
         // Create all widgets in the tab
         for (int j = 0; j < configInfo->tabWidgets[i].size(); j++) {
             configInfo->tabWidgets[i][j]->objectName = configInfo->objectName + "A" + std::to_string(i) + "B" + std::to_string(j);
             auto newWidget = GUIMaker::createWidget(page, configInfo->tabWidgets[i][j], widgetData, theme);
             if (newWidget != nullptr) {
-                widgets.emplace_back(newWidget);
+                widgets[i].emplace_back(newWidget);
             }
         }
     }
 
     // This is a hack fix for a bug when first opening up a GUI with nested tabs
-    for (int i = 0; i < widgets.size(); i++) {
-        tabs->setCurrentIndex(i);
-    }
+//    for (int i = 0; i < widgets.size(); i++) {
+//        tabs->setCurrentIndex(i);
+//    }
     tabs->setCurrentIndex(0);
 }
 
+void TabWidget::parseXml(const RobotGui::WidgetConfig_ptr &parentConfig, rapidxml::xml_node<> *node) {
+    for (auto *tab = node->first_node(); tab; tab = tab->next_sibling()) {                           // Iterate over nodes
+        std::string tagName = tab->name();
+        if (tagName == RobotGui::Xml::TAB_TAG) {
+            std::string tabTitle = "No name";
+            for (auto *attr = tab->first_attribute(); attr; attr = attr->next_attribute()) {         // Iterate over attributes
+                std::string attrName = attr->name();
+                std::string attrVal = attr->value();
+                if (attrName == RobotGui::Xml::TITLE_ATR) {
+                    tabTitle = attrVal;
+                }
+            }
+            parentConfig->tabNames.emplace_back(tabTitle);
+            parseTabChildren(parentConfig, tab);
+        }
+    }
+}
+
+void TabWidget::outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) {
+    for(int i = 0; i < widgets.size(); i++) {
+        rapidxml::xml_node<> *tab = doc->allocate_node(rapidxml::node_element, RobotGui::Xml::TAB_TAG);
+        node->append_node(tab);
+        tab->append_attribute(doc->allocate_attribute(RobotGui::Xml::TITLE_ATR, configInfo->tabNames[i].c_str()));
+        for(auto & widget : widgets[i]) {
+            tab->append_node(XMLOutput::createWidget(doc, widget));
+        }
+    }
+}
 
 void TabWidget::updateInFocus() {
-    for (auto &widget : widgets) {
-        widget->updateData(tabs->currentWidget());
+    for (auto &tab : widgets) {
+        for (auto &widget: tab) {
+            widget->updateData(tabs->currentWidget());
+        }
     }
 }
 
 void TabWidget::updateNoFocus() {
-    for (auto &widget : widgets) {
-        widget->updateData(false);
+    for (auto &tab : widgets) {
+        for(auto &widget : tab) {
+            widget->updateData(false);
+        }
     }
 }
 
@@ -61,8 +96,10 @@ void TabWidget::updateOnInFocus() {
 }
 
 void TabWidget::customUpdateDraggability(bool _draggable) {
-    for (auto &widget : widgets) {
-        widget->setDraggability(_draggable);
+    for (auto &tab : widgets) {
+        for (auto &widget: tab) {
+            widget->setDraggability(_draggable);
+        }
     }
 }
 
@@ -87,25 +124,9 @@ void TabWidget::customUpdateStyle() {
 }
 
 void TabWidget::updateChildrenStyle() {
-    for (auto &widget : widgets) {
-        widget->updateStyle();
-    }
-}
-
-void TabWidget::parseXml(const RobotGui::WidgetConfig_ptr &parentConfig, rapidxml::xml_node<> *node) {
-    for (auto *tab = node->first_node(); tab; tab = tab->next_sibling()) {                           // Iterate over nodes
-        std::string tagName = tab->name();
-        if (tagName == RobotGui::Xml::TAB_TAG) {
-            std::string tabTitle = "No name";
-            for (auto *attr = tab->first_attribute(); attr; attr = attr->next_attribute()) {         // Iterate over attributes
-                std::string attrName = attr->name();
-                std::string attrVal = attr->value();
-                if (attrName == RobotGui::Xml::TITLE_ATR) {
-                    tabTitle = attrVal;
-                }
-            }
-            parentConfig->tabNames.emplace_back(tabTitle);
-            parseTabChildren(parentConfig, tab);
+    for (auto &tab : widgets) {
+        for (auto &widget: tab) {
+            widget->updateStyle();
         }
     }
 }
@@ -118,3 +139,4 @@ void TabWidget::parseTabChildren(const RobotGui::WidgetConfig_ptr &parentConfig,
     }
     parentConfig->tabWidgets.emplace_back(widgetsVec);
 }
+
