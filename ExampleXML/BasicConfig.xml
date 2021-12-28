@@ -8,7 +8,7 @@
             <widget type="DropDownTextBox" x="246" y="17" title="Error: no title" source="diagnostics_agg" hidden="False" draggable="True" font="Arial" font_size="12"/>
             <widget type="annunciatorPanel" x="33" y="710" title="Annunciator1" source="annunciator" hidden="False" draggable="True" font="Arial" font_size="12" row_number="10" column_number="5"/>
             <widget type="annunciatorPanel" x="0" y="408" title="Annunciator2" source="annunciator_2" hidden="False" draggable="True" font="Arial" font_size="14" row_number="10" column_number="2"/>
-            <widget type="CompleteConsole" x="24" y="4" title="Test Console 2" source="complete_console_test" hidden="False" draggable="True" font="Arial" font_size="12"/>
+            <widget type="completeConsole" x="24" y="4" title="Test Console 2" source="testarray" hidden="False" draggable="True" font="Arial" font_size="12"/>
             <widget type="textBox" x="1495" y="552" title="Power Stats" hidden="False" draggable="True" font="Arial" font_size="12">
                 <line label="Battery Voltage" value="batteryVoltage"/>
                 <line label="5v Bus Voltage" value="v5Voltage"/>
@@ -48,7 +48,7 @@
             <widget type="textBox" x="180" y="657" title="Powera5sdff Stats" hidden="False" draggable="True" font="Arial" font_size="20"/>
             <widget type="textBox" x="1055" y="580" title="Poweras6dff Stats" hidden="False" draggable="True" font="Arial" font_size="20"/>
             <widget type="simpleConsole" x="1446" y="313" title="TEST CONSOLE" source="testarray" hidden="False" draggable="True" font="Arial" font_size="14"/>
-            <widget type="CompleteConsole" x="1063" y="476" title="No Title" source="_" hidden="False" draggable="True" font="Arial" font_size="12"/>
+            <widget type="completeConsole" x="1063" y="476" title="No Title" source="testarray" hidden="False" draggable="True" font="Arial" font_size="12"/>
             <widget type="compass" x="122" y="196" size="200" transparent="True" hidden="False" draggable="True" font="Arial" font_size="12"/>
             <widget type="AttitudeWidget" x="397" y="156" size="200" transparent="True" hidden="False" draggable="True" font="Arial" font_size="12" pitchSource="pitch" rollSource="roll"/>
         </tab>

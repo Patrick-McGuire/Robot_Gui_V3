@@ -6,10 +6,13 @@
 #include "SimpleConsoleWidget.h"
 #include "../CommonFunctions.h"
 
-SimpleConsoleWidget::SimpleConsoleWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *theme) : BaseWidget(parent, configInfo, widgetData, theme) {
+SimpleConsoleWidget::SimpleConsoleWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *theme, bool _borderEnabled) : BaseWidget(parent, configInfo, widgetData, theme) {
     source = configInfo->source;
     title = configInfo->title;
     drawTitle = !title.empty();
+    borderEnabled = _borderEnabled;
+
+    setFont(QFont("Monospace", font().pointSize()));
 }
 
 void SimpleConsoleWidget::updateInFocus() {
@@ -22,15 +25,16 @@ void SimpleConsoleWidget::updateInFocus() {
 }
 
 void SimpleConsoleWidget::paintEvent(QPaintEvent *_event) {
+    if (borderEnabled) { BaseWidget::paintEvent(_event); }
+    if (widgetData->getKeyType(source) != WidgetData::vector_t) { return; }
+
     auto consoleData = widgetData->getJSON(source)->vector;
     int startIndex = consoleData[0]->intVal;
     int fontHeight = fontInfo().pixelSize();
     maxLineWidth = title.length();
     int titleHeight = 0;
 
-    BaseWidget::paintEvent(_event);
     QPainter painter(this);
-
     if (drawTitle) {
         painter.setPen(CommonFunctions::GetQColorFromString(titleTextColor));
         painter.drawText(5, fontHeight, QString::fromStdString(title));
@@ -43,21 +47,23 @@ void SimpleConsoleWidget::paintEvent(QPaintEvent *_event) {
     for (int i = startIndex; i < startIndex + consoleData.size() - 1; i++) {
         int realIndex = i;
         if (realIndex >= consoleData.size()) { realIndex -= (int(consoleData.size()) - 1); }
-        std::string line = consoleData[realIndex]->vector[0]->stringVal;
-        int status = consoleData[realIndex]->vector[1]->intVal;
-        maxLineWidth = fmax(maxLineWidth, line.length());
+        if (consoleData[realIndex]->type == WidgetData::vector_t) {
+            std::string line = consoleData[realIndex]->vector[0]->stringVal;
+            int status = consoleData[realIndex]->vector[1]->intVal;
+            maxLineWidth = fmax(maxLineWidth, line.length());
 
-        if (status == 0) {
-            painter.setPen(CommonFunctions::GetQColorFromString(bodyTextColor));
-        } else if (status == 1) {
-            painter.setPen(QColor("yellow"));
-        } else if (status == 2) {
-            painter.setPen(QColor("red"));
-        } else {
-            painter.setPen(QColor("blue"));
+            if (status == 0) {
+                painter.setPen(CommonFunctions::GetQColorFromString(bodyTextColor));
+            } else if (status == 1) {
+                painter.setPen(QColor("yellow"));
+            } else if (status == 2) {
+                painter.setPen(QColor("red"));
+            } else {
+                painter.setPen(QColor("blue"));
+            }
+
+            painter.drawText(5, fontHeight * (realIndex) + titleHeight, QString::fromStdString(line));
         }
-
-        painter.drawText(5, fontHeight * (realIndex) + titleHeight, QString::fromStdString(line));
     }
 }
 
@@ -65,6 +71,8 @@ void SimpleConsoleWidget::adjustSize() {
     int height = fontInfo().pixelSize() * numberOfLines + 5;
     int width = int(fmax(fontInfo().pixelSize() * 0.7 * maxLineWidth, 1));
     resize(width, height);
+    setMinimumHeight(height);
+    setMinimumWidth(width);
 }
 
 

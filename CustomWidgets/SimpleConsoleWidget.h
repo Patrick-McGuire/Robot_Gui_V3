@@ -10,7 +10,7 @@
 
 class SimpleConsoleWidget : public BaseWidget {
 public:
-    SimpleConsoleWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *theme);
+    SimpleConsoleWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *theme, bool _borderEnabled=true);
 
     void updateInFocus() override;
 
@@ -22,6 +22,7 @@ protected:
     std::string source;
     std::string title;
     bool drawTitle = false;
+    bool borderEnabled;
     int maxLineWidth = 0;
     int numberOfLines = 0;
 };
