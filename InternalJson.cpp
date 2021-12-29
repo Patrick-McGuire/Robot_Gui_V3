@@ -213,7 +213,7 @@ void InternalJson::vectorPop() {
 
 InternalJson::SharedPtr InternalJson::vectorGet(int index) {
     Guard guard(mutex);
-    return vector[index];
+    return index < vector.size() && index >= 0 ? vector[index] : create();
 }
 
 InternalJson::SharedPtr InternalJson::vectorGetOrAppend(int index, Types defaultType) {
@@ -224,6 +224,9 @@ InternalJson::SharedPtr InternalJson::vectorGetOrAppend(int index, Types default
         vector.push_back(newJson);
         return newJson;
     } else {
+        if(defaultType != none_t) {
+            vector[index]->setType(defaultType);
+        }
         return vector[index];
     }
 }
@@ -250,12 +253,15 @@ std::vector<std::string> InternalJson::mapKeys() {
 
 InternalJson::SharedPtr InternalJson::mapGet(const std::string &key) {
     Guard guard(mutex);
-    return map[key];
+    return map.count(key) != 0 ? map[key] : create();
 }
 
 InternalJson::SharedPtr InternalJson::mapGetOrAdd(const std::string &key, InternalJson::Types defaultType) {
     Guard guard(mutex);
     if (map.count(key) != 0) {
+        if(defaultType != none_t) {
+            map[key]->setType(defaultType);
+        }
         return map[key];
     } else {
         SharedPtr newJson = create();

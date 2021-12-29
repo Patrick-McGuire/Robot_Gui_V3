@@ -35,8 +35,8 @@ AnnunciatorWidget::AnnunciatorWidget(QWidget *parent, const RobotGui::WidgetConf
 
 void AnnunciatorWidget::updateInFocus() {
     if (widgetData->keyUpdated(source)) {
-        if (widgetData->getJsonKeyType(source) == InternalJson::vector_t) {
-            auto configData = widgetData->getJSON(source);
+        if (widgetData->getJson()->mapGet(source)->getType() == InternalJson::vector_t) {
+            auto configData = widgetData->getJson()->mapGet(source);
             for (int i = 0; i < configData->vectorSize(); i++) {
                 auto boxConfig = configData->vectorGet(i);
                 if (boxConfig->vectorSize() == 3) {

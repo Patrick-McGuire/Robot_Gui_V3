@@ -48,12 +48,12 @@ ROVStatusWidget::ROVStatusWidget(QWidget *parent, const RobotGui::WidgetConfig_p
 }
 
 void ROVStatusWidget::updateInFocus() {
-    int faultStatus = widgetData->getInt(statusSource, 3);
-    bool canArm = widgetData->getBool(allowedToArmSource, true);
-    bool armed = widgetData->getBool(armedSource, true);
-    std::string mode = widgetData->getString(modeSource, "Unknown");
-    std::string runTime = widgetData->getString(runtimeSource, "no data");
-    std::string time = widgetData->getString(timeSource, "no data");
+    int faultStatus = widgetData->getJson()->mapGet(statusSource)->getInt(3);
+    bool canArm = widgetData->getJson()->mapGet(allowedToArmSource)->getBool(true);
+    bool armed = widgetData->getJson()->mapGet(armedSource)->getBool(true);
+    std::string mode = widgetData->getJson()->mapGet(modeSource)->getString("Unknown");
+    std::string runTime = widgetData->getJson()->mapGet(runtimeSource)->getString("no data");
+    std::string time = widgetData->getJson()->mapGet(timeSource)->getString("no data");
 
     switch (faultStatus) {
         case 2:

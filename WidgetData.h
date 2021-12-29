@@ -22,24 +22,14 @@
 class WidgetData {
 public:
     //// Output ////
-    /**
-     * Sets a json value in the output map
-     * @param key json key
-     * @param val value
-     */
-    void setJsonOutput(const std::string &key, const InternalJson::SharedPtr &val) {
-        std::lock_guard<std::mutex> lockGuard(outJsonMutex);
-        outJson[key] = val;
-    }
 
     /**
-     * Gets a json value in the output map
-     * @param key json key
-     * @return value
+     * Gets the output json object
+     * @return output json object
      */
-    InternalJson::SharedPtr getJsonOutput(const std::string &key) {
+    InternalJson::SharedPtr getOutputJson() {
         std::lock_guard<std::mutex> lockGuard(outJsonMutex);
-        return outJson.count(key) != 0 ? outJson[key] : InternalJson::create();
+        return outJson;
     }
 
     /**
@@ -58,15 +48,6 @@ public:
     void clearOutputFlag(const std::string &key) {
         std::lock_guard<std::mutex> lockGuard(outFlagsMutex);
         outFlags[key] = false;
-    }
-
-    /**
-     * Gets the entire return json data map
-     * @return output json map
-     */
-    std::map<std::string, InternalJson::SharedPtr> *getJsonOutput() {
-        std::lock_guard<std::mutex> lockGuard(outJsonMutex);
-        return &outJson;
     }
 
     /**
@@ -98,28 +79,17 @@ public:
         return outFlags.count(key) != 0;
     }
 
+    //// Input ////
+
     /**
-     * Gets if a key exists in the output json map
-     * @param key key to check
-     * @return if key exists
+     * Gets the json object
+     * @return json object
      */
-    bool outputJsonExists(const std::string &key) {
+    InternalJson::SharedPtr getJson() {
         std::lock_guard<std::mutex> lockGuard(jsonMapMutex);
-        return outJson.count(key) != 0;
+        return jsonMap;
     }
 
-    //// Input ////
-    /**
-     * Finds the type of data for a given key
-     * @param key
-     * @return data type <string>
-     */
-    InternalJson::Types getJsonKeyType(const std::string &key) {
-//        std::lock_guard<std::mutex> lockGuard(imgMapMutex);
-        std::lock_guard<std::mutex> lockGuard2(jsonMapMutex);
-        return jsonMap.count(key) != 0 ? jsonMap[key]->getType() : InternalJson::none_t;
-//        return imgMap.count(key) != 0 ? img_t : jsonMap.count(key) != 0 ? json_t : none_t;
-    }
 
     /**
      * Lowers all updated flags for keys
@@ -162,60 +132,6 @@ public:
     }
 
     /**
-     * Returns if a key corresponds to a json
-     * @param key key to check
-     * @return if key exists
-     */
-    bool jsonExists(const std::string &key) {
-        std::lock_guard<std::mutex> lockGuard(jsonMapMutex);
-        return jsonMap.count(key) != 0;
-    }
-
-    /**
-     * Returns a string
-     * @param key key to get
-     * @param defaultVal value to return if key does not exist
-     * @return string
-     */
-    std::string getString(const std::string &key, const std::string &defaultVal = "") {
-        std::lock_guard<std::mutex> lockGuard(jsonMapMutex);
-        return jsonMap.count(key) != 0 ? jsonMap[key]->getString(defaultVal) : defaultVal;
-    }
-
-    /**
-     * Returns double
-     * @param key to get
-     * @param defaultVal value to return if key does not exist
-     * @return double
-     */
-    double getDouble(const std::string &key, double defaultVal=0) {
-        std::lock_guard<std::mutex> lockGuard(jsonMapMutex);
-        return jsonMap.count(key) != 0 ? jsonMap[key]->getDouble(defaultVal) : defaultVal;
-    }
-
-    /**
-     * Returns int
-     * @param key key to get
-     * @param defaultVal value to return if key does not exist
-     * @return int
-     */
-    int getInt(const std::string &key, int defaultVal=0) {
-        std::lock_guard<std::mutex> lockGuard(jsonMapMutex);
-        return jsonMap.count(key) != 0 ? jsonMap[key]->getInt(defaultVal) : defaultVal;
-    }
-
-    /**
-     * Returns bool
-     * @param key key to get
-     * @param defaultVal value to return if key does not exist
-     * @return bool
-     */
-    bool getBool(const std::string &key, bool defaultVal=false) {
-        std::lock_guard<std::mutex> lockGuard(jsonMapMutex);
-        return jsonMap.count(key) != 0 ? jsonMap[key]->getBool(defaultVal) : defaultVal;
-    }
-
-    /**
      * Returns a img
      * @param key key to get
      * @return img
@@ -225,15 +141,6 @@ public:
         return imgMap[key];
     }
 
-    /**
-     * Returns a json value object (internalJSON_ptr)
-     * @param key key to get
-     * @return json object
-     */
-    InternalJson::SharedPtr getJSON(const std::string &key) {
-        std::lock_guard<std::mutex> lockGuard(jsonMapMutex);
-        return jsonMap.count(key) != 0 ? jsonMap[key] : InternalJson::create();
-    }
 
     /**
      * Sets a img
@@ -245,18 +152,6 @@ public:
         std::lock_guard<std::mutex> lockGuard2(imgMapMutex);
         keysUpdated[key] = true;
         imgMap[key] = std::move(img);
-    }
-
-    /**
-     * Sets a json value
-     * @param key key for the json value
-     * @param val value, internalJSON_ptr
-     */
-    void setJSON(const std::string &key, const InternalJson::SharedPtr &val) {
-        std::lock_guard<std::mutex> lockGuard(keysUpdatedMutex);
-        std::lock_guard<std::mutex> lockGuard2(jsonMapMutex);
-        keysUpdated[key] = true;
-        jsonMap[key] = val;
     }
 
     /**
@@ -292,13 +187,13 @@ private:
     std::mutex jsonMapMutex;
     std::mutex keysUpdatedMutex;
     std::map<std::string, cv::Mat> imgMap;
-    std::map<std::string, InternalJson::SharedPtr> jsonMap;
+    InternalJson::SharedPtr jsonMap = InternalJson::create(InternalJson::map_t);;
     std::map<std::string, bool> keysUpdated;
     // Data out storage
     std::mutex outFlagsMutex;
     std::mutex outJsonMutex;
     std::map<std::string, bool> outFlags;
-    std::map<std::string, InternalJson::SharedPtr> outJson;
+    InternalJson::SharedPtr outJson = InternalJson::create(InternalJson::map_t);
     // Operation
     std::mutex guiActiveMutex;
     bool guiActive = true;

@@ -32,11 +32,14 @@ void RandomDataInterface::run() {
         for (int k = 0; k < 5; k++) {
             annunciator.addAnnunciator(std::to_string(k) + " " + std::to_string(i), int((j / 20.0) + k) % 4, "description");
         }
-        setJSON("annunciator", annunciator.getStruct());
-        setJSON("annunciator_2", annunciator.getStruct());
+//        setJSON("annunciator", annunciator.getStruct());
+//        setJSON("annunciator_2", annunciator.getStruct());
+        getJson()->mapSet("annunciator", annunciator.getStruct());
+        getJson()->mapSet("annunciator_2", annunciator.getStruct());
 
         console.addLog("AAA " + std::to_string(j), int(j / 20.0) % 3);
-        setJSON("testarray", console.getStruct());
+//        setJSON("testarray", console.getStruct());
+        getJson()->mapSet("testarray", console.getStruct());
 
         setBool("allowedToArm", i >= 100);
         setBool("armed", i >= 200);

@@ -42,9 +42,9 @@ MissionStatusWidget::MissionStatusWidget(QWidget *parent, const RobotGui::Widget
 }
 
 void MissionStatusWidget::updateInFocus() {
-    std::string missionStatus = widgetData->getString(statusSource, "Unknown");
-    std::string missionName = widgetData->getString(missionNameSource, "Unknown");
-    std::string objectiveName = widgetData->getString(objectiveSource, "Unknown");
+    std::string missionStatus = widgetData->getJson()->mapGet(statusSource)->getString("Unknown");
+    std::string missionName = widgetData->getJson()->mapGet(missionNameSource)->getString("Unknown");
+    std::string objectiveName = widgetData->getJson()->mapGet(objectiveSource)->getString("Unknown");
 
     statusBox->setText(QString::fromStdString(missionStatus));
     missionNameBox->setText(QString::fromStdString("Mission: " + missionName));

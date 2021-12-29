@@ -38,13 +38,13 @@ void MultiBarGraphWidget::updateInFocus() {
     for (int i = 0; i < subGraphVector.size(); i++) {
         auto key = subGraphSourcesVector[i];
         auto subGraph = subGraphVector[i];
-
+        InternalJson::SharedPtr jsonVal = widgetData->getJson()->mapGet(key);
         if (widgetData->keyUpdated(key)) {
-            if (widgetData->getJsonKeyType(key) == InternalJson::int_t) {
-                subGraph->setValue(widgetData->getInt(key));
+            if (jsonVal->getType() == InternalJson::int_t) {
+                subGraph->setValue(jsonVal->getInt());
                 subGraph->update();
-            } else if (widgetData->getJsonKeyType(key) == InternalJson::double_t) {
-                subGraph->setValue(widgetData->getDouble(key));
+            } else if (jsonVal->getType() == InternalJson::double_t) {
+                subGraph->setValue(jsonVal->getDouble());
                 subGraph->update();
             }
         }

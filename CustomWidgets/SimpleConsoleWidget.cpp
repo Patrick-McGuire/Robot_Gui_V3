@@ -17,7 +17,7 @@ SimpleConsoleWidget::SimpleConsoleWidget(QWidget *parent, const RobotGui::Widget
 
 void SimpleConsoleWidget::updateInFocus() {
     if (widgetData->keyUpdated(source)) {
-        if (widgetData->getJsonKeyType(source) == InternalJson::vector_t) {
+        if (widgetData->getJson()->mapGet(source)->getType() == InternalJson::vector_t) {
             update();
             adjustSize();
         }
@@ -26,9 +26,9 @@ void SimpleConsoleWidget::updateInFocus() {
 
 void SimpleConsoleWidget::paintEvent(QPaintEvent *_event) {
     if (borderEnabled) { BaseWidget::paintEvent(_event); }
-    if (widgetData->getJsonKeyType(source) != InternalJson::vector_t) { return; }
+    if (widgetData->getJson()->mapGet(source)->getType() != InternalJson::vector_t) { return; }
     
-    InternalJson::SharedPtr consoleData = widgetData->getJSON(source);
+    InternalJson::SharedPtr consoleData = widgetData->getJson()->mapGet(source);
     int startIndex = consoleData->vectorGet(0)->getInt();
 
     int fontHeight = fontInfo().pixelSize() + lineSpace;

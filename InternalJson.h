@@ -14,7 +14,7 @@
 /**
  * @class InternalJson
  * Used to store Json data internally with a user friendly interface
- * Thread safe
+ * Thread safe, and memory safe (using std::shared_ptr)
  *
  * @author Patrick McGuire (Patrick-McGuire)
  */

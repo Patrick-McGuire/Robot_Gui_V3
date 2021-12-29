@@ -35,19 +35,19 @@ void DataInput::parse(char *input, int len) {
 }
 
 void DataInput::parseJson(const char *input, int len) {
-    rapidjson::Document doc;
-    doc.Parse(input);
-    for (rapidjson::Value::MemberIterator M = doc.MemberBegin(); M != doc.MemberEnd(); M++) {
-        std::string keyName = M->name.GetString();
-        auto currentKeyType = widgetData->getJsonKeyType(keyName);
-        auto json = widgetData->getJSON(keyName);
-        parseArray(&doc[keyName.data()], json);
-        if (currentKeyType == InternalJson::none_t) {
-            widgetData->setJSON(keyName, json);
-        } else {
-            widgetData->setKeyUpdated(keyName);
-        }
-    }
+//    rapidjson::Document doc;
+//    doc.Parse(input);
+//    for (rapidjson::Value::MemberIterator M = doc.MemberBegin(); M != doc.MemberEnd(); M++) {
+//        std::string keyName = M->name.GetString();
+//        auto currentKeyType = widgetData->getJson()->m(keyName);
+//        auto json = widgetData->getJSON(keyName);
+//        parseArray(&doc[keyName.data()], json);
+//        if (currentKeyType == InternalJson::none_t) {
+//            widgetData->setJSON(keyName, json);
+//        } else {
+//            widgetData->setKeyUpdated(keyName);
+//        }
+//    }
 }
 
 void DataInput::parseImg(char *input, int len) {

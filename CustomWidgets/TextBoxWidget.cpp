@@ -41,15 +41,15 @@ std::string TextBoxWidget::GetInfoString() {
     for (auto it = configInfo->lines.begin(); it != configInfo->lines.end(); ++it) {
         output += it[0][0];
         output += ": ";
-        InternalJson::SharedPtr jsonVal = widgetData->getJSON(it[0][1]);
+        InternalJson::SharedPtr jsonVal = widgetData->getJson()->mapGet(it[0][1]);
         if (jsonVal->getType() == InternalJson::int_t) {
-            output += std::to_string(widgetData->getInt(it[0][1]));
+            output += std::to_string(jsonVal->getInt());
         } else if (jsonVal->getType() == InternalJson::double_t) {
-            output += std::to_string(widgetData->getDouble(it[0][1]));
+            output += std::to_string(jsonVal->getDouble());
         } else if (jsonVal->getType() == InternalJson::string_t) {
-            output += widgetData->getString(it[0][1]);
+            output += jsonVal->getString();
         } else if (jsonVal->getType() == InternalJson::bool_t) {
-            output += widgetData->getBool(it[0][1]) ? "True" : "False";
+            output += jsonVal->getBool() ? "True" : "False";
         } else {
             output += "err";
         }

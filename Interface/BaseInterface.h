@@ -22,17 +22,15 @@ public:
     explicit BaseInterface();
 
     /**
+     * Gets the json data input
+     */
+    InternalJson::SharedPtr getJson();
+
+    /**
      * Initializes the interface
      * @param _widgetData WidgetData to interface with
      */
     void setWidgetData(WidgetData *_widgetData);
-
-    /**
-     * Finds the type of data for a given key
-     * @param key
-     * @return data type <string>
-     */
-    InternalJson::Types getJsonKeyType(const std::string &key);
 
     /**
      * Returns if the GUI is active
@@ -48,11 +46,38 @@ public:
     void setImg(const std::string &key, const cv::Mat &img);
 
     /**
-     * Sets a json value
-     * @param key key for the json value
-     * @param val value, internalJSON_ptr
+     * Returns a img
+     * @param key key to get
+     * @return img
      */
-    void setJSON(const std::string &key, const InternalJson::SharedPtr &val);
+    cv::Mat getImg(const std::string &key);
+
+    /**
+     * Gets if a key exists in the output flags map
+     * @param key key to check
+     * @return if key exists
+     */
+    bool outputFlagExists(const std::string &key);
+
+    /**
+     * Gets a output flag
+     * @param key key to get
+     * @return flag value
+     */
+    bool getFlagOutput(const std::string &key);
+
+    /**
+     * Gets the entire return flags data map
+     * @return output flags map
+     */
+    std::map<std::string, bool> *getFlagOutput();
+
+    /**
+     * Sets a flag low in the output flags
+     * @param key key to set low
+     */
+    void clearOutputFlag(const std::string &key);
+
 
     /**
      * Sets a boolean in the json map
@@ -81,74 +106,6 @@ public:
      * @param val value
      */
     void setString(const std::string &key, const std::string &val);
-
-    /**
-     * Returns bool
-     * @param key key to get
-     * @return bool
-     */
-    bool getBool(const std::string &key);
-
-    /**
-     * Returns int
-     * @param key key to get
-     * @return int
-     */
-    int getInt(const std::string &key);
-
-    /**
-     * Returns double
-     * @param key to get
-     * @return double
-     */
-    double getDouble(const std::string &key);
-
-    /**
-     * Returns a string
-     * @param key key to get
-     * @return string
-     */
-    std::string getString(const std::string &key);
-
-    /**
-     * Returns a img
-     * @param key key to get
-     * @return img
-     */
-    cv::Mat getImg(const std::string &key);
-
-    /**
-     * Returns a json value object (internalJSON_ptr)
-     * @param key key to get
-     * @return json object
-     */
-    InternalJson::SharedPtr getJSON(const std::string &key);
-
-    /**
-     * Gets if a key exists in the output flags map
-     * @param key key to check
-     * @return if key exists
-     */
-    bool outputFlagExists(const std::string &key);
-
-    /**
-     * Gets a output flag
-     * @param key key to get
-     * @return flag value
-     */
-    bool getFlagOutput(const std::string &key);
-
-    /**
-     * Gets the entire return flags data map
-     * @return output flags map
-     */
-    std::map<std::string, bool> *getFlagOutput();
-
-    /**
-     * Sets a flag low in the output flags
-     * @param key key to set low
-     */
-    void clearOutputFlag(const std::string &key);
 
 private:
     WidgetData *widgetData;
