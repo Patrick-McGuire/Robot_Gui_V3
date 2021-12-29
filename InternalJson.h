@@ -20,6 +20,14 @@
  */
 class InternalJson {
 public:
+    /**
+     * std::shared_ptr to this object
+     */
+    typedef std::shared_ptr<InternalJson> SharedPtr;
+
+    /**
+     * All possible types that can be stored in InternalJson
+     */
     enum Types {
         int_t,
         double_t,
@@ -29,159 +37,249 @@ public:
         map_t,
         none_t,
     };
-    typedef std::shared_ptr<InternalJson> SharedPtr;
 
-    InternalJson() {
-        type = none_t;
-    }
-    static SharedPtr create() {
-        return std::make_shared<InternalJson>();
-    }
-    explicit InternalJson(int val) {
-        type = int_t;
-        intVal = val;
-    }
-    static SharedPtr create(int val) {
-        return std::make_shared<InternalJson>(val);
-    }
-    explicit InternalJson(double val) {
-        type = double_t;
-        doubleVal = val;
-    }
-    static SharedPtr create(double val) {
-        return std::make_shared<InternalJson>(val);
-    }
-    explicit InternalJson(bool val) {
-        type = bool_t;
-        boolVal = val;
-    }
-    static SharedPtr create(bool val) {
-        return std::make_shared<InternalJson>(val);
-    }
-    explicit InternalJson(const std::string& val) {
-        type = string_t;
-        stringVal = val;
-    }
-    static SharedPtr create(const std::string& val) {
-        return std::make_shared<InternalJson>(val);
-    }
+    /**
+     * Creates a std::shared_ptr to a new InternalJson Object
+     * @return std::shared_ptr a new Object
+     */
+    static SharedPtr create();
 
-    Types getType() {
-        Guard guard(mutex);
-        return type;
-    }
+    /**
+     * Creates a std::shared_ptr to a new InternalJson Object
+     * @param val initial json value
+     * @return std::shared_ptr a new Object
+     */
+    static SharedPtr create(int val);
 
-    void setType(Types _type) {
-        Guard guard(mutex);
-        type = _type;
-    }
+    /**
+     * Creates a std::shared_ptr to a new InternalJson Object
+     * @param val initial json value
+     * @return std::shared_ptr a new Object
+     */
+    static SharedPtr create(double val);
 
-    int getInt(int defaultVal=0) {
-        Guard guard(mutex);
-        return type == int_t ? intVal : defaultVal;
-    }
+    /**
+     * Creates a std::shared_ptr to a new InternalJson Object
+     * @param val initial json value
+     * @return std::shared_ptr a new Object
+     */
+    static SharedPtr create(bool val);
 
-    double getDouble(double defaultVal=0.0) {
-        Guard guard(mutex);
-        return type == double_t ? doubleVal : defaultVal;
-    }
+    /**
+     * Creates a std::shared_ptr to a new InternalJson Object
+     * @param val initial json value
+     * @return std::shared_ptr a new Object
+     */
+    static SharedPtr create(const std::string &val);
 
-    bool getBool(bool defaultVal=false) {
-        Guard guard(mutex);
-        return type == bool_t ? boolVal : defaultVal;
-    }
+    //// Getters and setters for basic values ////
 
-    std::string getString(const std::string& defaultVal="") {
-        Guard guard(mutex);
-        return type == string_t ? stringVal : defaultVal;
-    }
+    /**
+     * Gets the type of the this json object
+     * @return current type
+     */
+    Types getType();
 
-    void setInt(int val) {
-        Guard guard(mutex);
-        type = int_t;
-        intVal = val;
-    }
+    /**
+     * Sets the type of this json object
+     * @param _type type to set
+     */
+    void setType(Types _type);
 
-    void setDouble(double val) {
-        Guard guard(mutex);
-        type = double_t;
-        doubleVal = val;
-    }
+    /**
+     * Gets the integer value of this object
+     * @param defaultVal value to return if this type is not integer
+     * @return integer value
+     */
+    int getInt(int defaultVal = 0);
 
-    void setBool(bool val) {
-        Guard guard(mutex);
-        type = bool_t;
-        boolVal = val;
-    }
+    /**
+     * Gets the double value of this object
+     * @param defaultVal value to return if this type is not double
+     * @return double value
+     */
+    double getDouble(double defaultVal = 0.0);
 
-    void setString(const std::string& val) {
-        Guard guard(mutex);
-        type = string_t;
-        stringVal = val;
-    }
+    /**
+     * Gets the boolean value of this object
+     * @param defaultVal value to return if this type is not boolean
+     * @return boolean value
+     */
+    bool getBool(bool defaultVal = false);
+
+    /**
+     * Gets the string value of this object
+     * @param defaultVal value to return if this type is not string
+     * @return string value
+     */
+    std::string getString(const std::string &defaultVal = "");
+
+    /**
+     * Sets the integer value for this object
+     * @param val value to set
+     */
+    void setInt(int val);
+
+    /**
+     * Sets the double value for this object
+     * @param val value to set
+     */
+    void setDouble(double val);
+
+    /**
+     * Sets the boolean value for this object
+     * @param val value to set
+     */
+    void setBool(bool val);
+
+    /**
+     * Sets the string value for this object
+     * @param val value to set
+     */
+    void setString(const std::string &val);
 
     //// Vector ////
-    unsigned long vectorSize() {
-        Guard guard(mutex);
-        return type == vector_t ? vector.size() : 0;
-    }
 
-    void vectorAppend(const SharedPtr& val) {
-        Guard guard(mutex);
-        vector.push_back(val);
-    }
+    /**
+     * Gets the size of the internal vector
+     * returns 0 if type is not currently vector_t
+     * @return size
+     */
+    unsigned long vectorSize();
 
-    SharedPtr vectorGet(int index) {
-        Guard guard(mutex);
-        return vector[index];
-    }
+    /**
+     * Appends a value to this vector
+     * @param val value to append
+     */
+    void vectorAppend(const SharedPtr &val);
 
-    void vectorSet(int index, const SharedPtr& val) {
-        Guard guard(mutex);
-        vector[index] = val;
-    }
+    /**
+     * Removes the last element from the vector
+     */
+    void vectorPop();
+
+    /**
+     * Gets a value from the vector object
+     * @param index index to retrieve from
+     * @return value
+     */
+    SharedPtr vectorGet(int index);
+
+    /**
+     * If index is in range, gets a value from the vector object
+     * If out of range, returns a new InternalJson object and appends it to the vector
+     * @param index index to retrieve
+     * @param defaultType type to make if index is out of range
+     * @return value
+     */
+    SharedPtr vectorGetOrAppend(int index, Types defaultType = none_t);
+
+    /**
+     * Sets a value in the vector object
+     * @param index index to set
+     * @param val value to set
+     */
+    void vectorSet(int index, const SharedPtr &val);
 
     //// Map ////
-    unsigned long mapCount(const std::string& key) {
-        Guard guard(mutex);
-        return map.count(key);
-    }
 
-    std::vector<std::string> mapKeys() {
-        Guard guard(mutex);
-        std::vector<std::string> keys;
-        keys.reserve(map.size());
-        for(auto & pair : map) {
-            keys.push_back(pair.first);
-        }
-        return keys;
-    }
+    /**
+     * Gets if a key is in the map
+     * @param key key to check
+     * @return if key exists in map
+     */
+    unsigned long mapCount(const std::string &key);
 
-    SharedPtr mapGet(const std::string& key) {
-        Guard guard(mutex);
-        return map[key];
-    }
+    /**
+     * Gets a vector<string> containing all keys for the map
+     * @return vector of keys
+     */
+    std::vector<std::string> mapKeys();
 
-    void mapSet(const std::string& key, const SharedPtr& val) {
-        Guard guard(mutex);
-        map[key] = val;
-    }
+    /**
+     * Gets a value at a key in the map
+     * @param key key to get
+     * @return value
+     */
+    SharedPtr mapGet(const std::string &key);
 
+    /**
+     * If key exists, get that value from the map
+     * If key doesn't exist, return a new InternalJson object and add it to the map
+     * @param key key to get or add
+     * @param defaultType type to make if key doesn't exist
+     * @return value
+     */
+    SharedPtr mapGetOrAdd(const std::string &key, Types defaultType = none_t);
+
+    /**
+     * Sets a value at a key in the map
+     * @param key key to set
+     * @param val value to set
+     */
+    void mapSet(const std::string &key, const SharedPtr &val);
+
+    /**
+     * Prints out this object
+     */
     void print();
 
 
 private:
+    /**
+     * Used to lock access to this objects recodes to prevent threading issues
+     * Create a instance first thing in every function
+     */
     typedef std::lock_guard<std::mutex> Guard;
+    /**
+     * The internal vector type
+     */
     typedef std::vector<SharedPtr> JsonVector;
+    /**
+     * The internal map type
+     */
     typedef std::map<std::string, SharedPtr> JsonMap;
 
+    /**
+     * Constructor
+     */
+    InternalJson();
+
+    /**
+     * Constructor
+     * @param val default value
+     */
+    explicit InternalJson(int val);
+
+    /**
+     * Constructor
+     * @param val default value
+     */
+    explicit InternalJson(double val);
+
+    /**
+     * Constructor
+     * @param val default value
+     */
+    explicit InternalJson(bool val);
+
+    /**
+     * Constructor
+     * @param val default value
+     */
+    explicit InternalJson(const std::string &val);
+
+    /**
+     * Constructor
+     * @param val default value
+     */
     void print(bool first);
 
     // Tracks what type of JSON object this is
     Types type;
     // JSON Values
     union {                             // Only one of these can be used at a time, so no need to waste memory
-        int intVal=0;
+        int intVal = 0;
         double doubleVal;
         bool boolVal;
     };
@@ -191,6 +289,5 @@ private:
     // Used for memory management
     std::mutex mutex;
 };
-
 
 #endif //ROBOT_GUI_V3_INTERNALJSON_H
