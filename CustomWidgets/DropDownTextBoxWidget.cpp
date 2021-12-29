@@ -21,6 +21,9 @@ DropDownTextBoxWidget::DropDownTextBoxWidget(QWidget *parent, const RobotGui::Wi
     selectionBox->addItem("No Data");
     selectionBox->setDuplicatesEnabled(false);
     selectionBox->setInsertPolicy(QComboBox::InsertAlphabetically);
+    selectionBox->setFont(font());
+
+    textDisplay->setFont(QFont("Monospace", font().pointSize()));
 }
 
 void DropDownTextBoxWidget::updateInFocus() {
