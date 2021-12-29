@@ -25,6 +25,7 @@ protected:
     bool borderEnabled;
     int maxLineWidth = 0;
     int numberOfLines = 0;
+    int lineSpace = 3;
 };
 
 

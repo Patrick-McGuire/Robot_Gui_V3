@@ -30,7 +30,7 @@ void SimpleConsoleWidget::paintEvent(QPaintEvent *_event) {
 
     auto consoleData = widgetData->getJSON(source)->vector;
     int startIndex = consoleData[0]->intVal;
-    int fontHeight = fontInfo().pixelSize();
+    int fontHeight = fontInfo().pixelSize() + lineSpace;
     maxLineWidth = title.length();
     int titleHeight = 0;
 
@@ -68,7 +68,7 @@ void SimpleConsoleWidget::paintEvent(QPaintEvent *_event) {
 }
 
 void SimpleConsoleWidget::adjustSize() {
-    int height = fontInfo().pixelSize() * numberOfLines + 5;
+    int height = (fontInfo().pixelSize() + lineSpace) * numberOfLines + 5 - lineSpace;
     int width = int(fmax(fontInfo().pixelSize() * 0.7 * maxLineWidth, 1));
     resize(width, height);
     setMinimumHeight(height);

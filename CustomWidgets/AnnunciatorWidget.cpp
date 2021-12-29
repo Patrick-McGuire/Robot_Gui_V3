@@ -66,6 +66,13 @@ void AnnunciatorWidget::updateInFocus() {
                     }
                 }
             }
+
+            for (int i = configData->vector.size(); i < annunciatorWidgetVector.size(); i++) {
+                annunciatorWidgetVector[i]->setText("");
+                annunciatorWidgetVector[i]->setToolTip("");
+                annunciatorWidgetVector[i]->setToolTipDuration(0);
+                annunciatorWidgetVector[i]->setStyleSheet("background: green");
+            }
         }
     }
 }

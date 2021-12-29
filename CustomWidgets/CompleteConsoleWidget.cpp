@@ -17,6 +17,7 @@ CompleteConsoleWidget::CompleteConsoleWidget(QWidget *parent, const RobotGui::Wi
     newConfigInfo->foregroundColor = configInfo->foregroundColor;
     newConfigInfo->textColor = configInfo->textColor;
     newConfigInfo->headerColor = configInfo->headerColor;
+    newConfigInfo->staticPos = true;
 
     titleWidget = new QLabel();
     textEntryWidget = new QLineEdit();
@@ -30,6 +31,9 @@ CompleteConsoleWidget::CompleteConsoleWidget(QWidget *parent, const RobotGui::Wi
 
     titleWidget->setText(QString::fromStdString(configInfo->title));
     titleWidget->setAlignment(Qt::AlignCenter | Qt::AlignVCenter);
+    titleWidget->setFont(font());
+    textEntryWidget->setFont(font());
+    simpleConsoleWidget->setFont(QFont("Monospace", font().pointSize()));
 
     adjustSize();
 }
@@ -43,6 +47,7 @@ void CompleteConsoleWidget::updateInFocus() {
 void CompleteConsoleWidget::customUpdateStyle() {
     titleWidget->setFont(font());
     textEntryWidget->setFont(font());
+    simpleConsoleWidget->setFont(QFont("Monospace", font().pointSize()));
 
     titleWidget->setStyleSheet(QString::fromStdString("color: " + titleTextColor));
     textEntryWidget->setStyleSheet(QString::fromStdString("border: 1px solid " + borderColor + "; color: " + bodyTextColor + "; background: " + widgetBackgroundColor));

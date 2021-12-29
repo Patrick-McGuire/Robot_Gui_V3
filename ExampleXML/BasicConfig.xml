@@ -29,7 +29,7 @@
                 <line type="SimpleBarGraph" source="verticalSpeed" title="Title" minimum="0.0" maximum="100.0" color="rgb(50,50,255)"/>
                 <line type="CircleBarGraph" source="roll" title="Title" minimum="0.0" maximum="360.0" color="rgb(50,50,255)"/>
             </widget>
-            <widget type="MissionStatusWidget" x="23" y="291" size="30" hidden="False" draggable="True" statusSource="missionStatus" missionNameSource="missionName"/>
+            <widget type="missionStatusWidget" x="23" y="291" size="30" hidden="False" draggable="True" statusSource="missionStatus" missionNameSource="missionName"/>
             <widget type="ROVStatusWidget" x="858" y="781" size="30" hidden="False" draggable="True" statusSource="status" armedSource="armed" allowedToArmSource="allowedToArm" modeSource="driveMode" runtimeSource="runtime"/>
         </tab>
         <tab title="Config">

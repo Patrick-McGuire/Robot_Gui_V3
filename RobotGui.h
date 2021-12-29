@@ -39,6 +39,7 @@ namespace RobotGui {
     const char *const SIMPLE_CONSOLE_WIDGET_STRID = "simpleConsole";
     const char *const ROV_STATUS_WIDGET_STRID = "ROVStatusWidget";
     const char *const COMPLETE_CONSOLE_WIDGET_STRID = "completeConsole";
+    const char *const MISSION_STATUS_WIDGET_STRID = "missionStatusWidget";
     // AppConfig consts
     const char *const APP_CONFIG_FILE_PATH = "/.config/RobotGUI";
     const char *const APP_CONFIG_FILE_NAME = "/RobotGUI_Settings.csv";
