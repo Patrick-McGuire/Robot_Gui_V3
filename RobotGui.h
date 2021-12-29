@@ -46,6 +46,16 @@ namespace RobotGui {
     const char *const APP_CONFIG_XML_PATH = "XML_PATH";
     const char *const APP_CONFIG_NO_XML_PATH = "none";
     const char APP_CONFIG_SEP = ',';
+    const char *const APP_CONFIG_ARROW_ASSET_PATH = "/arrow.png";
+    const char *const APP_CONFIG_COMPASS_ASSET_PATH = "/compass.png";
+    const char *const APP_CONFIG_CROSS_HAIR_ASSET_PATH = "/cross_hair.png";
+    const char *const APP_CONFIG_ROLL_DIAL_ASSET_PATH = "/roll_dial_1.png";
+    const char *const APP_CONFIG_ROLL_POINTER_ASSET_PATH = "/roll_pointer.png";
+    const char *const ARROW_ASSET_NAME = "ARROW";
+    const char *const COMPASS_ASSET_NAME = "COMPASS";
+    const char *const CROSS_HAIR_ASSET_NAME = "CROSS HAIR";
+    const char *const ROLL_DIAL_ASSET_NAME = "ROLL DIAL";
+    const char *const ROLL_POINTER_ASSET_NAME = "ROLL POINTER";
     // Stylesheets
     const char *const TRANSPARENT_STYLE = "transparent";
 

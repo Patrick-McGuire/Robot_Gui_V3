@@ -78,3 +78,15 @@ bool AppConfig::fileExists(const std::string& path) {
     return false;
 }
 
+void AppConfig::load() {
+    std::string rootPath = getPath();
+    assets[RobotGui::ARROW_ASSET_NAME] = cv::imread(rootPath + RobotGui::APP_CONFIG_ARROW_ASSET_PATH, cv::IMREAD_UNCHANGED);
+    assets[RobotGui::COMPASS_ASSET_NAME] = cv::imread(rootPath + RobotGui::APP_CONFIG_COMPASS_ASSET_PATH, cv::IMREAD_UNCHANGED);
+    assets[RobotGui::CROSS_HAIR_ASSET_NAME] = cv::imread(rootPath + RobotGui::APP_CONFIG_CROSS_HAIR_ASSET_PATH, cv::IMREAD_UNCHANGED);
+    assets[RobotGui::ROLL_DIAL_ASSET_NAME] = cv::imread(rootPath + RobotGui::APP_CONFIG_ROLL_DIAL_ASSET_PATH, cv::IMREAD_UNCHANGED);
+    assets[RobotGui::ROLL_POINTER_ASSET_NAME] = cv::imread(rootPath + RobotGui::APP_CONFIG_ROLL_POINTER_ASSET_PATH, cv::IMREAD_UNCHANGED);
+}
+
+cv::Mat AppConfig::getAsset(const std::string& key) {
+    return assets.count(key) != 0 ? assets[key] : cv::Mat();
+}

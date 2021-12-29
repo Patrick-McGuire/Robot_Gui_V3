@@ -21,13 +21,6 @@
  */
 class WidgetData {
 public:
-//    enum Types {
-//        json_t,
-//        img_t,
-//        none_t,
-//    };
-
-
     //// Output ////
     /**
      * Sets a json value in the output map

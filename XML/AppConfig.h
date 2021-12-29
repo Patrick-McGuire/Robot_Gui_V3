@@ -6,6 +6,7 @@
 #include <fstream>
 #include <pwd.h>
 #include "../RobotGui.h"
+#include "opencv2/opencv.hpp"
 
 /* Notes:
  * Configuration data is stored in usr/<username>/home/.config/GuiInstance
@@ -31,6 +32,18 @@ public:
     void write();
 
     /**
+     * Loads all assets
+     */
+    void load();
+
+    /**
+     * Gets a asset
+     * @param key name of asset to get
+     * @return asset
+     */
+    cv::Mat getAsset(const std::string& key);
+
+    /**
      * Sets the path to the xml config file, but does not save it
      * @param path[in] path to save
      */
@@ -50,8 +63,6 @@ public:
     static bool fileExists(const std::string &path);
 
 private:
-    std::string xmlFilepath;
-
     /**
      * Trys to create the directory ~/.config/GuiInstance
      * @return true if created, false if already exists
@@ -77,5 +88,8 @@ private:
      * @return segment of string
      */
     static std::string splitStr(const std::string &str, char delim, int index);
+
+    std::string xmlFilepath;
+    std::map<std::string, cv::Mat> assets;
 };
 #endif //ROBOT_GUI_V3_APPCONFIG_H

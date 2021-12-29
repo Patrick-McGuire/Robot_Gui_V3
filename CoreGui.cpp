@@ -25,6 +25,12 @@ int CoreGui::runGUI() {
 
     // Parse the configuration data
     appConfig->parse();
+    appConfig->load();
+    widgetData->setImg(RobotGui::ARROW_ASSET_NAME, appConfig->getAsset(RobotGui::ARROW_ASSET_NAME));
+    widgetData->setImg(RobotGui::COMPASS_ASSET_NAME, appConfig->getAsset(RobotGui::COMPASS_ASSET_NAME));
+    widgetData->setImg(RobotGui::CROSS_HAIR_ASSET_NAME, appConfig->getAsset(RobotGui::CROSS_HAIR_ASSET_NAME));
+    widgetData->setImg(RobotGui::ROLL_DIAL_ASSET_NAME, appConfig->getAsset(RobotGui::ROLL_DIAL_ASSET_NAME));
+    widgetData->setImg(RobotGui::ROLL_POINTER_ASSET_NAME, appConfig->getAsset(RobotGui::ROLL_POINTER_ASSET_NAME));
     while(!safeParse() && !quit) {
         appConfig->parse();
     }
