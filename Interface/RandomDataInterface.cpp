@@ -10,6 +10,7 @@ void RandomDataInterface::run() {
     double j = 0;
 
     ConsoleJSONStruct console(10);
+    DropDownTextBoxJSONStruct dropDown;
 
     while (isActive()) {
         setInt("KEY1", rand() % 10);
@@ -41,6 +42,14 @@ void RandomDataInterface::run() {
         setBool("allowedToArm", i >= 100);
         setBool("armed", i >= 200);
         setInt("status", int((float(i) / 360.0) * 3));
+
+        dropDown.addLine("test1", "aaa", "bbb", 0);
+        dropDown.addLine("test1", "ccc", "ddd", 1);
+        dropDown.addLine("test2", "test", std::to_string(i), 0);
+        dropDown.addLine("test2", "test1aaaa", "bbb" + std::to_string(i), 1);
+        dropDown.addLine("test2", "t2", "aaa" + std::to_string(i), 2);
+        dropDown.addLine("test2", "test3", std::to_string(i), 3);
+        setJSON("diagnostics_agg", dropDown.getStruct());
 
         std::this_thread::sleep_for(std::chrono::milliseconds(interval));
 

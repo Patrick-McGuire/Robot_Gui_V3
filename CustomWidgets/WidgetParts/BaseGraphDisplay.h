@@ -11,7 +11,7 @@
 
 class BaseGraphDisplay : public QLabel {
 public:
-    explicit BaseGraphDisplay(QWidget *parent = nullptr) {}
+    explicit BaseGraphDisplay(QWidget *parent = nullptr) : QLabel(parent) {}
 
     virtual void setSize(int _size) { size = _size; }
 

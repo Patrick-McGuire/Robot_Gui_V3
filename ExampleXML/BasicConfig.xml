@@ -5,7 +5,7 @@
             <widget type="video" x="0" y="0" title="VideoWidget_10" id="1" hidden="False" draggable="False" fullscreen="True" lockAspectRatio="true" height="640" width="480"/>
             <widget type="simpleButton" x="500" y="253" title="Test Button" source="button1" hidden="False" draggable="True" font="Arial" font_size="12"/>
             <widget type="compass" x="1681" y="324" source="current" size="200" transparent="True" hidden="False" draggable="True" font="Arial" font_size="12"/>
-            <widget type="DropDownTextBox" x="246" y="17" title="Error: no title" source="diagnostics_agg" hidden="False" draggable="True" font="Arial" font_size="12"/>
+            <widget type="dropDownTextBox" x="246" y="17" title="Error: no title" source="diagnostics_agg" hidden="False" draggable="True" font="Arial" font_size="12"/>
             <widget type="annunciatorPanel" x="33" y="710" title="Annunciator1" source="annunciator" hidden="False" draggable="True" font="Arial" font_size="12" row_number="10" column_number="5"/>
             <widget type="annunciatorPanel" x="0" y="408" title="Annunciator2" source="annunciator_2" hidden="False" draggable="True" font="Arial" font_size="14" row_number="10" column_number="2"/>
             <widget type="completeConsole" x="24" y="4" title="Test Console 2" source="testarray" hidden="False" draggable="True" font="Arial" font_size="12"/>

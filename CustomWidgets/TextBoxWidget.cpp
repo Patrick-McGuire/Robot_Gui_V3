@@ -12,7 +12,7 @@ TextBoxWidget::TextBoxWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &
 
     layout = new QGridLayout();
     titleBox = new QLabel();
-    textBox = new QLabel();
+    textBox = new LineTextDisplay();
     titleBox->setObjectName(this->objectName() + textBoxTittleBoxName);
     textBox->setObjectName(this->objectName() + textBoxTextBoxName);
     layout->addWidget(titleBox);
@@ -21,11 +21,9 @@ TextBoxWidget::TextBoxWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &
 
     titleBox->setText(QString::fromStdString(configInfo->title));
     titleBox->setAlignment(Qt::AlignCenter | Qt::AlignVCenter);
-    textBox->setText(QString::fromStdString(GetInfoString()));
 
     layout->setMargin(5);
     titleBox->setMargin(0);
-    textBox->setMargin(0);
     this->setAttribute(Qt::WA_StyledBackground, true);                                  // QWidget don't have this enabled by default, but most QWidgets do
 
     for (auto it = configInfo->lines.begin(); it != configInfo->lines.end(); ++it) {
@@ -34,35 +32,7 @@ TextBoxWidget::TextBoxWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &
 
     titleBox->setFont(QFont(font()));
     textBox->setFont(QFont("monospace", font().pointSize()));
-}
-
-std::string TextBoxWidget::GetInfoString() {
-    std::string output;
-    for (auto it = configInfo->lines.begin(); it != configInfo->lines.end(); ++it) {
-        output += it[0][0];
-        output += ": ";
-        WidgetData::Types keyType = widgetData->getKeyType(it[0][1]); //&it[0][0][1]
-        if(keyType != WidgetData::json_t) {
-            output += "err";
-        } else {
-            InternalJson::SharedPtr jsonVal = widgetData->getJSON(it[0][1]);
-            if (jsonVal->getType() == InternalJson::int_t) {
-                output += std::to_string(widgetData->getInt(it[0][1]));
-            } else if (jsonVal->getType() == InternalJson::double_t) {
-                output += std::to_string(widgetData->getDouble(it[0][1]));
-            } else if (jsonVal->getType() == InternalJson::string_t) {
-                output += widgetData->getString(it[0][1]);
-            } else if (jsonVal->getType() == InternalJson::bool_t) {
-                output += widgetData->getBool(it[0][1]) ? "True" : "False";
-            } else {
-                output += "err";
-            }
-        }
-        output += "\n";
-
-    }
-    output.pop_back();
-    return output;
+    customUpdate();
 }
 
 void TextBoxWidget::updateInFocus() {
@@ -83,7 +53,35 @@ void TextBoxWidget::updateOnInFocus() {
 }
 
 void TextBoxWidget::customUpdate() {
-    textBox->setText(QString::fromStdString(GetInfoString()));
+    int i = 0;
+
+    for (auto it = configInfo->lines.begin(); it != configInfo->lines.end(); ++it) {
+        std::string first = it[0][0];
+        std::string second;
+
+        WidgetData::Types keyType = widgetData->getKeyType(it[0][1]); //&it[0][0][1]
+        if (keyType != WidgetData::json_t) {
+            second = "err";
+        } else {
+            InternalJson::SharedPtr jsonVal = widgetData->getJSON(it[0][1]);
+            if (jsonVal->getType() == InternalJson::int_t) {
+                second += std::to_string(widgetData->getInt(it[0][1]));
+            } else if (jsonVal->getType() == InternalJson::double_t) {
+                second += std::to_string(widgetData->getDouble(it[0][1]));
+            } else if (jsonVal->getType() == InternalJson::string_t) {
+                second += widgetData->getString(it[0][1]);
+            } else if (jsonVal->getType() == InternalJson::bool_t) {
+                second += widgetData->getBool(it[0][1]) ? "True" : "False";
+            } else {
+                second += "err";
+            }
+        }
+
+        textBox->setLine(i, first, second);
+        i++;
+    }
+
+    textBox->updateDisplayString();
     this->adjustSize();
 }
 
@@ -129,7 +127,7 @@ void TextBoxWidget::parseXml(const RobotGui::WidgetConfig_ptr &parentConfig, rap
 }
 
 void TextBoxWidget::outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) {
-    for(auto & lineConfig : configInfo->lines) {
+    for (auto &lineConfig : configInfo->lines) {
         rapidxml::xml_node<> *line = doc->allocate_node(rapidxml::node_element, RobotGui::Xml::LINE_TAG);
         node->append_node(line);
         line->append_attribute(doc->allocate_attribute(RobotGui::Xml::LABEL_ATR, lineConfig[0].c_str()));

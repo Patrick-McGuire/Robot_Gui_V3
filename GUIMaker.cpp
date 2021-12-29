@@ -8,6 +8,7 @@
 #include "CustomWidgets/ROVStatusWidget.h"
 #include "CustomWidgets/CompleteConsoleWidget.h"
 #include "CustomWidgets/MissionStatusWidget.h"
+#include "CustomWidgets/DropDownTextBoxWidget.h"
 
 /*
  * Gets called in tabWidget to create a new subwidgets
@@ -33,6 +34,8 @@ BaseWidget *GUIMaker::createWidget(QWidget *parent, const RobotGui::WidgetConfig
         return new CompleteConsoleWidget(parent, configInfo, widgetData, theme);
     } else if (configInfo->type == RobotGui::MISSION_STATUS_WIDGET_STRID) {
         return new MissionStatusWidget(parent, configInfo, widgetData, theme);
+    } else if (configInfo->type == RobotGui::DROP_DOWN_TEXT_BOX_WIDGET_STRID) {
+        return new DropDownTextBoxWidget(parent, configInfo, widgetData, theme);
     } else {
         std::cout << "Can't create widget of type " << configInfo->type << std::endl;
     }

@@ -36,17 +36,13 @@ class AnnunciatorJSONStruct : public BaseCustomJSONStruct {
 public:
     AnnunciatorJSONStruct() : BaseCustomJSONStruct(InternalJson::vector_t) {}
 
-    void addAnnunciator(std::string name, int status, const std::string& description) {
+    void addAnnunciator(std::string name, int status, const std::string &description) {
         InternalJson::SharedPtr singleAnnunciator = InternalJson::create();
         singleAnnunciator->setType(InternalJson::vector_t);
         singleAnnunciator->vectorAppend(InternalJson::create(name));
         singleAnnunciator->vectorAppend(InternalJson::create(status));
         singleAnnunciator->vectorAppend(InternalJson::create(name));
-//        singleAnnunciator->vector.push_back(WidgetData::getJSONObjectFromString(std::move(name)));
-//        singleAnnunciator->vector.push_back(WidgetData::getJSONObjectFromInt(status));
-//        singleAnnunciator->vector.push_back(WidgetData::getJSONObjectFromString(std::move(description)));
         jsonStruct->vectorAppend(singleAnnunciator);
-//        jsonStruct->vector.push_back(singleAnnunciator);
     }
 };
 
@@ -55,25 +51,18 @@ public:
     ConsoleJSONStruct(int _queueSize) : BaseCustomJSONStruct(InternalJson::vector_t) {
         queueSize = _queueSize;
         jsonStruct->vectorAppend(InternalJson::create(startIndex));
-//        jsonStruct->vector.push_back(WidgetData::getJSONObjectFromInt(startIndex));
     }
 
     void addLog(std::string data, int level) {
         InternalJson::SharedPtr singleLog = InternalJson::create(InternalJson::vector_t);
-//        singleLog->type = WidgetData::vector_t;
-//        singleLog->vector.push_back(WidgetData::getJSONObjectFromString(data));
-//        singleLog->vector.push_back(WidgetData::getJSONObjectFromInt(level));
         singleLog->vectorAppend(InternalJson::create(data));
         singleLog->vectorAppend(InternalJson::create(level));
 
         if (jsonStruct->vectorSize() < queueSize + 1) {
             jsonStruct->vectorAppend(singleLog);
-//            jsonStruct->vector.push_back(singleLog);
         } else {
             startIndex++;
             if (startIndex > jsonStruct->vectorSize() - 1) { startIndex = 1; }
-//            jsonStruct->vector[startIndex] = singleLog;
-//            jsonStruct->vector[0] = WidgetData::getJSONObjectFromInt(startIndex);
             jsonStruct->vectorSet(startIndex, singleLog);
             jsonStruct->vectorSet(0, InternalJson::create(startIndex));
         }
@@ -82,6 +71,28 @@ public:
 protected:
     int startIndex = 0;
     int queueSize;
+};
+
+/**
+ * {page: [[name, data], [name, data], etc...], page2: [[], [], etc...] etc...}
+ */
+class DropDownTextBoxJSONStruct : public BaseCustomJSONStruct {
+public:
+    DropDownTextBoxJSONStruct() : BaseCustomJSONStruct(InternalJson::map_t) {}
+
+    /**
+     * Adds a line to a given page
+     * @param page: Name of page to add to (page will be created if it doesn't exist)
+     * @param name: line name
+     * @param data: line data
+     * @param index: index to set.  If index is -1 this appends, if it is positive it changes an existing line
+     */
+    void addLine(std::string page, std::string name, std::string data, int index = -1) {
+        auto pageData = jsonStruct->mapGetOrAdd(page, InternalJson::vector_t);
+        auto line = pageData->vectorGetOrAppend(index, InternalJson::vector_t);
+        line->vectorGetOrAppend(0)->setString(name);
+        line->vectorGetOrAppend(1)->setString(data);
+    }
 };
 
 #endif //ROBOT_GUI_V3_CUSTOMJSONSTRUCTURE_H
