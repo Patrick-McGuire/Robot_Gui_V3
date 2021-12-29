@@ -7,11 +7,11 @@ DataInput::DataInput(WidgetData *_widgetData) {
 
 void DataInput::parse(char *input, int len) {
     auto id = static_cast<RobotGui::MessageType>((int) input[0]);
-    for(int i = 0; i < 4; i++) {
-        messageSize.bytes[i] = input[i+1];
+    for (int i = 0; i < 4; i++) {
+        messageSize.bytes[i] = input[i + 1];
     }
     auto returnType = static_cast<RobotGui::ReturnType>((int) input[5]);
-    if(messageSize.length <= 0 || messageSize.length + 6 > len) {       // Corrupted/invalid messages are ignored
+    if (messageSize.length <= 0 || messageSize.length + 6 > len) {       // Corrupted/invalid messages are ignored
         return;
     }
     // Remove the first CUSTOM_MSG_HEADER_SIZE elements
@@ -42,7 +42,7 @@ void DataInput::parseJson(const char *input, int len) {
         auto currentKeyType = widgetData->getKeyType(keyName);
         auto json = widgetData->getJSON(keyName);
         parseArray(&doc[keyName.data()], json);
-        if(currentKeyType == WidgetData::img_t || currentKeyType == WidgetData::none_t) {
+        if (currentKeyType == WidgetData::img_t || currentKeyType == WidgetData::none_t) {
             widgetData->setJSON(keyName, json);
         } else {
             widgetData->setKeyUpdated(keyName);
@@ -55,55 +55,51 @@ void DataInput::parseImg(char *input, int len) {
     try {
         // Decode the image and save it to widgetData
         auto imgIdStr = std::to_string(id);
-        widgetData->setImg(imgIdStr, cv::imdecode(cv::Mat(1, len + 1, CV_8UC1, input+1), cv::IMREAD_ANYCOLOR));
+        widgetData->setImg(imgIdStr, cv::imdecode(cv::Mat(1, len + 1, CV_8UC1, input + 1), cv::IMREAD_ANYCOLOR));
     } catch (cv::Exception const &e) {
         // You sent a bad img
         std::cout << "CVERROR\n";
     }
 }
 
-void DataInput::parseArray(rapidjson::Value *value, const WidgetData::internalJSON_ptr& json) {
-    if(value->IsBool()) {
-        json->boolVal = value->GetBool();
-        json->type = WidgetData::bool_t;
-    } else if(value->IsInt()) {
-        json->intVal = value->GetInt();
-        json->type = WidgetData::int_t;
-    } else if(value->IsDouble()) {
-        json->doubleVal = value->GetDouble();
-        json->type = WidgetData::double_t;
-    } else if(value->IsString()) {
-        json->stringVal = value->GetString();
-        json->type = WidgetData::string_t;
-    } else if(value->IsArray()) {
-        json->type = WidgetData::vector_t;
+void DataInput::parseArray(rapidjson::Value *value, const InternalJson::SharedPtr &json) {
+    if (value->IsBool()) {
+        json->setBool(value->GetBool());
+    } else if (value->IsInt()) {
+        json->setInt(value->GetInt());
+    } else if (value->IsDouble()) {
+        json->setDouble(value->GetDouble());
+    } else if (value->IsString()) {
+        json->setString(value->GetString());
+    } else if (value->IsArray()) {
+        json->setType(InternalJson::vector_t);
         auto array = value->GetArray();
         int count = 0;
         for (rapidjson::Value::ConstValueIterator itr = array.Begin(); itr != array.End(); ++itr, count++) {
-            WidgetData::internalJSON_ptr eleJson;
-            if(count < json->vector.size()) {
-                eleJson = json->vector[count];
+            InternalJson::SharedPtr eleJson;
+            if (count < json->vectorSize()) {
+                eleJson = json->vectorGet(count);
             } else {
-                eleJson = std::make_shared<WidgetData::internalJSON>();
-                json->vector.push_back(eleJson);
+                eleJson = InternalJson::create();
+                json->vectorAppend(eleJson);
             }
             parseArray(&array[count], eleJson);
         }
-        while (json->vector.size() > count) {
-            json->vector.pop_back();
+        while (json->vectorSize() > count) {
+            json->vectorPop();
         }
-    } else if(value->IsObject()) {
-        json->type = WidgetData::map_t;
+    } else if (value->IsObject()) {
+        json->setType(InternalJson::map_t);
         auto obj = value->GetObject();
         rapidjson::Value::MemberIterator M;
         for (M = obj.MemberBegin(); M != obj.MemberEnd(); M++) {
             std::string name = M->name.GetString();
-            WidgetData::internalJSON_ptr eleJson;
-            if(json->map.count(name) != 0) {
-                eleJson = json->map[name];
+            InternalJson::SharedPtr eleJson;
+            if (json->mapCount(name) != 0) {
+                eleJson = json->mapGet(name);
             } else {
-                eleJson = std::make_shared<WidgetData::internalJSON>();
-                json->map[name] = eleJson;
+                eleJson = InternalJson::create();
+                json->mapSet(name, eleJson);
             }
             parseArray(&obj[M->name], eleJson);
         }

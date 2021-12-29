@@ -20,8 +20,9 @@ void SimpleButtonWidget::onClick() {
     widgetData->raiseOutputFlag(configInfo->id);
 
     auto json = widgetData->getJsonOutput(configInfo->id);
-    json->type = WidgetData::bool_t;
-    json->boolVal = true;
+    json->setBool(true);
+//    json->type = WidgetData::bool_t;
+//    json->boolVal = true;
 
     if (!widgetData->outputJsonExists(configInfo->id)) {
         widgetData->setJsonOutput(configInfo->id, json);
@@ -30,8 +31,9 @@ void SimpleButtonWidget::onClick() {
 
 void SimpleButtonWidget::onRelease() {
     auto json = widgetData->getJsonOutput(configInfo->id);
-    json->type = WidgetData::bool_t;
-    json->boolVal = false;
+    json->setBool(false);
+//    json->type = WidgetData::bool_t;
+//    json->boolVal = false;
 
     if (!widgetData->outputJsonExists(configInfo->id)) {
         widgetData->setJsonOutput(configInfo->id, json);

@@ -46,6 +46,13 @@ public:
 
     /**
      * Creates a std::shared_ptr to a new InternalJson Object
+     * @param _type initial json type
+     * @return std::shared_ptr a new Object
+     */
+    static SharedPtr create(Types _type);
+
+    /**
+     * Creates a std::shared_ptr to a new InternalJson Object
      * @param val initial json value
      * @return std::shared_ptr a new Object
      */
@@ -244,6 +251,12 @@ private:
      * Constructor
      */
     InternalJson();
+
+    /**
+     * Constructor
+     * @param _type default type
+     */
+    explicit InternalJson(Types _type);
 
     /**
      * Constructor

@@ -1,7 +1,9 @@
 #ifndef ROBOT_GUI_V3_DATAINPUT_H
 #define ROBOT_GUI_V3_DATAINPUT_H
+
 #include "../WidgetData.h"
 #include "opencv2/opencv.hpp"
+#include "../InternalJson.h"
 
 #define CUSTOM_MSG_HEADER_SIZE 6
 
@@ -46,7 +48,7 @@ private:
      * @param returnType what data to return
      * @param socket socket to write to
      */
-    void parseArray(rapidjson::Value *value, const WidgetData::internalJSON_ptr& json);
+    void parseArray(rapidjson::Value *value, const InternalJson::SharedPtr &json);
 
     union LengthConverter {
         std::int32_t length;

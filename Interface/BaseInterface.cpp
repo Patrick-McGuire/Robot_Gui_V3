@@ -8,7 +8,7 @@ void BaseInterface::setWidgetData(WidgetData *_widgetData) {
     widgetData = _widgetData;
 }
 
-WidgetData::internalJsonTypes BaseInterface::getKeyType(const std::string &key) {
+WidgetData::Types BaseInterface::getKeyType(const std::string &key) {
     return widgetData->getKeyType(key);
 }
 
@@ -20,15 +20,14 @@ void BaseInterface::setImg(const std::string &key, const cv::Mat &img) {
     widgetData->setImg(key, img);
 }
 
-void BaseInterface::setJSON(const std::string &key, const WidgetData::internalJSON_ptr &val) {
+void BaseInterface::setJSON(const std::string &key, const InternalJson::SharedPtr &val) {
     widgetData->setJSON(key, val);
 }
 
 void BaseInterface::setBool(const std::string &key, bool val) {
     auto currentKeyType = widgetData->getKeyType(key);
     auto json = widgetData->getJSON(key);
-    json->boolVal = val;
-    json->type = WidgetData::bool_t;
+    json->setBool(val);
     if(currentKeyType == WidgetData::img_t || currentKeyType == WidgetData::none_t) {
         widgetData->setJSON(key, json);
     } else {
@@ -39,8 +38,7 @@ void BaseInterface::setBool(const std::string &key, bool val) {
 void BaseInterface::setInt(const std::string &key, int val) {
     auto currentKeyType = widgetData->getKeyType(key);
     auto json = widgetData->getJSON(key);
-    json->intVal = val;
-    json->type = WidgetData::int_t;
+    json->setInt(val);
     if(currentKeyType == WidgetData::img_t || currentKeyType == WidgetData::none_t) {
         widgetData->setJSON(key, json);
     } else {
@@ -51,8 +49,7 @@ void BaseInterface::setInt(const std::string &key, int val) {
 void BaseInterface::setDouble(const std::string &key, double val) {
     auto currentKeyType = widgetData->getKeyType(key);
     auto json = widgetData->getJSON(key);
-    json->doubleVal = val;
-    json->type = WidgetData::double_t;
+    json->setDouble(val);
     if(currentKeyType == WidgetData::img_t || currentKeyType == WidgetData::none_t) {
         widgetData->setJSON(key, json);
     } else {
@@ -63,8 +60,7 @@ void BaseInterface::setDouble(const std::string &key, double val) {
 void BaseInterface::setString(const std::string &key, const std::string &val) {
     auto currentKeyType = widgetData->getKeyType(key);
     auto json = widgetData->getJSON(key);
-    json->stringVal = val;
-    json->type = WidgetData::string_t;
+    json->setString(val);
     if(currentKeyType == WidgetData::img_t || currentKeyType == WidgetData::none_t) {
         widgetData->setJSON(key, json);
     } else {
@@ -92,7 +88,7 @@ cv::Mat BaseInterface::getImg(const std::string &key) {
     return widgetData->getImg(key);
 }
 
-WidgetData::internalJSON_ptr BaseInterface::getJSON(const std::string &key) {
+InternalJson::SharedPtr BaseInterface::getJSON(const std::string &key) {
     return widgetData->getJSON(key);
 }
 

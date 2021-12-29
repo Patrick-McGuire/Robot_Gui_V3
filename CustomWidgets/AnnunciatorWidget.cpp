@@ -35,14 +35,14 @@ AnnunciatorWidget::AnnunciatorWidget(QWidget *parent, const RobotGui::WidgetConf
 
 void AnnunciatorWidget::updateInFocus() {
     if (widgetData->keyUpdated(source)) {
-        if (widgetData->getKeyType(source) == WidgetData::vector_t) {
+        if (widgetData->getKeyType(source) == WidgetData::json_t && widgetData->getJSON(source)->getType() == InternalJson::vector_t) {
             auto configData = widgetData->getJSON(source);
-            for (int i = 0; i < configData->vector.size(); i++) {
-                auto boxConfig = configData->vector[i];
-                if (boxConfig->vector.size() == 3) {
-                    std::string boxName = boxConfig->vector[0]->stringVal;
-                    int boxState = boxConfig->vector[1]->intVal;
-                    std::string description = boxConfig->vector[2]->stringVal;
+            for (int i = 0; i < configData->vectorSize(); i++) {
+                auto boxConfig = configData->vectorGet(i);
+                if (boxConfig->vectorSize() == 3) {
+                    std::string boxName = boxConfig->vectorGet(0)->getString();
+                    int boxState = boxConfig->vectorGet(1)->getInt();
+                    std::string description = boxConfig->vectorGet(2)->getString();
 
                     if (i < annunciatorWidgetVector.size()) {
                         annunciatorWidgetVector[i]->setText(QString::fromStdString(boxName));

@@ -4,6 +4,10 @@ InternalJson::SharedPtr InternalJson::create() {
     return SharedPtr(new InternalJson());
 }
 
+InternalJson::SharedPtr InternalJson::create(InternalJson::Types _type) {
+    return SharedPtr(new InternalJson(_type));
+}
+
 InternalJson::SharedPtr InternalJson::create(int val) {
     return SharedPtr(new InternalJson(val));
 }
@@ -27,6 +31,15 @@ InternalJson::InternalJson() {
     intVal = 0;
     // ^ Must go first, and really should be removed
     type = none_t;
+}
+
+InternalJson::InternalJson(InternalJson::Types _type) {
+    // Shut up Clang
+    doubleVal = 0;
+    boolVal = false;
+    intVal = 0;
+    // ^ Must go first, and really should be removed
+    type = _type;
 }
 
 InternalJson::InternalJson(int val) {
@@ -256,3 +269,4 @@ void InternalJson::mapSet(const std::string &key, const InternalJson::SharedPtr 
     Guard guard(mutex);
     map[key] = val;
 }
+

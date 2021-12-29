@@ -10,6 +10,7 @@
 #include <utility>
 #include "WidgetData.h"
 #include "CommonFunctions.h"
+#include "InternalJson.h"
 
 
 /**
@@ -17,15 +18,15 @@
  */
 class BaseCustomJSONStruct {
 public:
-    BaseCustomJSONStruct(WidgetData::internalJsonTypes type) {
-        jsonStruct = std::make_shared<struct WidgetData::internalJSON>();
-        jsonStruct->type = type;
+    BaseCustomJSONStruct(InternalJson::Types type) {
+        jsonStruct = InternalJson::create();
+        jsonStruct->setType(type);
     }
 
-    std::shared_ptr<WidgetData::internalJSON> getStruct() { return jsonStruct; }
+    InternalJson::SharedPtr getStruct() { return jsonStruct; }
 
 protected:
-    std::shared_ptr<WidgetData::internalJSON> jsonStruct;
+    InternalJson::SharedPtr jsonStruct;
 };
 
 /**
@@ -33,38 +34,48 @@ protected:
  */
 class AnnunciatorJSONStruct : public BaseCustomJSONStruct {
 public:
-    AnnunciatorJSONStruct() : BaseCustomJSONStruct(WidgetData::vector_t) {}
+    AnnunciatorJSONStruct() : BaseCustomJSONStruct(InternalJson::vector_t) {}
 
-    void addAnnunciator(std::string name, int status, std::string description) {
-        WidgetData::internalJSON_ptr singleAnnunciator = std::make_shared<struct WidgetData::internalJSON>();
-        singleAnnunciator->type = WidgetData::vector_t;
-        singleAnnunciator->vector.push_back(WidgetData::getJSONObjectFromString(std::move(name)));
-        singleAnnunciator->vector.push_back(WidgetData::getJSONObjectFromInt(status));
-        singleAnnunciator->vector.push_back(WidgetData::getJSONObjectFromString(std::move(description)));
-        jsonStruct->vector.push_back(singleAnnunciator);
+    void addAnnunciator(std::string name, int status, const std::string& description) {
+        InternalJson::SharedPtr singleAnnunciator = InternalJson::create();
+        singleAnnunciator->setType(InternalJson::vector_t);
+        singleAnnunciator->vectorAppend(InternalJson::create(name));
+        singleAnnunciator->vectorAppend(InternalJson::create(status));
+        singleAnnunciator->vectorAppend(InternalJson::create(name));
+//        singleAnnunciator->vector.push_back(WidgetData::getJSONObjectFromString(std::move(name)));
+//        singleAnnunciator->vector.push_back(WidgetData::getJSONObjectFromInt(status));
+//        singleAnnunciator->vector.push_back(WidgetData::getJSONObjectFromString(std::move(description)));
+        jsonStruct->vectorAppend(singleAnnunciator);
+//        jsonStruct->vector.push_back(singleAnnunciator);
     }
 };
 
 class ConsoleJSONStruct : public BaseCustomJSONStruct {
 public:
-    ConsoleJSONStruct(int _queueSize) : BaseCustomJSONStruct(WidgetData::vector_t) {
+    ConsoleJSONStruct(int _queueSize) : BaseCustomJSONStruct(InternalJson::vector_t) {
         queueSize = _queueSize;
-        jsonStruct->vector.push_back(WidgetData::getJSONObjectFromInt(startIndex));
+        jsonStruct->vectorAppend(InternalJson::create(startIndex));
+//        jsonStruct->vector.push_back(WidgetData::getJSONObjectFromInt(startIndex));
     }
 
     void addLog(std::string data, int level) {
-        WidgetData::internalJSON_ptr singleLog = std::make_shared<struct WidgetData::internalJSON>();
-        singleLog->type = WidgetData::vector_t;
-        singleLog->vector.push_back(WidgetData::getJSONObjectFromString(data));
-        singleLog->vector.push_back(WidgetData::getJSONObjectFromInt(level));
+        InternalJson::SharedPtr singleLog = InternalJson::create(InternalJson::vector_t);
+//        singleLog->type = WidgetData::vector_t;
+//        singleLog->vector.push_back(WidgetData::getJSONObjectFromString(data));
+//        singleLog->vector.push_back(WidgetData::getJSONObjectFromInt(level));
+        singleLog->vectorAppend(InternalJson::create(data));
+        singleLog->vectorAppend(InternalJson::create(level));
 
-        if (jsonStruct->vector.size() < queueSize + 1) {
-            jsonStruct->vector.push_back(singleLog);
+        if (jsonStruct->vectorSize() < queueSize + 1) {
+            jsonStruct->vectorAppend(singleLog);
+//            jsonStruct->vector.push_back(singleLog);
         } else {
             startIndex++;
-            if (startIndex > jsonStruct->vector.size() - 1) { startIndex = 1; }
-            jsonStruct->vector[startIndex] = singleLog;
-            jsonStruct->vector[0] = WidgetData::getJSONObjectFromInt(startIndex);
+            if (startIndex > jsonStruct->vectorSize() - 1) { startIndex = 1; }
+//            jsonStruct->vector[startIndex] = singleLog;
+//            jsonStruct->vector[0] = WidgetData::getJSONObjectFromInt(startIndex);
+            jsonStruct->vectorSet(startIndex, singleLog);
+            jsonStruct->vectorSet(0, InternalJson::create(startIndex));
         }
     }
 

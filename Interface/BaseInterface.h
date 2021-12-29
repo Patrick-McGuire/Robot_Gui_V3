@@ -32,7 +32,7 @@ public:
      * @param key
      * @return data type <string>
      */
-    WidgetData::internalJsonTypes getKeyType(const std::string& key);
+    WidgetData::Types getKeyType(const std::string &key);
 
     /**
      * Returns if the GUI is active
@@ -45,14 +45,14 @@ public:
      * @param key key for the img
      * @param img img to set
      */
-    void setImg(const std::string& key, const cv::Mat &img);
+    void setImg(const std::string &key, const cv::Mat &img);
 
     /**
      * Sets a json value
      * @param key key for the json value
      * @param val value, internalJSON_ptr
      */
-    void setJSON(const std::string &key, const WidgetData::internalJSON_ptr &val);
+    void setJSON(const std::string &key, const InternalJson::SharedPtr &val);
 
     /**
      * Sets a boolean in the json map
@@ -87,28 +87,28 @@ public:
      * @param key key to get
      * @return bool
      */
-    bool getBool(const std::string& key);
+    bool getBool(const std::string &key);
 
     /**
      * Returns int
      * @param key key to get
      * @return int
      */
-    int getInt(const std::string& key);
+    int getInt(const std::string &key);
 
     /**
      * Returns double
      * @param key to get
      * @return double
      */
-    double getDouble(const std::string& key);
+    double getDouble(const std::string &key);
 
     /**
      * Returns a string
      * @param key key to get
      * @return string
      */
-    std::string getString(const std::string& key);
+    std::string getString(const std::string &key);
 
     /**
      * Returns a img
@@ -122,7 +122,7 @@ public:
      * @param key key to get
      * @return json object
      */
-    WidgetData::internalJSON_ptr getJSON(const std::string &key);
+    InternalJson::SharedPtr getJSON(const std::string &key);
 
     /**
      * Gets if a key exists in the output flags map

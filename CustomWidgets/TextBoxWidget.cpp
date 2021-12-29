@@ -41,17 +41,22 @@ std::string TextBoxWidget::GetInfoString() {
     for (auto it = configInfo->lines.begin(); it != configInfo->lines.end(); ++it) {
         output += it[0][0];
         output += ": ";
-        WidgetData::internalJsonTypes keyType = widgetData->getKeyType(it[0][1]); //&it[0][0][1]
-        if (keyType == WidgetData::int_t) {
-            output += std::to_string(widgetData->getInt(it[0][1]));
-        } else if (keyType == WidgetData::double_t) {
-            output += std::to_string(widgetData->getDouble(it[0][1]));
-        } else if (keyType == WidgetData::string_t) {
-            output += widgetData->getString(it[0][1]);
-        } else if (keyType == WidgetData::bool_t) {
-            output += widgetData->getBool(it[0][1]) ? "True" : "False";
-        } else {
+        WidgetData::Types keyType = widgetData->getKeyType(it[0][1]); //&it[0][0][1]
+        if(keyType != WidgetData::json_t) {
             output += "err";
+        } else {
+            InternalJson::SharedPtr jsonVal = widgetData->getJSON(it[0][1]);
+            if (jsonVal->getType() == InternalJson::int_t) {
+                output += std::to_string(widgetData->getInt(it[0][1]));
+            } else if (jsonVal->getType() == InternalJson::double_t) {
+                output += std::to_string(widgetData->getDouble(it[0][1]));
+            } else if (jsonVal->getType() == InternalJson::string_t) {
+                output += widgetData->getString(it[0][1]);
+            } else if (jsonVal->getType() == InternalJson::bool_t) {
+                output += widgetData->getBool(it[0][1]) ? "True" : "False";
+            } else {
+                output += "err";
+            }
         }
         output += "\n";
 
