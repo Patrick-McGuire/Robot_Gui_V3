@@ -26,6 +26,7 @@ void RandomDataInterface::run() {
         setDouble("terrainAlt", (-i / 5) + 40);
         setDouble("j", j);
         setDouble("slowSweep", 1 - float(j) / 180.0);
+        setString("missionStatus", "In Mission");
 
         AnnunciatorJSONStruct annunciator;
         for (int k = 0; k < 5; k++) {
