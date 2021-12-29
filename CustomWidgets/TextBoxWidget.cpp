@@ -41,22 +41,17 @@ std::string TextBoxWidget::GetInfoString() {
     for (auto it = configInfo->lines.begin(); it != configInfo->lines.end(); ++it) {
         output += it[0][0];
         output += ": ";
-        WidgetData::Types keyType = widgetData->getKeyType(it[0][1]); //&it[0][0][1]
-        if(keyType != WidgetData::json_t) {
-            output += "err";
+        InternalJson::SharedPtr jsonVal = widgetData->getJSON(it[0][1]);
+        if (jsonVal->getType() == InternalJson::int_t) {
+            output += std::to_string(widgetData->getInt(it[0][1]));
+        } else if (jsonVal->getType() == InternalJson::double_t) {
+            output += std::to_string(widgetData->getDouble(it[0][1]));
+        } else if (jsonVal->getType() == InternalJson::string_t) {
+            output += widgetData->getString(it[0][1]);
+        } else if (jsonVal->getType() == InternalJson::bool_t) {
+            output += widgetData->getBool(it[0][1]) ? "True" : "False";
         } else {
-            InternalJson::SharedPtr jsonVal = widgetData->getJSON(it[0][1]);
-            if (jsonVal->getType() == InternalJson::int_t) {
-                output += std::to_string(widgetData->getInt(it[0][1]));
-            } else if (jsonVal->getType() == InternalJson::double_t) {
-                output += std::to_string(widgetData->getDouble(it[0][1]));
-            } else if (jsonVal->getType() == InternalJson::string_t) {
-                output += widgetData->getString(it[0][1]);
-            } else if (jsonVal->getType() == InternalJson::bool_t) {
-                output += widgetData->getBool(it[0][1]) ? "True" : "False";
-            } else {
-                output += "err";
-            }
+            output += "err";
         }
         output += "\n";
 
@@ -66,7 +61,7 @@ std::string TextBoxWidget::GetInfoString() {
 }
 
 void TextBoxWidget::updateInFocus() {
-    for (auto &lineKey : lineKeys) {
+    for (auto &lineKey: lineKeys) {
         if (widgetData->keyUpdated(lineKey)) {
             customUpdate();
             return;
@@ -129,7 +124,7 @@ void TextBoxWidget::parseXml(const RobotGui::WidgetConfig_ptr &parentConfig, rap
 }
 
 void TextBoxWidget::outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) {
-    for(auto & lineConfig : configInfo->lines) {
+    for (auto &lineConfig: configInfo->lines) {
         rapidxml::xml_node<> *line = doc->allocate_node(rapidxml::node_element, RobotGui::Xml::LINE_TAG);
         node->append_node(line);
         line->append_attribute(doc->allocate_attribute(RobotGui::Xml::LABEL_ATR, lineConfig[0].c_str()));

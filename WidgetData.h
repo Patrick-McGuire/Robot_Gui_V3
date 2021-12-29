@@ -21,44 +21,12 @@
  */
 class WidgetData {
 public:
-    /**
-     * This contains all possible data types that can be stored in WidgetData
-     */
-//    enum internalJsonTypes {
-//        int_t,
-//        double_t,
-//        bool_t,
-//        string_t,
-//        vector_t,
-//        map_t,
+//    enum Types {
+//        json_t,
 //        img_t,
 //        none_t,
 //    };
-    enum Types {
-        json_t,
-        img_t,
-        none_t,
-    };
 
-    /**
-     * Stores json data for a key
-     * Self referencing
-     */
-//    struct internalJSON {
-//        internalJsonTypes type = none_t;
-//        union {                             // Only one of these can be used at a time, so no need to waste memory
-//            int intVal = 0;
-//            double doubleVal;
-//            bool boolVal;
-//        };
-//        std::string stringVal;
-//        std::vector<std::shared_ptr<internalJSON>> vector;
-//        std::map<std::string, std::shared_ptr<internalJSON>> map;
-//    };
-    /**
-     * std::shared_ptr for internalJSON
-     */
-//    typedef std::shared_ptr<internalJSON> internalJSON_ptr;
 
     //// Output ////
     /**
@@ -153,10 +121,11 @@ public:
      * @param key
      * @return data type <string>
      */
-    Types getKeyType(const std::string &key) {
-        std::lock_guard<std::mutex> lockGuard(imgMapMutex);
+    InternalJson::Types getJsonKeyType(const std::string &key) {
+//        std::lock_guard<std::mutex> lockGuard(imgMapMutex);
         std::lock_guard<std::mutex> lockGuard2(jsonMapMutex);
-        return imgMap.count(key) != 0 ? img_t : jsonMap.count(key) != 0 ? json_t : none_t;
+        return jsonMap.count(key) != 0 ? jsonMap[key]->getType() : InternalJson::none_t;
+//        return imgMap.count(key) != 0 ? img_t : jsonMap.count(key) != 0 ? json_t : none_t;
     }
 
     /**
@@ -197,6 +166,16 @@ public:
     bool imgExits(const std::string &key) {
         std::lock_guard<std::mutex> lockGuard(imgMapMutex);
         return imgMap.count(key) != 0;
+    }
+
+    /**
+     * Returns if a key corresponds to a json
+     * @param key key to check
+     * @return if key exists
+     */
+    bool jsonExists(const std::string &key) {
+        std::lock_guard<std::mutex> lockGuard(jsonMapMutex);
+        return jsonMap.count(key) != 0;
     }
 
     /**

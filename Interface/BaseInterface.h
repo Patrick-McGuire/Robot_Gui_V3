@@ -32,7 +32,7 @@ public:
      * @param key
      * @return data type <string>
      */
-    WidgetData::Types getKeyType(const std::string &key);
+    InternalJson::Types getJsonKeyType(const std::string &key);
 
     /**
      * Returns if the GUI is active

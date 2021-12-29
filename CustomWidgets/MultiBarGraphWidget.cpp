@@ -40,10 +40,10 @@ void MultiBarGraphWidget::updateInFocus() {
         auto subGraph = subGraphVector[i];
 
         if (widgetData->keyUpdated(key)) {
-            if (widgetData->getKeyType(key) == WidgetData::json_t && widgetData->getJSON(key)->getType() == InternalJson::int_t) {
+            if (widgetData->getJsonKeyType(key) == InternalJson::int_t) {
                 subGraph->setValue(widgetData->getInt(key));
                 subGraph->update();
-            } else if (widgetData->getKeyType(key) == WidgetData::json_t && widgetData->getJSON(key)->getType() == InternalJson::double_t) {
+            } else if (widgetData->getJsonKeyType(key) == InternalJson::double_t) {
                 subGraph->setValue(widgetData->getDouble(key));
                 subGraph->update();
             }

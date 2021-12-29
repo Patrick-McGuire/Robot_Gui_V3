@@ -39,10 +39,10 @@ void DataInput::parseJson(const char *input, int len) {
     doc.Parse(input);
     for (rapidjson::Value::MemberIterator M = doc.MemberBegin(); M != doc.MemberEnd(); M++) {
         std::string keyName = M->name.GetString();
-        auto currentKeyType = widgetData->getKeyType(keyName);
+        auto currentKeyType = widgetData->getJsonKeyType(keyName);
         auto json = widgetData->getJSON(keyName);
         parseArray(&doc[keyName.data()], json);
-        if (currentKeyType == WidgetData::img_t || currentKeyType == WidgetData::none_t) {
+        if (currentKeyType == InternalJson::none_t) {
             widgetData->setJSON(keyName, json);
         } else {
             widgetData->setKeyUpdated(keyName);

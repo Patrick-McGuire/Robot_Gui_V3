@@ -8,8 +8,8 @@ void BaseInterface::setWidgetData(WidgetData *_widgetData) {
     widgetData = _widgetData;
 }
 
-WidgetData::Types BaseInterface::getKeyType(const std::string &key) {
-    return widgetData->getKeyType(key);
+InternalJson::Types BaseInterface::getJsonKeyType(const std::string &key) {
+    return widgetData->getJsonKeyType(key);
 }
 
 bool BaseInterface::isActive() {
@@ -25,10 +25,10 @@ void BaseInterface::setJSON(const std::string &key, const InternalJson::SharedPt
 }
 
 void BaseInterface::setBool(const std::string &key, bool val) {
-    auto currentKeyType = widgetData->getKeyType(key);
+    auto currentKeyType = widgetData->getJsonKeyType(key);
     auto json = widgetData->getJSON(key);
     json->setBool(val);
-    if(currentKeyType == WidgetData::img_t || currentKeyType == WidgetData::none_t) {
+    if(currentKeyType == InternalJson::none_t) {
         widgetData->setJSON(key, json);
     } else {
         widgetData->setKeyUpdated(key);
@@ -36,10 +36,10 @@ void BaseInterface::setBool(const std::string &key, bool val) {
 }
 
 void BaseInterface::setInt(const std::string &key, int val) {
-    auto currentKeyType = widgetData->getKeyType(key);
+    auto currentKeyType = widgetData->getJsonKeyType(key);
     auto json = widgetData->getJSON(key);
     json->setInt(val);
-    if(currentKeyType == WidgetData::img_t || currentKeyType == WidgetData::none_t) {
+    if(currentKeyType == InternalJson::none_t) {
         widgetData->setJSON(key, json);
     } else {
         widgetData->setKeyUpdated(key);
@@ -47,10 +47,10 @@ void BaseInterface::setInt(const std::string &key, int val) {
 }
 
 void BaseInterface::setDouble(const std::string &key, double val) {
-    auto currentKeyType = widgetData->getKeyType(key);
+    auto currentKeyType = widgetData->getJsonKeyType(key);
     auto json = widgetData->getJSON(key);
     json->setDouble(val);
-    if(currentKeyType == WidgetData::img_t || currentKeyType == WidgetData::none_t) {
+    if(currentKeyType == InternalJson::none_t) {
         widgetData->setJSON(key, json);
     } else {
         widgetData->setKeyUpdated(key);
@@ -58,10 +58,10 @@ void BaseInterface::setDouble(const std::string &key, double val) {
 }
 
 void BaseInterface::setString(const std::string &key, const std::string &val) {
-    auto currentKeyType = widgetData->getKeyType(key);
+    auto currentKeyType = widgetData->getJsonKeyType(key);
     auto json = widgetData->getJSON(key);
     json->setString(val);
-    if(currentKeyType == WidgetData::img_t || currentKeyType == WidgetData::none_t) {
+    if(currentKeyType == InternalJson::none_t) {
         widgetData->setJSON(key, json);
     } else {
         widgetData->setKeyUpdated(key);
