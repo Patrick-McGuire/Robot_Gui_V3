@@ -40,6 +40,7 @@ set(interface_files
         Interface/RandomDataInterface.cpp Interface/RandomDataInterface.h
         Interface/WebcamStreamInterface.cpp
         Interface/LocalServer.cpp
+        Interface/FlagCheckerInterface.cpp Interface/FlagCheckerInterface.h
         )
 
 set(core_files
@@ -50,6 +51,7 @@ set(core_files
         CoreGui.cpp CoreGui.h
         Theme.cpp Theme.h
         CommonFunctions.cpp CommonFunctions.h
+        InternalJson.cpp InternalJson.h
         CustomJSONStructure.h)
 
 set(all_gui_files
@@ -59,7 +61,7 @@ set(all_gui_files
         ${networking_files}
         ${interface_files}
         ${xml_interface_files}
-        ${core_files} Interface/FlagCheckerInterface.cpp Interface/FlagCheckerInterface.h InternalJson.cpp InternalJson.h)
+        ${core_files})
 
 add_executable(Robot_Gui_V3 main.cpp ${all_gui_files})
 set(SOURCE_FILES main.cpp)
@@ -67,9 +69,10 @@ include_directories(/usr/include/)
 
 find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
 find_package(Qt5Network REQUIRED)
+find_package(Qt5Charts REQUIRED)
 find_package(OpenCV REQUIRED)
 
-target_link_libraries(Robot_Gui_V3 Qt5::Core Qt5::Widgets Qt5::Network)
+target_link_libraries(Robot_Gui_V3 Qt5::Core Qt5::Widgets Qt5::Network Qt5::Charts)
 target_link_libraries(Robot_Gui_V3 stdc++fs)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")

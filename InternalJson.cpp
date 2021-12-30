@@ -276,3 +276,77 @@ void InternalJson::mapSet(const std::string &key, const InternalJson::SharedPtr 
     map[key] = val;
 }
 
+InternalJson::SharedPtr InternalJson::create(const char *buf) {
+    rapidjson::Document doc;
+    doc.Parse(buf);
+    return create(&doc);
+}
+
+InternalJson::SharedPtr InternalJson::create(rapidjson::Document *doc) {
+    SharedPtr rtn = create(map_t);
+    for (rapidjson::Value::MemberIterator M = doc->MemberBegin(); M != doc->MemberEnd(); M++) {
+        std::string keyName = M->name.GetString();
+        SharedPtr json = rtn->mapGetOrAdd(keyName);
+        rtn->parseSuperimpose(&M->value, json);
+    }
+    return rtn;
+}
+
+void InternalJson::parseSuperimpose(const char *buf) {
+    rapidjson::Document doc;
+    doc.Parse(buf);
+    parseSuperimpose(&doc);
+}
+
+void InternalJson::parseSuperimpose(rapidjson::Document *doc) {
+    for (rapidjson::Value::MemberIterator M = doc->MemberBegin(); M != doc->MemberEnd(); M++) {
+        std::string keyName = M->name.GetString();
+        SharedPtr json = mapGetOrAdd(keyName);
+        parseSuperimpose(&M->value, json);
+    }
+}
+
+void InternalJson::parseSuperimpose(rapidjson::Value *value, const InternalJson::SharedPtr &json) {
+    if (value->IsBool()) {
+        json->setBool(value->GetBool());
+    } else if (value->IsInt()) {
+        json->setInt(value->GetInt());
+    } else if (value->IsDouble()) {
+        json->setDouble(value->GetDouble());
+    } else if (value->IsString()) {
+        json->setString(value->GetString());
+    } else if (value->IsArray()) {
+        json->setType(InternalJson::vector_t);
+        auto array = value->GetArray();
+        int count = 0;
+        for (rapidjson::Value::ConstValueIterator itr = array.Begin(); itr != array.End(); ++itr, count++) {
+            InternalJson::SharedPtr eleJson;
+            if (count < json->vectorSize()) {
+                eleJson = json->vectorGet(count);
+            } else {
+                eleJson = InternalJson::create();
+                json->vectorAppend(eleJson);
+            }
+            parseSuperimpose(&array[count], eleJson);
+        }
+        while (json->vectorSize() > count) {
+            json->vectorPop();
+        }
+    } else if (value->IsObject()) {
+        json->setType(InternalJson::map_t);
+        auto obj = value->GetObject();
+        rapidjson::Value::MemberIterator M;
+        for (M = obj.MemberBegin(); M != obj.MemberEnd(); M++) {
+            std::string name = M->name.GetString();
+            InternalJson::SharedPtr eleJson;
+            if (json->mapCount(name) != 0) {
+                eleJson = json->mapGet(name);
+            } else {
+                eleJson = InternalJson::create();
+                json->mapSet(name, eleJson);
+            }
+            parseSuperimpose(&obj[M->name], eleJson);
+        }
+    }
+}
+

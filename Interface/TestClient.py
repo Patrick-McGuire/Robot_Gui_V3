@@ -87,7 +87,7 @@ if __name__ == '__main__':
             # JSON
             if random.randint(0, 100) > 85:
                 boolean = not boolean
-            # passDict["KEY1"] = random.randint(0, 100)
+            passDict["KEY1"] = random.randint(0, 100)
             passDict["KEY2"] = random.randint(0, 100) / 10
             passDict["KEY3"] = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
             passDict["KEY4"] = boolean

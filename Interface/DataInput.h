@@ -43,13 +43,6 @@ private:
      */
     void parseImg(char *input, int len);
 
-    /**
-     * Writes the output data to a given socket
-     * @param returnType what data to return
-     * @param socket socket to write to
-     */
-    void parseArray(rapidjson::Value *value, const InternalJson::SharedPtr &json);
-
     union LengthConverter {
         std::int32_t length;
         std::uint8_t bytes[4];

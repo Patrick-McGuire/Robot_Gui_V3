@@ -52,6 +52,20 @@ public:
     static SharedPtr create(Types _type);
 
     /**
+     * Parses a JSON string into a new InternalJson Object
+     * @param buf buffer to parse from
+     * @return std::shared_ptr a new Object
+     */
+    static SharedPtr create(const char *buf);
+
+    /**
+     * Turns a rapidjson document into a new InternalJson Object
+     * @param doc rapidjson document
+     * @return std::shared_ptr a new Object
+     */
+    static SharedPtr create(rapidjson::Document *doc);
+
+    /**
      * Creates a std::shared_ptr to a new InternalJson Object
      * @param val initial json value
      * @return std::shared_ptr a new Object
@@ -231,6 +245,19 @@ public:
      */
     void print();
 
+    /**
+     * Parses a json string on top of this object
+     * Overwrites any values in the buf, but leaves any that aren't
+     * @param buf buffer to parse
+     */
+    void parseSuperimpose(const char *buf);
+
+    /**
+     * Parses a rapidjson document on top of this object
+     * Overwrites any values in the object, but leaves any that aren't
+     * @param doc rapidjson document
+     */
+    void parseSuperimpose(rapidjson::Document *doc);
 
 private:
     /**
@@ -287,6 +314,13 @@ private:
      * @param val default value
      */
     void print(bool first);
+
+    /**
+     * Recursively parses json values
+     * @param value value to parse
+     * @param json InternalJson object to parse into
+     */
+    static void parseSuperimpose(rapidjson::Value *value, const InternalJson::SharedPtr &json);
 
     // Tracks what type of JSON object this is
     Types type;
