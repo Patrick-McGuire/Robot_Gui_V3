@@ -78,6 +78,7 @@ public:
      */
     void clearOutputFlag(const std::string &key);
 
+    void setMap(const std::string &key, const InternalJson::SharedPtr& val);
 
     /**
      * Sets a boolean in the json map

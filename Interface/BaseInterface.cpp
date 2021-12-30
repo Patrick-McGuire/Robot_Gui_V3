@@ -56,3 +56,8 @@ void BaseInterface::setString(const std::string &key, const std::string &val) {
     widgetData->getJson()->mapGetOrAdd(key)->setString(val);
     widgetData->setKeyUpdated(key);
 }
+
+void BaseInterface::setMap(const std::string &key, const InternalJson::SharedPtr& val) {
+    widgetData->getJson()->mapSet(key, val);
+    widgetData->setKeyUpdated(key);
+}

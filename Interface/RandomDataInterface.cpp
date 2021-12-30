@@ -10,6 +10,7 @@ void RandomDataInterface::run() {
     double j = 0;
 
     ConsoleJSONStruct console(10);
+    DropDownTextBoxJSONStruct dropDown;
 
     while (isActive()) {
         setInt("KEY1", rand() % 10);
@@ -32,18 +33,25 @@ void RandomDataInterface::run() {
         for (int k = 0; k < 5; k++) {
             annunciator.addAnnunciator(std::to_string(k) + " " + std::to_string(i), int((j / 20.0) + k) % 4, "description");
         }
-//        setJSON("annunciator", annunciator.getStruct());
-//        setJSON("annunciator_2", annunciator.getStruct());
-        getJson()->mapSet("annunciator", annunciator.getStruct());
-        getJson()->mapSet("annunciator_2", annunciator.getStruct());
+
+        setMap("annunciator", annunciator.getStruct());
+        setMap("annunciator_2", annunciator.getStruct());
 
         console.addLog("AAA " + std::to_string(j), int(j / 20.0) % 3);
-//        setJSON("testarray", console.getStruct());
-        getJson()->mapSet("testarray", console.getStruct());
+        setMap("testarray", console.getStruct());
+
 
         setBool("allowedToArm", i >= 100);
         setBool("armed", i >= 200);
         setInt("status", int((float(i) / 360.0) * 3));
+
+        dropDown.addLine("test1", "aaa", "bbb", 0);
+        dropDown.addLine("test1", "ccc", "ddd", 1);
+        dropDown.addLine("test2", "test", std::to_string(i), 0);
+        dropDown.addLine("test2", "test1aaaa", "bbb" + std::to_string(i), 1);
+        dropDown.addLine("test2", "t2", "aaa" + std::to_string(i), 2);
+        dropDown.addLine("test2", "test3", std::to_string(i), 3);
+        setMap("diagnostics_agg", dropDown.getStruct());
 
         std::this_thread::sleep_for(std::chrono::milliseconds(interval));
 

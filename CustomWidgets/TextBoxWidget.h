@@ -2,11 +2,14 @@
 #define ROBOT_GUI_V3_TEXTBOXWIDGET_H
 
 #include "BaseWidget.h"
+
 #include <QWidget>
 #include <QLabel>
 #include <string>
 #include <QGridLayout>
 #include <string>
+
+#include "WidgetParts/LineTextDisplay.h"
 #include "../WidgetData.h"
 #include "../RobotGui.h"
 #include "../Theme.h"
@@ -43,12 +46,6 @@ public:
 
 private:
     /**
-     * Returns the string for the text box based on widgetData
-     * @return string to display
-     */
-    std::string GetInfoString();
-
-    /**
      * Update the widget when in focus
      */
     void updateInFocus() override;
@@ -74,7 +71,7 @@ private:
      */
     void customUpdateStyle() override;
 
-    QLabel *textBox;
+    LineTextDisplay *textBox;
     QLabel *titleBox;
     QGridLayout *layout;
     std::vector<std::string> lineKeys;
