@@ -4,6 +4,7 @@
 #include <map>
 #include "RobotGui.h"
 #include <vector>
+#include <QtGui/QImage>
 #include "opencv2/opencv.hpp"
 #include "rapidjson/rapidjson.h"
 #include "rapidjson/document.h"
@@ -141,6 +142,10 @@ public:
         return imgMap[key];
     }
 
+    QImage getImageAsQImage(const std::string &key) {
+        auto img = getImg(key);
+        return QImage((uchar *) img.data, img.cols, img.rows, img.step, QImage::Format_ARGB32);
+    }
 
     /**
      * Sets a img

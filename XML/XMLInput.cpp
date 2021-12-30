@@ -89,6 +89,9 @@ RobotGui::WidgetConfig_ptr XMLInput::parseWidget(rapidxml::xml_node<> *node) {
             newWidgetStruct->textColor = attrVal;
         } else if (attrName == RobotGui::Xml::HEADER_COLOR_ATR) {
             newWidgetStruct->headerColor = attrVal;
+        } else if (attrName == RobotGui::Xml::TRANSPARENT_ATTRIBUTE) {
+            newWidgetStruct->backgroundColor = "none";
+            newWidgetStruct->borderColor = "transparent";
         } else if (attrName == RobotGui::Xml::FONT_SIZE_ATR) {
             if (isConstant(attrVal)) {                                                   // Check if it is one of a few constant types (ie auto, max, min)
                 newWidgetStruct->fontSize = getConstVal(attrVal);
@@ -195,5 +198,8 @@ void XMLInput::setDefaults(const RobotGui::WidgetConfig_ptr &widgetConfig) {
     }
     if (widgetConfig->foregroundColor.empty()) {
         widgetConfig->foregroundColor = RobotGui::Xml::THEME_CONST;
+    }
+    if (widgetConfig->borderColor.empty()) {
+        widgetConfig->borderColor = RobotGui::Xml::THEME_CONST;
     }
 }

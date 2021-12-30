@@ -29,7 +29,6 @@ DropDownTextBoxWidget::DropDownTextBoxWidget(QWidget *parent, const RobotGui::Wi
 void DropDownTextBoxWidget::updateInFocus() {
     if (widgetData->keyUpdated(configInfo->source)) {
         auto pages = widgetData->getJson()->mapGet(configInfo->source);
-        pages->print();
         if (pages->getType() == InternalJson::map_t) {
             std::string currentSelection = selectionBox->currentText().toStdString();
 

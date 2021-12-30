@@ -41,6 +41,7 @@ namespace RobotGui {
     const char *const COMPLETE_CONSOLE_WIDGET_STRID = "completeConsole";
     const char *const MISSION_STATUS_WIDGET_STRID = "missionStatusWidget";
     const char *const DROP_DOWN_TEXT_BOX_WIDGET_STRID = "dropDownTextBox";
+    const char *const COMPASS_WIDGET_STRID = "compass";
     // AppConfig consts
     const char *const APP_CONFIG_FILE_PATH = "/.config/RobotGUI";
     const char *const APP_CONFIG_FILE_NAME = "/RobotGUI_Settings.csv";
@@ -84,6 +85,7 @@ namespace RobotGui {
         const char *const COLUMN_NUMBER_ATTRIBUTE = "column_number";
         const char *const SOURCE_ATTRIBUTE = "source";
         const char *const SIZE_ATTRIBUTE = "size";
+        const char *const TRANSPARENT_ATTRIBUTE = "transparent"; //For backwards compatibility
         // Style attributes
         const char *const FONT_ATR = "font";
         const char *const BACKGROUND_COLOR_ATR = "background";
@@ -146,6 +148,7 @@ namespace RobotGui {
         std::string relief;
         std::string textColor;
         std::string headerColor;
+        std::string borderColor;
         int fontSize;
         int borderWidth;
         /////// Widget specific ///////
