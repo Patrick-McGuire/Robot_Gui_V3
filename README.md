@@ -7,3 +7,5 @@ Dependencies:
 Qt5
 rapidjson
 opencv
+
+  sudo apt install libqt5charts5-dev
