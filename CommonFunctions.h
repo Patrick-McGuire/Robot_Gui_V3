@@ -52,6 +52,8 @@ namespace CommonFunctions {
     std::string GenerateDarkerColor(const std::string &input_color, int delta);
 
     std::string GetContrastingTextColor(const std::string &background_color);
+
+    double getEpochTime();
 };
 
 #endif //ROBOT_GUI_V3_COMMONFUNCTIONS_H

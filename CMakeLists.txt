@@ -61,7 +61,7 @@ set(all_gui_files
         ${networking_files}
         ${interface_files}
         ${xml_interface_files}
-        ${core_files})
+        ${core_files} CustomWidgets/LivePlotWidget.cpp CustomWidgets/LivePlotWidget.h)
 
 add_executable(Robot_Gui_V3 main.cpp ${all_gui_files})
 set(SOURCE_FILES main.cpp)

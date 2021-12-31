@@ -12,7 +12,17 @@ void RandomDataInterface::run() {
     ConsoleJSONStruct console(10);
     DropDownTextBoxJSONStruct dropDown;
 
+    double lastThing = 0;
+    bool sign = false;
+
     while (isActive()) {
+        if(rand() % 1000 < 20) {
+            sign = !sign;
+        }
+        lastThing += ((rand() % 100) / 35) * (sign ? -1 : 1);
+        setDouble("KEY5", lastThing);
+
+
         setInt("KEY1", rand() % 10);
         setDouble("KEY2", (double) (rand() % 100) / 10);
         setString("KEY3", randomString(rand() % 10));

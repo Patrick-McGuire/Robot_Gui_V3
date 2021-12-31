@@ -6,6 +6,7 @@
 #include <sstream>
 #include <iomanip>
 #include "CommonFunctions.h"
+#include "chrono"
 
 
 //Clamps a value between a min and max value
@@ -178,4 +179,8 @@ std::string CommonFunctions::GetContrastingTextColor(const std::string &backgrou
     } else {
         return "rgb(255,255,255)";
     }
+}
+
+double CommonFunctions::getEpochTime() {
+    return (double) std::chrono::duration_cast<std::chrono::milliseconds> (std::chrono::system_clock::now().time_since_epoch()).count() / 1000;
 }

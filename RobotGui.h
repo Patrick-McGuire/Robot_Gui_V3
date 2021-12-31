@@ -41,6 +41,7 @@ namespace RobotGui {
     const char *const COMPLETE_CONSOLE_WIDGET_STRID = "completeConsole";
     const char *const MISSION_STATUS_WIDGET_STRID = "missionStatusWidget";
     const char *const DROP_DOWN_TEXT_BOX_WIDGET_STRID = "dropDownTextBox";
+    const char *const LIVE_PLOT_WIDGET_STRID = "livePlot";
     // AppConfig consts
     const char *const APP_CONFIG_FILE_PATH = "/.config/RobotGUI";
     const char *const APP_CONFIG_FILE_NAME = "/RobotGUI_Settings.csv";
@@ -84,6 +85,10 @@ namespace RobotGui {
         const char *const COLUMN_NUMBER_ATTRIBUTE = "column_number";
         const char *const SOURCE_ATTRIBUTE = "source";
         const char *const SIZE_ATTRIBUTE = "size";
+        const char *const UPDATE_RATE_ATR = "updateRate";
+        const char *const RANGE_MIN_ATR = "rangeMin";
+        const char *const RANGE_MAX_ATR = "rangeMax";
+        const char *const TIME_RANGE_ATR = "timeRange";
         // Style attributes
         const char *const FONT_ATR = "font";
         const char *const BACKGROUND_COLOR_ATR = "background";
@@ -111,6 +116,8 @@ namespace RobotGui {
         const int THEME_CONST_ID = -3;
         const char *const NONE_CONST = "none";
         const int NONE_CONST_ID = -4;
+        const char *const CUSTOM_CONST = "custom";
+        const int CUSTOM_CONST_ID = -5;
     }
 
     //// Configuration data for widgets ////
@@ -137,6 +144,8 @@ namespace RobotGui {
         bool hidden;
         bool draggable;
         bool staticPos;
+        double maximum;
+        double minimum;
         std::string source;
         std::map<std::string, std::string> sourceMap;
         ////// Style //////
@@ -159,6 +168,10 @@ namespace RobotGui {
         // Annunciator Panel
         int rowNumber;
         int columnNumber;
+        // Graph
+        std::string rangeMin;
+        std::string rangeMax;
+        double timeRange;
     };
     typedef std::shared_ptr<WidgetConfig> WidgetConfig_ptr;
     // Window configuration data
@@ -167,6 +180,7 @@ namespace RobotGui {
         std::string theme;
         int height;
         int width;
+        int updateRate;
         WidgetConfig_ptr firstChild;
     };
     typedef std::shared_ptr<WindowConfig> WindowConfig_ptr;

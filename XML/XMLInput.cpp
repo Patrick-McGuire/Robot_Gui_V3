@@ -1,5 +1,5 @@
 #include "XMLInput.h"
-
+#include "../CustomWidgets/LivePlotWidget.h"
 #define strFailed -9123931      // Random
 
 RobotGui::WindowConfig_ptr XMLInput::parse(const char *filename) {
@@ -77,6 +77,10 @@ RobotGui::WidgetConfig_ptr XMLInput::parseWidget(rapidxml::xml_node<> *node) {
             newWidgetStruct->sourceMap[attrName] = attrVal;
         } else if (attrName == RobotGui::Xml::SIZE_ATTRIBUTE) {
             newWidgetStruct->size = std::atoi(attrVal.c_str());
+        } else if (attrName == RobotGui::Xml::RANGE_MIN_ATR) {
+            newWidgetStruct->rangeMin = attrVal;
+        } else if (attrName == RobotGui::Xml::RANGE_MAX_ATR) {
+            newWidgetStruct->rangeMax = attrVal;
         } else if (attrName == RobotGui::Xml::BACKGROUND_COLOR_ATR) {
             newWidgetStruct->backgroundColor = attrVal;
         } else if (attrName == RobotGui::Xml::FOREGROUND_COLOR_ATR) {
@@ -103,6 +107,27 @@ RobotGui::WidgetConfig_ptr XMLInput::parseWidget(rapidxml::xml_node<> *node) {
                 tempVal = safeStoi(attrVal);
                 newWidgetStruct->borderWidth = tempVal != strFailed ? tempVal : RobotGui::Xml::AUTO_CONST_ID;         // If conversion failed return the "auto" id so the GUI can still be created
             }
+        } else if (attrName == RobotGui::Xml::TIME_RANGE_ATR) {
+            if (isConstant(attrVal)) {                                                   // Check if it is one of a few constant types (ie auto, max, min)
+                newWidgetStruct->timeRange = getConstVal(attrVal);
+            } else {
+                tempVal = safeStoi(attrVal);
+                newWidgetStruct->timeRange = tempVal != strFailed ? tempVal : 10;         // If conversion failed return the "auto" id so the GUI can still be created
+            }
+        } else if (attrName == RobotGui::Xml::MAXIMUM_ATR) {
+            if (isConstant(attrVal)) {                                                   // Check if it is one of a few constant types (ie auto, max, min)
+                newWidgetStruct->maximum = getConstVal(attrVal);
+            } else {
+                tempVal = safeStoi(attrVal);
+                newWidgetStruct->maximum = tempVal != strFailed ? tempVal : RobotGui::Xml::AUTO_CONST_ID;         // If conversion failed return the "auto" id so the GUI can still be created
+            }
+        } else if (attrName == RobotGui::Xml::MINIMUM_ATR) {
+            if (isConstant(attrVal)) {                                                   // Check if it is one of a few constant types (ie auto, max, min)
+                newWidgetStruct->minimum = getConstVal(attrVal);
+            } else {
+                tempVal = safeStoi(attrVal);
+                newWidgetStruct->minimum = tempVal != strFailed ? tempVal : RobotGui::Xml::AUTO_CONST_ID;         // If conversion failed return the "auto" id so the GUI can still be created
+            }
         }
     }
 
@@ -117,6 +142,8 @@ RobotGui::WidgetConfig_ptr XMLInput::parseWidget(rapidxml::xml_node<> *node) {
         SimpleButtonWidget::parseXml(newWidgetStruct, node);
     } else if (newWidgetStruct->type == RobotGui::MULTI_BAR_GRAPH_STRID) {
         MultiBarGraphWidget::parseXml(newWidgetStruct, node);
+    } else if (newWidgetStruct->type == RobotGui::LIVE_PLOT_WIDGET_STRID) {
+        LivePlotWidget::parseXml(newWidgetStruct, node);
     }
 
     setDefaults(newWidgetStruct);
@@ -148,12 +175,20 @@ void XMLInput::parseWidowNode(const RobotGui::WindowConfig_ptr &windowConfig, ra
                 tempVal = safeStoi(attrVal);
                 windowConfig->width = tempVal != strFailed ? tempVal : RobotGui::Xml::AUTO_CONST_ID;         // If conversion failed return the "auto" id so the GUI can still be created
             }
+        } else if (attrName == RobotGui::Xml::UPDATE_RATE_ATR) {
+            if (isConstant(attrVal)) {                                                   // Check if it is one of a few constant types (ie auto, max, min)
+                windowConfig->updateRate = getConstVal(attrVal);
+            } else {
+                tempVal = safeStoi(attrVal);
+                windowConfig->updateRate = tempVal != strFailed ? tempVal : RobotGui::Xml::AUTO_CONST_ID;         // If conversion failed return the "auto" id so the GUI can still be created
+            }
         }
     }
 }
 
 bool XMLInput::isConstant(const std::string &val) {
-    return val == RobotGui::Xml::MAX_CONST || val == RobotGui::Xml::AUTO_CONST;
+    return val == RobotGui::Xml::MAX_CONST || val == RobotGui::Xml::AUTO_CONST || val == RobotGui::Xml::THEME_CONST || val == RobotGui::Xml::NONE_CONST
+           || val == RobotGui::Xml::CUSTOM_CONST;
 }
 
 int XMLInput::getConstVal(const std::string &val) {
@@ -165,6 +200,8 @@ int XMLInput::getConstVal(const std::string &val) {
         return RobotGui::Xml::THEME_CONST_ID;
     } else if (val == RobotGui::Xml::NONE_CONST) {
         return RobotGui::Xml::NONE_CONST_ID;
+    } else if (val == RobotGui::Xml::CUSTOM_CONST) {
+        return RobotGui::Xml::CUSTOM_CONST_ID;
     }
     return 0;
 }

@@ -14,6 +14,12 @@ GuiInstance::GuiInstance(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *
     coreGui = _coreGui;
     config = _config;
 
+    if(config->updateRate <= 0) {
+        timerUpdateTime = 33;
+    } else {
+        timerUpdateTime = 1000 / config->updateRate;
+    }
+
     theme = new Theme(config->theme);
 
     // Set up the window
@@ -51,8 +57,8 @@ GuiInstance::GuiInstance(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *
 }
 
 void GuiInstance::setWindowSize() {
-    int width = config->width == RobotGui::Xml::MAX_CONST_ID || config->width == RobotGui::Xml::AUTO_CONST_ID ? QApplication::desktop()->availableGeometry().width() : config->width;
-    int height = config->height == RobotGui::Xml::MAX_CONST_ID || config->height == RobotGui::Xml::AUTO_CONST_ID ? QApplication::desktop()->availableGeometry().height() - 50 : config->height;
+    int width = config->width == RobotGui::Xml::MAX_CONST_ID || config->width == RobotGui::Xml::AUTO_CONST_ID ? QApplication::desktop()->screenGeometry().width() : config->width;
+    int height = config->height == RobotGui::Xml::MAX_CONST_ID || config->height == RobotGui::Xml::AUTO_CONST_ID ? QApplication::desktop()->screenGeometry().height() - 50 : config->height;
     mainWindow->resize(width, height);
 }
 
@@ -101,7 +107,7 @@ WidgetData *GuiInstance::getWidgetData() {
 }
 
 void GuiInstance::save() {
-    // "/home/patrick/Robot_Gui_V3/ExampleXML/TestWrite.xml"
+    return;
     XMLOutput::output(appConfig->getDefaultXmlPath().c_str(), config, coreWidget);
 }
 

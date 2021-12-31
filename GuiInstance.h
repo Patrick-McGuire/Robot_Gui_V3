@@ -103,7 +103,7 @@ private:
      */
     void setWindowSize();
 
-    int timerUpdateTime = 33;
+    int timerUpdateTime;
     Theme *theme;
     QTimer *timer;
     RobotGui::GuiRunState runState;

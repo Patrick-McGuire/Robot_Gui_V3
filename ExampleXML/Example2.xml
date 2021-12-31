@@ -1,15 +1,22 @@
-<window title="Probot Control" theme="Dark" width="max" height="max">
+<window title="Probot Control" theme="Dark" width="max" height="max" updateRate="30">
 	<widget type="tab" title="Dashboard" draggable="false" static="true" background="theme" headerColor="theme" height="max" width="max" x="0" y="0">
 		<tab title="Tab1">
 			<widget type="simpleButton" title="test button" draggable="false" static="false" background="theme" textColor="theme" x="100" y="200" id="simpleButtonOut"/>
 			<widget type="simpleButton" title="Destroy the world" draggable="false" static="false" background="theme" textColor="theme" x="100" y="300" id="button2"/>
-			<widget type="simpleButton" title="Evaporate mars" draggable="false" static="false" background="theme" textColor="theme" x="100" y="400" id="button3"/>
+			<widget type="simpleButton" title="Evaporate mars" draggable="false" static="false" background="theme" textColor="theme" x="100" y="400" id="roll"/>
 			<widget type="video" title="TestVideo" draggable="true" static="false" height="200" width="400" x="942" y="77" id="1"/>
-			<widget type="textBox" title="Power Stats" draggable="true" static="false" background="none" textColor="red" headerColor="theme" x="0" y="0">
+			<widget type="livePlot" title="Power Stats" draggable="true" static="false" background="theme" width="400" height="400" x="0" y="0" timeRange="20">
 				<line label="Thing 1" value="KEY1"/>
-				<line label="Thing 2" value="KEY2"/>
-				<line label="Thing 3" value="KEY3"/>
+<!--				<line label="Thing 2" value="KEY2"/>-->
 				<line label="Thing 4" value="KEY4"/>
+			</widget>
+			<widget type="livePlot" title="Power Stats" draggable="true" static="false" background="theme" width="300" height="300" rangeMax="auto" rangeMin="auto" x="0" y="400" timeRange="5">
+				<line label="roll" value="roll" color="red"/>
+				<line label="random" value="KEY5" color="blue"/>
+			</widget>
+			<widget type="textBox" title="Power Stats" draggable="true" static="false" background="none" textColor="theme" headerColor="theme" x="0" y="800">
+				<line label="roll" value="roll" color="red"/>
+				<line label="random" value="KEY5" color="blue"/>
 			</widget>
 			<widget type="multiBarGraph" title="TestGraph" draggable="true" static="false" x="300" y="300">
 				<line type="SimpleBarGraph" source="roll" title="A" minimum="-20.000000" maximum="20.000000" color="rgb(0,0,255)"/>
