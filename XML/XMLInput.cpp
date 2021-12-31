@@ -89,7 +89,7 @@ RobotGui::WidgetConfig_ptr XMLInput::parseWidget(rapidxml::xml_node<> *node) {
             newWidgetStruct->textColor = attrVal;
         } else if (attrName == RobotGui::Xml::HEADER_COLOR_ATR) {
             newWidgetStruct->headerColor = attrVal;
-        } else if (attrName == RobotGui::Xml::TRANSPARENT_ATTRIBUTE) {
+        } else if (attrName == RobotGui::Xml::TRANSPARENT_ATTRIBUTE && CommonFunctions::LowerCaseString(attrVal) == "true") {
             newWidgetStruct->backgroundColor = "none";
             newWidgetStruct->borderColor = "transparent";
         } else if (attrName == RobotGui::Xml::FONT_SIZE_ATR) {

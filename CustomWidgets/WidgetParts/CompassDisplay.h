@@ -16,8 +16,11 @@ public:
 
     void setSize(int size);
 
+    void setYaw(double yaw);
+
 protected:
     BasicImageDisplay *backgroundImageWidget;
+    BasicImageDisplay *arrowImageWidget;
 };
 
 #endif //ROBOT_GUI_V3_COMPASSDISPLAY_H

@@ -16,3 +16,8 @@ CompassWidget::CompassWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &
 
     adjustSize();
 }
+
+void CompassWidget::updateInFocus() {
+    double yaw = widgetData->getJson()->mapGet(configInfo->source)->getDouble();
+    compassDisplay->setYaw(yaw);
+}

@@ -11,13 +11,21 @@
 
 class BasicImageDisplay : public QLabel {
 public:
-    BasicImageDisplay(QImage _image, int _targetWidth, QWidget *parent = nullptr);
+    BasicImageDisplay(QImage _image, int _targetWidth, int _targetHeight, QWidget *parent = nullptr);
 
-    void setTargetWidth(int _targetWidth);
+    void setTargetDimensions(int _targetWidth, int _targetHeight);
+
+    void setRotation(double _rotation);
+
+    void drawImage();
 
 protected:
     QImage image;
-    int targetWidth;
+    QImage resizedImage;
+
+    int targetWidth = 100;
+    int targetHeight = 100;
+    double rotation = 0;
 };
 
 

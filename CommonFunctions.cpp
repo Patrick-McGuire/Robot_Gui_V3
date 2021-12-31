@@ -127,7 +127,7 @@ std::map<std::string, std::string> CommonFunctions::CreateMapFromString(std::str
  * Gets value from a <string string> map for a given key
  * If that value is not there, returns a default
  */
-std::string CommonFunctions::GetStringFromMap(std::map<std::string, std::string> _map, const std::string& _key, std::string _default_value) {
+std::string CommonFunctions::GetStringFromMap(std::map<std::string, std::string> _map, const std::string &_key, std::string _default_value) {
     if (_map.count(_key)) {
         return _map[_key];
     } else {
@@ -178,4 +178,9 @@ std::string CommonFunctions::GetContrastingTextColor(const std::string &backgrou
     } else {
         return "rgb(255,255,255)";
     }
+}
+
+std::string CommonFunctions::LowerCaseString(std::string input) {
+    std::transform(input.begin(), input.end(), input.begin(), [](unsigned char c) { return std::tolower(c); });
+    return input;
 }

@@ -13,6 +13,8 @@ class CompassWidget : public BaseWidget {
 public:
     CompassWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *theme);
 
+    void updateInFocus() override;
+
 protected:
     CompassDisplay *compassDisplay;
 };
