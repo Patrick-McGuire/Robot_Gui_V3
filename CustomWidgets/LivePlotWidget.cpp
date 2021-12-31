@@ -60,8 +60,6 @@ LivePlotWidget::LivePlotWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr
     top = new QWidget(this);
     top->setFixedSize(configInfo->width, configInfo->height);
 
-    std::cout << configInfo->rangeMin << "\n";
-
     if(!chart->axes(Qt::Vertical).empty()) {
         if (configInfo->rangeMax.empty()) {
             autoRangeMax = true;

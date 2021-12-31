@@ -7,9 +7,9 @@ SimpleButtonWidget::SimpleButtonWidget(QWidget *parent, const RobotGui::WidgetCo
     configurablePos = true;
 
     button = new QPushButton(QString::fromStdString(configInfo->title), this);
+    button->adjustSize();
     adjustSize();
-//    button->setFixedWidth(300);
-//    button->setSizePolicy(QSizePolicy::, QSizePolicy::Expanding);
+    setFixedSize(width() + 5, height() + 5);            // So you can drag
     button->setObjectName(this->objectName() + BUTTON_WIDGET_NAME);
 
     connect(button, SIGNAL(pressed()), this, SLOT(onClick()));

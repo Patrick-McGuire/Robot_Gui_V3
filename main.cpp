@@ -10,8 +10,8 @@ int main(int argc, char** argv) {
     auto gui = new CoreGui(argc, argv, RobotGui::UPDATE_PERIODIC_AND_ON_POST);
 
     // Interfaces
-    RandomDataInterface randomDataInterface(16);
-    WebcamStreamInterface webcamStreamInterface(16);
+    RandomDataInterface randomDataInterface(33);
+    WebcamStreamInterface webcamStreamInterface(33);
     FlagCheckerInterface flagCheckerInterface(100);
     gui->addThreadedInterface(&flagCheckerInterface);
     gui->addThreadedInterface(&randomDataInterface);

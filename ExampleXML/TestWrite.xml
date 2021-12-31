@@ -13,6 +13,18 @@
 				<line label="roll" value="roll" color="red"/>
 				<line label="random" value="KEY5" color="blue"/>
 			</widget>
+			<widget type="livePlot" title="Power Stats" draggable="true" static="false" background="theme" textColor="theme" headerColor="theme" height="300" width="300" x="33" y="138" timeRange="5.000000">
+				<line label="roll" value="roll" color="red"/>
+				<line label="random" value="KEY5" color="blue"/>
+			</widget>
+			<widget type="livePlot" title="Power Stats" draggable="true" static="false" background="theme" textColor="theme" headerColor="theme" height="300" width="300" x="33" y="138" timeRange="5.000000">
+				<line label="roll" value="roll" color="red"/>
+				<line label="random" value="KEY5" color="blue"/>
+			</widget>
+			<widget type="livePlot" title="Power Stats" draggable="true" static="false" background="theme" textColor="theme" headerColor="theme" height="300" width="300" x="33" y="138" timeRange="5.000000">
+				<line label="roll" value="roll" color="red"/>
+				<line label="random" value="KEY5" color="blue"/>
+			</widget>
 			<widget type="textBox" title="Power Stats" draggable="true" static="false" background="none" textColor="theme" headerColor="theme" x="0" y="800">
 				<line label="roll" value="roll"/>
 				<line label="random" value="KEY5"/>
