@@ -10,7 +10,7 @@
 <!--				<line label="Thing 2" value="KEY2"/>-->
 				<line label="Thing 4" value="KEY4"/>
 			</widget>
-			<widget type="livePlot" title="Power Stats" draggable="true" static="false" background="theme" width="300" height="300" rangeMax="auto" rangeMin="auto" x="0" y="400" timeRange="5">
+			<widget type="livePlot" title="Power Stats" draggable="true" static="false" background="theme" width="400" height="300" rangeMax="auto" rangeMin="auto" x="0" y="400" timeRange="5">
 				<line label="roll" value="roll" color="red"/>
 				<line label="random" value="KEY5" color="blue"/>
 			</widget>

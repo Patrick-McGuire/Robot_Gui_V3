@@ -32,7 +32,7 @@ def sendData(dataToSend):
     # while startTime > time.time() - .1:
     try:
         data = s.recv(1024).decode('utf-8')
-        print(data)
+        # print(data)
     #         if data != "":
     #             break
     except (BrokenPipeError, ConnectionResetError):

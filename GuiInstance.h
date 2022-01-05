@@ -48,8 +48,6 @@ public:
 
     /**
      * Set the theme of the GUI
-     * @param _theme theme to set
-     * @param force whether or not to force the theme on all widgets
      */
     void setTheme();
 
@@ -80,12 +78,6 @@ public slots:
      * @param channelAction object contain theme to set
      */
     void updateTheme(QAction *channelAction);
-
-    /**
-     * Forces the theme on to all widgets
-     * @param channelAction object contain theme to set
-     */
-    void forceTheme(QAction *channelAction);
 
     /**
      * Saves the curren config to XML

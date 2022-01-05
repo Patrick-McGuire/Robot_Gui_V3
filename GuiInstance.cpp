@@ -80,13 +80,6 @@ void GuiInstance::updateTheme(QAction *channelAction) {
     setTheme();
 }
 
-void GuiInstance::forceTheme(QAction *channelAction) {
-    theme->setTheme(channelAction->data().toString().toStdString());
-    config->theme = Theme::getThemeName(theme->getTheme());
-    setTheme();
-}
-
-
 void GuiInstance::makeWidgetsDraggable() {
     coreWidget->setDraggability(true);
 }

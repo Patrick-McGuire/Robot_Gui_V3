@@ -9,7 +9,7 @@
 #include "opencv2/opencv.hpp"
 
 /* Notes:
- * Configuration data is stored in usr/<username>/home/.config/GuiInstance
+ * Configuration data is stored in usr/<username>/home/.config/RobotGUI
  * This auto creates the GuiInstance folder + config file when it runs the first time
  * AppConfig data is stored in RobotGUI_Settings.csv in csv format
  */

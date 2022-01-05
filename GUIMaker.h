@@ -22,6 +22,7 @@ public:
      * @param parent parent for the widget
      * @param configInfo configuration info for the widget
      * @param widgetData global WidgetData object
+     * @param theme global theme object
      * @return new custom widget
      */
     static BaseWidget* createWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr& configInfo, WidgetData *widgetData, Theme *theme);
