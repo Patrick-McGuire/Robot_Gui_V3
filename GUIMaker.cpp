@@ -10,8 +10,9 @@
 #include "CustomWidgets/MissionStatusWidget.h"
 #include "CustomWidgets/DropDownTextBoxWidget.h"
 #include "CustomWidgets/LivePlotWidget.h"
+#include "CustomWidgets/CompassWidget.h"
 
-/*
+/**
  * Gets called in tabWidget to create a new subwidgets
  */
 BaseWidget *GUIMaker::createWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *theme) {
@@ -37,6 +38,8 @@ BaseWidget *GUIMaker::createWidget(QWidget *parent, const RobotGui::WidgetConfig
         return new MissionStatusWidget(parent, configInfo, widgetData, theme);
     } else if (configInfo->type == RobotGui::DROP_DOWN_TEXT_BOX_WIDGET_STRID) {
         return new DropDownTextBoxWidget(parent, configInfo, widgetData, theme);
+    } else if (configInfo->type == RobotGui::COMPASS_WIDGET_STRID) {
+        return new CompassWidget(parent, configInfo, widgetData, theme);
     } else if (configInfo->type == RobotGui::LIVE_PLOT_WIDGET_STRID) {
         return new LivePlotWidget(parent, configInfo, widgetData, theme);
     } else {

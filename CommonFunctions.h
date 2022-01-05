@@ -53,6 +53,8 @@ namespace CommonFunctions {
 
     std::string GetContrastingTextColor(const std::string &background_color);
 
+    std::string LowerCaseString(std::string input);
+
     double getEpochTime();
 };
 

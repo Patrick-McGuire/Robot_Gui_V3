@@ -109,7 +109,7 @@ void BaseWidget::updateStyle() {
     widgetBackgroundColor = configInfo->backgroundColor;
     bodyTextColor = configInfo->textColor;
     titleTextColor = configInfo->headerColor;
-    borderColor = "theme";
+    borderColor = configInfo->borderColor;
     // Check background color
     if (backgroundColor == RobotGui::Xml::THEME_CONST) {
         backgroundColor = theme->getBackgroundColor();

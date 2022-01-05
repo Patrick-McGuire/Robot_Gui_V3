@@ -38,6 +38,8 @@ void RandomDataInterface::run() {
         setDouble("j", j);
         setDouble("slowSweep", 1 - float(j) / 180.0);
         setString("missionStatus", "In Mission");
+        setDouble("batteryVoltage", rand());
+        setDouble("current", i);
 
         AnnunciatorJSONStruct annunciator;
         for (int k = 0; k < 5; k++) {

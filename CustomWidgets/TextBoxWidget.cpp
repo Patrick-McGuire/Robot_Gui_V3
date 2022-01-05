@@ -69,7 +69,7 @@ void TextBoxWidget::customUpdate() {
         } else if (jsonVal->getType() == InternalJson::bool_t) {
             second += jsonVal->getBool() ? "True" : "False";
         } else {
-            second += "err";
+            second += "No Data";
         }
 
         textBox->setLine(i, first, second);
