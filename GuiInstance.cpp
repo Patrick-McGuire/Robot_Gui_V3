@@ -37,8 +37,13 @@ GuiInstance::GuiInstance(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *
     //Hardcoded settings tab for first tab widget
     if (true) { //Change this to not always true when you want to switch the settings tab on and off
         auto settingsTabConfig = std::make_shared<RobotGui::WidgetConfig>();
-        //settingsTabConfig->type = "A";
         settingsTabConfig->type = RobotGui::SETTINGS_TAB_STRID;
+        settingsTabConfig->backgroundColor=RobotGui::Xml::THEME_CONST;
+        settingsTabConfig->textColor = RobotGui::Xml::THEME_CONST;
+        settingsTabConfig->headerColor = RobotGui::Xml::THEME_CONST;
+        settingsTabConfig->relief = RobotGui::Xml::THEME_CONST;
+        settingsTabConfig->font = RobotGui::Xml::THEME_CONST;
+        settingsTabConfig->foregroundColor = RobotGui::Xml::THEME_CONST;
 
         std::vector<std::shared_ptr<RobotGui::WidgetConfig>> tabWidgetConfig;
         tabWidgetConfig.push_back(settingsTabConfig);

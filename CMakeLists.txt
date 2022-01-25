@@ -37,7 +37,7 @@ set(widget_type_files
 
 set(widget_part_files
         CustomWidgets/WidgetParts/SimpleBarGraph.cpp CustomWidgets/WidgetParts/BaseGraphDisplay.h
-        CustomWidgets/WidgetParts/CircleBarGraph.cpp CustomWidgets/WidgetParts/CircleBarGraph.h CustomWidgets/WidgetParts/LineTextDisplay.cpp CustomWidgets/WidgetParts/LineTextDisplay.h CustomWidgets/WidgetParts/CompassDisplay.cpp CustomWidgets/WidgetParts/CompassDisplay.h CustomWidgets/WidgetParts/BasicImageDisplay.cpp CustomWidgets/WidgetParts/BasicImageDisplay.h)
+        CustomWidgets/WidgetParts/CircleBarGraph.cpp CustomWidgets/WidgetParts/CircleBarGraph.h CustomWidgets/WidgetParts/LineTextDisplay.cpp CustomWidgets/WidgetParts/LineTextDisplay.h CustomWidgets/WidgetParts/CompassDisplay.cpp CustomWidgets/WidgetParts/CompassDisplay.h CustomWidgets/WidgetParts/BasicImageDisplay.cpp CustomWidgets/WidgetParts/BasicImageDisplay.h CustomWidgets/WidgetParts/SideTabWidget.cpp CustomWidgets/WidgetParts/SideTabWidget.h)
 
 set(interface_files
         Interface/DataInput.cpp Interface/DataInput.h

@@ -9,9 +9,14 @@
 
 #include "../WidgetData.h"
 
+#include "WidgetParts/SideTabWidget.h"
+
 class SettingsTab : public BaseWidget {
 public:
     SettingsTab(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *_theme);
+
+protected:
+    SideTabWidget* sideTabWidget;
 };
 
 
