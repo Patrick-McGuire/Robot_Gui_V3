@@ -16,11 +16,14 @@ TabWidget::TabWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configIn
     tabs = new QTabWidget();
     layout.addWidget(tabs);
     tabs->setObjectName(QString::fromStdString(configInfo->objectName));
-    // Set the size
-    int width = configInfo->width == RobotGui::Xml::MAX_CONST_ID || configInfo->width == RobotGui::Xml::AUTO_CONST_ID ? parent->width() : configInfo->width;
-    int height = configInfo->height == RobotGui::Xml::MAX_CONST_ID || configInfo->height == RobotGui::Xml::AUTO_CONST_ID ? parent->height() : configInfo->height;
-    tabs->setFixedHeight(height);
-    tabs->setFixedWidth(width);
+
+    if (parent != nullptr) {
+        // Set the size
+        int width = configInfo->width == RobotGui::Xml::MAX_CONST_ID || configInfo->width == RobotGui::Xml::AUTO_CONST_ID ? parent->width() : configInfo->width;
+        int height = configInfo->height == RobotGui::Xml::MAX_CONST_ID || configInfo->height == RobotGui::Xml::AUTO_CONST_ID ? parent->height() : configInfo->height;
+        tabs->setFixedHeight(height);
+        tabs->setFixedWidth(width);
+    }
 
     for (int i = 0; i < configInfo->tabNames.size(); i++) {
         // Add new tab to tabWidget and setup it's page

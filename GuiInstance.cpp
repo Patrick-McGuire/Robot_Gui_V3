@@ -38,12 +38,12 @@ GuiInstance::GuiInstance(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *
     if (true) { //Change this to not always true when you want to switch the settings tab on and off
         auto settingsTabConfig = std::make_shared<RobotGui::WidgetConfig>();
         settingsTabConfig->type = RobotGui::SETTINGS_TAB_STRID;
-        settingsTabConfig->backgroundColor=RobotGui::Xml::THEME_CONST;
+        settingsTabConfig->backgroundColor = RobotGui::Xml::THEME_CONST;
         settingsTabConfig->textColor = RobotGui::Xml::THEME_CONST;
         settingsTabConfig->headerColor = RobotGui::Xml::THEME_CONST;
         settingsTabConfig->relief = RobotGui::Xml::THEME_CONST;
         settingsTabConfig->font = RobotGui::Xml::THEME_CONST;
-        settingsTabConfig->foregroundColor = RobotGui::Xml::THEME_CONST;
+        https://www.google.com/imgres?imgurl=https%3A%2F%2Fdocs.qgroundcontrol.com%2Fmaster%2Fassets%2Fsetup%2Fflight_modes_single_channel_px4.jpg&imgrefurl=https%3A%2F%2Fdocs.qgroundcontrol.com%2Fmaster%2Fen%2FSetupView%2FFlightModes.html&tbnid=g-JEb_yaFVMvRM&vet=12ahUKEwjA2Yuz7c31AhUnsHIEHY-0CtYQMygHegUIARC_AQ..i&docid=eT_p4LhrtHudzM&w=1041&h=928&itg=1&q=qgroundcontrol%20settings&ved=2ahUKEwjA2Yuz7c31AhUnsHIEHY-0CtYQMygHegUIARC_AQ      settingsTabConfig->foregroundColor = RobotGui::Xml::THEME_CONST;
 
         std::vector<std::shared_ptr<RobotGui::WidgetConfig>> tabWidgetConfig;
         tabWidgetConfig.push_back(settingsTabConfig);
