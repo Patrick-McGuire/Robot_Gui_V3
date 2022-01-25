@@ -4,7 +4,7 @@
 #include "CommonFunctions.h"
 
 
-GuiInstance::GuiInstance(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appConfig, CoreGui *_coreGui, const RobotGui::WindowConfig_ptr& _config, WidgetData *_widgetData, RobotGui::GuiRunState _runState) : QWidget(_parent) {
+GuiInstance::GuiInstance(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appConfig, CoreGui *_coreGui, const RobotGui::WindowConfig_ptr &_config, WidgetData *_widgetData, RobotGui::GuiRunState _runState) : QWidget(_parent) {
     // Save passed variables
     runState = _runState;
     widgetData = _widgetData;//new WidgetData();
@@ -14,7 +14,7 @@ GuiInstance::GuiInstance(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *
     coreGui = _coreGui;
     config = _config;
 
-    if(config->updateRate <= 0) {
+    if (config->updateRate <= 0) {
         timerUpdateTime = 33;
     } else {
         timerUpdateTime = 1000 / config->updateRate;
@@ -34,18 +34,30 @@ GuiInstance::GuiInstance(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *
     mainWindow->menuBar()->setObjectName("menuBar");
     mainWindow->menuWidget()->setObjectName("menuWidget");
 
+    //Hardcoded settings tab for first tab widget
+    if (true) { //Change this to not always true when you want to switch the settings tab on and off
+        auto settingsTabConfig = std::make_shared<RobotGui::WidgetConfig>();
+        //settingsTabConfig->type = "A";
+        settingsTabConfig->type = RobotGui::SETTINGS_TAB_STRID;
+
+        std::vector<std::shared_ptr<RobotGui::WidgetConfig>> tabWidgetConfig;
+        tabWidgetConfig.push_back(settingsTabConfig);
+        config->firstChild->tabNames.insert(config->firstChild->tabNames.begin(), "Settings");
+        config->firstChild->tabWidgets.insert(config->firstChild->tabWidgets.begin(), tabWidgetConfig);
+    }
+
     // Create the core widget for the GUI
     config->firstChild->objectName = "1";
     coreWidget = GUIMaker::createWidget(parent, config->firstChild, widgetData, theme);
 
     // Create the server that will update data in the GUI
-    if(runState == RobotGui::UPDATE_ON_POST || runState == RobotGui::UPDATE_PERIODIC_AND_ON_POST) {
+    if (runState == RobotGui::UPDATE_ON_POST || runState == RobotGui::UPDATE_PERIODIC_AND_ON_POST) {
         server = new LocalServer(parent, widgetData, this);
         server->StartServer();
     }
 
     // Create a timer to update the GUI
-    if(runState == RobotGui::UPDATE_PERIODIC || runState == RobotGui::UPDATE_PERIODIC_AND_ON_POST) {
+    if (runState == RobotGui::UPDATE_PERIODIC || runState == RobotGui::UPDATE_PERIODIC_AND_ON_POST) {
         qDebug("Starting update timer");
         timer = new QTimer(this);
         connect(timer, SIGNAL(timeout()), this, SLOT(updateGUI()));
@@ -106,7 +118,7 @@ void GuiInstance::save() {
 
 void GuiInstance::saveAs() {
     std::string filePath = QFileDialog::getSaveFileName(mainWindow, "Save as", QString::fromStdString(appConfig->getDefaultXmlPath()), "XML Files (*.xml)").toStdString();
-    if(!filePath.empty()) {
+    if (!filePath.empty()) {
         appConfig->setDefaultXmlPath(filePath);
         appConfig->write();
         XMLOutput::output(filePath.c_str(), config, coreWidget);
