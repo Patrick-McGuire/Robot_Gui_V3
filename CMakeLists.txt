@@ -7,6 +7,12 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
+# Run bash script to finish setup tasks
+execute_process(
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+        COMMAND scripts/compile_helper.bash ${CMAKE_SOURCE_DIR}
+)
+
 set(rapidxml_files
         XML/rapidxml/rapidxml_print.hpp
         XML/rapidxml/rapidxml.hpp
