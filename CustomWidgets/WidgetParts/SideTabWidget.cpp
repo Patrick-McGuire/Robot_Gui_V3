@@ -45,4 +45,12 @@ void SideTabWidget::buttonPressed(const std::string &buttonName) {
     }
 }
 
+void SideTabWidget::setColorStrings(std::string background, std::string textColor, std::string border) {
+    this->setStyleSheet(QString::fromStdString("color: " + textColor + "; background: " + background));
+
+    for (auto &button : tabOptionsList) {
+        button->setStyleSheet(QString::fromStdString("color: " + textColor));
+    }
+}
+
 

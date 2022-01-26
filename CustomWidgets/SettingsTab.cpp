@@ -14,10 +14,11 @@
 SettingsTab::SettingsTab(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
     sideTabWidget = new SideTabWidget();
     sideTabWidget->show();
+    drawBorder = false;
 
     auto layout = new QGridLayout();
     layout->addWidget(sideTabWidget);
-    layout->setMargin(1);
+    layout->setContentsMargins(0, 0, 1, 2);
     setLayout(layout);
 
     addPanel(new InterfaceSettings(nullptr, widgetData, _theme), "Interface Settings");
@@ -33,10 +34,13 @@ void SettingsTab::addPanel(BaseSettingsPanel *new_panel, const std::string &name
 void SettingsTab::updateInFocus() {
     for (auto &panel : settingsPanels) {
         panel->updateData(true);
-    }}
+    }
+}
 
 void SettingsTab::customUpdateStyle() {
     for (auto &panel : settingsPanels) {
         panel->updateStyle();
     }
+
+    sideTabWidget->setColorStrings(backgroundColor, bodyTextColor, borderColor);
 }

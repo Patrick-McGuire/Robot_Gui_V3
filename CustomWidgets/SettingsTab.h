@@ -16,12 +16,12 @@ class SettingsTab : public BaseWidget {
 public:
     SettingsTab(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *_theme);
 
-    void addPanel(BaseSettingsPanel *new_panel, const std::string& name);
+    void addPanel(BaseSettingsPanel *new_panel, const std::string &name);
 
 protected:
-    void updateInFocus() override ;
+    void updateInFocus() override;
 
-    void customUpdateStyle() override ;
+    void customUpdateStyle() override;
 
 protected:
     SideTabWidget *sideTabWidget;

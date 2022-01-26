@@ -5,13 +5,17 @@
 #include "RawDataView.h"
 
 #include "QGridLayout"
+#include "QScrollArea"
 
 
 RawDataView::RawDataView(QWidget *parent, WidgetData *widgetData, Theme *theme) : BaseSettingsPanel(parent, widgetData, theme) {
     lineTextDisplay = new LineTextDisplay();
+    scrollArea = new QScrollArea();
+    scrollArea->setWidget(lineTextDisplay);
+    scrollArea->setStyleSheet("background: transparent");
 
     setLayout(new QGridLayout());
-    layout()->addWidget(lineTextDisplay);
+    layout()->addWidget(scrollArea);
 }
 
 void RawDataView::updateInFocus() {
@@ -19,11 +23,11 @@ void RawDataView::updateInFocus() {
     auto data = widgetData->getJson();
 
     for (int i = 0; i < keys.size() - 1; i++) {
-        lineTextDisplay->setLine(i, keys[i], data->mapGet(keys[i])->toString());
+        lineTextDisplay->setLine(i, keys[i], data->mapGet(keys[i])->toString(false));
     }
-    lineTextDisplay->clearLinesAfterIndex(keys.size() - 1);
+    lineTextDisplay->clearLinesAfterIndex(int(keys.size()) - 1);
 
-    lineTextDisplay->updateDisplayString(false);
+    lineTextDisplay->updateDisplayString(true);
 }
 
 void RawDataView::customUpdateStyle() {

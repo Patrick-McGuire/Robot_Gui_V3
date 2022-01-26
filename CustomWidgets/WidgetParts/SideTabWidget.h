@@ -17,7 +17,9 @@ public:
 
     void addTab(const std::string &tabName, QWidget *tabWidget);
 
-    int getTabIndexFromName(const std::string& tabName);
+    int getTabIndexFromName(const std::string &tabName);
+
+    void setColorStrings(std::string background, std::string textColor, std::string border);
 
 protected:
     void buttonPressed(const std::string &buttonName);

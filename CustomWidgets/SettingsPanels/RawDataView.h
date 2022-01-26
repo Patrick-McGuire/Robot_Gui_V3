@@ -8,6 +8,7 @@
 #include "BaseSettingsPanel.h"
 
 #include <QLabel>
+#include <QScrollArea>
 
 #include "../WidgetParts/LineTextDisplay.h"
 
@@ -17,10 +18,11 @@ public:
 
     void updateInFocus() override;
 
-    void customUpdateStyle() override ;
+    void customUpdateStyle() override;
 
 private:
     LineTextDisplay *lineTextDisplay;
+    QScrollArea *scrollArea;
 };
 
 
