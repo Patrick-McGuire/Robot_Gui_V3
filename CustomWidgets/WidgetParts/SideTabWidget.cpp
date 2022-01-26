@@ -14,7 +14,7 @@ SideTabWidget::SideTabWidget(QWidget *parent) : QWidget(parent) {
     buttonLayout = new QGridLayout();
     main_layout->addLayout(buttonLayout, 0, 0);
     main_layout->addWidget(stackedWidget, 0, 1);
-    main_layout->setMargin(0);
+    main_layout->setMargin(1);
     setLayout(main_layout);
 }
 

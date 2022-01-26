@@ -10,13 +10,23 @@
 #include "../WidgetData.h"
 
 #include "WidgetParts/SideTabWidget.h"
+#include "SettingsPanels/BaseSettingsPanel.h"
 
 class SettingsTab : public BaseWidget {
 public:
     SettingsTab(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *_theme);
 
+    void addPanel(BaseSettingsPanel *new_panel, const std::string& name);
+
 protected:
-    SideTabWidget* sideTabWidget;
+    void updateInFocus() override ;
+
+    void customUpdateStyle() override ;
+
+protected:
+    SideTabWidget *sideTabWidget;
+
+    std::vector<BaseSettingsPanel *> settingsPanels;
 };
 
 

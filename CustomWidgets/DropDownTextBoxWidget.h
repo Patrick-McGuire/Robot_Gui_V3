@@ -19,7 +19,7 @@ public:
 
     void setDropDownItems(std::vector<std::string> keys);
 
-    void customUpdateStyle();
+    void customUpdateStyle() override;
 
 protected:
     QComboBox *selectionBox;

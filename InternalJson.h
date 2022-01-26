@@ -246,6 +246,13 @@ public:
     void print();
 
     /**
+     * Converts object to string
+     */
+    std::string toString() { return toString(true); }
+
+    std::string toString(bool first);
+
+    /**
      * Parses a json string on top of this object
      * Overwrites any values in the buf, but leaves any that aren't
      * @param buf buffer to parse

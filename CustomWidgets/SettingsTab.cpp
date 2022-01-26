@@ -7,20 +7,36 @@
 #include "QGridLayout"
 #include "QLabel"
 
+#include "SettingsPanels/BaseSettingsPanel.h"
+#include "SettingsPanels/InterfaceSettings.h"
+#include "SettingsPanels/RawDataView.h"
+
 SettingsTab::SettingsTab(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
     sideTabWidget = new SideTabWidget();
     sideTabWidget->show();
 
     auto layout = new QGridLayout();
     layout->addWidget(sideTabWidget);
-    layout->setMargin(0);
+    layout->setMargin(1);
     setLayout(layout);
 
-    auto tab1 = new QLabel();
-    auto tab2 = new QLabel();
-    tab1->setText("HI");
-    tab2->setText("AAA");
+    addPanel(new InterfaceSettings(nullptr, widgetData, _theme), "Interface Settings");
+    addPanel(new BaseSettingsPanel(nullptr, widgetData, _theme), "Test Panel");
+    addPanel(new RawDataView(nullptr, widgetData, _theme), "Raw Data View");
+}
 
-    sideTabWidget->addTab("Test1", tab1);
-    sideTabWidget->addTab("Test2", tab2);
+void SettingsTab::addPanel(BaseSettingsPanel *new_panel, const std::string &name) {
+    sideTabWidget->addTab(name, new_panel);
+    settingsPanels.push_back(new_panel);
+}
+
+void SettingsTab::updateInFocus() {
+    for (auto &panel : settingsPanels) {
+        panel->updateData(true);
+    }}
+
+void SettingsTab::customUpdateStyle() {
+    for (auto &panel : settingsPanels) {
+        panel->updateStyle();
+    }
 }
