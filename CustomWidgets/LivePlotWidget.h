@@ -46,6 +46,18 @@ public:
      */
     void outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) override;
 
+
+private slots:
+    /**
+     * Resets the data in the graph
+     */
+    void reset();
+
+    /**
+     * Toggles the pause state of the graph
+     */
+    void pause();
+
 private:
     /**
      * Update the widget when in focus
@@ -68,8 +80,14 @@ private:
      */
     void customUpdateStyle() override;
 
-    void updateGraphData();
+    /**
+     * Updates the graph widget with the data structure
+     */
+    void generateGraph();
 
+    /**
+     * Adds data to the datastructures
+     */
     void updateDataStructure();
 
     /**
@@ -79,8 +97,10 @@ private:
      */
     void autoRange(double min, double max, double time);
 
+    /**
+     * Checks if enough time has passed for the graph to be ready for an update
+     */
     bool graphIsReady();
-
 
     /**
      * Data storage
@@ -90,11 +110,13 @@ private:
     std::vector<std::deque<std::pair<double, double>>> data;
     double maxAll = -999999;
     double minAll = 999999;
-    double minUpdateTime = .1;
+    double minUpdateTime = .05;
     double lastTime = 0;
 
+    bool pauseState = false;
     bool autoRangeMin = true;
     bool autoRangeMax = true;
+    bool maxSpeed = false;
     double rangeMin;
     double rangeMax;
 
@@ -103,6 +125,8 @@ private:
     std::vector<QLineSeries *> allSeries;
     QChart *chart;
     QChartView *chartView;
+    QPushButton *pauseButton;
+    QPushButton *resetButton;
 };
 
 

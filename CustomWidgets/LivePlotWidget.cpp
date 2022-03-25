@@ -17,13 +17,14 @@ LivePlotWidget::LivePlotWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr
     configurableHeight = true;
     configurableWidth = true;
 
+
     if (configInfo->timeRange <= 0) {
         configInfo->timeRange = 10;
     }
-    if(configInfo->height <= 0) {
+    if (configInfo->height <= 0) {
         configInfo->height = 200;
     }
-    if(configInfo->width <= 0) {
+    if (configInfo->width <= 0) {
         configInfo->width = 200;
     }
 
@@ -49,7 +50,7 @@ LivePlotWidget::LivePlotWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr
     chartView = new QChartView(chart);
     chartView->setFixedSize(configInfo->width, configInfo->height);
     chartView->setContentsMargins(0, 0, 0, 0);
-    chart->layout()->setContentsMargins(0,0,0,0);
+    chart->layout()->setContentsMargins(0, 0, 0, 0);
     chart->setBackgroundRoundness(0);
 
     auto layout = new QGridLayout();
@@ -60,7 +61,16 @@ LivePlotWidget::LivePlotWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr
     top = new QWidget(this);
     top->setFixedSize(configInfo->width, configInfo->height);
 
-    if(!chart->axes(Qt::Vertical).empty()) {
+    pauseButton = new QPushButton("Pause", top);
+    pauseButton->setObjectName(this->objectName() + "_PAUSE_BUTTON");
+    pauseButton->move(1, 1);
+    resetButton = new QPushButton("Reset", top);
+    resetButton->setObjectName(this->objectName() + "_RESET_BUTTON");
+    resetButton->move(configInfo->width - resetButton->width() + 20, 1);
+    connect(resetButton, SIGNAL(pressed()), this, SLOT(reset()));
+    connect(pauseButton, SIGNAL(pressed()), this, SLOT(pause()));
+
+    if (!chart->axes(Qt::Vertical).empty()) {
         if (configInfo->rangeMax.empty()) {
             autoRangeMax = true;
         } else {
@@ -112,7 +122,7 @@ void LivePlotWidget::parseXml(const RobotGui::WidgetConfig_ptr &parentConfig, ra
 
 void LivePlotWidget::outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) {
     node->append_attribute(doc->allocate_attribute(RobotGui::Xml::TIME_RANGE_ATR, doc->allocate_string(std::to_string(configInfo->timeRange).c_str())));
-    for (auto &lineConfig : configInfo->lines) {
+    for (auto &lineConfig: configInfo->lines) {
         rapidxml::xml_node<> *line = doc->allocate_node(rapidxml::node_element, RobotGui::Xml::LINE_TAG);
         node->append_node(line);
         line->append_attribute(doc->allocate_attribute(RobotGui::Xml::LABEL_ATR, lineConfig[0].c_str()));
@@ -127,21 +137,36 @@ void LivePlotWidget::customUpdateStyle() {
     chart->legend()->setLabelColor(CommonFunctions::GetQColorFromString(bodyTextColor));
 
     std::string gridLineColor = CommonFunctions::GenerateDarkerColor(backgroundColor, 30 * (theme->isLight() ? 1 : -1));
-    if(!chart->axes(Qt::Vertical).empty()) {
+    if (!chart->axes(Qt::Vertical).empty()) {
         auto verticalAxis = chart->axes(Qt::Vertical)[0];
         verticalAxis->setGridLinePen(CommonFunctions::GetQColorFromString(gridLineColor));
         verticalAxis->setLinePen(CommonFunctions::GetQColorFromString(CommonFunctions::GetContrastingTextColor(widgetBackgroundColor)));
         verticalAxis->setLabelsBrush(CommonFunctions::GetQColorFromString(bodyTextColor));
     }
-    if(!chart->axes(Qt::Horizontal).empty()) {
+    if (!chart->axes(Qt::Horizontal).empty()) {
         auto horizontalAxis = chart->axes(Qt::Horizontal)[0];
         horizontalAxis->setGridLinePen(CommonFunctions::GetQColorFromString(gridLineColor));
         horizontalAxis->setLinePen(CommonFunctions::GetQColorFromString(CommonFunctions::GetContrastingTextColor(widgetBackgroundColor)));
         horizontalAxis->setLabelsBrush(CommonFunctions::GetQColorFromString(bodyTextColor));
     }
+    char buf[400];
+    sprintf(buf, "QWidget#%s{ background: %s; color: %s }",
+            pauseButton->objectName().toStdString().c_str(),
+            backgroundColor.c_str(),
+            titleTextColor.c_str()
+    );
+    pauseButton->setStyleSheet(buf);
+    memset(buf,0,strlen(buf));
+    sprintf(buf, "QWidget#%s{ background: %s; color: %s }",
+            resetButton->objectName().toStdString().c_str(),
+            backgroundColor.c_str(),
+            titleTextColor.c_str()
+    );
+    resetButton->setStyleSheet(buf);
 }
 
-void LivePlotWidget::updateGraphData() {
+void LivePlotWidget::generateGraph() {
+    if(pauseState) { return; }
     double max = data[0].back().second;
     double min = data[0].back().second;
     for (int i = 0; i < allSeries.size(); i++) {
@@ -157,34 +182,36 @@ void LivePlotWidget::updateGraphData() {
 }
 
 void LivePlotWidget::updateInFocus() {
-    if (graphIsReady()) {
-        chart->update();
-        updateDataStructure();
-        for (auto line: configInfo->lines) {
-            if (widgetData->keyUpdated(line[1])) {
-                updateGraphData();
-                return;
+    for (auto line: configInfo->lines) {
+        if (widgetData->keyUpdated(line[1])) {
+            updateDataStructure();
+            if (graphIsReady()) {
+                generateGraph();
             }
+            return;
         }
     }
 }
 
 void LivePlotWidget::updateNoFocus() {
-    if (graphIsReady()) {
-        updateDataStructure();
+    for (auto line: configInfo->lines) {
+        if (widgetData->keyUpdated(line[1])) {
+            updateDataStructure();
+            return;
+        }
     }
 }
 
 void LivePlotWidget::updateOnInFocus() {
     updateDataStructure();
-    updateGraphData();
+    generateGraph();
 }
 
 void LivePlotWidget::autoRange(double min, double max, double time) {
-    if(autoRangeMin) {
+    if (autoRangeMin) {
         chart->axes(Qt::Vertical)[0]->setMin(min);
     }
-    if(autoRangeMax) {
+    if (autoRangeMax) {
         chart->axes(Qt::Vertical)[0]->setMax(max);
     }
 }
@@ -209,12 +236,26 @@ void LivePlotWidget::updateDataStructure() {
 }
 
 bool LivePlotWidget::graphIsReady() {
+    if(maxSpeed) { return true; }
     double time = CommonFunctions::getEpochTime();
     if (time - lastTime > minUpdateTime) {
         lastTime = time;
         return true;
     }
     return false;
+}
+
+void LivePlotWidget::reset() {
+    for (int i = 0; i < configInfo->lines.size(); i++) {
+        while (!data[i].empty()) {
+            data[i].pop_front();
+        }
+    }
+}
+
+void LivePlotWidget::pause() {
+    pauseState = !pauseState;
+    pauseButton->setText(pauseState ? "Play" : "Pause");
 }
 
 
