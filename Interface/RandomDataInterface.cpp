@@ -16,7 +16,7 @@ void RandomDataInterface::run() {
     bool sign = false;
 
     while (isActive()) {
-        if(rand() % 1000 < 20) {
+        if (rand() % 1000 < 20) {
             sign = !sign;
         }
         lastThing += ((rand() % 100) / 35) * (sign ? -1 : 1);
@@ -40,6 +40,18 @@ void RandomDataInterface::run() {
         setString("missionStatus", "In Mission");
         setDouble("batteryVoltage", rand());
         setDouble("current", i);
+
+        //Lets make a lot of keys for testing
+        int max_letters = 5;
+        int lines_to_add = 50;
+        for (int k = 0; k < lines_to_add; k++) {
+            std::string key;
+            for (int l = 0; l < k % max_letters; l++) {
+                char letter = int(k / max_letters) + 97;
+                key += letter;
+            }
+            setDouble(key, i);
+        }
 
         AnnunciatorJSONStruct annunciator;
         for (int k = 0; k < 5; k++) {

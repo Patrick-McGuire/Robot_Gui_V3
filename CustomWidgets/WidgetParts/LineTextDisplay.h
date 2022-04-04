@@ -15,7 +15,7 @@ public:
 
     void clearLinesAfterIndex(int index);
 
-    void updateDisplayString();
+    void updateDisplayString(bool auto_scale=true);
 
 protected:
     std::vector<std::array<std::string, 2>> lines;

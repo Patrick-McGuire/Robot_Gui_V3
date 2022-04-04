@@ -101,10 +101,6 @@ public:
 
 
 protected:
-    /**
-     * Updates data when widget is in focus, virtual
-     */
-    virtual void updateInFocus();
 
     /**
      * Updates data when widget is out of focus, virtual
@@ -160,6 +156,11 @@ protected:
     std::string bodyTextColor;
     std::string titleTextColor;
     std::string borderColor;
+
+/**
+ * Updates data when widget is in focus, virtual
+ */
+virtual void updateInFocus();
 
 public slots:
 

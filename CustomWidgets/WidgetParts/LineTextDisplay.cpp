@@ -27,7 +27,7 @@ void LineTextDisplay::clearLinesAfterIndex(int index) {
     lines.erase(lines.begin() + index, lines.end());
 }
 
-void LineTextDisplay::updateDisplayString() {
+void LineTextDisplay::updateDisplayString(bool auto_scale) {
     int maxLength = 0;
     for (auto &line : lines) {
         int lineLength = int(line[0].length());
@@ -48,6 +48,9 @@ void LineTextDisplay::updateDisplayString() {
     outString = CommonFunctions::Strip(outString);
 
     setText(QString::fromStdString(outString));
-    adjustSize();
+
+    if (auto_scale) {
+        adjustSize();
+    }
 }
 

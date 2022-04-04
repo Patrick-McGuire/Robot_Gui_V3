@@ -89,6 +89,8 @@ private:
      */
     static std::string splitStr(const std::string &str, char delim, int index);
 
+    void loadImageFromFile(const std::string& filePath, const std::string& target);
+
     std::string xmlFilepath;
     std::map<std::string, cv::Mat> assets;
 };

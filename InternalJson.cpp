@@ -88,56 +88,64 @@ void InternalJson::print() {
 }
 
 void InternalJson::print(bool first) {
+    std::cout << toString(first) << std::endl;
+}
+
+std::string InternalJson::toString(bool first) {
+    std::string out_string;
+
     Guard guard(mutex);
     switch (type) {
         case vector_t: {
-            std::cout << "[";
+            out_string += "[";
             for (int i = 0; i < vector.size(); i++) {
-                vector[i]->print(false);
+                out_string += vector[i]->toString(false);
                 if (i != vector.size() - 1) {
-                    std::cout << ", ";
+                    out_string += ", ";
                 }
             }
-            std::cout << "]";
+            out_string += "]";
             break;
         }
         case map_t: {
             int j = 0;
-            std::cout << "{ ";
+            out_string += "{ ";
             for (auto i = map.begin(); i != map.end(); ++i, j++) {
-                std::cout << i->first << ": ";
-                i->second->print(false);
+                out_string += i->first + ": ";
+                out_string += i->second->toString(false);
                 if (j != map.size() - 1) {
-                    std::cout << ", ";
+                    out_string += ", ";
                 }
             }
-            std::cout << " }";
+            out_string += " }";
             break;
         }
         case int_t: {
-            std::cout << intVal;
+            out_string += std::to_string(intVal);
             break;
         }
         case double_t: {
-            std::cout << doubleVal;
+            out_string += std::to_string(doubleVal);
             break;
         }
         case bool_t: {
-            std::cout << (boolVal ? "true" : "false");
+            out_string += (boolVal ? "true" : "false");
             break;
         }
         case string_t: {
-            std::cout << "\"" << stringVal << "\"";
+            out_string += "\"" + stringVal + "\"";
             break;
         }
         case none_t: {
-            std::cout << " ";
+            out_string += " ";
             break;
         }
     }
     if (first) {
-        std::cout << std::endl;
+        out_string += "\n";
     }
+
+    return out_string;
 }
 
 InternalJson::Types InternalJson::getType() {
@@ -224,7 +232,7 @@ InternalJson::SharedPtr InternalJson::vectorGetOrAppend(int index, Types default
         vector.push_back(newJson);
         return newJson;
     } else {
-        if(defaultType != none_t) {
+        if (defaultType != none_t) {
             vector[index]->setType(defaultType);
         }
         return vector[index];
@@ -259,7 +267,7 @@ InternalJson::SharedPtr InternalJson::mapGet(const std::string &key) {
 InternalJson::SharedPtr InternalJson::mapGetOrAdd(const std::string &key, InternalJson::Types defaultType) {
     Guard guard(mutex);
     if (map.count(key) != 0) {
-        if(defaultType != none_t) {
+        if (defaultType != none_t) {
             map[key]->setType(defaultType);
         }
         return map[key];

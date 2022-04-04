@@ -43,6 +43,7 @@ namespace RobotGui {
     const char *const DROP_DOWN_TEXT_BOX_WIDGET_STRID = "dropDownTextBox";
     const char *const COMPASS_WIDGET_STRID = "compass";
     const char *const LIVE_PLOT_WIDGET_STRID = "livePlot";
+    const char *const SETTINGS_TAB_STRID = "settingsTab";
     // AppConfig consts
     const char *const APP_CONFIG_FILE_PATH = "/.config/RobotGUI";
     const char *const APP_CONFIG_FILE_NAME = "/RobotGUI_Settings.csv";
