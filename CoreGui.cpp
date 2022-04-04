@@ -1,4 +1,5 @@
 #include "CoreGui.h"
+#include "Interface/ServerInterface.h"
 
 CoreGui::CoreGui(int argc, char **argv, RobotGui::GuiRunState _runState) : app(argc, argv), window(&mainWindow) {
     // Initialize variables
@@ -122,6 +123,11 @@ void CoreGui::addThreadedInterface(ThreadedInterface *thread) {
     thread->setWidgetData(widgetData);
     thread->startThread();
     threads.push_back(thread);
+}
+
+void CoreGui::addInterface(ServerInterface *serverInterface) {
+    serverInterface->setWidgetData(widgetData);
+    serverInterface->startServer();
 }
 
 

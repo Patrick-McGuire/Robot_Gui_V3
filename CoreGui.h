@@ -17,9 +17,12 @@
 #include "thread"
 #include "Interface/BaseInterface.h"
 #include "Interface/ThreadedInterface.h"
+#include "InternalJson.h"
+#include "Interface/ServerInterface.h"
 
 class GuiInstance;
 class MenuWidget;
+class ServerInterface;
 
 /**
  * @class CoreGui
@@ -51,6 +54,8 @@ public:
      * @param thread thread to close
      */
     void addThreadedInterface(ThreadedInterface *thread);
+
+    void addInterface(ServerInterface *serverInterface);
 
 public slots:
     /**
