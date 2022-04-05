@@ -14,6 +14,8 @@ ServerInterface::ServerInterface(QObject *parent, int _port) : QTcpServer(parent
 void ServerInterface::setWidgetData(WidgetData *_widgetData) {
     BaseInterface::setWidgetData(_widgetData);
     dataInput = new DataInput(getWidgetData());
+    output->mapSet("Flags", getWidgetData()->getFlagOutput());
+    output->mapSet("Values", getWidgetData()->getOutputJson());
 }
 
 void ServerInterface::startServer() {
@@ -43,7 +45,6 @@ void ServerInterface::receiveData() {
     if(getWidgetData()->keyUpdated()) {
         emit newData();
     }
-
-    senderObj->write("{}");
+    senderObj->write(output->toString().c_str());
 }
 

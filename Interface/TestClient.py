@@ -5,6 +5,7 @@ import random
 import string
 import time
 
+
 rate = 60  # hz
 rate = rate * 3  # 3 messages to send
 
@@ -31,8 +32,12 @@ def sendData(dataToSend):
     startTime = time.time()
     # while startTime > time.time() - .1:
     try:
-        data = s.recv(1024).decode('utf-8')
-        # print(data)
+        try:
+            data = s.recv(1024).decode('utf-8')
+            data = json.loads(data)
+            print(data)
+        except Exception as e:
+            pass
     #         if data != "":
     #             break
     except (BrokenPipeError, ConnectionResetError):

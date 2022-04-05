@@ -28,7 +28,7 @@ void BaseInterface::clearOutputFlag(const std::string &key) {
     widgetData->clearOutputFlag(key);
 }
 
-std::map<std::string, bool> *BaseInterface::getFlagOutput() {
+InternalJson::SharedPtr BaseInterface::getFlagOutput() {
     return widgetData->getFlagOutput();
 }
 

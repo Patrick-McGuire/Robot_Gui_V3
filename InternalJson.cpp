@@ -111,7 +111,7 @@ std::string InternalJson::toString(bool first) {
             int j = 0;
             out_string += "{ ";
             for (auto i = map.begin(); i != map.end(); ++i, j++) {
-                out_string += i->first + ": ";
+                out_string += "\"" + i->first + "\": ";
                 out_string += i->second->toString(false);
                 if (j != map.size() - 1) {
                     out_string += ", ";
@@ -357,4 +357,5 @@ void InternalJson::parseSuperimpose(rapidjson::Value *value, const InternalJson:
         }
     }
 }
+
 

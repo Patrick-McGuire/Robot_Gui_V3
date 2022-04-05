@@ -70,7 +70,7 @@ public:
      * Gets the entire return flags data map
      * @return output flags map
      */
-    std::map<std::string, bool> *getFlagOutput();
+    InternalJson::SharedPtr getFlagOutput();
 
     /**
      * Sets a flag low in the output flags

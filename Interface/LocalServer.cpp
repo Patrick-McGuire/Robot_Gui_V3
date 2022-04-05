@@ -51,24 +51,24 @@ void LocalServer::receiveData() {
 }
 
 void LocalServer::writeOutData(RobotGui::ReturnType returnType, QTcpSocket* socket) {
-    rapidjson::Document doc;
-    doc.SetObject();
-
-    // Create the json output
-    rapidjson::Value flags("Flags", 5, doc.GetAllocator());
-    rapidjson::Value flagsValue;
-    flagsValue.SetObject();
-    for(auto & i : *_widgetData->getFlagOutput()) {
-        rapidjson::Value newVal(i.first.c_str(), i.first.size(), doc.GetAllocator());
-        flagsValue.AddMember(newVal, i.second, doc.GetAllocator());
-    }
-    doc.AddMember(flags, flagsValue, doc.GetAllocator());
-
-    // Write to string
-    rapidjson::StringBuffer buffer;
-    rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
-    doc.Accept(writer);
-    socket->write(buffer.GetString());
+//    rapidjson::Document doc;
+//    doc.SetObject();
+//
+//    // Create the json output
+//    rapidjson::Value flags("Flags", 5, doc.GetAllocator());
+//    rapidjson::Value flagsValue;
+//    flagsValue.SetObject();
+//    for(auto & i : *_widgetData->getFlagOutput()) {
+//        rapidjson::Value newVal(i.first.c_str(), i.first.size(), doc.GetAllocator());
+//        flagsValue.AddMember(newVal, i.second, doc.GetAllocator());
+//    }
+//    doc.AddMember(flags, flagsValue, doc.GetAllocator());
+//
+//    // Write to string
+//    rapidjson::StringBuffer buffer;
+//    rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+//    doc.Accept(writer);
+//    socket->write(buffer.GetString());
 }
 
 

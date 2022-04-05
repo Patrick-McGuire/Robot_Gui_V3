@@ -11,6 +11,7 @@
 #include "rapidjson/writer.h"
 #include "DataInput.h"
 #include "../CoreGui.h"
+#include "../InternalJson.h"
 
 class CoreGui;
 
@@ -33,6 +34,7 @@ signals:
 
 private:
     DataInput *dataInput;
+    InternalJson::SharedPtr output = InternalJson::create(InternalJson::map_t);
     int port;
 
 };

@@ -39,7 +39,9 @@ public:
      */
     void raiseOutputFlag(const std::string &key) {
         std::lock_guard<std::mutex> lockGuard(outFlagsMutex);
-        outFlags[key] = true;
+        auto element = outFlags->mapGetOrAdd(key, InternalJson::bool_t);
+        element->setBool(true);
+//        outFlags[key] = true;
     }
 
     /**
@@ -48,16 +50,20 @@ public:
      */
     void clearOutputFlag(const std::string &key) {
         std::lock_guard<std::mutex> lockGuard(outFlagsMutex);
-        outFlags[key] = false;
+        auto element = outFlags->mapGetOrAdd(key, InternalJson::bool_t);
+        element->setBool(false);
+//        outFlags[key] = false;
     }
 
     /**
      * Gets the entire return flags data map
      * @return output flags map
      */
-    std::map<std::string, bool> *getFlagOutput() {
+//    std::map<std::string, bool> *getFlagOutput() {
+    InternalJson::SharedPtr getFlagOutput() {
         std::lock_guard<std::mutex> lockGuard(outFlagsMutex);
-        return &outFlags;
+        return outFlags;
+//        return &outFlags;
     }
 
     /**
@@ -67,7 +73,8 @@ public:
      */
     bool getFlagOutput(const std::string &key) {
         std::lock_guard<std::mutex> lockGuard(outFlagsMutex);
-        return outFlags.count(key) != 0 && outFlags[key];
+        return outFlags->mapGetOrAdd(key, InternalJson::bool_t)->getBool();
+//        return outFlags.count(key) != 0 && outFlags[key];
     }
 
     /**
@@ -77,7 +84,8 @@ public:
      */
     bool outputFlagExists(const std::string &key) {
         std::lock_guard<std::mutex> lockGuard(outFlagsMutex);
-        return outFlags.count(key) != 0;
+        return  outFlags->mapCount(key) != 0;
+//        return outFlags.count(key) != 0;
     }
 
     //// Input ////
@@ -197,7 +205,8 @@ private:
     // Data out storage
     std::mutex outFlagsMutex;
     std::mutex outJsonMutex;
-    std::map<std::string, bool> outFlags;
+//    std::map<std::string, bool> outFlags;
+    InternalJson::SharedPtr outFlags = InternalJson::create(InternalJson::map_t);
     InternalJson::SharedPtr outJson = InternalJson::create(InternalJson::map_t);
     // Operation
     std::mutex guiActiveMutex;
