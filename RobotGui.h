@@ -21,12 +21,6 @@ namespace RobotGui {
         RETURN_VALUES = 2,
         RETURN_FLAGS_AND_VALUES = 3,
     };
-    // Used to control when the GUI updates data
-    enum GuiRunState {
-        UPDATE_ON_POST,
-        UPDATE_PERIODIC,
-        UPDATE_PERIODIC_AND_ON_POST,
-    };
 
     //// Constants ////
     // Widget types

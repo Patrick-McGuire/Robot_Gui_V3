@@ -39,7 +39,7 @@ public:
      * @param _widgetData WidgetData object to display data from
      * @param _runState where to get data from
      */
-    GuiInstance(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appConfig, CoreGui *_coreGui, const RobotGui::WindowConfig_ptr& _config, WidgetData *_widgetData, RobotGui::GuiRunState _runState);
+    GuiInstance(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appConfig, CoreGui *_coreGui, const RobotGui::WindowConfig_ptr& _config, WidgetData *_widgetData);
 
     /**
      * Deconstruct
@@ -98,14 +98,12 @@ private:
     int timerUpdateTime;
     Theme *theme;
     QTimer *timer;
-    RobotGui::GuiRunState runState;
     RobotGui::WindowConfig_ptr config;
     CoreGui *coreGui;
     WidgetData *widgetData;
     QMainWindow *mainWindow;
     MenuWidget *menu;
     BaseWidget *coreWidget;
-    LocalServer *server;
     AppConfig *appConfig;
     QWidget *parent;
 };

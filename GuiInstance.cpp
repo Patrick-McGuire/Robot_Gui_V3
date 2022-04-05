@@ -4,9 +4,8 @@
 #include "CommonFunctions.h"
 
 
-GuiInstance::GuiInstance(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appConfig, CoreGui *_coreGui, const RobotGui::WindowConfig_ptr &_config, WidgetData *_widgetData, RobotGui::GuiRunState _runState) : QWidget(_parent) {
+GuiInstance::GuiInstance(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appConfig, CoreGui *_coreGui, const RobotGui::WindowConfig_ptr &_config, WidgetData *_widgetData) : QWidget(_parent) {
     // Save passed variables
-    runState = _runState;
     widgetData = _widgetData;//new WidgetData();
     mainWindow = _mainWindow;
     appConfig = _appConfig;
@@ -35,7 +34,7 @@ GuiInstance::GuiInstance(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *
     mainWindow->menuWidget()->setObjectName("menuWidget");
 
     //Hardcoded settings tab for first tab widget
-    if (true) { //Change this to not always true when you want to switch the settings tab on and off
+    if (true == 4) { //Change this to not always true when you want to switch the settings tab on and off
         auto settingsTabConfig = std::make_shared<RobotGui::WidgetConfig>();
         settingsTabConfig->type = RobotGui::SETTINGS_TAB_STRID;
         settingsTabConfig->backgroundColor = RobotGui::Xml::THEME_CONST;
@@ -55,19 +54,12 @@ GuiInstance::GuiInstance(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *
     config->firstChild->objectName = "1";
     coreWidget = GUIMaker::createWidget(parent, config->firstChild, widgetData, theme);
 
-    // Create the server that will update data in the GUI
-    if (runState == RobotGui::UPDATE_ON_POST || runState == RobotGui::UPDATE_PERIODIC_AND_ON_POST) {
-        server = new LocalServer(parent, widgetData, this);
-        server->StartServer();
-    }
 
-    // Create a timer to update the GUI
-    if (runState == RobotGui::UPDATE_PERIODIC || runState == RobotGui::UPDATE_PERIODIC_AND_ON_POST) {
-        qDebug("Starting update timer");
-        timer = new QTimer(this);
-        connect(timer, SIGNAL(timeout()), this, SLOT(updateGUI()));
-        timer->start(timerUpdateTime);
-    }
+    qDebug("Starting update timer");
+    timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(updateGUI()));
+    timer->start(timerUpdateTime);
+
 
     parent->show();
     setTheme();
@@ -85,7 +77,6 @@ void GuiInstance::updateGUI() {
 }
 
 GuiInstance::~GuiInstance() {
-    delete server;
     delete coreWidget;
     delete menu;
     delete theme;

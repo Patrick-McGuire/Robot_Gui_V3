@@ -1,9 +1,8 @@
 #include "CoreGui.h"
 #include "Interface/ServerInterface.h"
 
-CoreGui::CoreGui(int argc, char **argv, RobotGui::GuiRunState _runState) : app(argc, argv), window(&mainWindow) {
+CoreGui::CoreGui(int argc, char **argv) : app(argc, argv), window(&mainWindow) {
     // Initialize variables
-    runState = _runState;
     wrapper = nullptr;
     currentRobotGUI = nullptr;
 
@@ -41,7 +40,7 @@ int CoreGui::runGUI() {
 
     // Create the GUI and start the app
     wrapper = new QWidget(&window);
-    currentRobotGUI = new GuiInstance(wrapper, &mainWindow, appConfig, this, windowConfig, widgetData, runState);
+    currentRobotGUI = new GuiInstance(wrapper, &mainWindow, appConfig, this, windowConfig, widgetData);
     int out = QApplication::exec();
 
     // Close all the threads
@@ -86,7 +85,7 @@ void CoreGui::restartGUI() {
     qDebug("............");
     qDebug("Creating window");
     wrapper = new QWidget(&window);
-    currentRobotGUI = new GuiInstance(wrapper, &mainWindow, appConfig, this, windowConfig, widgetData, runState);
+    currentRobotGUI = new GuiInstance(wrapper, &mainWindow, appConfig, this, windowConfig, widgetData);
 }
 
 bool CoreGui::safeParse() {

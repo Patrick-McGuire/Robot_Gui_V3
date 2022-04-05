@@ -9,11 +9,11 @@
 #include "Interface/ServerInterface.h"
 
 int main(int argc, char** argv) {
-    auto gui = new CoreGui(argc, argv, RobotGui::UPDATE_PERIODIC);
+    auto gui = new CoreGui(argc, argv);
 
     // Localhost server interface
-    ServerInterface serverInterface(gui, 1254);
-    gui->addInterface(&serverInterface);
+//    ServerInterface serverInterface(gui, 1254);
+//    gui->addInterface(&serverInterface);
     // Populate keys with random values
     RandomDataInterface randomDataInterface(50);
     gui->addThreadedInterface(&randomDataInterface);

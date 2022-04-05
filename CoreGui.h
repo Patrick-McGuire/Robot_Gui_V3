@@ -41,7 +41,7 @@ public:
      * @param argv
      * @param _runState when to update the gui
      */
-    CoreGui(int argc, char** argv, RobotGui::GuiRunState _runState);
+    CoreGui(int argc, char** argv);
 
     /**
      * Runs the gui
@@ -91,7 +91,6 @@ private:
      */
     std::string getFilePath();
 
-    RobotGui::GuiRunState runState;
     std::vector<ThreadedInterface*> threads;
     bool quit = false;
     RobotGui::WindowConfig_ptr windowConfig;
