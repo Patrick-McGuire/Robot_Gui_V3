@@ -30,6 +30,8 @@ MenuWidget::MenuWidget(QWidget *parent, AppConfig *appConfig_, RobotGui::GuiCore
     subMenuAct2->setData(QString::fromStdString(Theme::getThemeName(RobotGui::Themes::LIGHT)));
     auto *subMenuAct3 = themeMenu->addAction(QString::fromStdString(Theme::getThemeName(RobotGui::Themes::GREEN)));
     subMenuAct3->setData(QString::fromStdString(Theme::getThemeName(RobotGui::Themes::GREEN)));
+    auto *subMenuAct4 = themeMenu->addAction(QString::fromStdString(Theme::getThemeName(RobotGui::Themes::RED)));
+    subMenuAct4->setData(QString::fromStdString(Theme::getThemeName(RobotGui::Themes::RED)));
 
     connect(themeMenu, SIGNAL(triggered(QAction * )), robotGui, SLOT(updateTheme(QAction * )));
 

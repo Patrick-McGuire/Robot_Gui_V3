@@ -40,6 +40,8 @@ void Theme::setTheme(const std::string &name) {
         currentTheme = RobotGui::Themes::LIGHT;
     } else if (name == RobotGui::Themes::GREEN_THEME_STR) {
         currentTheme = RobotGui::Themes::GREEN;
+    } else if(name == RobotGui::Themes::RED_THEME_STR) {
+        currentTheme = RobotGui::Themes::RED;
     }
 }
 
@@ -55,15 +57,15 @@ std::string Theme::getThemeName(RobotGui::Themes::Type themeType) {
     switch (themeType) {
         case RobotGui::Themes::DARK: {
             return RobotGui::Themes::DARK_THEME_STR;
-            break;
         }
         case RobotGui::Themes::LIGHT: {
             return RobotGui::Themes::LIGHT_THEME_STR;
-            break;
         }
         case RobotGui::Themes::GREEN: {
             return RobotGui::Themes::GREEN_THEME_STR;
-            break;
+        }
+        case RobotGui::Themes::RED: {
+            return RobotGui::Themes::RED_THEME_STR;
         }
     }
     return RobotGui::Themes::LIGHT_THEME_STR;
@@ -95,6 +97,14 @@ void Theme::initFormats() {
             "rgb(50,50,50)"
     };
     themeIsLight[RobotGui::Themes::GREEN] = false;
+    stringFormats[RobotGui::Themes::RED] = RobotGui::Themes::Format{
+            "rgb(30,0,0)",
+            "rgb(45,0,0)",
+            "rgb(255,0,0)",
+            "rgb(0,200,0)",
+            "rgb(50,50,50)"
+    };
+    themeIsLight[RobotGui::Themes::RED] = false;
 }
 
 bool Theme::isLight() {

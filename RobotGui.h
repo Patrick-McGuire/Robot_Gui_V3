@@ -190,6 +190,7 @@ namespace RobotGui {
             DARK,
             LIGHT,
             GREEN,
+            RED,
         };
         // Used to define different formats
         struct Format {
@@ -203,6 +204,7 @@ namespace RobotGui {
         const char *const DARK_THEME_STR = "Dark";
         const char *const LIGHT_THEME_STR = "Light";
         const char *const GREEN_THEME_STR = "Green";
+        const char *const RED_THEME_STR = "Red";
 
     }
 }
