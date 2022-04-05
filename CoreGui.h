@@ -53,7 +53,7 @@ public:
      * Adds a thread for the GUI to close on exit
      * @param thread thread to close
      */
-    void addThreadedInterface(ThreadedInterface *thread);
+    void addInterface(ThreadedInterface *thread);
 
     void addInterface(ServerInterface *serverInterface);
 

@@ -16,13 +16,13 @@ int main(int argc, char** argv) {
     gui->addInterface(&serverInterface);
     // Populate keys with random values
 //    RandomDataInterface randomDataInterface(50);
-//    gui->addThreadedInterface(&randomDataInterface);
+//    gui->addInterface(&randomDataInterface);
     // Streams the webcam
 //    WebcamStreamInterface webcamStreamInterface(16);
-//    gui->addThreadedInterface(&webcamStreamInterface);
+//    gui->addInterface(&webcamStreamInterface);
     // Prints out any flag raised
 //    FlagCheckerInterface flagCheckerInterface(100);
-//    gui->addThreadedInterface(&flagCheckerInterface);
+//    gui->addInterface(&flagCheckerInterface);
 
     // Run the GUI
     return gui->runGUI();

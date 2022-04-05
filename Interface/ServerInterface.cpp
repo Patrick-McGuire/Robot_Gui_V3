@@ -1,10 +1,7 @@
 #include "ServerInterface.h"
 #include "iostream"
 #include <QTcpSocket>
-#include "opencv2/opencv.hpp"
 #include <vector>
-#include "rapidjson/document.h"
-#include "rapidjson/stringbuffer.h"
 
 ServerInterface::ServerInterface(QObject *parent, int _port) : QTcpServer(parent), BaseInterface() {
     dataInput = nullptr;

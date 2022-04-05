@@ -118,7 +118,7 @@ std::string CoreGui::getFilePath() {
     return filePath;
 }
 
-void CoreGui::addThreadedInterface(ThreadedInterface *thread) {
+void CoreGui::addInterface(ThreadedInterface *thread) {
     thread->setWidgetData(widgetData);
     thread->startThread();
     threads.push_back(thread);
