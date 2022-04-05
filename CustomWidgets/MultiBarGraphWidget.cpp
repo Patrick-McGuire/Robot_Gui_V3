@@ -7,11 +7,12 @@
 #include "MultiBarGraphWidget.h"
 #include "WidgetParts/SimpleBarGraph.h"
 #include "WidgetParts/CircleBarGraph.h"
+#include "../WidgetData.h"
 
 #define SIMPLE_BAR_GRAPH_NAME "SimpleBarGraph"
 #define CIRCLE_BAR_GRAPH_NAME "CircleBarGraph"
 
-MultiBarGraphWidget::MultiBarGraphWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
+MultiBarGraphWidget::MultiBarGraphWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
     configurablePos = true;
     auto *layout = new QGridLayout();
 

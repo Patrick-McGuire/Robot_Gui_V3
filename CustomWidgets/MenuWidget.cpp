@@ -1,7 +1,7 @@
 #include "MenuWidget.h"
 #include "../CommonFunctions.h"
 
-MenuWidget::MenuWidget(QWidget *parent, AppConfig *appConfig_, CoreGui *coreGui, GuiInstance *robotGui, Theme *_theme) : QMenuBar(parent) {
+MenuWidget::MenuWidget(QWidget *parent, AppConfig *appConfig_, RobotGui::GuiCore *coreGui, GuiInstance *robotGui, Theme *_theme) : QMenuBar(parent) {
     theme = _theme;
     appConfig = appConfig_;
     // File menu

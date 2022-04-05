@@ -1,7 +1,8 @@
-#include "CoreGui.h"
+#include "GuiCore.h"
 #include "Interface/ServerInterface.h"
+#include "WidgetData.h"
 
-CoreGui::CoreGui(int argc, char **argv) : app(argc, argv), window(&mainWindow) {
+RobotGui::GuiCore::GuiCore(int argc, char **argv) : app(argc, argv), window(&mainWindow) {
     // Initialize variables
     wrapper = nullptr;
     currentRobotGUI = nullptr;
@@ -20,7 +21,7 @@ CoreGui::CoreGui(int argc, char **argv) : app(argc, argv), window(&mainWindow) {
     appConfig = new AppConfig();
 }
 
-int CoreGui::runGUI() {
+int RobotGui::GuiCore::runGUI() {
     qDebug("Starting GUI\n");
 
     // Parse the configuration data
@@ -54,11 +55,11 @@ int CoreGui::runGUI() {
     return out;
 }
 
-void CoreGui::reload() {
+void RobotGui::GuiCore::reload() {
     restartGUI();
 }
 
-void CoreGui::openReload() {
+void RobotGui::GuiCore::openReload() {
     std::string filePath = QFileDialog::getOpenFileName(&mainWindow, "Open XML Configuration File", QString::fromStdString(appConfig->getDefaultXmlPath()), "XML Files (*.xml)").toStdString();
     if(!filePath.empty()) {
         appConfig->setDefaultXmlPath(filePath);
@@ -70,14 +71,14 @@ void CoreGui::openReload() {
     }
 }
 
-void CoreGui::reparseReload() {
+void RobotGui::GuiCore::reparseReload() {
     while(!safeParse()) {
         appConfig->parse();
     }
     restartGUI();
 }
 
-void CoreGui::restartGUI() {
+void RobotGui::GuiCore::restartGUI() {
     qDebug("Closing window");
     qDebug("............\n");
     delete currentRobotGUI;
@@ -88,7 +89,7 @@ void CoreGui::restartGUI() {
     currentRobotGUI = new GuiInstance(wrapper, &mainWindow, appConfig, this, windowConfig, widgetData);
 }
 
-bool CoreGui::safeParse() {
+bool RobotGui::GuiCore::safeParse() {
     try {
         windowConfig = XMLInput::parse(getFilePath().c_str());
         return true;
@@ -100,7 +101,7 @@ bool CoreGui::safeParse() {
 }
 
 
-std::string CoreGui::getFilePath() {
+std::string RobotGui::GuiCore::getFilePath() {
     appConfig->parse();
     auto filePath = appConfig->getDefaultXmlPath();
     while (filePath == RobotGui::APP_CONFIG_NO_XML_PATH || !AppConfig::fileExists(filePath)) {
@@ -118,15 +119,14 @@ std::string CoreGui::getFilePath() {
     return filePath;
 }
 
-void CoreGui::addInterface(ThreadedInterface *thread) {
+void RobotGui::GuiCore::addInterface(ThreadedInterface *thread) {
     thread->setWidgetData(widgetData);
     thread->startThread();
     threads.push_back(thread);
 }
 
-void CoreGui::addInterface(ServerInterface *serverInterface) {
+void RobotGui::GuiCore::addInterface(ServerInterface *serverInterface) {
     serverInterface->setWidgetData(widgetData);
     serverInterface->startServer();
 }
-
 

@@ -3,8 +3,9 @@
 //
 
 #include "CompassWidget.h"
+#include "../WidgetData.h"
 
-CompassWidget::CompassWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *theme) : BaseWidget(parent, configInfo, widgetData, theme) {
+CompassWidget::CompassWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, Theme *theme) : BaseWidget(parent, configInfo, widgetData, theme) {
     compassDisplay = new CompassDisplay(widgetData, this);
 
     styledBackground = true;

@@ -1,9 +1,10 @@
 #include "TextBoxWidget.h"
+#include "../WidgetData.h"
 #include <QString>
 #include <iostream>
 #include <vector>
 
-TextBoxWidget::TextBoxWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
+TextBoxWidget::TextBoxWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
     styledHeader = true;
     styledText = true;
     styledSeeThroughBackground = true;

@@ -19,7 +19,7 @@ public:
      * Constructor
      * @param _widgetData WidgetData object to input to
      */
-    DataInput(WidgetData *_widgetData);
+    DataInput(RobotGui::WidgetData *_widgetData);
 
     /**
      * Parses a buffer into widgetData format
@@ -48,7 +48,7 @@ private:
         std::uint8_t bytes[4];
     };
     LengthConverter messageSize{};
-    WidgetData *widgetData;
+    RobotGui::WidgetData *widgetData;
 };
 
 

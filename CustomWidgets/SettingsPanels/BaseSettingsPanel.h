@@ -6,10 +6,11 @@
 #define ROBOT_GUI_V3_BASESETTINGSPANEL_H
 
 #include "../BaseWidget.h"
+#include "../../WidgetData.h"
 
 class BaseSettingsPanel : public BaseWidget {
 public:
-    BaseSettingsPanel(QWidget *parent, WidgetData *widgetData, Theme *theme);
+    BaseSettingsPanel(QWidget *parent, RobotGui::WidgetData *widgetData, Theme *theme);
 
 
 };

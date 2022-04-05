@@ -11,6 +11,8 @@
 #include <QTabWidget>
 #include <QMenu>
 #include "../Theme.h"
+//#include "WidgetData.h"
+#include "../WidgetData.h"
 
 
 /**
@@ -28,7 +30,7 @@ public:
      * @param _configInfo config struct to create widget based off of
      * @param _widgetData data passing structure to read data from at runtime
      */
-    BaseWidget(QWidget *_parent_, const RobotGui::WidgetConfig_ptr &_configInfo, WidgetData *_widgetData, Theme *_theme);
+    BaseWidget(QWidget *_parent_, const RobotGui::WidgetConfig_ptr &_configInfo, RobotGui::WidgetData *_widgetData, Theme *_theme);
 
     /**
      * Sets the position of the widget on the screen
@@ -145,7 +147,7 @@ protected:
 
     QWidget *_parent;
     RobotGui::WidgetConfig_ptr configInfo;
-    WidgetData *widgetData;
+    RobotGui::WidgetData *widgetData;
     const bool staticPos;
     bool drawBorder = true;
     Theme *theme;

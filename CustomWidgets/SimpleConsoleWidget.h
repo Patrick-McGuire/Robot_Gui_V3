@@ -10,7 +10,7 @@
 
 class SimpleConsoleWidget : public BaseWidget {
 public:
-    SimpleConsoleWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *theme, bool _borderEnabled=true);
+    SimpleConsoleWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, Theme *theme, bool _borderEnabled=true);
 
     void updateInFocus() override;
 

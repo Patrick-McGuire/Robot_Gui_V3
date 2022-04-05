@@ -6,12 +6,13 @@
 #define ROBOT_GUI_V3_ANNUNCIATORWIDGET_H
 
 #include "BaseWidget.h"
+#include "../WidgetData.h"
 
 #include <QLabel>
 
 class AnnunciatorWidget : public BaseWidget {
 public:
-    AnnunciatorWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *_theme);
+    AnnunciatorWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, Theme *_theme);
 
     void updateInFocus() override;
 

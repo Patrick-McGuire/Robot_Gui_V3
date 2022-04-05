@@ -7,10 +7,11 @@
 
 #include "BaseWidget.h"
 #include "WidgetParts/SimpleBarGraph.h"
+#include "../WidgetData.h"
 
 class MultiBarGraphWidget : public BaseWidget {
 public:
-    MultiBarGraphWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *_theme);
+    MultiBarGraphWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, Theme *_theme);
 
     void updateInFocus() override;
 

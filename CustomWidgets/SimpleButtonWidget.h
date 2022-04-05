@@ -8,6 +8,7 @@
 #include "../WidgetData.h"
 #include "../RobotGui.h"
 #include "../Theme.h"
+#include "../WidgetData.h"
 
 /**
  * @class SimpleButtonWidget
@@ -24,7 +25,7 @@ public:
      * @param configInfo configuration data
      * @param widgetData global widgetData object
      */
-    SimpleButtonWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *_theme);
+    SimpleButtonWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, Theme *_theme);
 
     /**
      * Parses a xml node into the config struct

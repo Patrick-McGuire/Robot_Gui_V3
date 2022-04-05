@@ -5,13 +5,14 @@
 #include <vector>
 #include "rapidjson/document.h"
 #include "rapidjson/stringbuffer.h"
+#include "../WidgetData.h"
 
 union lengthConverter {
     std::int32_t length;
     std::uint8_t in[4];
 };
 
-LocalServer::LocalServer(QObject *parent, WidgetData *widgetData, GuiInstance *robotGui) : QTcpServer(parent) {
+LocalServer::LocalServer(QObject *parent, RobotGui::WidgetData *widgetData, GuiInstance *robotGui) : QTcpServer(parent) {
     _widgetData = widgetData;
     _robotGui = robotGui;
     dataInput = new DataInput(_widgetData);

@@ -6,12 +6,13 @@
 #define ROBOT_GUI_V3_ROVSTATUSWIDGET_H
 
 #include "BaseWidget.h"
+#include "../WidgetData.h"
 
 #include <QLabel>
 
 class ROVStatusWidget : public BaseWidget {
 public:
-    ROVStatusWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *theme);
+    ROVStatusWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, Theme *theme);
 
     void updateInFocus() override;
 

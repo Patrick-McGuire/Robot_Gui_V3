@@ -30,7 +30,7 @@ public:
      * Initializes the interface
      * @param _widgetData WidgetData to interface with
      */
-    virtual void setWidgetData(WidgetData *_widgetData);
+    virtual void setWidgetData(RobotGui::WidgetData *_widgetData);
 
     /**
      * Returns if the GUI is active
@@ -109,10 +109,10 @@ public:
     void setString(const std::string &key, const std::string &val);
 
 protected:
-    WidgetData *getWidgetData();
+    RobotGui::WidgetData *getWidgetData();
 
 private:
-    WidgetData *widgetData;
+    RobotGui::WidgetData *widgetData;
 };
 
 

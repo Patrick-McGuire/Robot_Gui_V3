@@ -3,7 +3,8 @@
 //
 
 #include "InterfaceSettings.h"
+#include "../../WidgetData.h"
 
-InterfaceSettings::InterfaceSettings(QWidget *parent, WidgetData *widgetData, Theme *theme) : BaseSettingsPanel(parent, widgetData, theme) {
+InterfaceSettings::InterfaceSettings(QWidget *parent, RobotGui::WidgetData *widgetData, Theme *theme) : BaseSettingsPanel(parent, widgetData, theme) {
 
 }

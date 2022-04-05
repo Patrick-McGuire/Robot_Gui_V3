@@ -3,6 +3,7 @@
 //
 
 #include "BaseSettingsPanel.h"
+#include "../../WidgetData.h"
 
 
 std::shared_ptr<RobotGui::WidgetConfig> CreateBlankWidgetConfigPointer() {
@@ -15,6 +16,6 @@ std::shared_ptr<RobotGui::WidgetConfig> CreateBlankWidgetConfigPointer() {
     return newConfigInfo;
 }
 
-BaseSettingsPanel::BaseSettingsPanel(QWidget *parent, WidgetData *widgetData, Theme *theme) : BaseWidget(parent, CreateBlankWidgetConfigPointer(), widgetData, theme) {
+BaseSettingsPanel::BaseSettingsPanel(QWidget *parent, RobotGui::WidgetData *widgetData, Theme *theme) : BaseWidget(parent, CreateBlankWidgetConfigPointer(), widgetData, theme) {
 
 }

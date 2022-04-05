@@ -5,8 +5,9 @@
 #include <QtGui/QPainter>
 #include "SimpleConsoleWidget.h"
 #include "../CommonFunctions.h"
+#include "../WidgetData.h"
 
-SimpleConsoleWidget::SimpleConsoleWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *theme, bool _borderEnabled) : BaseWidget(parent, configInfo, widgetData, theme) {
+SimpleConsoleWidget::SimpleConsoleWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, Theme *theme, bool _borderEnabled) : BaseWidget(parent, configInfo, widgetData, theme) {
     source = configInfo->source;
     title = configInfo->title;
     drawTitle = !title.empty();

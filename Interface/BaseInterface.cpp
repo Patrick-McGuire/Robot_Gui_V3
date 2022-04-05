@@ -1,10 +1,11 @@
 #include "BaseInterface.h"
+#include "../WidgetData.h"
 
 BaseInterface::BaseInterface() {
     widgetData = nullptr;
 }
 
-void BaseInterface::setWidgetData(WidgetData *_widgetData) {
+void BaseInterface::setWidgetData(RobotGui::WidgetData *_widgetData) {
     widgetData = _widgetData;
 }
 
@@ -62,6 +63,6 @@ void BaseInterface::setMap(const std::string &key, const InternalJson::SharedPtr
     widgetData->setKeyUpdated(key);
 }
 
-WidgetData *BaseInterface::getWidgetData() {
+RobotGui::WidgetData *BaseInterface::getWidgetData() {
     return widgetData;
 }

@@ -12,7 +12,7 @@
 
 class CompassDisplay : public QLabel {
 public:
-    explicit CompassDisplay(WidgetData *widgetData, QWidget *parent = nullptr);
+    explicit CompassDisplay(RobotGui::WidgetData *widgetData, QWidget *parent = nullptr);
 
     void setSize(int size);
 

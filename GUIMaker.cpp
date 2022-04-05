@@ -11,11 +11,12 @@
 #include "CustomWidgets/DropDownTextBoxWidget.h"
 #include "CustomWidgets/LivePlotWidget.h"
 #include "CustomWidgets/CompassWidget.h"
+#include "WidgetData.h"
 
 /**
  * Gets called in tabWidget to create a new subwidgets
  */
-BaseWidget *GUIMaker::createWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *theme) {
+BaseWidget *GUIMaker::createWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, Theme *theme) {
     if (configInfo->type == RobotGui::TEXT_BOX_WIDGET_STRID) {
         return new TextBoxWidget(parent, configInfo, widgetData, theme);
     } else if (configInfo->type == RobotGui::VIDEO_WIDGET_STRID) {

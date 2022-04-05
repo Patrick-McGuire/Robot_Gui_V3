@@ -1,5 +1,6 @@
 #include "ServerInterface.h"
 #include "iostream"
+#include "../WidgetData.h"
 #include <QTcpSocket>
 #include <vector>
 
@@ -8,7 +9,7 @@ ServerInterface::ServerInterface(QObject *parent, int _port) : QTcpServer(parent
     port = _port;
 }
 
-void ServerInterface::setWidgetData(WidgetData *_widgetData) {
+void ServerInterface::setWidgetData(RobotGui::WidgetData *_widgetData) {
     BaseInterface::setWidgetData(_widgetData);
     dataInput = new DataInput(getWidgetData());
     output->mapSet("Flags", getWidgetData()->getFlagOutput());

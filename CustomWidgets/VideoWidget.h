@@ -8,6 +8,7 @@
 #include <string>
 #include "../WidgetData.h"
 #include "BaseWidget.h"
+#include "../WidgetData.h"
 #include <QImage>
 
 
@@ -20,7 +21,7 @@ public:
      * @param x     x position of the widget
      * @param y     y position of the widget
      */
-    VideoWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr& configInfo, WidgetData *widgetData, Theme *_theme);
+    VideoWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr& configInfo, RobotGui::WidgetData *widgetData, Theme *_theme);
 
     /**
      * Parses a xml node into the config struct

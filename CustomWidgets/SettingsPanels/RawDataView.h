@@ -11,10 +11,11 @@
 #include <QScrollArea>
 
 #include "../WidgetParts/LineTextDisplay.h"
+#include "../../WidgetData.h"
 
 class RawDataView : public BaseSettingsPanel {
 public:
-    RawDataView(QWidget *parent, WidgetData *widgetData, Theme *theme);
+    RawDataView(QWidget *parent, RobotGui::WidgetData *widgetData, Theme *theme);
 
     void updateInFocus() override;
 

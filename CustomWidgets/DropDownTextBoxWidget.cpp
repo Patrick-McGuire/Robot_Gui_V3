@@ -8,8 +8,9 @@
 #include <QGridLayout>
 
 #include "WidgetParts/LineTextDisplay.h"
+#include "../WidgetData.h"
 
-DropDownTextBoxWidget::DropDownTextBoxWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *theme) : BaseWidget(parent, configInfo, widgetData, theme) {
+DropDownTextBoxWidget::DropDownTextBoxWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, Theme *theme) : BaseWidget(parent, configInfo, widgetData, theme) {
     textDisplay = new LineTextDisplay();
     selectionBox = new QComboBox();
 

@@ -15,11 +15,13 @@
 #include "QMenuBar"
 #include "iostream"
 #include "../GuiInstance.h"
-#include "../CoreGui.h"
+#include "../GuiCore.h"
 #include "../Theme.h"
 
 class GuiInstance;
-class CoreGui;
+namespace RobotGui {
+    class GuiCore;
+}
 
 /**
  * @class TextBoxWidget
@@ -38,7 +40,7 @@ public:
      * @param coreGui CoreGui class for connecting slot
      * @param robotGui GuiInstance class for connecting slot
      */
-    MenuWidget(QWidget *parent, AppConfig *appConfig_, CoreGui *coreGui, GuiInstance *robotGui, Theme *_theme);
+    MenuWidget(QWidget *parent, AppConfig *appConfig_, RobotGui::GuiCore *coreGui, GuiInstance *robotGui, Theme *_theme);
 
     /**
      * Updates the menu bar's theme

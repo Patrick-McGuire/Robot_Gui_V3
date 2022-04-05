@@ -1,6 +1,7 @@
 #include "DataInput.h"
+#include "../WidgetData.h"
 
-DataInput::DataInput(WidgetData *_widgetData) {
+DataInput::DataInput(RobotGui::WidgetData *_widgetData) {
     widgetData = _widgetData;
     messageSize.length = 0;
 }

@@ -27,7 +27,7 @@ public:
      * @param widgetData global WidgetData object to update when new data is received
      * @param robotGui GuiInstance object to connect slots
      */
-    LocalServer(QObject *parent, WidgetData *widgetData, GuiInstance *robotGui);
+    LocalServer(QObject *parent, RobotGui::WidgetData *widgetData, GuiInstance *robotGui);
 
     /**
      * Opens the server
@@ -59,7 +59,7 @@ private:
      */
     void writeOutData(RobotGui::ReturnType returnType, QTcpSocket* socket);
 
-    WidgetData *_widgetData;
+    RobotGui::WidgetData *_widgetData;
     GuiInstance *_robotGui;
     DataInput *dataInput;
     char *dataString;

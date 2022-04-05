@@ -66,9 +66,9 @@ set(interface_files
 set(core_files
         GUIMaker.cpp GUIMaker.h
         GuiInstance.cpp GuiInstance.h
-        WidgetData.cpp WidgetData.h
+        WidgetData.h
         RobotGui.h
-        CoreGui.cpp CoreGui.h
+        GuiCore.cpp GuiCore.h
         Theme.cpp Theme.h
         CommonFunctions.cpp CommonFunctions.h
         InternalJson.cpp InternalJson.h

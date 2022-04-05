@@ -13,6 +13,7 @@
 #include "../WidgetData.h"
 #include "../RobotGui.h"
 #include "../Theme.h"
+#include "../WidgetData.h"
 
 /**
  * @class TextBoxWidget
@@ -30,7 +31,7 @@ public:
      * @param widgetData global widgetData object
      * @param _theme theme object
      */
-    TextBoxWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *_theme);
+    TextBoxWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, Theme *_theme);
 
     /**
      * Parses a xml node into the config struct

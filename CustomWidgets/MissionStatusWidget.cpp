@@ -9,8 +9,9 @@
 #include <QSizePolicy>
 
 #include "../CommonFunctions.h"
+#include "../WidgetData.h"
 
-MissionStatusWidget::MissionStatusWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *theme) : BaseWidget(parent, configInfo, widgetData, theme) {
+MissionStatusWidget::MissionStatusWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, Theme *theme) : BaseWidget(parent, configInfo, widgetData, theme) {
     statusBox = new QLabel();
     missionNameBox = new QLabel();
     objectiveBox = new QLabel();

@@ -11,10 +11,11 @@
 
 #include "WidgetParts/SideTabWidget.h"
 #include "SettingsPanels/BaseSettingsPanel.h"
+#include "../WidgetData.h"
 
 class SettingsTab : public BaseWidget {
 public:
-    SettingsTab(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *_theme);
+    SettingsTab(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, Theme *_theme);
 
     void addPanel(BaseSettingsPanel *new_panel, const std::string &name);
 

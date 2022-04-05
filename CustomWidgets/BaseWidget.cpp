@@ -2,8 +2,9 @@
 #include <QtGui/QPainter>
 #include "BaseWidget.h"
 #include "../CommonFunctions.h"
+#include "../WidgetData.h"
 
-BaseWidget::BaseWidget(QWidget *_parent_, const RobotGui::WidgetConfig_ptr &_configInfo, WidgetData *_widgetData, Theme *_theme) : staticPos(_configInfo->staticPos), QWidget(_parent_) {
+BaseWidget::BaseWidget(QWidget *_parent_, const RobotGui::WidgetConfig_ptr &_configInfo, RobotGui::WidgetData *_widgetData, Theme *_theme) : staticPos(_configInfo->staticPos), QWidget(_parent_) {
     configInfo = _configInfo;
     widgetData = _widgetData;
     _parent = _parent_;

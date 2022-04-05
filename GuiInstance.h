@@ -12,13 +12,13 @@
 #include <vector>
 #include <QApplication>
 #include "Interface/LocalServer.h"
-#include "CoreGui.h"
+#include "GuiCore.h"
 #include "Theme.h"
 #include "XML/XMLOutput.h"
 
 class LocalServer;
 class MenuWidget;
-class CoreGui;
+class GuiCore;
 
 /**
  * @class GuiInstance
@@ -39,7 +39,7 @@ public:
      * @param _widgetData WidgetData object to display data from
      * @param _runState where to get data from
      */
-    GuiInstance(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appConfig, CoreGui *_coreGui, const RobotGui::WindowConfig_ptr& _config, WidgetData *_widgetData);
+    GuiInstance(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appConfig, RobotGui::GuiCore *_coreGui, const RobotGui::WindowConfig_ptr& _config, RobotGui::WidgetData *_widgetData);
 
     /**
      * Deconstruct
@@ -55,7 +55,7 @@ public:
      * Returns widgetData
      * @return widgetData
      */
-    WidgetData *getWidgetData();
+    RobotGui::WidgetData *getWidgetData();
 
 public slots:
     /**
@@ -99,8 +99,8 @@ private:
     Theme *theme;
     QTimer *timer;
     RobotGui::WindowConfig_ptr config;
-    CoreGui *coreGui;
-    WidgetData *widgetData;
+    RobotGui::GuiCore *coreGui;
+    RobotGui::WidgetData *widgetData;
     QMainWindow *mainWindow;
     MenuWidget *menu;
     BaseWidget *coreWidget;

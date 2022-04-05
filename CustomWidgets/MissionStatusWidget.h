@@ -6,11 +6,12 @@
 #define ROBOT_GUI_V3_MISSIONSTATUSWIDGET_H
 
 #include "BaseWidget.h"
+#include "../WidgetData.h"
 #include <QLabel>
 
 class MissionStatusWidget : public BaseWidget {
 public:
-    MissionStatusWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *theme);
+    MissionStatusWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, Theme *theme);
 
     void updateInFocus() override;
 

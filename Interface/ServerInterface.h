@@ -10,10 +10,10 @@
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/writer.h"
 #include "DataInput.h"
-#include "../CoreGui.h"
+#include "../GuiCore.h"
 #include "../InternalJson.h"
 
-class CoreGui;
+class GuiCore;
 
 /**
  * @class ServerInterface
@@ -35,7 +35,7 @@ public:
      * Sets the widget data structure to impute data to, and initializes things that use it
      * @param _widgetData
      */
-    void setWidgetData(WidgetData *_widgetData) override;
+    void setWidgetData(RobotGui::WidgetData *_widgetData) override;
 
     /**
      * Starts the server running
