@@ -4,14 +4,14 @@
 #include "../../lib/rapidxml/rapidxml_utils.hpp"
 
 
-void XMLOutput::output(const char *filename, const RobotGui::WindowConfig_ptr &windowConfig, RobotGui::BaseWidget *firstWidget) {
+void RobotGui::XMLOutput::output(const char *filename, const RobotGui::WindowConfig_ptr &windowConfig, RobotGui::BaseWidget *firstWidget) {
     rapidxml::xml_document<> doc;
     auto windowNode = createWindowNode(windowConfig, &doc);
     windowNode->append_node(createWidget(&doc, firstWidget));
     write(filename, &doc);
 }
 
-rapidxml::xml_node<> *XMLOutput::createWidget(rapidxml::xml_document<> *doc, RobotGui::BaseWidget *widget) {
+rapidxml::xml_node<> *RobotGui::XMLOutput::createWidget(rapidxml::xml_document<> *doc, RobotGui::BaseWidget *widget) {
     rapidxml::xml_node<> *node = doc->allocate_node(rapidxml::node_element, RobotGui::Xml::WIDGET_TAG);
     node->append_attribute(doc->allocate_attribute(RobotGui::Xml::TYPE_ATR, widget->getConfig()->type.c_str()));
     node->append_attribute(doc->allocate_attribute(RobotGui::Xml::TITLE_ATR, widget->getConfig()->title.c_str()));
@@ -44,7 +44,7 @@ rapidxml::xml_node<> *XMLOutput::createWidget(rapidxml::xml_document<> *doc, Rob
 }
 
 
-rapidxml::xml_node<> *XMLOutput::createWindowNode(const RobotGui::WindowConfig_ptr &windowConfig, rapidxml::xml_document<> *doc) {
+rapidxml::xml_node<> *RobotGui::XMLOutput::createWindowNode(const RobotGui::WindowConfig_ptr &windowConfig, rapidxml::xml_document<> *doc) {
     rapidxml::xml_node<> *node = doc->allocate_node(rapidxml::node_element, RobotGui::Xml::WINDOW_TAG);
     doc->append_node(node);
     node->append_attribute(doc->allocate_attribute(RobotGui::Xml::TITLE_ATR, windowConfig->title.c_str()));
@@ -54,14 +54,14 @@ rapidxml::xml_node<> *XMLOutput::createWindowNode(const RobotGui::WindowConfig_p
     return node;
 }
 
-void XMLOutput::write(const char *filename, rapidxml::xml_document<> *doc) {
+void RobotGui::XMLOutput::write(const char *filename, rapidxml::xml_document<> *doc) {
     std::ofstream ofs;
     ofs.open(filename, std::ofstream::out | std::ofstream::trunc);
     ofs << *doc;
     ofs.close();
 }
 
-std::string XMLOutput::getAttributeString(int val) {
+std::string RobotGui::XMLOutput::getAttributeString(int val) {
         if (val == RobotGui::Xml::MAX_CONST_ID) {
             return RobotGui::Xml::MAX_CONST;
         } else if (val == RobotGui::Xml::AUTO_CONST_ID) {
@@ -74,6 +74,6 @@ std::string XMLOutput::getAttributeString(int val) {
         return std::to_string(val);
 }
 
-std::string XMLOutput::getAttributeString(bool val) {
+std::string RobotGui::XMLOutput::getAttributeString(bool val) {
     return val ? "true" : "false";
 }

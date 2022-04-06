@@ -42,7 +42,7 @@ public:
      * @param coreGui CoreGui class for connecting slot
      * @param robotGui GuiInstance class for connecting slot
      */
-    MenuWidget(QWidget *parent, AppConfig *appConfig_, RobotGui::GuiCore *coreGui, RobotGui::GuiInstance *robotGui, RobotGui::Theme *_theme);
+    MenuWidget(QWidget *parent, RobotGui::AppConfig *appConfig_, RobotGui::GuiCore *coreGui, RobotGui::GuiInstance *robotGui, RobotGui::Theme *_theme);
 
     /**
      * Updates the menu bar's theme
@@ -52,7 +52,7 @@ public:
 
 private:
     RobotGui::Theme *theme;
-    AppConfig *appConfig;
+    RobotGui::AppConfig *appConfig;
     std::vector<QMenu *> menus;
     const char *const FILE_MENU_NAME = "FileMenu";
     const char *const SETTINGS_MENU_NAME = "SettingMenuName";

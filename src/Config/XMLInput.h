@@ -13,62 +13,64 @@
 #include "../CustomWidgets/SimpleButtonWidget.h"
 #include "../CustomWidgets/MultiBarGraphWidget.h"
 
-/**
- * @class XMLInput
- * Static class that parses xml files into the internal configuration format
- *
- * @author Patrick McGuire (Patrick-McGuire)
- */
-class XMLInput {
-public:
-
+namespace RobotGui {
     /**
-     * Parses xml file into internal format
-     * @param filename file to parse
-     */
-    static RobotGui::WindowConfig_ptr parse(const char *filename);
+         * @class XMLInput
+         * Static class that parses xml files into the internal configuration format
+         *
+         * @author Patrick McGuire (Patrick-McGuire)
+         */
+    class XMLInput {
+    public:
 
-    /**
-     * Parses a xml node into internal format
-     * @param node xml node to parse
-     * @return WidgetConfig struct
-     */
-    static RobotGui::WidgetConfig_ptr parseWidget(rapidxml::xml_node<> *node);
+        /**
+         * Parses xml file into internal format
+         * @param filename file to parse
+         */
+        static WindowConfig_ptr parse(const char *filename);
 
-private:
-    /**
-     * Parses a xml window node into internal format
-     * @param windowConfig WindowConfig_ptr to parse into
-     * @param node rapidxml node to parse
-     */
-    static void parseWidowNode(const RobotGui::WindowConfig_ptr& windowConfig, rapidxml::xml_node<> *node);
+        /**
+         * Parses a xml node into internal format
+         * @param node xml node to parse
+         * @return WidgetConfig struct
+         */
+        static WidgetConfig_ptr parseWidget(rapidxml::xml_node<> *node);
 
-    /**
-     * Checks if a values is a constant defined in XMLConstants.h
-     * @param val value to check if it is a constant
-     * @return if value is a constant
-     */
-    static bool isConstant(const std::string& val);
+    private:
+        /**
+         * Parses a xml window node into internal format
+         * @param windowConfig WindowConfig_ptr to parse into
+         * @param node rapidxml node to parse
+         */
+        static void parseWidowNode(const WindowConfig_ptr& windowConfig, rapidxml::xml_node<> *node);
 
-    /**
-     * Gets the numerical value for a xml constant
-     * @param val value to get numerical constant for
-     * @return numerical constant corresponding to val
-     */
-    static int getConstVal(const std::string& val);
+        /**
+         * Checks if a values is a constant defined in XMLConstants.h
+         * @param val value to check if it is a constant
+         * @return if value is a constant
+         */
+        static bool isConstant(const std::string& val);
 
-    /**
-     * stoi with exception handling, returns large negative number if fails
-     * @param val string to parse
-     * @return int from string
-     */
-    static int safeStoi(const std::string& val);
+        /**
+         * Gets the numerical value for a xml constant
+         * @param val value to get numerical constant for
+         * @return numerical constant corresponding to val
+         */
+        static int getConstVal(const std::string& val);
 
-    /**
-     * Writes defaults to empty/null attributes of a internal config
-     * @param widgetConfig internal config to write defaults to
-     */
-    static void setDefaults(const RobotGui::WidgetConfig_ptr& widgetConfig);
-};
+        /**
+         * stoi with exception handling, returns large negative number if fails
+         * @param val string to parse
+         * @return int from string
+         */
+        static int safeStoi(const std::string& val);
+
+        /**
+         * Writes defaults to empty/null attributes of a internal config
+         * @param widgetConfig internal config to write defaults to
+         */
+        static void setDefaults(const WidgetConfig_ptr& widgetConfig);
+    };
+}
 
 #endif //ROBOT_GUI_V3_XMLINPUT_H

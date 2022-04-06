@@ -3,7 +3,7 @@
 #include "../GuiInstance.h"
 #include "../Theme.h"
 
-MenuWidget::MenuWidget(QWidget *parent, AppConfig *appConfig_, RobotGui::GuiCore *coreGui, RobotGui::GuiInstance *robotGui, RobotGui::Theme *_theme) : QMenuBar(parent) {
+MenuWidget::MenuWidget(QWidget *parent, RobotGui::AppConfig *appConfig_, RobotGui::GuiCore *coreGui, RobotGui::GuiInstance *robotGui, RobotGui::Theme *_theme) : QMenuBar(parent) {
     theme = _theme;
     appConfig = appConfig_;
     // File menu

@@ -6,7 +6,7 @@
 
 #include <utility>
 
-void AppConfig::parse() {
+void RobotGui::AppConfig::parse() {
     if (createDir()) {
         xmlFilepath = RobotGui::APP_CONFIG_NO_XML_PATH;
     } else {
@@ -23,22 +23,22 @@ void AppConfig::parse() {
 
 }
 
-void AppConfig::write() {
+void RobotGui::AppConfig::write() {
     std::ofstream outfile;
     outfile.open(getPath() + std::string(RobotGui::APP_CONFIG_FILE_NAME), std::ofstream::out | std::ofstream::trunc);
     outfile << RobotGui::APP_CONFIG_XML_PATH << RobotGui::APP_CONFIG_SEP << xmlFilepath << std::endl;
     outfile.close();
 }
 
-void AppConfig::setDefaultXmlPath(std::string path) {
+void RobotGui::AppConfig::setDefaultXmlPath(std::string path) {
     xmlFilepath = std::move(path);
 }
 
-std::string AppConfig::getDefaultXmlPath() const {
+std::string RobotGui::AppConfig::getDefaultXmlPath() const {
     return xmlFilepath;
 }
 
-bool AppConfig::createDir() {
+bool RobotGui::AppConfig::createDir() {
     if (std::experimental::filesystem::create_directories(getPath())) {
         createFile();
         return true;
@@ -49,17 +49,17 @@ bool AppConfig::createDir() {
     return false;
 }
 
-void AppConfig::createFile() {
+void RobotGui::AppConfig::createFile() {
     std::ofstream outfile(getPath() + std::string(RobotGui::APP_CONFIG_FILE_NAME));
     outfile << RobotGui::APP_CONFIG_XML_PATH << RobotGui::APP_CONFIG_SEP << RobotGui::APP_CONFIG_NO_XML_PATH << std::endl;
     outfile.close();
 }
 
-std::string AppConfig::getPath() {
+std::string RobotGui::AppConfig::getPath() {
     return getpwuid(getuid())->pw_dir + std::string(RobotGui::APP_CONFIG_FILE_PATH);
 }
 
-std::string AppConfig::splitStr(const std::string &str, char delim, int index) {
+std::string RobotGui::AppConfig::splitStr(const std::string &str, char delim, int index) {
     std::stringstream strStream(str);
     std::string item;
     for (int i = 0; std::getline(strStream, item, delim); i++) {
@@ -70,7 +70,7 @@ std::string AppConfig::splitStr(const std::string &str, char delim, int index) {
     return "";
 }
 
-bool AppConfig::fileExists(const std::string &path) {
+bool RobotGui::AppConfig::fileExists(const std::string &path) {
     if (FILE *file = fopen(path.c_str(), "r")) {
         fclose(file);
         return true;
@@ -78,16 +78,16 @@ bool AppConfig::fileExists(const std::string &path) {
     return false;
 }
 
-void AppConfig::load() {
+void RobotGui::AppConfig::load() {
     std::string rootPath = getPath();
     AppConfig::loadImageFromFile(rootPath + RobotGui::APP_CONFIG_ARROW_ASSET_PATH, RobotGui::ARROW_ASSET_NAME);
     AppConfig::loadImageFromFile(rootPath + RobotGui::APP_CONFIG_COMPASS_ASSET_PATH, RobotGui::COMPASS_ASSET_NAME);
-    AppConfig::loadImageFromFile(rootPath + RobotGui::APP_CONFIG_CROSS_HAIR_ASSET_PATH, RobotGui::CROSS_HAIR_ASSET_NAME);
-    AppConfig::loadImageFromFile(rootPath + RobotGui::APP_CONFIG_ROLL_DIAL_ASSET_PATH, RobotGui::ROLL_DIAL_ASSET_NAME);
-    AppConfig::loadImageFromFile(rootPath + RobotGui::APP_CONFIG_ROLL_POINTER_ASSET_PATH, RobotGui::ROLL_POINTER_ASSET_NAME);
+    RobotGui::AppConfig::loadImageFromFile(rootPath + RobotGui::APP_CONFIG_CROSS_HAIR_ASSET_PATH, RobotGui::CROSS_HAIR_ASSET_NAME);
+    RobotGui::AppConfig::loadImageFromFile(rootPath + RobotGui::APP_CONFIG_ROLL_DIAL_ASSET_PATH, RobotGui::ROLL_DIAL_ASSET_NAME);
+    RobotGui::AppConfig::loadImageFromFile(rootPath + RobotGui::APP_CONFIG_ROLL_POINTER_ASSET_PATH, RobotGui::ROLL_POINTER_ASSET_NAME);
 }
 
-void AppConfig::loadImageFromFile(const std::string& filePath, const std::string& target) {
+void RobotGui::AppConfig::loadImageFromFile(const std::string& filePath, const std::string& target) {
     if (AppConfig::fileExists(filePath)) {
         assets[target] = cv::imread(filePath, cv::IMREAD_UNCHANGED);
     } else {
@@ -95,6 +95,6 @@ void AppConfig::loadImageFromFile(const std::string& filePath, const std::string
     }
 }
 
-cv::Mat AppConfig::getAsset(const std::string &key) {
+cv::Mat RobotGui::AppConfig::getAsset(const std::string &key) {
     return assets.count(key) != 0 ? assets[key] : cv::Mat();
 }

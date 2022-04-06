@@ -3,7 +3,7 @@
 
 #define strFailed -9123931      // Random
 
-RobotGui::WindowConfig_ptr XMLInput::parse(const char *filename) {
+RobotGui::WindowConfig_ptr RobotGui::XMLInput::parse(const char *filename) {
     // Open the file and parse it
     rapidxml::file<> xmlFile(filename);
     rapidxml::xml_document<> doc;
@@ -18,7 +18,7 @@ RobotGui::WindowConfig_ptr XMLInput::parse(const char *filename) {
     return windowConfig;
 }
 
-RobotGui::WidgetConfig_ptr XMLInput::parseWidget(rapidxml::xml_node<> *node) {
+RobotGui::WidgetConfig_ptr RobotGui::XMLInput::parseWidget(rapidxml::xml_node<> *node) {
 //    auto newWidgetStruct = new WidgetConfig;                    // Struct to return
     RobotGui::WidgetConfig_ptr newWidgetStruct = std::make_shared<RobotGui::WidgetConfig>();
     int tempVal;                                            // Used to keep track of ints parsed from the xml file
@@ -154,7 +154,7 @@ RobotGui::WidgetConfig_ptr XMLInput::parseWidget(rapidxml::xml_node<> *node) {
     return newWidgetStruct;
 }
 
-void XMLInput::parseWidowNode(const RobotGui::WindowConfig_ptr &windowConfig, rapidxml::xml_node<> *node) {
+void RobotGui::XMLInput::parseWidowNode(const RobotGui::WindowConfig_ptr &windowConfig, rapidxml::xml_node<> *node) {
     int tempVal;
     // Iterate though all attributes
     for (rapidxml::xml_attribute<> *attr = node->first_attribute(); attr; attr = attr->next_attribute()) {
@@ -190,12 +190,12 @@ void XMLInput::parseWidowNode(const RobotGui::WindowConfig_ptr &windowConfig, ra
     }
 }
 
-bool XMLInput::isConstant(const std::string &val) {
+bool RobotGui::XMLInput::isConstant(const std::string &val) {
     return val == RobotGui::Xml::MAX_CONST || val == RobotGui::Xml::AUTO_CONST || val == RobotGui::Xml::THEME_CONST || val == RobotGui::Xml::NONE_CONST
            || val == RobotGui::Xml::CUSTOM_CONST;
 }
 
-int XMLInput::getConstVal(const std::string &val) {
+int RobotGui::XMLInput::getConstVal(const std::string &val) {
     if (val == RobotGui::Xml::MAX_CONST) {
         return RobotGui::Xml::MAX_CONST_ID;
     } else if (val == RobotGui::Xml::AUTO_CONST) {
@@ -210,7 +210,7 @@ int XMLInput::getConstVal(const std::string &val) {
     return 0;
 }
 
-int XMLInput::safeStoi(const std::string &val) {
+int RobotGui::XMLInput::safeStoi(const std::string &val) {
     try {
         return std::stoi(val);
     } catch (...) {
@@ -218,7 +218,7 @@ int XMLInput::safeStoi(const std::string &val) {
     }
 }
 
-void XMLInput::setDefaults(const RobotGui::WidgetConfig_ptr &widgetConfig) {
+void RobotGui::XMLInput::setDefaults(const RobotGui::WidgetConfig_ptr &widgetConfig) {
     if (widgetConfig->backgroundColor.empty()) {
         widgetConfig->backgroundColor = RobotGui::Xml::THEME_CONST;
     }
