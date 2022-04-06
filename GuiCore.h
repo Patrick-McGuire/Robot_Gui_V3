@@ -9,7 +9,6 @@
 #include "GuiInstance.h"
 #include <vector>
 #include "WidgetData.h"
-#include "Interface/LocalServer.h"
 #include <QDesktopWidget>
 #include "RobotGui.h"
 #include <QFileDialog>
@@ -21,17 +20,19 @@
 #include "Interface/ServerInterface.h"
 
 class GuiInstance;
+
 class MenuWidget;
+
 class ServerInterface;
 
 namespace RobotGui {
 
-/**
- * @class CoreGui
- * Custom Manages the entire GUI
- *
- * @author Patrick McGuire (Patrick-McGuire)
- */
+    /**
+     * @class CoreGui
+     * Custom Manages the entire GUI
+     *
+     * @author Patrick McGuire (Patrick-McGuire)
+     */
     class GuiCore : public QObject {
     Q_OBJECT
     public:
@@ -57,6 +58,10 @@ namespace RobotGui {
          */
         void addInterface(ThreadedInterface *thread);
 
+        /**
+         * Adds a local server to the GUi
+         * @param serverInterface serverInterface
+         */
         void addInterface(ServerInterface *serverInterface);
 
     public slots:

@@ -9,6 +9,10 @@ ServerInterface::ServerInterface(QObject *parent, int _port) : QTcpServer(parent
     port = _port;
 }
 
+ServerInterface::~ServerInterface() {
+    delete dataInput;
+}
+
 void ServerInterface::setWidgetData(RobotGui::WidgetData *_widgetData) {
     BaseInterface::setWidgetData(_widgetData);
     dataInput = new DataInput(getWidgetData());
@@ -17,10 +21,9 @@ void ServerInterface::setWidgetData(RobotGui::WidgetData *_widgetData) {
 }
 
 void ServerInterface::startServer() {
-    if(!this->listen(QHostAddress::Any, port)) {
+    if (!this->listen(QHostAddress::Any, port)) {
         qDebug("Could not start server");
-    }
-    else {
+    } else {
         connect(this, SIGNAL(newConnection()), this, SLOT(incomingConnection()));
         qDebug("Listening...");
     }
@@ -35,14 +38,15 @@ void ServerInterface::incomingConnection() {
 }
 
 void ServerInterface::receiveData() {
-    auto *senderObj = dynamic_cast<QTcpSocket*>(QObject::sender());
+    auto *senderObj = dynamic_cast<QTcpSocket *>(QObject::sender());
     QByteArray data = senderObj->readAll();
 
-    dataInput->parse((char*)data.data(), data.length());        // Parse the data
+    dataInput->parse((char *) data.data(), data.length());        // Parse the data
     // Check if we received any data
-    if(getWidgetData()->keyUpdated()) {
+    if (getWidgetData()->keyUpdated()) {
         emit newData();
     }
     senderObj->write(output->toString().c_str());
 }
+
 

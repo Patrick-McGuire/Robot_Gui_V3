@@ -32,6 +32,11 @@ public:
     explicit ServerInterface(QObject *parent, int _port);
 
     /**
+     * Deconstruct
+     */
+    ~ServerInterface();
+
+    /**
      * Sets the widget data structure to impute data to, and initializes things that use it
      * @param _widgetData
      */

@@ -33,13 +33,13 @@ void SettingsTab::addPanel(BaseSettingsPanel *new_panel, const std::string &name
 }
 
 void SettingsTab::updateInFocus() {
-    for (auto &panel : settingsPanels) {
+    for (auto &panel: settingsPanels) {
         panel->updateData(true);
     }
 }
 
 void SettingsTab::customUpdateStyle() {
-    for (auto &panel : settingsPanels) {
+    for (auto &panel: settingsPanels) {
         panel->updateStyle();
     }
 

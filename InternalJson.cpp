@@ -15,7 +15,7 @@ InternalJson::SharedPtr InternalJson::create(int val) {
 InternalJson::SharedPtr InternalJson::create(double val) {
     return SharedPtr(new InternalJson(val));
 }
-
+    
 InternalJson::SharedPtr InternalJson::create(bool val) {
     return SharedPtr(new InternalJson(val));
 }

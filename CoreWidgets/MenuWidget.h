@@ -1,7 +1,7 @@
 #ifndef ROBOT_GUI_V3_MENUWIDGET_H
 #define ROBOT_GUI_V3_MENUWIDGET_H
 
-#include "BaseWidget.h"
+#include "../CustomWidgets/BaseWidget.h"
 #include <QWidget>
 #include <QLabel>
 #include <string>
@@ -51,7 +51,7 @@ public:
 private:
     Theme *theme;
     AppConfig *appConfig;
-    std::vector<QMenu*> menus;
+    std::vector<QMenu *> menus;
     const char *const FILE_MENU_NAME = "FileMenu";
     const char *const SETTINGS_MENU_NAME = "SettingMenuName";
     const char *const THEME_MENU_NAME = "ThemeMenu";

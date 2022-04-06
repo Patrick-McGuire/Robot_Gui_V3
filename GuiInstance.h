@@ -1,23 +1,23 @@
 #ifndef ROBOT_GUI_V3_GUIINSTANCE_H
 #define ROBOT_GUI_V3_GUIINSTANCE_H
+
 #include <QObject>
 #include <QTimer>
 #include "WidgetData.h"
 #include "GUIMaker.h"
 #include <QMainWindow>
 #include "CustomWidgets/TabWidget.h"
-#include "CustomWidgets/MenuWidget.h"
+#include "CoreWidgets/MenuWidget.h"
 #include "CustomWidgets/SimpleButtonWidget.h"
 #include "iostream"
 #include <vector>
 #include <QApplication>
-#include "Interface/LocalServer.h"
 #include "GuiCore.h"
 #include "Theme.h"
 #include "XML/XMLOutput.h"
 
-class LocalServer;
 class MenuWidget;
+
 class GuiCore;
 
 /**
@@ -39,7 +39,7 @@ public:
      * @param _widgetData WidgetData object to display data from
      * @param _runState where to get data from
      */
-    GuiInstance(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appConfig, RobotGui::GuiCore *_coreGui, const RobotGui::WindowConfig_ptr& _config, RobotGui::WidgetData *_widgetData);
+    GuiInstance(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appConfig, RobotGui::GuiCore *_coreGui, const RobotGui::WindowConfig_ptr &_config, RobotGui::WidgetData *_widgetData);
 
     /**
      * Deconstruct
@@ -58,6 +58,7 @@ public:
     RobotGui::WidgetData *getWidgetData();
 
 public slots:
+
     /**
      * Slot that updates the every child custom widget
      */
@@ -87,7 +88,7 @@ public slots:
     /**
      * Saves the current config to XML
      */
-     void saveAs();
+    void saveAs();
 
 private:
     /**

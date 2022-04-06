@@ -52,7 +52,7 @@ void MenuWidget::updateTheme() {
     style += "color: " + QString::fromStdString(textColor) + ";";
     this->setStyleSheet(style);
 
-    for (auto &element : menus) {
+    for (auto &element: menus) {
         style = "QMenu#" + element->objectName() + "{background-color : " + QString::fromStdString(lighterColor) + "; color : " + QString::fromStdString(textColor) + "}" +
                 "QMenu::item:selected#" + element->objectName() + "{background-color :" + QString::fromStdString(theme->getHighlightColor()) + "}";
         element->setStyleSheet(style);

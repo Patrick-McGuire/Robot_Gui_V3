@@ -30,7 +30,7 @@ set(widget_type_files
         CustomWidgets/TextBoxWidget.cpp CustomWidgets/TextBoxWidget.h
         CustomWidgets/BaseWidget.cpp CustomWidgets/BaseWidget.h
         CustomWidgets/TabWidget.cpp CustomWidgets/TabWidget.h
-        CustomWidgets/MenuWidget.cpp CustomWidgets/MenuWidget.h
+        CoreWidgets/MenuWidget.cpp CoreWidgets/MenuWidget.h
         CustomWidgets/SimpleButtonWidget.cpp CustomWidgets/SimpleButtonWidget.h
         CustomWidgets/MultiBarGraphWidget.cpp CustomWidgets/MultiBarGraphWidget.h
         CustomWidgets/AnnunciatorWidget.cpp CustomWidgets/AnnunciatorWidget.h
@@ -59,7 +59,6 @@ set(interface_files
         Interface/ThreadedInterface.cpp Interface/ThreadedInterface.h
         Interface/RandomDataInterface.cpp Interface/RandomDataInterface.h
         Interface/WebcamStreamInterface.cpp
-        Interface/LocalServer.cpp
         Interface/FlagCheckerInterface.cpp Interface/FlagCheckerInterface.h
         )
 

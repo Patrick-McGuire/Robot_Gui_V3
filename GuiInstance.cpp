@@ -5,9 +5,10 @@
 #include "WidgetData.h"
 
 
-GuiInstance::GuiInstance(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appConfig, RobotGui::GuiCore *_coreGui, const RobotGui::WindowConfig_ptr &_config, RobotGui::WidgetData *_widgetData) : QWidget(_parent) {
+GuiInstance::GuiInstance(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appConfig, RobotGui::GuiCore *_coreGui, const RobotGui::WindowConfig_ptr &_config, RobotGui::WidgetData *_widgetData)
+        : QWidget(_parent) {
     // Save passed variables
-    widgetData = _widgetData;//new WidgetData();
+    widgetData = _widgetData;
     mainWindow = _mainWindow;
     appConfig = _appConfig;
     parent = _parent;
