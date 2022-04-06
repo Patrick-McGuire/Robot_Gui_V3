@@ -9,7 +9,7 @@ int main(int argc, char** argv) {
     auto gui = new RobotGui::GuiCore(argc, argv);
 
     // Localhost server interface
-//    ServerInterface serverInterface(gui, 1254);
+//    RobotGui::ServerInterface serverInterface(gui, 1254);
 //    gui->addInterface(&serverInterface);
     // Populate keys with random values
     RobotGui::RandomDataInterface randomDataInterface(50);
