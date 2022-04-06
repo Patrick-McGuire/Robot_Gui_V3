@@ -4,28 +4,30 @@
 #include "ThreadedInterface.h"
 #include "opencv2/opencv.hpp"
 
-/**
- * @class WebcamStreamInterface
- * Streams the webcam though the interface
- *
- * @author Patrick McGuire (Patrick-McGuire)
- */
-class WebcamStreamInterface : public ThreadedInterface {
-public:
+namespace RobotGui {
     /**
-     * Constructor
-     * @param interval interval on which to update
-     */
-    explicit WebcamStreamInterface(int _interval);
+         * @class WebcamStreamInterface
+         * Streams the webcam though the interface
+         *
+         * @author Patrick McGuire (Patrick-McGuire)
+         */
+    class WebcamStreamInterface : public RobotGui::ThreadedInterface {
+    public:
+        /**
+         * Constructor
+         * @param interval interval on which to update
+         */
+        explicit WebcamStreamInterface(int _interval);
 
-    /**
-     * Updates the stream periodically
-     */
-    void run() override;
+        /**
+         * Updates the stream periodically
+         */
+        void run() override;
 
-private:
-    int interval;
-};
+    private:
+        int interval;
+    };
+}
 
 
 #endif //ROBOT_GUI_V3_WEBCAMSTREAMINTERFACE_H

@@ -5,7 +5,7 @@
 #include "../WidgetData.h"
 #include "../Theme.h"
 
-BaseWidget::BaseWidget(QWidget *_parent_, const RobotGui::WidgetConfig_ptr &_configInfo, RobotGui::WidgetData *_widgetData, RobotGui::Theme *_theme) : staticPos(_configInfo->staticPos), QWidget(_parent_) {
+RobotGui::BaseWidget::BaseWidget(QWidget *_parent_, const RobotGui::WidgetConfig_ptr &_configInfo, RobotGui::WidgetData *_widgetData, RobotGui::Theme *_theme) : staticPos(_configInfo->staticPos), QWidget(_parent_) {
     configInfo = _configInfo;
     widgetData = _widgetData;
     _parent = _parent_;
@@ -28,7 +28,7 @@ BaseWidget::BaseWidget(QWidget *_parent_, const RobotGui::WidgetConfig_ptr &_con
     updateStyle();
 }
 
-void BaseWidget::setPosition(int _x, int _y) {
+void RobotGui::BaseWidget::setPosition(int _x, int _y) {
     if (!staticPos) {
         // Clip values to be inside the window
         if (_x > _parent->size().width() - this->width()) { _x = _parent->size().width() - this->width(); }
@@ -42,11 +42,11 @@ void BaseWidget::setPosition(int _x, int _y) {
     }
 }
 
-void BaseWidget::updateData(bool focus) {
+void RobotGui::BaseWidget::updateData(bool focus) {
     updateData(focus ? _parent : nullptr);
 }
 
-void BaseWidget::updateData(QWidget *activeParent) {
+void RobotGui::BaseWidget::updateData(QWidget *activeParent) {
     if (activeParent == _parent) {
         if (!inFocusLast) {
             inFocusLast = true;
@@ -59,18 +59,18 @@ void BaseWidget::updateData(QWidget *activeParent) {
     }
 }
 
-void BaseWidget::setDraggability(bool _draggable) {
+void RobotGui::BaseWidget::setDraggability(bool _draggable) {
     configInfo->draggable = !staticPos && _draggable;
     customUpdateDraggability(_draggable);
 }
 
-void BaseWidget::toggleDraggability() {
+void RobotGui::BaseWidget::toggleDraggability() {
     if (!staticPos) {
         configInfo->draggable = !configInfo->draggable;
     }
 }
 
-void BaseWidget::paintEvent(QPaintEvent *_event) {
+void RobotGui::BaseWidget::paintEvent(QPaintEvent *_event) {
     QPainter painter(this);
     if (drawBorder) {
         painter.setPen(CommonFunctions::GetQColorFromString(borderColor));
@@ -81,7 +81,7 @@ void BaseWidget::paintEvent(QPaintEvent *_event) {
     }
 }
 
-void BaseWidget::mousePressEvent(QMouseEvent *event) {
+void RobotGui::BaseWidget::mousePressEvent(QMouseEvent *event) {
     if (!staticPos && configInfo->draggable) {
         clicked = true;
         startX = event->globalX();
@@ -91,7 +91,7 @@ void BaseWidget::mousePressEvent(QMouseEvent *event) {
     }
 }
 
-void BaseWidget::mouseReleaseEvent(QMouseEvent *event) {
+void RobotGui::BaseWidget::mouseReleaseEvent(QMouseEvent *event) {
     if (!staticPos) {
         clicked = false;
         startX = event->globalX();
@@ -99,14 +99,14 @@ void BaseWidget::mouseReleaseEvent(QMouseEvent *event) {
     }
 }
 
-void BaseWidget::mouseMoveEvent(QMouseEvent *event) {
+void RobotGui::BaseWidget::mouseMoveEvent(QMouseEvent *event) {
     if (!staticPos && clicked && configInfo->draggable) {
         setPosition(event->globalX() - startX + startWX, event->globalY() - startY + startWY);
     }
 }
 
 // Style
-void BaseWidget::updateStyle() {
+void RobotGui::BaseWidget::updateStyle() {
     backgroundColor = configInfo->backgroundColor;
     widgetBackgroundColor = configInfo->backgroundColor;
     bodyTextColor = configInfo->textColor;
@@ -142,17 +142,17 @@ void BaseWidget::updateStyle() {
     updateChildrenStyle();
 }
 
-void BaseWidget::setBackgroundColor(QAction *channelAction) {
+void RobotGui::BaseWidget::setBackgroundColor(QAction *channelAction) {
     configInfo->backgroundColor = channelAction->data().toString().toStdString();
     updateStyle();
 }
 
-void BaseWidget::setTextColor(QAction *channelAction) {
+void RobotGui::BaseWidget::setTextColor(QAction *channelAction) {
     configInfo->textColor = channelAction->data().toString().toStdString();
     updateStyle();
 }
 
-void BaseWidget::showContextMenu(const QPoint &pos) {
+void RobotGui::BaseWidget::showContextMenu(const QPoint &pos) {
     std::vector<QMenu *> menus;
     auto contextMenu = new QMenu(this);
     menus.emplace_back(contextMenu);
@@ -198,24 +198,24 @@ void BaseWidget::showContextMenu(const QPoint &pos) {
     contextMenu->exec(mapToGlobal(pos));
 }
 
-void BaseWidget::customUpdateStyle() {}
+void RobotGui::BaseWidget::customUpdateStyle() {}
 
-void BaseWidget::updateChildrenStyle() {}
+void RobotGui::BaseWidget::updateChildrenStyle() {}
 
-void BaseWidget::updateInFocus() {}
+void RobotGui::BaseWidget::updateInFocus() {}
 
-void BaseWidget::updateNoFocus() {}
+void RobotGui::BaseWidget::updateNoFocus() {}
 
-void BaseWidget::updateOnInFocus() {}
+void RobotGui::BaseWidget::updateOnInFocus() {}
 
-void BaseWidget::customUpdate() {}
+void RobotGui::BaseWidget::customUpdate() {}
 
-void BaseWidget::customUpdateDraggability(bool _draggable) {}
+void RobotGui::BaseWidget::customUpdateDraggability(bool _draggable) {}
 
-void BaseWidget::outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) {
+void RobotGui::BaseWidget::outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) {
 
 }
 
-RobotGui::WidgetConfig_ptr BaseWidget::getConfig() {
+RobotGui::WidgetConfig_ptr RobotGui::BaseWidget::getConfig() {
     return configInfo;
 }

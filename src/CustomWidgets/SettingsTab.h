@@ -14,22 +14,24 @@
 #include "../WidgetData.h"
 #include "../Theme.h"
 
-class SettingsTab : public BaseWidget {
-public:
-    SettingsTab(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *_theme);
+namespace RobotGui {
+    class SettingsTab : public BaseWidget {
+    public:
+        SettingsTab(QWidget *parent, const WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *_theme);
 
-    void addPanel(BaseSettingsPanel *new_panel, const std::string &name);
+        void addPanel(BaseSettingsPanel *new_panel, const std::string &name);
 
-protected:
-    void updateInFocus() override;
+    protected:
+        void updateInFocus() override;
 
-    void customUpdateStyle() override;
+        void customUpdateStyle() override;
 
-protected:
-    SideTabWidget *sideTabWidget;
+    protected:
+        SideTabWidget *sideTabWidget;
 
-    std::vector<BaseSettingsPanel *> settingsPanels;
-};
+        std::vector<BaseSettingsPanel *> settingsPanels;
+    };
+}
 
 
 #endif //ROBOT_GUI_V3_SETTINGSTAB_H

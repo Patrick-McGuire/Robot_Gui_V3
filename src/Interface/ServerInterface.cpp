@@ -1,26 +1,28 @@
 #include "ServerInterface.h"
 #include "iostream"
 #include "../WidgetData.h"
+#include "BaseInterface.h"
+#include "DataInput.h"
 #include <QTcpSocket>
 #include <vector>
 
-ServerInterface::ServerInterface(QObject *parent, int _port) : QTcpServer(parent), BaseInterface() {
+RobotGui::ServerInterface::ServerInterface(QObject *parent, int _port) : QTcpServer(parent), RobotGui::BaseInterface() {
     dataInput = nullptr;
     port = _port;
 }
 
-ServerInterface::~ServerInterface() {
+RobotGui::ServerInterface::~ServerInterface() {
     delete dataInput;
 }
 
-void ServerInterface::setWidgetData(RobotGui::WidgetData *_widgetData) {
-    BaseInterface::setWidgetData(_widgetData);
-    dataInput = new DataInput(getWidgetData());
+void RobotGui::ServerInterface::setWidgetData(RobotGui::WidgetData *_widgetData) {
+    RobotGui::BaseInterface::setWidgetData(_widgetData);
+    dataInput = new RobotGui::DataInput(getWidgetData());
     output->mapSet("Flags", getWidgetData()->getFlagOutput());
     output->mapSet("Values", getWidgetData()->getOutputJson());
 }
 
-void ServerInterface::startServer() {
+void RobotGui::ServerInterface::startServer() {
     if (!this->listen(QHostAddress::Any, port)) {
         qDebug("Could not start server");
     } else {
@@ -29,7 +31,7 @@ void ServerInterface::startServer() {
     }
 }
 
-void ServerInterface::incomingConnection() {
+void RobotGui::ServerInterface::incomingConnection() {
     QTcpSocket *socket = this->nextPendingConnection();
     if (!socket)
         return;
@@ -37,7 +39,7 @@ void ServerInterface::incomingConnection() {
     connect(socket, SIGNAL(readyRead()), this, SLOT(receiveData()));
 }
 
-void ServerInterface::receiveData() {
+void RobotGui::ServerInterface::receiveData() {
     auto *senderObj = dynamic_cast<QTcpSocket *>(QObject::sender());
     QByteArray data = senderObj->readAll();
 

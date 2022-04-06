@@ -2,11 +2,12 @@
 #include "../WidgetData.h"
 #include "../InternalJson.h"
 #include "../Theme.h"
+#include "BaseWidget.h"
 #include <QString>
 #include <iostream>
 #include <vector>
 
-TextBoxWidget::TextBoxWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
+RobotGui::TextBoxWidget::TextBoxWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
     styledHeader = true;
     styledText = true;
     styledSeeThroughBackground = true;
@@ -38,7 +39,7 @@ TextBoxWidget::TextBoxWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &
     customUpdate();
 }
 
-void TextBoxWidget::updateInFocus() {
+void RobotGui::TextBoxWidget::updateInFocus() {
     for (auto &lineKey : lineKeys) {
         if (widgetData->keyUpdated(lineKey)) {
             customUpdate();
@@ -47,15 +48,15 @@ void TextBoxWidget::updateInFocus() {
     }
 }
 
-void TextBoxWidget::updateNoFocus() {
+void RobotGui::TextBoxWidget::updateNoFocus() {
 
 }
 
-void TextBoxWidget::updateOnInFocus() {
+void RobotGui::TextBoxWidget::updateOnInFocus() {
     customUpdate();
 }
 
-void TextBoxWidget::customUpdate() {
+void RobotGui::TextBoxWidget::customUpdate() {
     int i = 0;
 
     for (auto it = configInfo->lines.begin(); it != configInfo->lines.end(); ++it) {
@@ -83,7 +84,7 @@ void TextBoxWidget::customUpdate() {
     this->adjustSize();
 }
 
-void TextBoxWidget::customUpdateStyle() {
+void RobotGui::TextBoxWidget::customUpdateStyle() {
     char buf[400];
     sprintf(buf, "QWidget#%s{ background: %s; color: %s } QWidget#%s{ background: %s; color: %s }",
             titleBox->objectName().toStdString().c_str(),
@@ -103,7 +104,7 @@ void TextBoxWidget::customUpdateStyle() {
     adjustSize();
 }
 
-void TextBoxWidget::parseXml(const RobotGui::WidgetConfig_ptr &parentConfig, rapidxml::xml_node<> *node) {
+void RobotGui::TextBoxWidget::parseXml(const RobotGui::WidgetConfig_ptr &parentConfig, rapidxml::xml_node<> *node) {
     // Iterate though all lines
     for (auto *line = node->first_node(); line; line = line->next_sibling()) {
         std::string tagName = line->name();
@@ -124,7 +125,7 @@ void TextBoxWidget::parseXml(const RobotGui::WidgetConfig_ptr &parentConfig, rap
     }
 }
 
-void TextBoxWidget::outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) {
+void RobotGui::TextBoxWidget::outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) {
     for (auto &lineConfig : configInfo->lines) {
         rapidxml::xml_node<> *line = doc->allocate_node(rapidxml::node_element, RobotGui::Xml::LINE_TAG);
         node->append_node(line);

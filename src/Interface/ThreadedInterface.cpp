@@ -1,23 +1,24 @@
 #include "ThreadedInterface.h"
+#include "BaseInterface.h"
 
-ThreadedInterface::ThreadedInterface() : BaseInterface() {
+RobotGui::ThreadedInterface::ThreadedInterface() : RobotGui::BaseInterface() {
     thread = nullptr;
 }
 
-void ThreadedInterface::startThread() {
+void RobotGui::ThreadedInterface::startThread() {
     std::lock_guard<std::mutex> lockGuard(threadMutex);
     thread = new std::thread(&ThreadedInterface::runThread, this);
 }
 
-void ThreadedInterface::runThread() {
+void RobotGui::ThreadedInterface::runThread() {
     run();
 }
 
-void ThreadedInterface::run() {
+void RobotGui::ThreadedInterface::run() {
 
 }
 
-void ThreadedInterface::join() {
+void RobotGui::ThreadedInterface::join() {
     std::lock_guard<std::mutex> lockGuard(threadMutex);
     if(std::this_thread::get_id() != thread->get_id()) {
         thread->join();

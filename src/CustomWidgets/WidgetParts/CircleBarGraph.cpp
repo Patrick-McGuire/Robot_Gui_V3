@@ -5,8 +5,9 @@
 #include <QtGui/QPainter>
 #include "CircleBarGraph.h"
 #include "../../../lib/CommonFunctions.h"
+#include "BaseGraphDisplay.h"
 
-CircleBarGraph::CircleBarGraph(QWidget *parent, std::string _title, double _min_value, double _max_value, int _size, const std::string &bar_color) : BaseGraphDisplay(parent) {
+RobotGui::CircleBarGraph::CircleBarGraph(QWidget *parent, std::string _title, double _min_value, double _max_value, int _size, const std::string &bar_color) : BaseGraphDisplay(parent) {
     size = _size;
     minValue = _min_value;
     maxValue = _max_value;
@@ -24,7 +25,7 @@ CircleBarGraph::CircleBarGraph(QWidget *parent, std::string _title, double _min_
     setAlignment(Qt::AlignCenter);
 }
 
-void CircleBarGraph::setSize(int _size) {
+void RobotGui::CircleBarGraph::setSize(int _size) {
     size = _size;
 
     setGeometry(0, 0, size, size);
@@ -32,7 +33,7 @@ void CircleBarGraph::setSize(int _size) {
     setMinimumHeight(size);
 }
 
-void CircleBarGraph::paintEvent(QPaintEvent *_event) {
+void RobotGui::CircleBarGraph::paintEvent(QPaintEvent *_event) {
     QPainter painter(this);
 
     int fontSize = int(width() * 0.1);

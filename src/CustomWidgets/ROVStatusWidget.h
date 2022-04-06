@@ -11,29 +11,31 @@
 
 #include <QLabel>
 
-class ROVStatusWidget : public BaseWidget {
-public:
-    ROVStatusWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme);
+namespace RobotGui {
+    class ROVStatusWidget : public BaseWidget {
+    public:
+        ROVStatusWidget(QWidget *parent, const WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *theme);
 
-    void updateInFocus() override;
+        void updateInFocus() override;
 
-    void customUpdateStyle() override;
+        void customUpdateStyle() override;
 
-protected:
-    std::string statusSource;
-    std::string armedSource;
-    std::string allowedToArmSource;
-    std::string modeSource;
-    std::string runtimeSource;
-    std::string timeSource;
-    int size;
+    protected:
+        std::string statusSource;
+        std::string armedSource;
+        std::string allowedToArmSource;
+        std::string modeSource;
+        std::string runtimeSource;
+        std::string timeSource;
+        int size;
 
-    QLabel *statusBox;
-    QLabel *armingBox;
-    QLabel *modeBox;
-    QLabel *timeBox;
-    QLabel *runtimeBox;
-};
+        QLabel *statusBox;
+        QLabel *armingBox;
+        QLabel *modeBox;
+        QLabel *timeBox;
+        QLabel *runtimeBox;
+    };
+}
 
 
 #endif //ROBOT_GUI_V3_ROVSTATUSWIDGET_H

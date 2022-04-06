@@ -7,14 +7,16 @@
 
 #include "BaseGraphDisplay.h"
 
-class CircleBarGraph : public BaseGraphDisplay {
-public:
-    explicit CircleBarGraph(QWidget *parent = nullptr, std::string _title = "Title", double min_value = 0, double _max_value = 100, int _size = 200, const std::string &bar_color = "");
+namespace RobotGui {
+    class CircleBarGraph : public BaseGraphDisplay {
+    public:
+        explicit CircleBarGraph(QWidget *parent = nullptr, std::string _title = "Title", double min_value = 0, double _max_value = 100, int _size = 200, const std::string &bar_color = "");
 
-    void setSize(int size);
+        void setSize(int size);
 
-    void paintEvent(QPaintEvent *_event) override;
-};
+        void paintEvent(QPaintEvent *_event) override;
+    };
+}
 
 
 #endif //ROBOT_GUI_V3_CIRCLEBARGRAPH_H

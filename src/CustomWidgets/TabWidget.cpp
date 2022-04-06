@@ -5,8 +5,10 @@
 #include "../WidgetData.h"
 #include "../GUIMaker.h"
 #include "../Theme.h"
+#include "BaseWidget.h"
+#include "../Config/XMLOutput.h"
 
-TabWidget::TabWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
+RobotGui::TabWidget::TabWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
     styledBackground = true;
     styledHeader = true;
     drawBorder = false;
@@ -67,7 +69,7 @@ TabWidget::TabWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configIn
     tabs->setCurrentIndex(0);
 }
 
-void TabWidget::parseXml(const RobotGui::WidgetConfig_ptr &parentConfig, rapidxml::xml_node<> *node) {
+void RobotGui::TabWidget::parseXml(const RobotGui::WidgetConfig_ptr &parentConfig, rapidxml::xml_node<> *node) {
     for (auto *tab = node->first_node(); tab; tab = tab->next_sibling()) {                           // Iterate over nodes
         std::string tagName = tab->name();
         if (tagName == RobotGui::Xml::TAB_TAG) {
@@ -85,7 +87,7 @@ void TabWidget::parseXml(const RobotGui::WidgetConfig_ptr &parentConfig, rapidxm
     }
 }
 
-void TabWidget::outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) {
+void RobotGui::TabWidget::outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) {
     for (int i = 0; i < widgets.size(); i++) {
         rapidxml::xml_node<> *tab = doc->allocate_node(rapidxml::node_element, RobotGui::Xml::TAB_TAG);
         node->append_node(tab);
@@ -96,7 +98,7 @@ void TabWidget::outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *
     }
 }
 
-void TabWidget::updateInFocus() {
+void RobotGui::TabWidget::updateInFocus() {
     for (auto &tab : widgets) {
         for (auto &widget: tab) {
             widget->updateData(tabs->currentWidget());
@@ -104,7 +106,7 @@ void TabWidget::updateInFocus() {
     }
 }
 
-void TabWidget::updateNoFocus() {
+void RobotGui::TabWidget::updateNoFocus() {
     for (auto &tab : widgets) {
         for (auto &widget : tab) {
             widget->updateData(false);
@@ -112,11 +114,11 @@ void TabWidget::updateNoFocus() {
     }
 }
 
-void TabWidget::updateOnInFocus() {
+void RobotGui::TabWidget::updateOnInFocus() {
 
 }
 
-void TabWidget::customUpdateDraggability(bool _draggable) {
+void RobotGui::TabWidget::customUpdateDraggability(bool _draggable) {
     for (auto &tab : widgets) {
         for (auto &widget: tab) {
             widget->setDraggability(_draggable);
@@ -124,7 +126,7 @@ void TabWidget::customUpdateDraggability(bool _draggable) {
     }
 }
 
-void TabWidget::customUpdateStyle() {
+void RobotGui::TabWidget::customUpdateStyle() {
     std::string textColor = CommonFunctions::GetContrastingTextColor(backgroundColor);
     std::string darkerBackground = CommonFunctions::GenerateDarkerColor(backgroundColor, 10);;
     std::string darkerDarkerBorder = CommonFunctions::GenerateDarkerColor(darkerBackground, 10);
@@ -144,7 +146,7 @@ void TabWidget::customUpdateStyle() {
     }
 }
 
-void TabWidget::updateChildrenStyle() {
+void RobotGui::TabWidget::updateChildrenStyle() {
     for (auto &tab : widgets) {
         for (auto &widget: tab) {
             widget->updateStyle();
@@ -152,7 +154,7 @@ void TabWidget::updateChildrenStyle() {
     }
 }
 
-void TabWidget::parseTabChildren(const RobotGui::WidgetConfig_ptr &parentConfig, rapidxml::xml_node<> *node) {
+void RobotGui::TabWidget::parseTabChildren(const RobotGui::WidgetConfig_ptr &parentConfig, rapidxml::xml_node<> *node) {
     // These calls back to XML input to parse the "sub" widgets
     std::vector<RobotGui::WidgetConfig_ptr> widgetsVec;
     for (auto *widget = node->first_node(); widget; widget = widget->next_sibling()) {

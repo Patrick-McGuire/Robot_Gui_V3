@@ -4,6 +4,7 @@
 #include "../WidgetData.h"
 #include "../InternalJson.h"
 #include "../Theme.h"
+#include "BaseWidget.h"
 
 /**
  * Height/Width
@@ -12,7 +13,7 @@
  */
 
 
-LivePlotWidget::LivePlotWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
+RobotGui::LivePlotWidget::LivePlotWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
     styledWidgetBackgroundColor = true;
     styledHeader = true;
     styledText = true;
@@ -99,7 +100,7 @@ LivePlotWidget::LivePlotWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr
     }
 }
 
-void LivePlotWidget::parseXml(const RobotGui::WidgetConfig_ptr &parentConfig, rapidxml::xml_node<> *node) {
+void RobotGui::LivePlotWidget::parseXml(const RobotGui::WidgetConfig_ptr &parentConfig, rapidxml::xml_node<> *node) {
     // Iterate though all lines
     for (auto *line = node->first_node(); line; line = line->next_sibling()) {
         std::string tagName = line->name();
@@ -123,7 +124,7 @@ void LivePlotWidget::parseXml(const RobotGui::WidgetConfig_ptr &parentConfig, ra
     }
 }
 
-void LivePlotWidget::outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) {
+void RobotGui::LivePlotWidget::outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) {
     node->append_attribute(doc->allocate_attribute(RobotGui::Xml::TIME_RANGE_ATR, doc->allocate_string(std::to_string(configInfo->timeRange).c_str())));
     for (auto &lineConfig: configInfo->lines) {
         rapidxml::xml_node<> *line = doc->allocate_node(rapidxml::node_element, RobotGui::Xml::LINE_TAG);
@@ -134,7 +135,7 @@ void LivePlotWidget::outputXML(rapidxml::xml_node<> *node, rapidxml::xml_documen
     }
 }
 
-void LivePlotWidget::customUpdateStyle() {
+void RobotGui::LivePlotWidget::customUpdateStyle() {
     chart->setBackgroundBrush(CommonFunctions::GetQColorFromString(widgetBackgroundColor));
     chart->setTitleBrush(CommonFunctions::GetQColorFromString(titleTextColor));
     chart->legend()->setLabelColor(CommonFunctions::GetQColorFromString(bodyTextColor));
@@ -168,7 +169,7 @@ void LivePlotWidget::customUpdateStyle() {
     resetButton->setStyleSheet(buf);
 }
 
-void LivePlotWidget::generateGraph() {
+void RobotGui::LivePlotWidget::generateGraph() {
     if(pauseState) { return; }
     double max = data[0].back().second;
     double min = data[0].back().second;
@@ -184,7 +185,7 @@ void LivePlotWidget::generateGraph() {
     autoRange(min, max, 0);
 }
 
-void LivePlotWidget::updateInFocus() {
+void RobotGui::LivePlotWidget::updateInFocus() {
     for (auto line: configInfo->lines) {
         if (widgetData->keyUpdated(line[1])) {
             updateDataStructure();
@@ -196,7 +197,7 @@ void LivePlotWidget::updateInFocus() {
     }
 }
 
-void LivePlotWidget::updateNoFocus() {
+void RobotGui::LivePlotWidget::updateNoFocus() {
     for (auto line: configInfo->lines) {
         if (widgetData->keyUpdated(line[1])) {
             updateDataStructure();
@@ -205,12 +206,12 @@ void LivePlotWidget::updateNoFocus() {
     }
 }
 
-void LivePlotWidget::updateOnInFocus() {
+void RobotGui::LivePlotWidget::updateOnInFocus() {
     updateDataStructure();
     generateGraph();
 }
 
-void LivePlotWidget::autoRange(double min, double max, double time) {
+void RobotGui::LivePlotWidget::autoRange(double min, double max, double time) {
     if (autoRangeMin) {
         chart->axes(Qt::Vertical)[0]->setMin(min);
     }
@@ -219,7 +220,7 @@ void LivePlotWidget::autoRange(double min, double max, double time) {
     }
 }
 
-void LivePlotWidget::updateDataStructure() {
+void RobotGui::LivePlotWidget::updateDataStructure() {
     for (int i = 0; i < configInfo->lines.size(); i++) {
         RobotGui::InternalJson::SharedPtr json = widgetData->getJson()->mapGet(configInfo->lines[i][1]);
         double val = 0;
@@ -238,7 +239,7 @@ void LivePlotWidget::updateDataStructure() {
     }
 }
 
-bool LivePlotWidget::graphIsReady() {
+bool RobotGui::LivePlotWidget::graphIsReady() {
     if(maxSpeed) { return true; }
     double time = CommonFunctions::getEpochTime();
     if (time - lastTime > minUpdateTime) {
@@ -248,7 +249,7 @@ bool LivePlotWidget::graphIsReady() {
     return false;
 }
 
-void LivePlotWidget::reset() {
+void RobotGui::LivePlotWidget::reset() {
     for (int i = 0; i < configInfo->lines.size(); i++) {
         while (!data[i].empty()) {
             data[i].pop_front();
@@ -256,7 +257,7 @@ void LivePlotWidget::reset() {
     }
 }
 
-void LivePlotWidget::pause() {
+void RobotGui::LivePlotWidget::pause() {
     pauseState = !pauseState;
     pauseButton->setText(pauseState ? "Play" : "Pause");
 }

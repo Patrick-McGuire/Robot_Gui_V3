@@ -2,6 +2,8 @@
 #include "Interface/ServerInterface.h"
 #include "WidgetData.h"
 #include "GuiInstance.h"
+#include "Interface/BaseInterface.h"
+
 
 RobotGui::GuiCore::GuiCore(int argc, char **argv) : app(argc, argv), window(&mainWindow) {
     // Initialize variables

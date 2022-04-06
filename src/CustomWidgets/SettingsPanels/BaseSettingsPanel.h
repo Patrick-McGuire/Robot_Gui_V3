@@ -9,12 +9,14 @@
 #include "../../WidgetData.h"
 #include "../../Theme.h"
 
-class BaseSettingsPanel : public BaseWidget {
-public:
-    BaseSettingsPanel(QWidget *parent, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme);
+namespace RobotGui {
+    class BaseSettingsPanel : public RobotGui::BaseWidget {
+    public:
+        BaseSettingsPanel(QWidget *parent, WidgetData *widgetData, Theme *theme);
 
 
-};
+    };
+}
 
 
 #endif //ROBOT_GUI_V3_BASESETTINGSPANEL_H

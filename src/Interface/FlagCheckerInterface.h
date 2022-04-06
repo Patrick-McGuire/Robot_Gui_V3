@@ -3,29 +3,31 @@
 
 #include "ThreadedInterface.h"
 
-/**
- * @class FlagCheckerInterface
- * Prints when ever a flag is raised
- *
- * @author Patrick McGuire (Patrick-McGuire)
- */
-class FlagCheckerInterface : public ThreadedInterface {
-public:
+namespace RobotGui {
     /**
-     * Constructor
-     * @param interval interval on which to update
-     */
-    explicit FlagCheckerInterface(int _interval);
+         * @class FlagCheckerInterface
+         * Prints when ever a flag is raised
+         *
+         * @author Patrick McGuire (Patrick-McGuire)
+         */
+    class FlagCheckerInterface : public ThreadedInterface {
+    public:
+        /**
+         * Constructor
+         * @param interval interval on which to update
+         */
+        explicit FlagCheckerInterface(int _interval);
 
 
-    /**
-     * Sets random data periodically
-     */
-    void run() override;
+        /**
+         * Sets random data periodically
+         */
+        void run() override;
 
-private:
-    int interval;
-};
+    private:
+        int interval;
+    };
+}
 
 
 #endif //ROBOT_GUI_V3_FLAGCHECKERINTERFACE_H

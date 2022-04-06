@@ -13,19 +13,21 @@
 #include "../WidgetData.h"
 #include "../Theme.h"
 
-class DropDownTextBoxWidget : public BaseWidget {
-public:
-    DropDownTextBoxWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme);
+namespace RobotGui {
+    class DropDownTextBoxWidget : public BaseWidget {
+    public:
+        DropDownTextBoxWidget(QWidget *parent, const WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *theme);
 
-    void updateInFocus() override;
+        void updateInFocus() override;
 
-    void setDropDownItems(std::vector<std::string> keys);
+        void setDropDownItems(std::vector<std::string> keys);
 
-    void customUpdateStyle() override;
+        void customUpdateStyle() override;
 
-protected:
-    QComboBox *selectionBox;
-    LineTextDisplay *textDisplay;
-};
+    protected:
+        QComboBox *selectionBox;
+        LineTextDisplay *textDisplay;
+    };
+}
 
 #endif //ROBOT_GUI_V3_DROPDOWNTEXTBOXWIDGET_H

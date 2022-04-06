@@ -10,11 +10,11 @@
 
 #include "../../../lib/CommonFunctions.h"
 
-LineTextDisplay::LineTextDisplay(QWidget *parent) : QLabel(parent) {
+RobotGui::LineTextDisplay::LineTextDisplay(QWidget *parent) : QLabel(parent) {
     setFont(QFont("Monospace", 12));
 }
 
-void LineTextDisplay::setLine(int index, std::string first, std::string second) {
+void RobotGui::LineTextDisplay::setLine(int index, std::string first, std::string second) {
     if (index < lines.size()) {
         lines[index][0] = std::move(first);
         lines[index][1] = std::move(second);
@@ -23,11 +23,11 @@ void LineTextDisplay::setLine(int index, std::string first, std::string second) 
     }
 }
 
-void LineTextDisplay::clearLinesAfterIndex(int index) {
+void RobotGui::LineTextDisplay::clearLinesAfterIndex(int index) {
     lines.erase(lines.begin() + index, lines.end());
 }
 
-void LineTextDisplay::updateDisplayString(bool auto_scale) {
+void RobotGui::LineTextDisplay::updateDisplayString(bool auto_scale) {
     int maxLength = 0;
     for (auto &line : lines) {
         int lineLength = int(line[0].length());

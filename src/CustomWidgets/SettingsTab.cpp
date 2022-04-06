@@ -12,8 +12,9 @@
 #include "SettingsPanels/RawDataView.h"
 #include "../WidgetData.h"
 #include "../Theme.h"
+#include "BaseWidget.h"
 
-SettingsTab::SettingsTab(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
+RobotGui::SettingsTab::SettingsTab(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
     sideTabWidget = new SideTabWidget();
     sideTabWidget->show();
     drawBorder = false;
@@ -28,18 +29,18 @@ SettingsTab::SettingsTab(QWidget *parent, const RobotGui::WidgetConfig_ptr &conf
     addPanel(new RawDataView(nullptr, widgetData, _theme), "Raw Data View");
 }
 
-void SettingsTab::addPanel(BaseSettingsPanel *new_panel, const std::string &name) {
+void RobotGui::SettingsTab::addPanel(BaseSettingsPanel *new_panel, const std::string &name) {
     sideTabWidget->addTab(name, new_panel);
     settingsPanels.push_back(new_panel);
 }
 
-void SettingsTab::updateInFocus() {
+void RobotGui::SettingsTab::updateInFocus() {
     for (auto &panel: settingsPanels) {
         panel->updateData(true);
     }
 }
 
-void SettingsTab::customUpdateStyle() {
+void RobotGui::SettingsTab::customUpdateStyle() {
     for (auto &panel: settingsPanels) {
         panel->updateStyle();
     }

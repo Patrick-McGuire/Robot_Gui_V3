@@ -9,24 +9,26 @@
 
 #include "../../WidgetData.h"
 
-class BasicImageDisplay : public QLabel {
-public:
-    BasicImageDisplay(QImage _image, int _targetWidth, int _targetHeight, QWidget *parent = nullptr);
+namespace RobotGui {
+    class BasicImageDisplay : public QLabel {
+    public:
+        BasicImageDisplay(QImage _image, int _targetWidth, int _targetHeight, QWidget *parent = nullptr);
 
-    void setTargetDimensions(int _targetWidth, int _targetHeight);
+        void setTargetDimensions(int _targetWidth, int _targetHeight);
 
-    void setRotation(double _rotation);
+        void setRotation(double _rotation);
 
-    void drawImage();
+        void drawImage();
 
-protected:
-    QImage image;
-    QImage resizedImage;
+    protected:
+        QImage image;
+        QImage resizedImage;
 
-    int targetWidth = 100;
-    int targetHeight = 100;
-    double rotation = 0;
-};
+        int targetWidth = 100;
+        int targetHeight = 100;
+        double rotation = 0;
+    };
+}
 
 
 #endif //ROBOT_GUI_V3_BASICIMAGEDISPLAY_H

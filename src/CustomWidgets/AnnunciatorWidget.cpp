@@ -2,11 +2,12 @@
 #include "../WidgetData.h"
 #include "../InternalJson.h"
 #include "../Theme.h"
+#include "BaseWidget.h"
 
 #include <QLabel>
 #include <QGridLayout>
 
-AnnunciatorWidget::AnnunciatorWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
+RobotGui::AnnunciatorWidget::AnnunciatorWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *_theme) : RobotGui::BaseWidget(parent, configInfo, widgetData, _theme) {
     int rows = 10;
     int columns = 2;
     if (configInfo->rowNumber != 0) { rows = configInfo->rowNumber; }
@@ -36,7 +37,7 @@ AnnunciatorWidget::AnnunciatorWidget(QWidget *parent, const RobotGui::WidgetConf
     adjustSize();
 }
 
-void AnnunciatorWidget::updateInFocus() {
+void RobotGui::AnnunciatorWidget::updateInFocus() {
     if (widgetData->keyUpdated(source)) {
         if (widgetData->getJson()->mapGet(source)->getType() == RobotGui::InternalJson::vector_t) {
             auto configData = widgetData->getJson()->mapGet(source);
@@ -80,7 +81,7 @@ void AnnunciatorWidget::updateInFocus() {
     }
 }
 
-void AnnunciatorWidget::customUpdateStyle() {
+void RobotGui::AnnunciatorWidget::customUpdateStyle() {
     titleWidget->setStyleSheet(QString::fromStdString("color: " + titleTextColor));
     titleWidget->setFont(font());
 }

@@ -6,8 +6,9 @@
 
 #include "../../RobotGui.h"
 #include "../../WidgetData.h"
+#include "BasicImageDisplay.h"
 
-CompassDisplay::CompassDisplay(RobotGui::WidgetData *widgetData, QWidget *parent) : QLabel(parent) {
+RobotGui::CompassDisplay::CompassDisplay(RobotGui::WidgetData *widgetData, QWidget *parent) : QLabel(parent) {
     auto backgroundImage = widgetData->getImageAsQImage(RobotGui::COMPASS_ASSET_NAME);
     auto arrowImage = widgetData->getImageAsQImage(RobotGui::ARROW_ASSET_NAME).copy(900, 900, 2100 - 900, 2100 - 900);
     auto scaledArrow = arrowImage.scaled(arrowImage.width() * 2, arrowImage.height(), Qt::AspectRatioMode::IgnoreAspectRatio);
@@ -17,7 +18,7 @@ CompassDisplay::CompassDisplay(RobotGui::WidgetData *widgetData, QWidget *parent
     setSize(300);
 }
 
-void CompassDisplay::setSize(int size) {
+void RobotGui::CompassDisplay::setSize(int size) {
     setMinimumSize(size, size);
     setMaximumSize(size, size);
     backgroundImageWidget->setTargetDimensions(size, size);
@@ -25,7 +26,7 @@ void CompassDisplay::setSize(int size) {
     adjustSize();
 }
 
-void CompassDisplay::setYaw(double yaw) {
+void RobotGui::CompassDisplay::setYaw(double yaw) {
     yaw += 90;
     arrowImageWidget->setRotation(yaw);
 }

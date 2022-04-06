@@ -7,19 +7,21 @@
 
 #include <QLabel>
 
-class LineTextDisplay : public QLabel {
-public:
-    explicit LineTextDisplay(QWidget *parent = nullptr);
+namespace RobotGui {
+    class LineTextDisplay : public QLabel {
+    public:
+        explicit LineTextDisplay(QWidget *parent = nullptr);
 
-    void setLine(int index, std::string name, std::string value);
+        void setLine(int index, std::string name, std::string value);
 
-    void clearLinesAfterIndex(int index);
+        void clearLinesAfterIndex(int index);
 
-    void updateDisplayString(bool auto_scale=true);
+        void updateDisplayString(bool auto_scale=true);
 
-protected:
-    std::vector<std::array<std::string, 2>> lines;
-};
+    protected:
+        std::vector<std::array<std::string, 2>> lines;
+    };
+}
 
 
 #endif //ROBOT_GUI_V3_LINETEXTDISPLAY_H

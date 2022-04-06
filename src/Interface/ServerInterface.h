@@ -13,62 +13,64 @@
 #include "../GuiCore.h"
 #include "../InternalJson.h"
 
-class GuiCore;
-
-/**
- * @class ServerInterface
- * Server that the GUI receives data from
- *
- * @author Patrick McGuire (Patrick-McGuire)
- */
-class ServerInterface : public QTcpServer, public BaseInterface {
-Q_OBJECT
-public:
-    /**
-     * Constructor
-     * @param parent QObject parent
-     * @param _port Port to host on
-     */
-    explicit ServerInterface(QObject *parent, int _port);
+namespace RobotGui {
+    class GuiCore;
 
     /**
-     * Deconstruct
-     */
-    ~ServerInterface();
+         * @class ServerInterface
+         * Server that the GUI receives data from
+         *
+         * @author Patrick McGuire (Patrick-McGuire)
+         */
+    class ServerInterface : public QTcpServer, public RobotGui::BaseInterface {
+    Q_OBJECT
+    public:
+        /**
+         * Constructor
+         * @param parent QObject parent
+         * @param _port Port to host on
+         */
+        explicit ServerInterface(QObject *parent, int _port);
 
-    /**
-     * Sets the widget data structure to impute data to, and initializes things that use it
-     * @param _widgetData
-     */
-    void setWidgetData(RobotGui::WidgetData *_widgetData) override;
+        /**
+         * Deconstruct
+         */
+        ~ServerInterface();
 
-    /**
-     * Starts the server running
-     */
-    void startServer();
+        /**
+         * Sets the widget data structure to impute data to, and initializes things that use it
+         * @param _widgetData
+         */
+        void setWidgetData(WidgetData *_widgetData) override;
 
-public slots:
-    /**
-     * Handles a incoming connection
-     */
-    void incomingConnection();
+        /**
+         * Starts the server running
+         */
+        void startServer();
 
-    /**
-     * Runs when ever the server is posted to
-     */
-    void receiveData();
+    public slots:
+        /**
+         * Handles a incoming connection
+         */
+        void incomingConnection();
 
-signals:
-    /**
-     * Signal to emit when we have new data
-     */
-    void newData();
+        /**
+         * Runs when ever the server is posted to
+         */
+        void receiveData();
 
-private:
-    DataInput *dataInput;
-    RobotGui::InternalJson::SharedPtr output = RobotGui::InternalJson::create(RobotGui::InternalJson::map_t);
-    int port;
-};
+    signals:
+        /**
+         * Signal to emit when we have new data
+         */
+        void newData();
+
+    private:
+        DataInput *dataInput;
+        InternalJson::SharedPtr output = InternalJson::create(InternalJson::map_t);
+        int port;
+    };
+}
 
 
 #endif //ROBOT_GUI_V3_SERVERINTERFACE_H

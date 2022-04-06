@@ -5,45 +5,47 @@
 #include "thread"
 #include "mutex"
 
-/**
- * @class ThreadedInterface
- * Extendable Multithreading input to the GUI
- *
- * @author Patrick McGuire (Patrick-McGuire)
- */
-class ThreadedInterface : public BaseInterface {
-public:
+namespace RobotGui {
     /**
-     * Constructor
-     */
-    explicit ThreadedInterface();
+         * @class ThreadedInterface
+         * Extendable Multithreading input to the GUI
+         *
+         * @author Patrick McGuire (Patrick-McGuire)
+         */
+    class ThreadedInterface : public RobotGui::BaseInterface {
+    public:
+        /**
+         * Constructor
+         */
+        explicit ThreadedInterface();
 
-    /**
-     * Starts the thread
-     */
-    void startThread();
+        /**
+         * Starts the thread
+         */
+        void startThread();
 
-    /**
-     * Waits for this thread to end
-     */
-    void join();
+        /**
+         * Waits for this thread to end
+         */
+        void join();
 
-protected:
-    /**
-     * Derived class run method of the thread
-     */
-    virtual void run();
+    protected:
+        /**
+         * Derived class run method of the thread
+         */
+        virtual void run();
 
-private:
+    private:
 
-    /**
-     * Run method of the thread
-     */
-    void runThread();
+        /**
+         * Run method of the thread
+         */
+        void runThread();
 
-    std::thread *thread;
-    std::mutex threadMutex;
-};
+        std::thread *thread;
+        std::mutex threadMutex;
+    };
+}
 
 
 #endif //ROBOT_GUI_V3_THREADEDINTERFACE_H

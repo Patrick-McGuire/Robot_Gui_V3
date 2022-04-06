@@ -11,8 +11,9 @@
 #include "SimpleConsoleWidget.h"
 #include "../WidgetData.h"
 #include "../Theme.h"
+#include "BaseWidget.h"
 
-CompleteConsoleWidget::CompleteConsoleWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme) : BaseWidget(parent, configInfo, widgetData, theme) {
+RobotGui::CompleteConsoleWidget::CompleteConsoleWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme) : BaseWidget(parent, configInfo, widgetData, theme) {
     auto newConfigInfo = std::make_shared<RobotGui::WidgetConfig>();
     newConfigInfo->source = configInfo->source;
     newConfigInfo->backgroundColor = configInfo->backgroundColor;
@@ -23,7 +24,7 @@ CompleteConsoleWidget::CompleteConsoleWidget(QWidget *parent, const RobotGui::Wi
 
     titleWidget = new QLabel();
     textEntryWidget = new QLineEdit();
-    simpleConsoleWidget = new SimpleConsoleWidget(nullptr, newConfigInfo, widgetData, theme, false);
+    simpleConsoleWidget = new RobotGui::SimpleConsoleWidget(nullptr, newConfigInfo, widgetData, theme, false);
 
     auto layout = new QGridLayout();
     layout->addWidget(titleWidget);
@@ -40,13 +41,13 @@ CompleteConsoleWidget::CompleteConsoleWidget(QWidget *parent, const RobotGui::Wi
     adjustSize();
 }
 
-void CompleteConsoleWidget::updateInFocus() {
+void RobotGui::CompleteConsoleWidget::updateInFocus() {
     simpleConsoleWidget->update();
     simpleConsoleWidget->adjustSize();
     adjustSize();
 }
 
-void CompleteConsoleWidget::customUpdateStyle() {
+void RobotGui::CompleteConsoleWidget::customUpdateStyle() {
     titleWidget->setFont(font());
     textEntryWidget->setFont(font());
     simpleConsoleWidget->setFont(QFont("Monospace", font().pointSize()));

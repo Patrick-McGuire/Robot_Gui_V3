@@ -12,20 +12,22 @@
 #include "../WidgetData.h"
 #include "../Theme.h"
 
-class CompleteConsoleWidget : public BaseWidget {
-public:
-    CompleteConsoleWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme);
+namespace RobotGui {
+    class CompleteConsoleWidget : public BaseWidget {
+    public:
+        CompleteConsoleWidget(QWidget *parent, const WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *theme);
 
-    void updateInFocus() override;
+        void updateInFocus() override;
 
-    void customUpdateStyle() override ;
+        void customUpdateStyle() override ;
 
 
-protected:
-    QLabel *titleWidget;
-    QLineEdit *textEntryWidget;
-    SimpleConsoleWidget *simpleConsoleWidget;
-};
+    protected:
+        QLabel *titleWidget;
+        QLineEdit *textEntryWidget;
+        SimpleConsoleWidget *simpleConsoleWidget;
+    };
+}
 
 
 #endif //ROBOT_GUI_V3_COMPLETECONSOLEWIDGET_H

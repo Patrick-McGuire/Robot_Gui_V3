@@ -6,11 +6,12 @@
 #include "../../lib/CommonFunctions.h"
 #include "../WidgetData.h"
 #include "../Theme.h"
+#include "BaseWidget.h"
 
 #include <QLabel>
 #include <QGridLayout>
 
-ROVStatusWidget::ROVStatusWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme) : BaseWidget(parent, configInfo, widgetData, theme) {
+RobotGui::ROVStatusWidget::ROVStatusWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme) : BaseWidget(parent, configInfo, widgetData, theme) {
     statusSource = CommonFunctions::GetStringFromMap(configInfo->sourceMap, "statusSource", "status");
     armedSource = CommonFunctions::GetStringFromMap(configInfo->sourceMap, "armedSource", "armed");
     allowedToArmSource = CommonFunctions::GetStringFromMap(configInfo->sourceMap, "allowedToArmSource", "allowedToArm");
@@ -49,7 +50,7 @@ ROVStatusWidget::ROVStatusWidget(QWidget *parent, const RobotGui::WidgetConfig_p
     runtimeBox->setFont(QFont("Monospace", int(size * 0.4)));
 }
 
-void ROVStatusWidget::updateInFocus() {
+void RobotGui::ROVStatusWidget::updateInFocus() {
     int faultStatus = widgetData->getJson()->mapGet(statusSource)->getInt(3);
     bool canArm = widgetData->getJson()->mapGet(allowedToArmSource)->getBool(true);
     bool armed = widgetData->getJson()->mapGet(armedSource)->getBool(true);
@@ -95,7 +96,7 @@ void ROVStatusWidget::updateInFocus() {
     adjustSize();
 }
 
-void ROVStatusWidget::customUpdateStyle() {
+void RobotGui::ROVStatusWidget::customUpdateStyle() {
     modeBox->setStyleSheet(QString::fromStdString("color: " + bodyTextColor));
     timeBox->setStyleSheet(QString::fromStdString("color: " + bodyTextColor));
     runtimeBox->setStyleSheet(QString::fromStdString("color: " + bodyTextColor));

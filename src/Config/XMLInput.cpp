@@ -1,5 +1,6 @@
 #include "XMLInput.h"
 #include "../CustomWidgets/LivePlotWidget.h"
+
 #define strFailed -9123931      // Random
 
 RobotGui::WindowConfig_ptr XMLInput::parse(const char *filename) {
@@ -136,17 +137,17 @@ RobotGui::WidgetConfig_ptr XMLInput::parseWidget(rapidxml::xml_node<> *node) {
 
     // Call widget specific methods to finish configuring the struct
     if (newWidgetStruct->type == RobotGui::TEXT_BOX_WIDGET_STRID) {
-        TextBoxWidget::parseXml(newWidgetStruct, node);
+        RobotGui::TextBoxWidget::parseXml(newWidgetStruct, node);
     } else if (newWidgetStruct->type == RobotGui::VIDEO_WIDGET_STRID) {
-        VideoWidget::parseXml(newWidgetStruct, node);
+        RobotGui::VideoWidget::parseXml(newWidgetStruct, node);
     } else if (newWidgetStruct->type == RobotGui::TAB_WIDGET_STRID) {
-        TabWidget::parseXml(newWidgetStruct, node);
+        RobotGui::TabWidget::parseXml(newWidgetStruct, node);
     } else if (newWidgetStruct->type == RobotGui::SIMPLE_BUTTON_WIDGET_STRID) {
-        SimpleButtonWidget::parseXml(newWidgetStruct, node);
+        RobotGui::SimpleButtonWidget::parseXml(newWidgetStruct, node);
     } else if (newWidgetStruct->type == RobotGui::MULTI_BAR_GRAPH_STRID) {
-        MultiBarGraphWidget::parseXml(newWidgetStruct, node);
+        RobotGui::MultiBarGraphWidget::parseXml(newWidgetStruct, node);
     } else if (newWidgetStruct->type == RobotGui::LIVE_PLOT_WIDGET_STRID) {
-        LivePlotWidget::parseXml(newWidgetStruct, node);
+        RobotGui::LivePlotWidget::parseXml(newWidgetStruct, node);
     }
 
     setDefaults(newWidgetStruct);

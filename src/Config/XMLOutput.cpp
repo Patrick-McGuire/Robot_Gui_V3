@@ -3,14 +3,15 @@
 #include "../../lib/rapidxml/rapidxml_print.hpp"
 #include "../../lib/rapidxml/rapidxml_utils.hpp"
 
-void XMLOutput::output(const char *filename, const RobotGui::WindowConfig_ptr &windowConfig, BaseWidget *firstWidget) {
+
+void XMLOutput::output(const char *filename, const RobotGui::WindowConfig_ptr &windowConfig, RobotGui::BaseWidget *firstWidget) {
     rapidxml::xml_document<> doc;
     auto windowNode = createWindowNode(windowConfig, &doc);
     windowNode->append_node(createWidget(&doc, firstWidget));
     write(filename, &doc);
 }
 
-rapidxml::xml_node<> *XMLOutput::createWidget(rapidxml::xml_document<> *doc, BaseWidget *widget) {
+rapidxml::xml_node<> *XMLOutput::createWidget(rapidxml::xml_document<> *doc, RobotGui::BaseWidget *widget) {
     rapidxml::xml_node<> *node = doc->allocate_node(rapidxml::node_element, RobotGui::Xml::WIDGET_TAG);
     node->append_attribute(doc->allocate_attribute(RobotGui::Xml::TYPE_ATR, widget->getConfig()->type.c_str()));
     node->append_attribute(doc->allocate_attribute(RobotGui::Xml::TITLE_ATR, widget->getConfig()->title.c_str()));

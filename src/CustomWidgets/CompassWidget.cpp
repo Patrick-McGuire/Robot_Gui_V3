@@ -5,8 +5,9 @@
 #include "CompassWidget.h"
 #include "../WidgetData.h"
 #include "../Theme.h"
+#include "BaseWidget.h"
 
-CompassWidget::CompassWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme) : BaseWidget(parent, configInfo, widgetData, theme) {
+RobotGui::CompassWidget::CompassWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme) : BaseWidget(parent, configInfo, widgetData, theme) {
     compassDisplay = new CompassDisplay(widgetData, this);
 
     styledBackground = true;
@@ -19,7 +20,7 @@ CompassWidget::CompassWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &
     adjustSize();
 }
 
-void CompassWidget::updateInFocus() {
+void RobotGui::CompassWidget::updateInFocus() {
     double yaw = widgetData->getJson()->mapGet(configInfo->source)->getDouble();
     compassDisplay->setYaw(yaw);
 }

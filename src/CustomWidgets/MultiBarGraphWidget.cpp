@@ -10,11 +10,12 @@
 #include "../WidgetData.h"
 #include "../InternalJson.h"
 #include "../Theme.h"
+#include "BaseWidget.h"
 
 #define SIMPLE_BAR_GRAPH_NAME "SimpleBarGraph"
 #define CIRCLE_BAR_GRAPH_NAME "CircleBarGraph"
 
-MultiBarGraphWidget::MultiBarGraphWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
+RobotGui::MultiBarGraphWidget::MultiBarGraphWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
     configurablePos = true;
     auto *layout = new QGridLayout();
 
@@ -37,7 +38,7 @@ MultiBarGraphWidget::MultiBarGraphWidget(QWidget *parent, const RobotGui::Widget
     update();
 }
 
-void MultiBarGraphWidget::updateInFocus() {
+void RobotGui::MultiBarGraphWidget::updateInFocus() {
     for (int i = 0; i < subGraphVector.size(); i++) {
         auto key = subGraphSourcesVector[i];
         auto subGraph = subGraphVector[i];
@@ -54,7 +55,7 @@ void MultiBarGraphWidget::updateInFocus() {
     }
 }
 
-void MultiBarGraphWidget::parseXml(const RobotGui::WidgetConfig_ptr &parentConfig, rapidxml::xml_node<> *node) {
+void RobotGui::MultiBarGraphWidget::parseXml(const RobotGui::WidgetConfig_ptr &parentConfig, rapidxml::xml_node<> *node) {
     // Iterate though all lines
     for (auto *line = node->first_node(); line; line = line->next_sibling()) {
         std::string tagName = line->name();
@@ -85,7 +86,7 @@ void MultiBarGraphWidget::parseXml(const RobotGui::WidgetConfig_ptr &parentConfi
     }
 }
 
-void MultiBarGraphWidget::outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) {
+void RobotGui::MultiBarGraphWidget::outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) {
     for(auto & lineConfig : configInfo->graphLines) {
         rapidxml::xml_node<> *line = doc->allocate_node(rapidxml::node_element, RobotGui::Xml::LINE_TAG);
         node->append_node(line);
@@ -100,7 +101,7 @@ void MultiBarGraphWidget::outputXML(rapidxml::xml_node<> *node, rapidxml::xml_do
     }
 }
 
-void MultiBarGraphWidget::customUpdateStyle() {
+void RobotGui::MultiBarGraphWidget::customUpdateStyle() {
     for (auto &graph : subGraphVector) {
         graph->setTextColor(bodyTextColor);
     }

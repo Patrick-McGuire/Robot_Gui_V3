@@ -1,12 +1,12 @@
 #include "DataInput.h"
 #include "../WidgetData.h"
 
-DataInput::DataInput(RobotGui::WidgetData *_widgetData) {
+RobotGui::DataInput::DataInput(RobotGui::WidgetData *_widgetData) {
     widgetData = _widgetData;
     messageSize.length = 0;
 }
 
-void DataInput::parse(char *input, int len) {
+void RobotGui::DataInput::parse(char *input, int len) {
     auto id = static_cast<RobotGui::MessageType>((int) input[0]);
     for (int i = 0; i < 4; i++) {
         messageSize.bytes[i] = input[i + 1];
@@ -35,7 +35,7 @@ void DataInput::parse(char *input, int len) {
     }
 }
 
-void DataInput::parseJson(const char *input, int len) {
+void RobotGui::DataInput::parseJson(const char *input, int len) {
     widgetData->getJson()->parseSuperimpose(input);
     auto keys = widgetData->getJson()->mapKeys();
     for(const auto& key : keys) {
@@ -43,7 +43,7 @@ void DataInput::parseJson(const char *input, int len) {
     }
 }
 
-void DataInput::parseImg(char *input, int len) {
+void RobotGui::DataInput::parseImg(char *input, int len) {
     uint8_t id = input[0];
     try {
         // Decode the image and save it to widgetData

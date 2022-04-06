@@ -1,10 +1,11 @@
 #include "WebcamStreamInterface.h"
+#include "ThreadedInterface.h"
 
-WebcamStreamInterface::WebcamStreamInterface(int _interval) : ThreadedInterface() {
+RobotGui::WebcamStreamInterface::WebcamStreamInterface(int _interval) : RobotGui::ThreadedInterface() {
     interval = _interval;
 }
 
-void WebcamStreamInterface::run() {
+void RobotGui::WebcamStreamInterface::run() {
     cv::VideoCapture cap(0);
     if(cap.isOpened()) {
         cv::Mat img;

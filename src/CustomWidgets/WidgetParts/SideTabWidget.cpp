@@ -7,7 +7,7 @@
 
 #include "QGridLayout"
 
-SideTabWidget::SideTabWidget(QWidget *parent) : QWidget(parent) {
+RobotGui::SideTabWidget::SideTabWidget(QWidget *parent) : QWidget(parent) {
     stackedWidget = new QStackedWidget();
 
     auto main_layout = new QGridLayout();
@@ -18,7 +18,7 @@ SideTabWidget::SideTabWidget(QWidget *parent) : QWidget(parent) {
     setLayout(main_layout);
 }
 
-void SideTabWidget::addTab(const std::string &tabName, QWidget *tabWidget) {
+void RobotGui::SideTabWidget::addTab(const std::string &tabName, QWidget *tabWidget) {
     auto button = new QPushButton();
     button->setText(QString::fromStdString(tabName));
     connect(button, &QPushButton::clicked, [this, tabName] { buttonPressed(tabName); });
@@ -29,7 +29,7 @@ void SideTabWidget::addTab(const std::string &tabName, QWidget *tabWidget) {
     tabNames.push_back(tabName);
 }
 
-int SideTabWidget::getTabIndexFromName(const std::string &tabName) {
+int RobotGui::SideTabWidget::getTabIndexFromName(const std::string &tabName) {
     for (int i = 0; i < tabNames.size(); i++) {
         if (tabNames[i] == tabName) {
             return i;
@@ -38,14 +38,14 @@ int SideTabWidget::getTabIndexFromName(const std::string &tabName) {
     return -1;
 }
 
-void SideTabWidget::buttonPressed(const std::string &buttonName) {
+void RobotGui::SideTabWidget::buttonPressed(const std::string &buttonName) {
     int index = getTabIndexFromName(buttonName);
     if (index != -1) {
         stackedWidget->setCurrentIndex(index);
     }
 }
 
-void SideTabWidget::setColorStrings(std::string background, std::string textColor, std::string border) {
+void RobotGui::SideTabWidget::setColorStrings(std::string background, std::string textColor, std::string border) {
     this->setStyleSheet(QString::fromStdString("color: " + textColor + "; background: " + background));
 
     for (auto &button : tabOptionsList) {

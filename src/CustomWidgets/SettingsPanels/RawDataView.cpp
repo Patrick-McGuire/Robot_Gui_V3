@@ -10,8 +10,8 @@
 #include "../../Theme.h"
 
 
-RawDataView::RawDataView(QWidget *parent, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme) : BaseSettingsPanel(parent, widgetData, theme) {
-    lineTextDisplay = new LineTextDisplay();
+RobotGui::RawDataView::RawDataView(QWidget *parent, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme) : BaseSettingsPanel(parent, widgetData, theme) {
+    lineTextDisplay = new RobotGui::LineTextDisplay();
     scrollArea = new QScrollArea();
     scrollArea->setWidget(lineTextDisplay);
     scrollArea->setStyleSheet("background: transparent");
@@ -20,7 +20,7 @@ RawDataView::RawDataView(QWidget *parent, RobotGui::WidgetData *widgetData, Robo
     layout()->addWidget(scrollArea);
 }
 
-void RawDataView::updateInFocus() {
+void RobotGui::RawDataView::updateInFocus() {
     auto keys = widgetData->getJson()->mapKeys();
     auto data = widgetData->getJson();
 
@@ -32,6 +32,6 @@ void RawDataView::updateInFocus() {
     lineTextDisplay->updateDisplayString(true);
 }
 
-void RawDataView::customUpdateStyle() {
+void RobotGui::RawDataView::customUpdateStyle() {
     lineTextDisplay->setStyleSheet(QString::fromStdString("color: " + bodyTextColor));
 }

@@ -8,8 +8,9 @@
 #include "../WidgetData.h"
 #include "../InternalJson.h"
 #include "../Theme.h"
+#include "BaseWidget.h"
 
-SimpleConsoleWidget::SimpleConsoleWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme, bool _borderEnabled) : BaseWidget(parent, configInfo, widgetData, theme) {
+RobotGui::SimpleConsoleWidget::SimpleConsoleWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme, bool _borderEnabled) : BaseWidget(parent, configInfo, widgetData, theme) {
     source = configInfo->source;
     title = configInfo->title;
     drawTitle = !title.empty();
@@ -18,7 +19,7 @@ SimpleConsoleWidget::SimpleConsoleWidget(QWidget *parent, const RobotGui::Widget
     setFont(QFont("Monospace", font().pointSize()));
 }
 
-void SimpleConsoleWidget::updateInFocus() {
+void RobotGui::SimpleConsoleWidget::updateInFocus() {
     if (widgetData->keyUpdated(source)) {
         if (widgetData->getJson()->mapGet(source)->getType() == RobotGui::InternalJson::vector_t) {
             update();
@@ -27,7 +28,7 @@ void SimpleConsoleWidget::updateInFocus() {
     }
 }
 
-void SimpleConsoleWidget::paintEvent(QPaintEvent *_event) {
+void RobotGui::SimpleConsoleWidget::paintEvent(QPaintEvent *_event) {
     if (borderEnabled) { BaseWidget::paintEvent(_event); }
     if (widgetData->getJson()->mapGet(source)->getType() != RobotGui::InternalJson::vector_t) { return; }
     
@@ -71,7 +72,7 @@ void SimpleConsoleWidget::paintEvent(QPaintEvent *_event) {
     }
 }
 
-void SimpleConsoleWidget::adjustSize() {
+void RobotGui::SimpleConsoleWidget::adjustSize() {
     int height = (fontInfo().pixelSize() + lineSpace) * numberOfLines + 5 - lineSpace;
     int width = int(fmax(fontInfo().pixelSize() * 0.7 * maxLineWidth, 1));
     resize(width, height);

@@ -11,8 +11,9 @@
 #include "../../lib/CommonFunctions.h"
 #include "../WidgetData.h"
 #include "../Theme.h"
+#include "BaseWidget.h"
 
-MissionStatusWidget::MissionStatusWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme) : BaseWidget(parent, configInfo, widgetData, theme) {
+RobotGui::MissionStatusWidget::MissionStatusWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme) : BaseWidget(parent, configInfo, widgetData, theme) {
     statusBox = new QLabel();
     missionNameBox = new QLabel();
     objectiveBox = new QLabel();
@@ -43,7 +44,7 @@ MissionStatusWidget::MissionStatusWidget(QWidget *parent, const RobotGui::Widget
     objectiveBox->setMinimumWidth(size);
 }
 
-void MissionStatusWidget::updateInFocus() {
+void RobotGui::MissionStatusWidget::updateInFocus() {
     std::string missionStatus = widgetData->getJson()->mapGet(statusSource)->getString("Unknown");
     std::string missionName = widgetData->getJson()->mapGet(missionNameSource)->getString("Unknown");
     std::string objectiveName = widgetData->getJson()->mapGet(objectiveSource)->getString("Unknown");
@@ -57,7 +58,7 @@ void MissionStatusWidget::updateInFocus() {
     adjustSize();
 }
 
-void MissionStatusWidget::customUpdateStyle() {
+void RobotGui::MissionStatusWidget::customUpdateStyle() {
     statusBox->setStyleSheet(QString::fromStdString("color: " + bodyTextColor));
     missionNameBox->setStyleSheet(QString::fromStdString("color: " + bodyTextColor));
     objectiveBox->setStyleSheet(QString::fromStdString("color: " + bodyTextColor));

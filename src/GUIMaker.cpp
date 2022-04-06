@@ -17,7 +17,7 @@
 /**
  * Gets called in tabWidget to create a new subwidgets
  */
-BaseWidget *RobotGui::GUIMaker::createWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, Theme *theme) {
+RobotGui::BaseWidget *RobotGui::GUIMaker::createWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, Theme *theme) {
     if (configInfo->type == RobotGui::TEXT_BOX_WIDGET_STRID) {
         return new TextBoxWidget(parent, configInfo, widgetData, theme);
     } else if (configInfo->type == RobotGui::VIDEO_WIDGET_STRID) {

@@ -4,6 +4,7 @@
 #include "src/Interface/WebcamStreamInterface.h"
 #include "src/Interface/FlagCheckerInterface.h"
 
+
 int main(int argc, char** argv) {
     auto gui = new RobotGui::GuiCore(argc, argv);
 
@@ -11,13 +12,13 @@ int main(int argc, char** argv) {
 //    ServerInterface serverInterface(gui, 1254);
 //    gui->addInterface(&serverInterface);
     // Populate keys with random values
-    RandomDataInterface randomDataInterface(50);
+    RobotGui::RandomDataInterface randomDataInterface(50);
     gui->addInterface(&randomDataInterface);
     // Streams the webcam
-    WebcamStreamInterface webcamStreamInterface(16);
+    RobotGui::WebcamStreamInterface webcamStreamInterface(16);
     gui->addInterface(&webcamStreamInterface);
     // Prints out any flag raised
-    FlagCheckerInterface flagCheckerInterface(100);
+    RobotGui::FlagCheckerInterface flagCheckerInterface(100);
     gui->addInterface(&flagCheckerInterface);
 
     // Run the GUI

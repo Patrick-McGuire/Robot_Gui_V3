@@ -18,6 +18,7 @@
 #include "Interface/ThreadedInterface.h"
 #include "InternalJson.h"
 #include "Interface/ServerInterface.h"
+#include "Interface/BaseInterface.h"
 
 class GuiInstance;
 

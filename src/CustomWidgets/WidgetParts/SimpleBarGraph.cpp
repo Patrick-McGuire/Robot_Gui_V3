@@ -7,8 +7,9 @@
 #include <utility>
 #include <QtGui/QPainter>
 #include "../../../lib/CommonFunctions.h"
+#include "BaseGraphDisplay.h"
 
-SimpleBarGraph::SimpleBarGraph(QWidget *parent, std::string _title, double _min_value, double _max_value, int _size, const std::string &bar_color) : BaseGraphDisplay(parent) {
+RobotGui::SimpleBarGraph::SimpleBarGraph(QWidget *parent, std::string _title, double _min_value, double _max_value, int _size, const std::string &bar_color) : BaseGraphDisplay(parent) {
     size = _size;
     minValue = _min_value;
     maxValue = _max_value;
@@ -27,7 +28,7 @@ SimpleBarGraph::SimpleBarGraph(QWidget *parent, std::string _title, double _min_
     setAlignment(Qt::AlignCenter);
 }
 
-void SimpleBarGraph::setSize(int _size) {
+void RobotGui::SimpleBarGraph::setSize(int _size) {
     size = _size;
     int width = size / 3;
 
@@ -36,7 +37,7 @@ void SimpleBarGraph::setSize(int _size) {
     setMinimumHeight(size);
 }
 
-void SimpleBarGraph::paintEvent(QPaintEvent *_event) {
+void RobotGui::SimpleBarGraph::paintEvent(QPaintEvent *_event) {
     QPainter painter(this);
 
     int fontSize = int(fmax(int(width() * 0.15), 8));

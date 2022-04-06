@@ -1,8 +1,9 @@
 #include "VideoWidget.h"
 #include "../WidgetData.h"
 #include "../Theme.h"
+#include "BaseWidget.h"
 
-VideoWidget::VideoWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr& configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme)  {
+RobotGui::VideoWidget::VideoWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr& configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme)  {
     styledBackground = false;
     styledHeader = false;
     styledText = false;
@@ -20,29 +21,29 @@ VideoWidget::VideoWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr& conf
     if(!autoWidth) { videoWidget.setFixedWidth(configInfo->width); }
 }
 
-void VideoWidget::parseXml(const RobotGui::WidgetConfig_ptr& parentConfig, rapidxml::xml_node<> *node) {
+void RobotGui::VideoWidget::parseXml(const RobotGui::WidgetConfig_ptr& parentConfig, rapidxml::xml_node<> *node) {
 
 }
 
-void VideoWidget::outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) {
+void RobotGui::VideoWidget::outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) {
     node->append_attribute(doc->allocate_attribute(RobotGui::Xml::ID_ATR, configInfo->id.c_str()));
 }
 
-void VideoWidget::updateInFocus() {
+void RobotGui::VideoWidget::updateInFocus() {
     if(widgetData->keyUpdated(configInfo->id)) {
         customUpdate();
     }
 }
 
-void VideoWidget::updateNoFocus() {
+void RobotGui::VideoWidget::updateNoFocus() {
 
 }
 
-void VideoWidget::updateOnInFocus() {
+void RobotGui::VideoWidget::updateOnInFocus() {
     customUpdate();
 }
 
-void VideoWidget::customUpdate() {
+void RobotGui::VideoWidget::customUpdate() {
     if(widgetData->imgExits(configInfo->id)) {
         cv::Mat rgb_image;
         cv::cvtColor(widgetData->getImg(configInfo->id), rgb_image, cv::COLOR_BGR2RGB);

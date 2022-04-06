@@ -1,11 +1,12 @@
 #include "RandomDataInterface.h"
 #include "../CustomJSONStructure.h"
+#include "ThreadedInterface.h"
 
-RandomDataInterface::RandomDataInterface(int _interval) : ThreadedInterface() {
+RobotGui::RandomDataInterface::RandomDataInterface(int _interval) : ThreadedInterface() {
     interval = _interval;
 }
 
-void RandomDataInterface::run() {
+void RobotGui::RandomDataInterface::run() {
     double i = 0;
     double j = 0;
 
@@ -91,7 +92,7 @@ void RandomDataInterface::run() {
     }
 }
 
-std::string RandomDataInterface::randomString(size_t length) {
+std::string RobotGui::RandomDataInterface::randomString(size_t length) {
     auto randChar = []() -> char {
         const char charset[] =
                 "0123456789"

@@ -9,25 +9,27 @@
 #include "../WidgetData.h"
 #include "../Theme.h"
 
-class SimpleConsoleWidget : public BaseWidget {
-public:
-    SimpleConsoleWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme, bool _borderEnabled=true);
+namespace RobotGui {
+    class SimpleConsoleWidget : public BaseWidget {
+    public:
+        SimpleConsoleWidget(QWidget *parent, const WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *theme, bool _borderEnabled=true);
 
-    void updateInFocus() override;
+        void updateInFocus() override;
 
-    void paintEvent(QPaintEvent *_event) override;
+        void paintEvent(QPaintEvent *_event) override;
 
-    void adjustSize();
+        void adjustSize();
 
-protected:
-    std::string source;
-    std::string title;
-    bool drawTitle = false;
-    bool borderEnabled;
-    int maxLineWidth = 0;
-    int numberOfLines = 0;
-    int lineSpace = 3;
-};
+    protected:
+        std::string source;
+        std::string title;
+        bool drawTitle = false;
+        bool borderEnabled;
+        int maxLineWidth = 0;
+        int numberOfLines = 0;
+        int lineSpace = 3;
+    };
+}
 
 
 #endif //ROBOT_GUI_V3_SIMPLECONSOLEWIDGET_H

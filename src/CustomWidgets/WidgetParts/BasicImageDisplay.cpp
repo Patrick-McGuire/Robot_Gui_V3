@@ -6,12 +6,12 @@
 
 #include <utility>
 
-BasicImageDisplay::BasicImageDisplay(QImage _image, int _targetWidth, int _targetHeight, QWidget *parent) : QLabel(parent) {
+RobotGui::BasicImageDisplay::BasicImageDisplay(QImage _image, int _targetWidth, int _targetHeight, QWidget *parent) : QLabel(parent) {
     image = std::move(_image);
     setTargetDimensions(_targetWidth, _targetHeight);
 }
 
-void BasicImageDisplay::setTargetDimensions(int _targetWidth, int _targetHeight) {
+void RobotGui::BasicImageDisplay::setTargetDimensions(int _targetWidth, int _targetHeight) {
     targetWidth = _targetWidth;
     targetHeight = _targetHeight;
 
@@ -21,12 +21,12 @@ void BasicImageDisplay::setTargetDimensions(int _targetWidth, int _targetHeight)
     drawImage();
 }
 
-void BasicImageDisplay::setRotation(double _rotation) {
+void RobotGui::BasicImageDisplay::setRotation(double _rotation) {
     rotation = _rotation;
     drawImage();
 }
 
-void BasicImageDisplay::drawImage() {
+void RobotGui::BasicImageDisplay::drawImage() {
     QImage rotatedImage = resizedImage.transformed(QTransform().rotate(rotation));
 
     int widthOffset = (rotatedImage.width() - targetWidth) / 2;

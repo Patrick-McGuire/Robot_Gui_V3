@@ -11,8 +11,9 @@
 #include "../WidgetData.h"
 #include "../InternalJson.h"
 #include "../Theme.h"
+#include "BaseWidget.h"
 
-DropDownTextBoxWidget::DropDownTextBoxWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme) : BaseWidget(parent, configInfo, widgetData, theme) {
+RobotGui::DropDownTextBoxWidget::DropDownTextBoxWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme) : BaseWidget(parent, configInfo, widgetData, theme) {
     textDisplay = new LineTextDisplay();
     selectionBox = new QComboBox();
 
@@ -29,7 +30,7 @@ DropDownTextBoxWidget::DropDownTextBoxWidget(QWidget *parent, const RobotGui::Wi
     textDisplay->setFont(QFont("Monospace", font().pointSize()));
 }
 
-void DropDownTextBoxWidget::updateInFocus() {
+void RobotGui::DropDownTextBoxWidget::updateInFocus() {
     if (widgetData->keyUpdated(configInfo->source)) {
         auto pages = widgetData->getJson()->mapGet(configInfo->source);
         if (pages->getType() == RobotGui::InternalJson::map_t) {
@@ -54,7 +55,7 @@ void DropDownTextBoxWidget::updateInFocus() {
     adjustSize();
 }
 
-void DropDownTextBoxWidget::setDropDownItems(std::vector<std::string> keys) {
+void RobotGui::DropDownTextBoxWidget::setDropDownItems(std::vector<std::string> keys) {
     if (selectionBox->count() != keys.size()) {
         selectionBox->clear();
         for (auto &key : keys) {
@@ -67,7 +68,7 @@ void DropDownTextBoxWidget::setDropDownItems(std::vector<std::string> keys) {
     }
 }
 
-void DropDownTextBoxWidget::customUpdateStyle() {
+void RobotGui::DropDownTextBoxWidget::customUpdateStyle() {
     textDisplay->setStyleSheet(QString::fromStdString("color: " + bodyTextColor));
     selectionBox->setStyleSheet(QString::fromStdString("background: " + backgroundColor + "; color: " + titleTextColor));
 }

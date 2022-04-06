@@ -10,24 +10,26 @@
 #include "../Theme.h"
 #include <QLabel>
 
-class MissionStatusWidget : public BaseWidget {
-public:
-    MissionStatusWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme);
+namespace RobotGui {
+    class MissionStatusWidget : public BaseWidget {
+    public:
+        MissionStatusWidget(QWidget *parent, const WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *theme);
 
-    void updateInFocus() override;
+        void updateInFocus() override;
 
-    void customUpdateStyle() override ;
+        void customUpdateStyle() override ;
 
-protected:
-    std::string statusSource;
-    std::string missionNameSource;
-    std::string objectiveSource;
-    int size;
+    protected:
+        std::string statusSource;
+        std::string missionNameSource;
+        std::string objectiveSource;
+        int size;
 
-    QLabel *statusBox;
-    QLabel *missionNameBox;
-    QLabel *objectiveBox;
-};
+        QLabel *statusBox;
+        QLabel *missionNameBox;
+        QLabel *objectiveBox;
+    };
+}
 
 
 #endif //ROBOT_GUI_V3_MISSIONSTATUSWIDGET_H

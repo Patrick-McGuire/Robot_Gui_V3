@@ -10,28 +10,30 @@
 #include "../WidgetData.h"
 #include "../Theme.h"
 
-class MultiBarGraphWidget : public BaseWidget {
-public:
-    MultiBarGraphWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *_theme);
+namespace RobotGui {
+    class MultiBarGraphWidget : public BaseWidget {
+    public:
+        MultiBarGraphWidget(QWidget *parent, const WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *_theme);
 
-    void updateInFocus() override;
+        void updateInFocus() override;
 
-    static void parseXml(const RobotGui::WidgetConfig_ptr &parentConfig, rapidxml::xml_node<> *node);
+        static void parseXml(const WidgetConfig_ptr &parentConfig, rapidxml::xml_node<> *node);
 
-    /**
-     * Saves any configuration data to a xml node
-     * @param node node to output to
-     */
-    void outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) override;
+        /**
+         * Saves any configuration data to a xml node
+         * @param node node to output to
+         */
+        void outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) override;
 
-    void customUpdateStyle() override;
+        void customUpdateStyle() override;
 
-protected:
-    int size = 200;
+    protected:
+        int size = 200;
 
-    std::vector<BaseGraphDisplay *> subGraphVector;
-    std::vector<std::string> subGraphSourcesVector;
-};
+        std::vector<BaseGraphDisplay *> subGraphVector;
+        std::vector<std::string> subGraphSourcesVector;
+    };
+}
 
 
 #endif //ROBOT_GUI_V3_MULTIBARGRAPHWIDGET_H

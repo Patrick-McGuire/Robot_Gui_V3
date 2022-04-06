@@ -1,10 +1,11 @@
 #include "FlagCheckerInterface.h"
+#include "ThreadedInterface.h"
 
-FlagCheckerInterface::FlagCheckerInterface(int _interval): ThreadedInterface() {
+RobotGui::FlagCheckerInterface::FlagCheckerInterface(int _interval): ThreadedInterface() {
     interval = _interval;
 }
 
-void FlagCheckerInterface::run() {
+void RobotGui::FlagCheckerInterface::run() {
     while (isActive()) {
         auto flags = getFlagOutput();
         auto keys = getFlagOutput()->mapKeys();

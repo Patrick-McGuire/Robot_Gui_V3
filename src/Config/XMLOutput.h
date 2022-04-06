@@ -17,9 +17,9 @@ class BaseWidget;
  */
 class XMLOutput {
 public:
-    static void output(const char *filename, const RobotGui::WindowConfig_ptr &windowConfig, BaseWidget *firstWidget);
+    static void output(const char *filename, const RobotGui::WindowConfig_ptr &windowConfig, RobotGui::BaseWidget *firstWidget);
 
-    static rapidxml::xml_node<> *createWidget(rapidxml::xml_document<> *doc, BaseWidget *widget);
+    static rapidxml::xml_node<> *createWidget(rapidxml::xml_document<> *doc, RobotGui::BaseWidget *widget);
 
 private:
     static rapidxml::xml_node<> *createWindowNode(const RobotGui::WindowConfig_ptr &windowConfig, rapidxml::xml_document<> *doc);
