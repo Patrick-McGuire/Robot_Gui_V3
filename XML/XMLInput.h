@@ -1,9 +1,9 @@
 #ifndef ROBOT_GUI_V3_XMLINPUT_H
 #define ROBOT_GUI_V3_XMLINPUT_H
 
-#include "rapidxml/rapidxml.hpp"
-#include "rapidxml/rapidxml_print.hpp"
-#include "rapidxml/rapidxml_utils.hpp"
+#include "../lib/rapidxml/rapidxml.hpp"
+#include "../lib/rapidxml/rapidxml_print.hpp"
+#include "../lib/rapidxml/rapidxml_utils.hpp"
 #include "iostream"
 #include "../RobotGui.h"
 #include <cstring>

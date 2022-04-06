@@ -5,9 +5,9 @@
 #include "QWidget"
 #include "../WidgetData.h"
 #include "QMouseEvent"
-#include "../XML/rapidxml/rapidxml.hpp"
-#include "../XML/rapidxml/rapidxml_print.hpp"
-#include "../XML/rapidxml/rapidxml_utils.hpp"
+#include "../lib/rapidxml/rapidxml.hpp"
+#include "../lib/rapidxml/rapidxml_print.hpp"
+#include "../lib/rapidxml/rapidxml_utils.hpp"
 #include <QTabWidget>
 #include <QMenu>
 #include "../Theme.h"

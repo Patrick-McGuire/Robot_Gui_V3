@@ -14,10 +14,10 @@ execute_process(
 )
 
 set(rapidxml_files
-        XML/rapidxml/rapidxml_print.hpp
-        XML/rapidxml/rapidxml.hpp
-        XML/rapidxml/rapidxml_iterators.hpp
-        XML/rapidxml/rapidxml_utils.hpp
+        lib/rapidxml/rapidxml_print.hpp
+        lib/rapidxml/rapidxml.hpp
+        lib/rapidxml/rapidxml_iterators.hpp
+        lib/rapidxml/rapidxml_utils.hpp
         )
 
 set(xml_interface_files
