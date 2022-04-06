@@ -1,7 +1,8 @@
 #include "SimpleButtonWidget.h"
 #include "../WidgetData.h"
+#include "../Theme.h"
 
-SimpleButtonWidget::SimpleButtonWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
+SimpleButtonWidget::SimpleButtonWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
     styledText = true;
     styledWidgetBackgroundColor = true;
     drawBorder = false;

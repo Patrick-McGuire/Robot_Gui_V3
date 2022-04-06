@@ -9,8 +9,10 @@
 
 #include "WidgetParts/LineTextDisplay.h"
 #include "../WidgetData.h"
+#include "../InternalJson.h"
+#include "../Theme.h"
 
-DropDownTextBoxWidget::DropDownTextBoxWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, Theme *theme) : BaseWidget(parent, configInfo, widgetData, theme) {
+DropDownTextBoxWidget::DropDownTextBoxWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme) : BaseWidget(parent, configInfo, widgetData, theme) {
     textDisplay = new LineTextDisplay();
     selectionBox = new QComboBox();
 
@@ -30,7 +32,7 @@ DropDownTextBoxWidget::DropDownTextBoxWidget(QWidget *parent, const RobotGui::Wi
 void DropDownTextBoxWidget::updateInFocus() {
     if (widgetData->keyUpdated(configInfo->source)) {
         auto pages = widgetData->getJson()->mapGet(configInfo->source);
-        if (pages->getType() == InternalJson::map_t) {
+        if (pages->getType() == RobotGui::InternalJson::map_t) {
             std::string currentSelection = selectionBox->currentText().toStdString();
 
             auto keys = pages->mapKeys();
@@ -38,7 +40,7 @@ void DropDownTextBoxWidget::updateInFocus() {
 
             if (pages->mapCount(currentSelection)) {
                 auto lines = pages->mapGet(currentSelection);
-                if (lines->getType() == InternalJson::vector_t) {
+                if (lines->getType() == RobotGui::InternalJson::vector_t) {
                     for (int i = 0; i < lines->vectorSize(); i++) {
                         textDisplay->setLine(i, lines->vectorGet(i)->vectorGet(0)->getString(), lines->vectorGet(i)->vectorGet(1)->getString());
                     }

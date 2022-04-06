@@ -2,38 +2,38 @@
 #include "RobotGui.h"
 #include "../lib/CommonFunctions.h"
 
-Theme::Theme(RobotGui::Themes::Type type) {
+RobotGui::Theme::Theme(RobotGui::Themes::Type type) {
     currentTheme = type;
     initFormats();
 }
 
-Theme::Theme(const std::string &type) {
+RobotGui::Theme::Theme(const std::string &type) {
     currentTheme = RobotGui::Themes::LIGHT;
     setTheme(type);
     initFormats();
 }
 
-std::string Theme::getBackgroundColor() {
+std::string RobotGui::Theme::getBackgroundColor() {
     return stringFormats[currentTheme].backgroundColor;
 }
 
-std::string Theme::getWidgetBackgroundColor() {
+std::string RobotGui::Theme::getWidgetBackgroundColor() {
     return stringFormats[currentTheme].widgetBackgroundColor;
 }
 
-std::string Theme::getBodyTextColor() {
+std::string RobotGui::Theme::getBodyTextColor() {
     return stringFormats[currentTheme].bodyTextColor;
 }
 
-std::string Theme::getTitleTextColor() {
+std::string RobotGui::Theme::getTitleTextColor() {
     return stringFormats[currentTheme].titleTextColor;
 }
 
-std::string Theme::getBorderColor() {
+std::string RobotGui::Theme::getBorderColor() {
     return stringFormats[currentTheme].borderColor;
 }
 
-void Theme::setTheme(const std::string &name) {
+void RobotGui::Theme::setTheme(const std::string &name) {
     if (name == RobotGui::Themes::DARK_THEME_STR) {
         currentTheme = RobotGui::Themes::DARK;
     } else if (name == RobotGui::Themes::LIGHT_THEME_STR) {
@@ -45,15 +45,15 @@ void Theme::setTheme(const std::string &name) {
     }
 }
 
-void Theme::setTheme(enum RobotGui::Themes::Type themeType) {
+void RobotGui::Theme::setTheme(enum RobotGui::Themes::Type themeType) {
     currentTheme = themeType;
 }
 
-RobotGui::Themes::Type Theme::getTheme() {
+RobotGui::Themes::Type RobotGui::Theme::getTheme() {
     return currentTheme;
 }
 
-std::string Theme::getThemeName(RobotGui::Themes::Type themeType) {
+std::string RobotGui::Theme::getThemeName(RobotGui::Themes::Type themeType) {
     switch (themeType) {
         case RobotGui::Themes::DARK: {
             return RobotGui::Themes::DARK_THEME_STR;
@@ -71,7 +71,7 @@ std::string Theme::getThemeName(RobotGui::Themes::Type themeType) {
     return RobotGui::Themes::LIGHT_THEME_STR;
 }
 
-void Theme::initFormats() {
+void RobotGui::Theme::initFormats() {
     // Initialize all themes
     stringFormats[RobotGui::Themes::DARK] = RobotGui::Themes::Format{
             "rgb(13,17,23)",
@@ -107,10 +107,10 @@ void Theme::initFormats() {
     themeIsLight[RobotGui::Themes::RED] = false;
 }
 
-bool Theme::isLight() {
+bool RobotGui::Theme::isLight() {
     return themeIsLight[currentTheme];
 }
 
-std::string Theme::getHighlightColor() {
+std::string RobotGui::Theme::getHighlightColor() {
     return CommonFunctions::GenerateDarkerColor(getBackgroundColor(), 20 * (isLight() ? 1 : -1));
 }

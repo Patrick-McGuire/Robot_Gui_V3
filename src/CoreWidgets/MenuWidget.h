@@ -17,10 +17,12 @@
 #include "../GuiInstance.h"
 #include "../GuiCore.h"
 #include "../Theme.h"
+#include "../GuiInstance.h"
+#include "../Theme.h"
 
-class GuiInstance;
 namespace RobotGui {
     class GuiCore;
+    class GuiInstance;
 }
 
 /**
@@ -40,7 +42,7 @@ public:
      * @param coreGui CoreGui class for connecting slot
      * @param robotGui GuiInstance class for connecting slot
      */
-    MenuWidget(QWidget *parent, AppConfig *appConfig_, RobotGui::GuiCore *coreGui, GuiInstance *robotGui, Theme *_theme);
+    MenuWidget(QWidget *parent, AppConfig *appConfig_, RobotGui::GuiCore *coreGui, RobotGui::GuiInstance *robotGui, RobotGui::Theme *_theme);
 
     /**
      * Updates the menu bar's theme
@@ -49,7 +51,7 @@ public:
     void updateTheme();
 
 private:
-    Theme *theme;
+    RobotGui::Theme *theme;
     AppConfig *appConfig;
     std::vector<QMenu *> menus;
     const char *const FILE_MENU_NAME = "FileMenu";

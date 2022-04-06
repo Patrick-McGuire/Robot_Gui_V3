@@ -5,11 +5,12 @@
 #include "ROVStatusWidget.h"
 #include "../../lib/CommonFunctions.h"
 #include "../WidgetData.h"
+#include "../Theme.h"
 
 #include <QLabel>
 #include <QGridLayout>
 
-ROVStatusWidget::ROVStatusWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, Theme *theme) : BaseWidget(parent, configInfo, widgetData, theme) {
+ROVStatusWidget::ROVStatusWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme) : BaseWidget(parent, configInfo, widgetData, theme) {
     statusSource = CommonFunctions::GetStringFromMap(configInfo->sourceMap, "statusSource", "status");
     armedSource = CommonFunctions::GetStringFromMap(configInfo->sourceMap, "armedSource", "armed");
     allowedToArmSource = CommonFunctions::GetStringFromMap(configInfo->sourceMap, "allowedToArmSource", "allowedToArm");

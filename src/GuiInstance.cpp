@@ -3,9 +3,11 @@
 #include <thread>
 #include "../lib/CommonFunctions.h"
 #include "WidgetData.h"
+#include "GUIMaker.h"
+#include "Theme.h"
 
 
-GuiInstance::GuiInstance(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appConfig, RobotGui::GuiCore *_coreGui, const RobotGui::WindowConfig_ptr &_config, RobotGui::WidgetData *_widgetData)
+RobotGui::GuiInstance::GuiInstance(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *_appConfig, RobotGui::GuiCore *_coreGui, const RobotGui::WindowConfig_ptr &_config, RobotGui::WidgetData *_widgetData)
         : QWidget(_parent) {
     // Save passed variables
     widgetData = _widgetData;
@@ -67,54 +69,54 @@ GuiInstance::GuiInstance(QWidget *_parent, QMainWindow *_mainWindow, AppConfig *
     setTheme();
 }
 
-void GuiInstance::setWindowSize() {
+void RobotGui::GuiInstance::setWindowSize() {
     int width = config->width == RobotGui::Xml::MAX_CONST_ID || config->width == RobotGui::Xml::AUTO_CONST_ID ? QApplication::desktop()->screenGeometry().width() : config->width;
     int height = config->height == RobotGui::Xml::MAX_CONST_ID || config->height == RobotGui::Xml::AUTO_CONST_ID ? QApplication::desktop()->screenGeometry().height() - 50 : config->height;
     mainWindow->resize(width, height);
 }
 
-void GuiInstance::updateGUI() {
+void RobotGui::GuiInstance::updateGUI() {
     coreWidget->updateData(true);
     widgetData->resetKeysUpdated();
 }
 
-GuiInstance::~GuiInstance() {
+RobotGui::GuiInstance::~GuiInstance() {
     delete coreWidget;
     delete menu;
     delete theme;
 }
 
-void GuiInstance::updateTheme(QAction *channelAction) {
+void RobotGui::GuiInstance::updateTheme(QAction *channelAction) {
     theme->setTheme(channelAction->data().toString().toStdString());
     config->theme = Theme::getThemeName(theme->getTheme());
     setTheme();
 }
 
-void GuiInstance::makeWidgetsDraggable() {
+void RobotGui::GuiInstance::makeWidgetsDraggable() {
     coreWidget->setDraggability(true);
 }
 
-void GuiInstance::makeWidgetsFixed() {
+void RobotGui::GuiInstance::makeWidgetsFixed() {
     coreWidget->setDraggability(false);
 }
 
-void GuiInstance::setTheme() {
+void RobotGui::GuiInstance::setTheme() {
     std::string darker_color = CommonFunctions::GenerateDarkerColor(theme->getBackgroundColor(), 10);
     mainWindow->setStyleSheet("QWidget#mainWindow { background-color: " + QString::fromStdString(darker_color) + "}");
     menu->updateTheme();
     coreWidget->updateStyle();
 }
 
-RobotGui::WidgetData *GuiInstance::getWidgetData() {
+RobotGui::WidgetData *RobotGui::GuiInstance::getWidgetData() {
     return widgetData;
 }
 
-void GuiInstance::save() {
+void RobotGui::GuiInstance::save() {
     return;
     XMLOutput::output(appConfig->getDefaultXmlPath().c_str(), config, coreWidget);
 }
 
-void GuiInstance::saveAs() {
+void RobotGui::GuiInstance::saveAs() {
     std::string filePath = QFileDialog::getSaveFileName(mainWindow, "Save as", QString::fromStdString(appConfig->getDefaultXmlPath()), "XML Files (*.xml)").toStdString();
     if (!filePath.empty()) {
         appConfig->setDefaultXmlPath(filePath);

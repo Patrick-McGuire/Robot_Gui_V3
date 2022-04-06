@@ -13,6 +13,7 @@
 #include "QChartView"
 #include "QtCharts"
 #include "QLineSeries"
+#include "../Theme.h"
 
 /**
  * @class LivePlotWidget
@@ -30,7 +31,7 @@ public:
      * @param widgetData global widgetData object
      * @param _theme theme object
      */
-    LivePlotWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, Theme *_theme);
+    LivePlotWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *_theme);
 
     /**
      * Parses a xml node into the config struct

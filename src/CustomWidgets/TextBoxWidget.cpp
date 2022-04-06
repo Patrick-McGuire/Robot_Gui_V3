@@ -1,10 +1,12 @@
 #include "TextBoxWidget.h"
 #include "../WidgetData.h"
+#include "../InternalJson.h"
+#include "../Theme.h"
 #include <QString>
 #include <iostream>
 #include <vector>
 
-TextBoxWidget::TextBoxWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
+TextBoxWidget::TextBoxWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
     styledHeader = true;
     styledText = true;
     styledSeeThroughBackground = true;
@@ -60,14 +62,14 @@ void TextBoxWidget::customUpdate() {
         std::string first = it[0][0];
         std::string second;
 
-        InternalJson::SharedPtr jsonVal = widgetData->getJson()->mapGet(it[0][1]);
-        if (jsonVal->getType() == InternalJson::int_t) {
+        RobotGui::InternalJson::SharedPtr jsonVal = widgetData->getJson()->mapGet(it[0][1]);
+        if (jsonVal->getType() == RobotGui::InternalJson::int_t) {
             second += std::to_string(jsonVal->getInt());
-        } else if (jsonVal->getType() == InternalJson::double_t) {
+        } else if (jsonVal->getType() == RobotGui::InternalJson::double_t) {
             second += std::to_string(jsonVal->getDouble());
-        } else if (jsonVal->getType() == InternalJson::string_t) {
+        } else if (jsonVal->getType() == RobotGui::InternalJson::string_t) {
             second += jsonVal->getString();
-        } else if (jsonVal->getType() == InternalJson::bool_t) {
+        } else if (jsonVal->getType() == RobotGui::InternalJson::bool_t) {
             second += jsonVal->getBool() ? "True" : "False";
         } else {
             second += "No Data";

@@ -3,8 +3,10 @@
 
 #include "SettingsTab.h"
 #include "../WidgetData.h"
+#include "../GUIMaker.h"
+#include "../Theme.h"
 
-TabWidget::TabWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
+TabWidget::TabWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
     styledBackground = true;
     styledHeader = true;
     drawBorder = false;
@@ -50,7 +52,7 @@ TabWidget::TabWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configIn
             // Create all widgets in the tab
             for (int j = 0; j < configInfo->tabWidgets[i].size(); j++) {
                 configInfo->tabWidgets[i][j]->objectName = configInfo->objectName + "A" + std::to_string(i) + "B" + std::to_string(j);
-                auto newWidget = GUIMaker::createWidget(page, configInfo->tabWidgets[i][j], widgetData, theme);
+                auto newWidget = RobotGui::GUIMaker::createWidget(page, configInfo->tabWidgets[i][j], widgetData, theme);
                 if (newWidget != nullptr) {
                     widgets[i].emplace_back(newWidget);
                 }

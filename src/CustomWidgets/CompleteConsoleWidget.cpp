@@ -10,8 +10,9 @@
 
 #include "SimpleConsoleWidget.h"
 #include "../WidgetData.h"
+#include "../Theme.h"
 
-CompleteConsoleWidget::CompleteConsoleWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, Theme *theme) : BaseWidget(parent, configInfo, widgetData, theme) {
+CompleteConsoleWidget::CompleteConsoleWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme) : BaseWidget(parent, configInfo, widgetData, theme) {
     auto newConfigInfo = std::make_shared<RobotGui::WidgetConfig>();
     newConfigInfo->source = configInfo->source;
     newConfigInfo->backgroundColor = configInfo->backgroundColor;

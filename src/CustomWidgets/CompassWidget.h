@@ -9,10 +9,11 @@
 
 #include "WidgetParts/CompassDisplay.h"
 #include "../WidgetData.h"
+#include "../Theme.h"
 
 class CompassWidget : public BaseWidget {
 public:
-    CompassWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, Theme *theme);
+    CompassWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme);
 
     void updateInFocus() override;
 

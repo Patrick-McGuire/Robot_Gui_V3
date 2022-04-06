@@ -7,9 +7,10 @@
 #include "QGridLayout"
 #include "QScrollArea"
 #include "../../WidgetData.h"
+#include "../../Theme.h"
 
 
-RawDataView::RawDataView(QWidget *parent, RobotGui::WidgetData *widgetData, Theme *theme) : BaseSettingsPanel(parent, widgetData, theme) {
+RawDataView::RawDataView(QWidget *parent, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme) : BaseSettingsPanel(parent, widgetData, theme) {
     lineTextDisplay = new LineTextDisplay();
     scrollArea = new QScrollArea();
     scrollArea->setWidget(lineTextDisplay);

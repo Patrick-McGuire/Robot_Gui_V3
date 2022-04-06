@@ -12,10 +12,11 @@
 
 #include "../WidgetParts/LineTextDisplay.h"
 #include "../../WidgetData.h"
+#include "../../Theme.h"
 
 class RawDataView : public BaseSettingsPanel {
 public:
-    RawDataView(QWidget *parent, RobotGui::WidgetData *widgetData, Theme *theme);
+    RawDataView(QWidget *parent, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme);
 
     void updateInFocus() override;
 

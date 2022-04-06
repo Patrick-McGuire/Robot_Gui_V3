@@ -1,5 +1,6 @@
 #include "BaseInterface.h"
 #include "../WidgetData.h"
+#include "../InternalJson.h"
 
 BaseInterface::BaseInterface() {
     widgetData = nullptr;
@@ -29,11 +30,11 @@ void BaseInterface::clearOutputFlag(const std::string &key) {
     widgetData->clearOutputFlag(key);
 }
 
-InternalJson::SharedPtr BaseInterface::getFlagOutput() {
+RobotGui::InternalJson::SharedPtr BaseInterface::getFlagOutput() {
     return widgetData->getFlagOutput();
 }
 
-InternalJson::SharedPtr BaseInterface::getJson() {
+RobotGui::InternalJson::SharedPtr BaseInterface::getJson() {
     return widgetData->getJson();
 }
 
@@ -58,7 +59,7 @@ void BaseInterface::setString(const std::string &key, const std::string &val) {
     widgetData->setKeyUpdated(key);
 }
 
-void BaseInterface::setMap(const std::string &key, const InternalJson::SharedPtr& val) {
+void BaseInterface::setMap(const std::string &key, const RobotGui::InternalJson::SharedPtr& val) {
     widgetData->getJson()->mapSet(key, val);
     widgetData->setKeyUpdated(key);
 }

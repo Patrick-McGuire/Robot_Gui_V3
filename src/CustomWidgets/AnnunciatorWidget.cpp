@@ -1,10 +1,12 @@
 #include "AnnunciatorWidget.h"
 #include "../WidgetData.h"
+#include "../InternalJson.h"
+#include "../Theme.h"
 
 #include <QLabel>
 #include <QGridLayout>
 
-AnnunciatorWidget::AnnunciatorWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
+AnnunciatorWidget::AnnunciatorWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
     int rows = 10;
     int columns = 2;
     if (configInfo->rowNumber != 0) { rows = configInfo->rowNumber; }
@@ -36,7 +38,7 @@ AnnunciatorWidget::AnnunciatorWidget(QWidget *parent, const RobotGui::WidgetConf
 
 void AnnunciatorWidget::updateInFocus() {
     if (widgetData->keyUpdated(source)) {
-        if (widgetData->getJson()->mapGet(source)->getType() == InternalJson::vector_t) {
+        if (widgetData->getJson()->mapGet(source)->getType() == RobotGui::InternalJson::vector_t) {
             auto configData = widgetData->getJson()->mapGet(source);
             for (int i = 0; i < configData->vectorSize(); i++) {
                 auto boxConfig = configData->vectorGet(i);

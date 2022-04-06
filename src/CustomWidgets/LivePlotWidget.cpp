@@ -2,6 +2,8 @@
 #include "../../lib/CommonFunctions.h"
 #include "QGridLayout"
 #include "../WidgetData.h"
+#include "../InternalJson.h"
+#include "../Theme.h"
 
 /**
  * Height/Width
@@ -10,7 +12,7 @@
  */
 
 
-LivePlotWidget::LivePlotWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
+LivePlotWidget::LivePlotWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
     styledWidgetBackgroundColor = true;
     styledHeader = true;
     styledText = true;
@@ -219,13 +221,13 @@ void LivePlotWidget::autoRange(double min, double max, double time) {
 
 void LivePlotWidget::updateDataStructure() {
     for (int i = 0; i < configInfo->lines.size(); i++) {
-        InternalJson::SharedPtr json = widgetData->getJson()->mapGet(configInfo->lines[i][1]);
+        RobotGui::InternalJson::SharedPtr json = widgetData->getJson()->mapGet(configInfo->lines[i][1]);
         double val = 0;
-        if (json->getType() == InternalJson::double_t) {
+        if (json->getType() == RobotGui::InternalJson::double_t) {
             val = json->getDouble();
-        } else if (json->getType() == InternalJson::int_t) {
+        } else if (json->getType() == RobotGui::InternalJson::int_t) {
             val = json->getInt();
-        } else if (json->getType() == InternalJson::bool_t) {
+        } else if (json->getType() == RobotGui::InternalJson::bool_t) {
             val = json->getBool();
         }
         double time = CommonFunctions::getEpochTime();

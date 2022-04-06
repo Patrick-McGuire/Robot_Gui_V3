@@ -7,6 +7,7 @@
 #include "../RobotGui.h"
 #include "thread"
 #include "opencv2/opencv.hpp"
+#include "../InternalJson.h"
 
 /**
  * @class WidgetData
@@ -24,7 +25,7 @@ public:
     /**
      * Gets the json data input
      */
-    InternalJson::SharedPtr getJson();
+    RobotGui::InternalJson::SharedPtr getJson();
 
     /**
      * Initializes the interface
@@ -70,7 +71,7 @@ public:
      * Gets the entire return flags data map
      * @return output flags map
      */
-    InternalJson::SharedPtr getFlagOutput();
+    RobotGui::InternalJson::SharedPtr getFlagOutput();
 
     /**
      * Sets a flag low in the output flags
@@ -78,7 +79,7 @@ public:
      */
     void clearOutputFlag(const std::string &key);
 
-    void setMap(const std::string &key, const InternalJson::SharedPtr& val);
+    void setMap(const std::string &key, const RobotGui::InternalJson::SharedPtr& val);
 
     /**
      * Sets a boolean in the json map

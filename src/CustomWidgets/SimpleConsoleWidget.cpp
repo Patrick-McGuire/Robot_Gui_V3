@@ -6,8 +6,10 @@
 #include "SimpleConsoleWidget.h"
 #include "../../lib/CommonFunctions.h"
 #include "../WidgetData.h"
+#include "../InternalJson.h"
+#include "../Theme.h"
 
-SimpleConsoleWidget::SimpleConsoleWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, Theme *theme, bool _borderEnabled) : BaseWidget(parent, configInfo, widgetData, theme) {
+SimpleConsoleWidget::SimpleConsoleWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme, bool _borderEnabled) : BaseWidget(parent, configInfo, widgetData, theme) {
     source = configInfo->source;
     title = configInfo->title;
     drawTitle = !title.empty();
@@ -18,7 +20,7 @@ SimpleConsoleWidget::SimpleConsoleWidget(QWidget *parent, const RobotGui::Widget
 
 void SimpleConsoleWidget::updateInFocus() {
     if (widgetData->keyUpdated(source)) {
-        if (widgetData->getJson()->mapGet(source)->getType() == InternalJson::vector_t) {
+        if (widgetData->getJson()->mapGet(source)->getType() == RobotGui::InternalJson::vector_t) {
             update();
             adjustSize();
         }
@@ -27,9 +29,9 @@ void SimpleConsoleWidget::updateInFocus() {
 
 void SimpleConsoleWidget::paintEvent(QPaintEvent *_event) {
     if (borderEnabled) { BaseWidget::paintEvent(_event); }
-    if (widgetData->getJson()->mapGet(source)->getType() != InternalJson::vector_t) { return; }
+    if (widgetData->getJson()->mapGet(source)->getType() != RobotGui::InternalJson::vector_t) { return; }
     
-    InternalJson::SharedPtr consoleData = widgetData->getJson()->mapGet(source);
+    RobotGui::InternalJson::SharedPtr consoleData = widgetData->getJson()->mapGet(source);
     int startIndex = consoleData->vectorGet(0)->getInt();
 
     int fontHeight = fontInfo().pixelSize() + lineSpace;
@@ -49,7 +51,7 @@ void SimpleConsoleWidget::paintEvent(QPaintEvent *_event) {
     for (int i = startIndex; i < startIndex + consoleData->vectorSize() - 1; i++) {
         int realIndex = i;
         if (realIndex >= consoleData->vectorSize()) { realIndex -= (int(consoleData->vectorSize()) - 1); }
-        if(consoleData->vectorGet(realIndex)->getType() == InternalJson::vector_t) {
+        if(consoleData->vectorGet(realIndex)->getType() == RobotGui::InternalJson::vector_t) {
             std::string line = consoleData->vectorGet(realIndex)->vectorGet(0)->getString();
             int status = consoleData->vectorGet(realIndex)->vectorGet(1)->getInt();
             maxLineWidth = fmax(maxLineWidth, line.length());

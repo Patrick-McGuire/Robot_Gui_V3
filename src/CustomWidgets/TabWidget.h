@@ -34,7 +34,7 @@ public:
      * @param configInfo configuration data
      * @param widgetData global widgetData object
      */
-    TabWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr& configInfo, RobotGui::WidgetData *widgetData, Theme *_theme);
+    TabWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr& configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *_theme);
 
     /**
      * Parses a xml node into the config struct

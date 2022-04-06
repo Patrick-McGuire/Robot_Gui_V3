@@ -1,7 +1,8 @@
 #include "VideoWidget.h"
 #include "../WidgetData.h"
+#include "../Theme.h"
 
-VideoWidget::VideoWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr& configInfo, RobotGui::WidgetData *widgetData, Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme)  {
+VideoWidget::VideoWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr& configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme)  {
     styledBackground = false;
     styledHeader = false;
     styledText = false;

@@ -11,10 +11,11 @@
 
 #include "WidgetParts/LineTextDisplay.h"
 #include "../WidgetData.h"
+#include "../Theme.h"
 
 class DropDownTextBoxWidget : public BaseWidget {
 public:
-    DropDownTextBoxWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, Theme *theme);
+    DropDownTextBoxWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme);
 
     void updateInFocus() override;
 

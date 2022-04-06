@@ -7,10 +7,11 @@
 
 #include "../BaseWidget.h"
 #include "../../WidgetData.h"
+#include "../../Theme.h"
 
 class BaseSettingsPanel : public BaseWidget {
 public:
-    BaseSettingsPanel(QWidget *parent, RobotGui::WidgetData *widgetData, Theme *theme);
+    BaseSettingsPanel(QWidget *parent, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme);
 
 
 };

@@ -66,7 +66,7 @@ signals:
 
 private:
     DataInput *dataInput;
-    InternalJson::SharedPtr output = InternalJson::create(InternalJson::map_t);
+    RobotGui::InternalJson::SharedPtr output = RobotGui::InternalJson::create(RobotGui::InternalJson::map_t);
     int port;
 };
 

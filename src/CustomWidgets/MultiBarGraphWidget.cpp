@@ -8,11 +8,13 @@
 #include "WidgetParts/SimpleBarGraph.h"
 #include "WidgetParts/CircleBarGraph.h"
 #include "../WidgetData.h"
+#include "../InternalJson.h"
+#include "../Theme.h"
 
 #define SIMPLE_BAR_GRAPH_NAME "SimpleBarGraph"
 #define CIRCLE_BAR_GRAPH_NAME "CircleBarGraph"
 
-MultiBarGraphWidget::MultiBarGraphWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
+MultiBarGraphWidget::MultiBarGraphWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
     configurablePos = true;
     auto *layout = new QGridLayout();
 
@@ -39,12 +41,12 @@ void MultiBarGraphWidget::updateInFocus() {
     for (int i = 0; i < subGraphVector.size(); i++) {
         auto key = subGraphSourcesVector[i];
         auto subGraph = subGraphVector[i];
-        InternalJson::SharedPtr jsonVal = widgetData->getJson()->mapGet(key);
+        RobotGui::InternalJson::SharedPtr jsonVal = widgetData->getJson()->mapGet(key);
         if (widgetData->keyUpdated(key)) {
-            if (jsonVal->getType() == InternalJson::int_t) {
+            if (jsonVal->getType() == RobotGui::InternalJson::int_t) {
                 subGraph->setValue(jsonVal->getInt());
                 subGraph->update();
-            } else if (jsonVal->getType() == InternalJson::double_t) {
+            } else if (jsonVal->getType() == RobotGui::InternalJson::double_t) {
                 subGraph->setValue(jsonVal->getDouble());
                 subGraph->update();
             }

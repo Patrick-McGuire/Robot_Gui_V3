@@ -7,12 +7,13 @@
 
 #include "BaseWidget.h"
 #include "../WidgetData.h"
+#include "../Theme.h"
 
 #include <QLabel>
 
 class ROVStatusWidget : public BaseWidget {
 public:
-    ROVStatusWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, Theme *theme);
+    ROVStatusWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme);
 
     void updateInFocus() override;
 

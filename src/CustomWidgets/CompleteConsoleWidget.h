@@ -10,10 +10,11 @@
 #include <QLineEdit>
 #include "SimpleConsoleWidget.h"
 #include "../WidgetData.h"
+#include "../Theme.h"
 
 class CompleteConsoleWidget : public BaseWidget {
 public:
-    CompleteConsoleWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, Theme *theme);
+    CompleteConsoleWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme);
 
     void updateInFocus() override;
 

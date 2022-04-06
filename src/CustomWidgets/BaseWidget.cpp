@@ -3,8 +3,9 @@
 #include "BaseWidget.h"
 #include "../../lib/CommonFunctions.h"
 #include "../WidgetData.h"
+#include "../Theme.h"
 
-BaseWidget::BaseWidget(QWidget *_parent_, const RobotGui::WidgetConfig_ptr &_configInfo, RobotGui::WidgetData *_widgetData, Theme *_theme) : staticPos(_configInfo->staticPos), QWidget(_parent_) {
+BaseWidget::BaseWidget(QWidget *_parent_, const RobotGui::WidgetConfig_ptr &_configInfo, RobotGui::WidgetData *_widgetData, RobotGui::Theme *_theme) : staticPos(_configInfo->staticPos), QWidget(_parent_) {
     configInfo = _configInfo;
     widgetData = _widgetData;
     _parent = _parent_;
