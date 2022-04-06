@@ -54,12 +54,12 @@ set(settings_panel_files
         src/CustomWidgets/SettingsPanels/BaseSettingsPanel.cpp src/CustomWidgets/SettingsPanels/BaseSettingsPanel.h src/CustomWidgets/SettingsPanels/InterfaceSettings.cpp src/CustomWidgets/SettingsPanels/InterfaceSettings.h src/CustomWidgets/SettingsPanels/RawDataView.cpp src/CustomWidgets/SettingsPanels/RawDataView.h)
 
 set(interface_files
-        Interface/DataInput.cpp Interface/DataInput.h
-        Interface/BaseInterface.cpp
-        Interface/ThreadedInterface.cpp Interface/ThreadedInterface.h
-        Interface/RandomDataInterface.cpp Interface/RandomDataInterface.h
-        Interface/WebcamStreamInterface.cpp
-        Interface/FlagCheckerInterface.cpp Interface/FlagCheckerInterface.h
+        src/Interface/DataInput.cpp src/Interface/DataInput.h
+        src/Interface/BaseInterface.cpp
+        src/Interface/ThreadedInterface.cpp src/Interface/ThreadedInterface.h
+        src/Interface/RandomDataInterface.cpp src/Interface/RandomDataInterface.h
+        src/Interface/WebcamStreamInterface.cpp
+        src/Interface/FlagCheckerInterface.cpp src/Interface/FlagCheckerInterface.h
         )
 
 set(core_files
@@ -81,7 +81,7 @@ set(all_gui_files
         ${networking_files}
         ${interface_files}
         ${xml_interface_files}
-        ${core_files} src/CustomWidgets/LivePlotWidget.cpp src/CustomWidgets/LivePlotWidget.h Interface/ServerInterface.cpp Interface/ServerInterface.h)
+        ${core_files} src/CustomWidgets/LivePlotWidget.cpp src/CustomWidgets/LivePlotWidget.h src/Interface/ServerInterface.cpp src/Interface/ServerInterface.h)
 
 add_executable(Robot_Gui_V3 main.cpp ${all_gui_files})
 set(SOURCE_FILES main.cpp)

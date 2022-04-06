@@ -1,6 +1,6 @@
 #include "ServerInterface.h"
 #include "iostream"
-#include "../src/WidgetData.h"
+#include "../WidgetData.h"
 #include <QTcpSocket>
 #include <vector>
 

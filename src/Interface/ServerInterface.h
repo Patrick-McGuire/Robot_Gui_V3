@@ -4,14 +4,14 @@
 #include <memory>
 #include <QTcpServer>
 #include <QDebug>
-#include "../src/WidgetData.h"
-#include "../src/GuiInstance.h"
+#include "../WidgetData.h"
+#include "../GuiInstance.h"
 #include "rapidjson/document.h"
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/writer.h"
 #include "DataInput.h"
-#include "../src/GuiCore.h"
-#include "../src/InternalJson.h"
+#include "../GuiCore.h"
+#include "../InternalJson.h"
 
 class GuiCore;
 

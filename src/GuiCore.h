@@ -14,10 +14,10 @@
 #include <QFileDialog>
 #include "XML/AppConfig.h"
 #include "thread"
-#include "../Interface/BaseInterface.h"
-#include "../Interface/ThreadedInterface.h"
+#include "Interface/BaseInterface.h"
+#include "Interface/ThreadedInterface.h"
 #include "InternalJson.h"
-#include "../Interface/ServerInterface.h"
+#include "Interface/ServerInterface.h"
 
 class GuiInstance;
 

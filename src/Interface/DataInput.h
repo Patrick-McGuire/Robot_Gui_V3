@@ -1,9 +1,9 @@
 #ifndef ROBOT_GUI_V3_DATAINPUT_H
 #define ROBOT_GUI_V3_DATAINPUT_H
 
-#include "../src/WidgetData.h"
+#include "../WidgetData.h"
 #include "opencv2/opencv.hpp"
-#include "../src/InternalJson.h"
+#include "../InternalJson.h"
 
 #define CUSTOM_MSG_HEADER_SIZE 6
 

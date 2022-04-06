@@ -3,8 +3,8 @@
 
 #include "iostream"
 #include <vector>
-#include "../src/WidgetData.h"
-#include "../src/RobotGui.h"
+#include "../WidgetData.h"
+#include "../RobotGui.h"
 #include "thread"
 #include "opencv2/opencv.hpp"
 

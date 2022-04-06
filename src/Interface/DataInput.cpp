@@ -1,5 +1,5 @@
 #include "DataInput.h"
-#include "../src/WidgetData.h"
+#include "../WidgetData.h"
 
 DataInput::DataInput(RobotGui::WidgetData *_widgetData) {
     widgetData = _widgetData;

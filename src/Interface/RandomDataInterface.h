@@ -2,7 +2,7 @@
 #define ROBOT_GUI_V3_RANDOMDATAINTERFACE_H
 
 #include "ThreadedInterface.h"
-#include "../src/WidgetData.h"
+#include "../WidgetData.h"
 
 /**
  * @class RandomDataInterface

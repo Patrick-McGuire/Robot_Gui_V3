@@ -7,6 +7,7 @@ And then you send data to it over local host (or not local I guess).
 
 Dependencies:
 Qt5
+Qt5Charts
 rapidjson
 opencv
 

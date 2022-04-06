@@ -1,12 +1,12 @@
 #include "src/GuiCore.h"
 #include "iostream"
-#include "Interface/RandomDataInterface.h"
-#include "Interface/WebcamStreamInterface.h"
-#include "Interface/FlagCheckerInterface.h"
+#include "src/Interface/RandomDataInterface.h"
+#include "src/Interface/WebcamStreamInterface.h"
+#include "src/Interface/FlagCheckerInterface.h"
 #include "src/Theme.h"
 #include <cstdarg>
 #include "src/InternalJson.h"
-#include "Interface/ServerInterface.h"
+#include "src/Interface/ServerInterface.h"
 
 int main(int argc, char** argv) {
     auto gui = new RobotGui::GuiCore(argc, argv);
