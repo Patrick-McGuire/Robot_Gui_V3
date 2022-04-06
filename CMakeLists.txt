@@ -21,9 +21,9 @@ set(rapidxml_files
         )
 
 set(xml_interface_files
-        src/XML/XMLInput.cpp src/XML/XMLInput.h
-        src/XML/XMLOutput.cpp src/XML/XMLOutput.h
-        src/XML/AppConfig.cpp src/XML/AppConfig.h)
+        src/Config/XMLInput.cpp src/Config/XMLInput.h
+        src/Config/XMLOutput.cpp src/Config/XMLOutput.h
+        src/Config/AppConfig.cpp src/Config/AppConfig.h)
 
 set(widget_type_files
         src/CustomWidgets/VideoWidget.cpp src/CustomWidgets/VideoWidget.h

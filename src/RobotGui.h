@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 #include <map>
-#include "XML/AppConfig.h"
+#include "Config/AppConfig.h"
 #include "array"
 
 namespace RobotGui {

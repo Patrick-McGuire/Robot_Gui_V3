@@ -9,13 +9,13 @@
 #include <string>
 #include "../WidgetData.h"
 #include "../RobotGui.h"
-#include "../XML/XMLInput.h"
+#include "../Config/XMLInput.h"
 #include <QTabWidget>
 #include <QString>
 #include "../GUIMaker.h"
 #include <QApplication>
 #include "../Theme.h"
-#include "../XML/XMLOutput.h"
+#include "../Config/XMLOutput.h"
 #include "../WidgetData.h"
 
 class XMLOutput;

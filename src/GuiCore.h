@@ -12,7 +12,7 @@
 #include <QDesktopWidget>
 #include "RobotGui.h"
 #include <QFileDialog>
-#include "XML/AppConfig.h"
+#include "Config/AppConfig.h"
 #include "thread"
 #include "Interface/BaseInterface.h"
 #include "Interface/ThreadedInterface.h"

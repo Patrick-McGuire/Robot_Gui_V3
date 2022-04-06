@@ -14,7 +14,7 @@
 #include <QApplication>
 #include "GuiCore.h"
 #include "Theme.h"
-#include "XML/XMLOutput.h"
+#include "Config/XMLOutput.h"
 
 class MenuWidget;
 
