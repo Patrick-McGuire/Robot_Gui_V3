@@ -3,7 +3,7 @@
 //
 
 #include "ROVStatusWidget.h"
-#include "../CommonFunctions.h"
+#include "../../lib/CommonFunctions.h"
 #include "../WidgetData.h"
 
 #include <QLabel>

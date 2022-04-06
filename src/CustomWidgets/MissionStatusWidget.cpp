@@ -8,7 +8,7 @@
 #include <QGridLayout>
 #include <QSizePolicy>
 
-#include "../CommonFunctions.h"
+#include "../../lib/CommonFunctions.h"
 #include "../WidgetData.h"
 
 MissionStatusWidget::MissionStatusWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, Theme *theme) : BaseWidget(parent, configInfo, widgetData, theme) {

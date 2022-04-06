@@ -6,7 +6,7 @@
 
 #include <utility>
 #include <QtGui/QPainter>
-#include "../../CommonFunctions.h"
+#include "../../../lib/CommonFunctions.h"
 
 SimpleBarGraph::SimpleBarGraph(QWidget *parent, std::string _title, double _min_value, double _max_value, int _size, const std::string &bar_color) : BaseGraphDisplay(parent) {
     size = _size;

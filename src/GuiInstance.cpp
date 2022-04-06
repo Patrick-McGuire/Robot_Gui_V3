@@ -1,7 +1,7 @@
 #include <QFileDialog>
 #include "GuiInstance.h"
 #include <thread>
-#include "CommonFunctions.h"
+#include "../lib/CommonFunctions.h"
 #include "WidgetData.h"
 
 

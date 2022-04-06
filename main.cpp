@@ -1,11 +1,11 @@
-#include "GuiCore.h"
+#include "src/GuiCore.h"
 #include "iostream"
 #include "Interface/RandomDataInterface.h"
 #include "Interface/WebcamStreamInterface.h"
 #include "Interface/FlagCheckerInterface.h"
-#include "Theme.h"
+#include "src/Theme.h"
 #include <cstdarg>
-#include "InternalJson.h"
+#include "src/InternalJson.h"
 #include "Interface/ServerInterface.h"
 
 int main(int argc, char** argv) {

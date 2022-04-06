@@ -1,5 +1,5 @@
 #include "LivePlotWidget.h"
-#include "../CommonFunctions.h"
+#include "../../lib/CommonFunctions.h"
 #include "QGridLayout"
 #include "../WidgetData.h"
 

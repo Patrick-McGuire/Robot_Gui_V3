@@ -1,5 +1,5 @@
 #include "GuiCore.h"
-#include "Interface/ServerInterface.h"
+#include "../Interface/ServerInterface.h"
 #include "WidgetData.h"
 
 RobotGui::GuiCore::GuiCore(int argc, char **argv) : app(argc, argv), window(&mainWindow) {

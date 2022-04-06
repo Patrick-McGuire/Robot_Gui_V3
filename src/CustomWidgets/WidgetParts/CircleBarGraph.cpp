@@ -4,7 +4,7 @@
 
 #include <QtGui/QPainter>
 #include "CircleBarGraph.h"
-#include "../../CommonFunctions.h"
+#include "../../../lib/CommonFunctions.h"
 
 CircleBarGraph::CircleBarGraph(QWidget *parent, std::string _title, double _min_value, double _max_value, int _size, const std::string &bar_color) : BaseGraphDisplay(parent) {
     size = _size;

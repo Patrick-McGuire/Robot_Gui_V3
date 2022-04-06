@@ -4,7 +4,7 @@
 
 #include <QtGui/QPainter>
 #include "SimpleConsoleWidget.h"
-#include "../CommonFunctions.h"
+#include "../../lib/CommonFunctions.h"
 #include "../WidgetData.h"
 
 SimpleConsoleWidget::SimpleConsoleWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, Theme *theme, bool _borderEnabled) : BaseWidget(parent, configInfo, widgetData, theme) {

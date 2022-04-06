@@ -1,5 +1,5 @@
 #include "TabWidget.h"
-#include "../CommonFunctions.h"
+#include "../../lib/CommonFunctions.h"
 
 #include "SettingsTab.h"
 #include "../WidgetData.h"

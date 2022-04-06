@@ -1,5 +1,5 @@
 #include "MenuWidget.h"
-#include "../CommonFunctions.h"
+#include "../../lib/CommonFunctions.h"
 
 MenuWidget::MenuWidget(QWidget *parent, AppConfig *appConfig_, RobotGui::GuiCore *coreGui, GuiInstance *robotGui, Theme *_theme) : QMenuBar(parent) {
     theme = _theme;
@@ -33,7 +33,7 @@ MenuWidget::MenuWidget(QWidget *parent, AppConfig *appConfig_, RobotGui::GuiCore
     auto *subMenuAct4 = themeMenu->addAction(QString::fromStdString(Theme::getThemeName(RobotGui::Themes::RED)));
     subMenuAct4->setData(QString::fromStdString(Theme::getThemeName(RobotGui::Themes::RED)));
 
-    connect(themeMenu, SIGNAL(triggered(QAction * )), robotGui, SLOT(updateTheme(QAction * )));C
+    connect(themeMenu, SIGNAL(triggered(QAction * )), robotGui, SLOT(updateTheme(QAction * )));
 
     // Finishing up
     this->addMenu(file);

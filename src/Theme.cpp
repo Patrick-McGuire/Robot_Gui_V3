@@ -1,6 +1,6 @@
 #include "Theme.h"
 #include "RobotGui.h"
-#include "CommonFunctions.h"
+#include "../lib/CommonFunctions.h"
 
 Theme::Theme(RobotGui::Themes::Type type) {
     currentTheme = type;

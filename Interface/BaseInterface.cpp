@@ -1,5 +1,5 @@
 #include "BaseInterface.h"
-#include "../WidgetData.h"
+#include "../src/WidgetData.h"
 
 BaseInterface::BaseInterface() {
     widgetData = nullptr;

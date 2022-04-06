@@ -21,37 +21,37 @@ set(rapidxml_files
         )
 
 set(xml_interface_files
-        XML/XMLInput.cpp XML/XMLInput.h
-        XML/XMLOutput.cpp XML/XMLOutput.h
-        XML/AppConfig.cpp XML/AppConfig.h)
+        src/XML/XMLInput.cpp src/XML/XMLInput.h
+        src/XML/XMLOutput.cpp src/XML/XMLOutput.h
+        src/XML/AppConfig.cpp src/XML/AppConfig.h)
 
 set(widget_type_files
-        CustomWidgets/VideoWidget.cpp CustomWidgets/VideoWidget.h
-        CustomWidgets/TextBoxWidget.cpp CustomWidgets/TextBoxWidget.h
-        CustomWidgets/BaseWidget.cpp CustomWidgets/BaseWidget.h
-        CustomWidgets/TabWidget.cpp CustomWidgets/TabWidget.h
-        CoreWidgets/MenuWidget.cpp CoreWidgets/MenuWidget.h
-        CustomWidgets/SimpleButtonWidget.cpp CustomWidgets/SimpleButtonWidget.h
-        CustomWidgets/MultiBarGraphWidget.cpp CustomWidgets/MultiBarGraphWidget.h
-        CustomWidgets/AnnunciatorWidget.cpp CustomWidgets/AnnunciatorWidget.h
-        CustomWidgets/SimpleConsoleWidget.cpp CustomWidgets/SimpleConsoleWidget.h
-        CustomWidgets/ROVStatusWidget.cpp CustomWidgets/ROVStatusWidget.h
-        CustomWidgets/CompleteConsoleWidget.cpp CustomWidgets/CompleteConsoleWidget.h
-        CustomWidgets/MissionStatusWidget.cpp CustomWidgets/MissionStatusWidget.h
-        CustomWidgets/DropDownTextBoxWidget.cpp CustomWidgets/DropDownTextBoxWidget.h
-        CustomWidgets/CompassWidget.cpp CustomWidgets/CompassWidget.h
-        CustomWidgets/SettingsTab.cpp CustomWidgets/SettingsTab.h)
+        src/CustomWidgets/VideoWidget.cpp src/CustomWidgets/VideoWidget.h
+        src/CustomWidgets/TextBoxWidget.cpp src/CustomWidgets/TextBoxWidget.h
+        src/CustomWidgets/BaseWidget.cpp src/CustomWidgets/BaseWidget.h
+        src/CustomWidgets/TabWidget.cpp src/CustomWidgets/TabWidget.h
+        src/CoreWidgets/MenuWidget.cpp src/CoreWidgets/MenuWidget.h
+        src/CustomWidgets/SimpleButtonWidget.cpp src/CustomWidgets/SimpleButtonWidget.h
+        src/CustomWidgets/MultiBarGraphWidget.cpp src/CustomWidgets/MultiBarGraphWidget.h
+        src/CustomWidgets/AnnunciatorWidget.cpp src/CustomWidgets/AnnunciatorWidget.h
+        src/CustomWidgets/SimpleConsoleWidget.cpp src/CustomWidgets/SimpleConsoleWidget.h
+        src/CustomWidgets/ROVStatusWidget.cpp src/CustomWidgets/ROVStatusWidget.h
+        src/CustomWidgets/CompleteConsoleWidget.cpp src/CustomWidgets/CompleteConsoleWidget.h
+        src/CustomWidgets/MissionStatusWidget.cpp src/CustomWidgets/MissionStatusWidget.h
+        src/CustomWidgets/DropDownTextBoxWidget.cpp src/CustomWidgets/DropDownTextBoxWidget.h
+        src/CustomWidgets/CompassWidget.cpp src/CustomWidgets/CompassWidget.h
+        src/CustomWidgets/SettingsTab.cpp src/CustomWidgets/SettingsTab.h)
 
 set(widget_part_files
-        CustomWidgets/WidgetParts/SimpleBarGraph.cpp CustomWidgets/WidgetParts/BaseGraphDisplay.h
-        CustomWidgets/WidgetParts/CircleBarGraph.cpp CustomWidgets/WidgetParts/CircleBarGraph.h
-        CustomWidgets/WidgetParts/LineTextDisplay.cpp CustomWidgets/WidgetParts/LineTextDisplay.h
-        CustomWidgets/WidgetParts/CompassDisplay.cpp CustomWidgets/WidgetParts/CompassDisplay.h
-        CustomWidgets/WidgetParts/BasicImageDisplay.cpp CustomWidgets/WidgetParts/BasicImageDisplay.h
-        CustomWidgets/WidgetParts/SideTabWidget.cpp CustomWidgets/WidgetParts/SideTabWidget.h)
+        src/CustomWidgets/WidgetParts/SimpleBarGraph.cpp src/CustomWidgets/WidgetParts/BaseGraphDisplay.h
+        src/CustomWidgets/WidgetParts/CircleBarGraph.cpp src/CustomWidgets/WidgetParts/CircleBarGraph.h
+        src/CustomWidgets/WidgetParts/LineTextDisplay.cpp src/CustomWidgets/WidgetParts/LineTextDisplay.h
+        src/CustomWidgets/WidgetParts/CompassDisplay.cpp src/CustomWidgets/WidgetParts/CompassDisplay.h
+        src/CustomWidgets/WidgetParts/BasicImageDisplay.cpp src/CustomWidgets/WidgetParts/BasicImageDisplay.h
+        src/CustomWidgets/WidgetParts/SideTabWidget.cpp src/CustomWidgets/WidgetParts/SideTabWidget.h)
 
 set(settings_panel_files
-        CustomWidgets/SettingsPanels/BaseSettingsPanel.cpp CustomWidgets/SettingsPanels/BaseSettingsPanel.h CustomWidgets/SettingsPanels/InterfaceSettings.cpp CustomWidgets/SettingsPanels/InterfaceSettings.h CustomWidgets/SettingsPanels/RawDataView.cpp CustomWidgets/SettingsPanels/RawDataView.h)
+        src/CustomWidgets/SettingsPanels/BaseSettingsPanel.cpp src/CustomWidgets/SettingsPanels/BaseSettingsPanel.h src/CustomWidgets/SettingsPanels/InterfaceSettings.cpp src/CustomWidgets/SettingsPanels/InterfaceSettings.h src/CustomWidgets/SettingsPanels/RawDataView.cpp src/CustomWidgets/SettingsPanels/RawDataView.h)
 
 set(interface_files
         Interface/DataInput.cpp Interface/DataInput.h
@@ -63,15 +63,15 @@ set(interface_files
         )
 
 set(core_files
-        GUIMaker.cpp GUIMaker.h
-        GuiInstance.cpp GuiInstance.h
-        WidgetData.h
-        RobotGui.h
-        GuiCore.cpp GuiCore.h
-        Theme.cpp Theme.h
-        CommonFunctions.cpp CommonFunctions.h
-        InternalJson.cpp InternalJson.h
-        CustomJSONStructure.h)
+        src/GUIMaker.cpp src/GUIMaker.h
+        src/GuiInstance.cpp src/GuiInstance.h
+        src/WidgetData.h
+        src/RobotGui.h
+        src/GuiCore.cpp src/GuiCore.h
+        src/Theme.cpp src/Theme.h
+        lib/CommonFunctions.cpp lib/CommonFunctions.h
+        src/InternalJson.cpp src/InternalJson.h
+        src/CustomJSONStructure.h)
 
 set(all_gui_files
         ${rapidxml_files}
@@ -81,7 +81,7 @@ set(all_gui_files
         ${networking_files}
         ${interface_files}
         ${xml_interface_files}
-        ${core_files} CustomWidgets/LivePlotWidget.cpp CustomWidgets/LivePlotWidget.h Interface/ServerInterface.cpp Interface/ServerInterface.h)
+        ${core_files} src/CustomWidgets/LivePlotWidget.cpp src/CustomWidgets/LivePlotWidget.h Interface/ServerInterface.cpp Interface/ServerInterface.h)
 
 add_executable(Robot_Gui_V3 main.cpp ${all_gui_files})
 set(SOURCE_FILES main.cpp)

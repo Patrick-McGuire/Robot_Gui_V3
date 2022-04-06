@@ -8,7 +8,7 @@
 #include <iostream>
 #include <cmath>
 
-#include "../../CommonFunctions.h"
+#include "../../../lib/CommonFunctions.h"
 
 LineTextDisplay::LineTextDisplay(QWidget *parent) : QLabel(parent) {
     setFont(QFont("Monospace", 12));

@@ -1,5 +1,5 @@
 #include "RandomDataInterface.h"
-#include "../CustomJSONStructure.h"
+#include "../src/CustomJSONStructure.h"
 
 RandomDataInterface::RandomDataInterface(int _interval) : ThreadedInterface() {
     interval = _interval;

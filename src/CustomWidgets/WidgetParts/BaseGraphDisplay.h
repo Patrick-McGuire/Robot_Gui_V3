@@ -7,7 +7,7 @@
 
 #include <QLabel>
 #include <utility>
-#include "../../CommonFunctions.h"
+#include "../../../lib/CommonFunctions.h"
 
 class BaseGraphDisplay : public QLabel {
 public:

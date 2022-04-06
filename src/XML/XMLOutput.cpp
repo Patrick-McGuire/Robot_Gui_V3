@@ -1,7 +1,7 @@
 #include "XMLOutput.h"
-#include "../lib/rapidxml/rapidxml.hpp"
-#include "../lib/rapidxml/rapidxml_print.hpp"
-#include "../lib/rapidxml/rapidxml_utils.hpp"
+#include "../../lib/rapidxml/rapidxml.hpp"
+#include "../../lib/rapidxml/rapidxml_print.hpp"
+#include "../../lib/rapidxml/rapidxml_utils.hpp"
 
 void XMLOutput::output(const char *filename, const RobotGui::WindowConfig_ptr &windowConfig, BaseWidget *firstWidget) {
     rapidxml::xml_document<> doc;
