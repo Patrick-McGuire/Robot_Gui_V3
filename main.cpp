@@ -1,21 +1,25 @@
-#include "CoreGui.h"
+#include "src/GuiCore.h"
 #include "iostream"
-#include "Interface/RandomDataInterface.h"
-#include "Interface/WebcamStreamInterface.h"
-#include "Interface/FlagCheckerInterface.h"
-#include "Theme.h"
-#include "InternalJson.h"
+#include "src/Interface/RandomDataInterface.h"
+#include "src/Interface/WebcamStreamInterface.h"
+#include "src/Interface/FlagCheckerInterface.h"
+
 
 int main(int argc, char** argv) {
-    auto gui = new CoreGui(argc, argv, RobotGui::UPDATE_PERIODIC_AND_ON_POST);
+    auto gui = new RobotGui::GuiCore(argc, argv);
 
-    // Interfaces
-    RandomDataInterface randomDataInterface(33);
-    WebcamStreamInterface webcamStreamInterface(33);
-    FlagCheckerInterface flagCheckerInterface(100);
-    gui->addThreadedInterface(&flagCheckerInterface);
-    gui->addThreadedInterface(&randomDataInterface);
-    gui->addThreadedInterface(&webcamStreamInterface);
+    // Localhost server interface
+//    RobotGui::ServerInterface serverInterface(gui, 1254);
+//    gui->addInterface(&serverInterface);
+    // Populate keys with random values
+    RobotGui::RandomDataInterface randomDataInterface(50);
+    gui->addInterface(&randomDataInterface);
+    // Streams the webcam
+    RobotGui::WebcamStreamInterface webcamStreamInterface(16);
+    gui->addInterface(&webcamStreamInterface);
+    // Prints out any flag raised
+    RobotGui::FlagCheckerInterface flagCheckerInterface(100);
+    gui->addInterface(&flagCheckerInterface);
 
     // Run the GUI
     return gui->runGUI();
