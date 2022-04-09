@@ -50,7 +50,7 @@ void RandomDataInterface::run() {
                 char letter = int(k / max_letters) + 97;
                 key += letter;
             }
-            setDouble(key, i);
+            setDouble(key, i + k);
         }
 
         AnnunciatorJSONStruct annunciator;
