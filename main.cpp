@@ -9,17 +9,17 @@ int main(int argc, char** argv) {
     auto gui = new RobotGui::GuiCore(argc, argv);
 
     // Localhost server interface
-//    RobotGui::ServerInterface serverInterface(gui, 1254);
-//    gui->addInterface(&serverInterface);
-    // Populate keys with random values
-    RobotGui::RandomDataInterface randomDataInterface(50);
-    gui->addInterface(&randomDataInterface);
-    // Streams the webcam
-    RobotGui::WebcamStreamInterface webcamStreamInterface(16);
-    gui->addInterface(&webcamStreamInterface);
-    // Prints out any flag raised
-    RobotGui::FlagCheckerInterface flagCheckerInterface(100);
-    gui->addInterface(&flagCheckerInterface);
+    RobotGui::ServerInterface serverInterface(gui, 1254);
+    gui->addInterface(&serverInterface);
+//    // Populate keys with random values
+//    RobotGui::RandomDataInterface randomDataInterface(50);
+//    gui->addInterface(&randomDataInterface);
+//    // Streams the webcam
+//    RobotGui::WebcamStreamInterface webcamStreamInterface(16);
+//    gui->addInterface(&webcamStreamInterface);
+//    // Prints out any flag raised
+//    RobotGui::FlagCheckerInterface flagCheckerInterface(100);
+//    gui->addInterface(&flagCheckerInterface);
 
     // Run the GUI
     return gui->runGUI();
