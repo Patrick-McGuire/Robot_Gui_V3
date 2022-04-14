@@ -22,7 +22,7 @@ RobotGui::GuiInstance::GuiInstance(QWidget *_parent, QMainWindow *_mainWindow, A
     } else {
         timerUpdateTime = 1000 / config->updateRate;
     }
-
+    timerUpdateTime = 10;
     theme = new Theme(config->theme);
 
     // Set up the window

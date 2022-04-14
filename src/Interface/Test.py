@@ -30,16 +30,16 @@ def sendData(dataToSend):
         s.send(dataToSend)
     except (BrokenPipeError, ConnectionResetError):
         return False
-    startTime = time.time()
+    # startTime = time.time()
     # while startTime > time.time() - .1:
-    try:
+    # try:
         data = s.recv(1024).decode('utf-8')
         # print(data)
     #         if data != "":
     #             break
-    except (BrokenPipeError, ConnectionResetError):
-        return False
-    time.sleep(1 / rate)
+    # except (BrokenPipeError, ConnectionResetError):
+    #     return False
+    # time.sleep(1 / rate)
     return True
 
 
@@ -97,13 +97,13 @@ if __name__ == '__main__':
             # time.sleep(1 / rate)
 
             # JSON
-            if random.randint(0, 100) > 85:
-                boolean = not boolean
-            passDict["RED"] = NetworkTables.getTable("Shuffleboard").getSubTable("Feeder").getEntry("Red").value
-            passDict["BLUE"] = NetworkTables.getTable("Shuffleboard").getSubTable("Feeder").getEntry("Blue").value
-            passDict["SIDE"] = (not NetworkTables.getTable("Shuffleboard").getSubTable("Feeder").getEntry("Sensor 1").value) * 200
-            passDict["THREE"] = (not NetworkTables.getTable("Shuffleboard").getSubTable("Feeder").getEntry("Sensor 3").value) * 400.0 + 5
-            passDict["BOTTOM"] = (not NetworkTables.getTable("Shuffleboard").getSubTable("Feeder").getEntry("Color Prox").value) * 300
+            # if random.randint(0, 100) > 85:
+            #     boolean = not boolean
+            passDict["112"] = NetworkTables.getTable("Shuffleboard").getSubTable("Hooded Shooter").getEntry("Actual Shooter RPM").value
+            passDict["113"] = NetworkTables.getTable("Shuffleboard").getSubTable("Hooded Shooter").getEntry("Top Roller RPM").value
+            passDict["114"] = NetworkTables.getTable("Shuffleboard").getSubTable("Feeder").getEntry("FeederRPM").value
+            # passDict["THREE"] = (not NetworkTables.getTable("Shuffleboard").getSubTable("Feeder").getEntry("Sensor 3").value) * 400.0 + 5
+            # passDict["BOTTOM"] = (not NetworkTables.getTable("Shuffleboard").getSubTable("Feeder").getEntry("Color Prox").value) * 300
             # passDict["QU"] = 4#len(NetworkTables.getTable("SmartDashboard").getEntry("balls (queue)").getString("123"))
             # passDict["ballLeftPoopEn  trance"] = NetworkTables.getTable("SmartDashboard").getEntry("ballLeftPoopEntrance").value
             # passDict["Color Prox"] = NetworkTables.getTable("SmartDashboard").getEntry("Color Prox").value

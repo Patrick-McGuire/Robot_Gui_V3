@@ -1,21 +1,21 @@
 <window title="Probot Control" theme="Dark" width="max" height="max">
 	<widget type="tab" title="Dashboard" draggable="false" static="true" background="theme" headerColor="theme" height="max" width="max" x="0" y="0">
 		<tab title="Tab1">
-			<widget type="livePlot" title="Color Sensor" draggable="true" static="false" background="theme" textColor="theme" headerColor="theme" height="600" width="1600" x="56" y="43" timeRange="2" rangeMin="0" rangeMax="500">
+			<widget type="livePlot" title="Color Sensor" draggable="true" static="false" background="theme" textColor="theme" headerColor="theme" height="600" width="1600" x="56" y="43" timeRange="10" rangeMin="0" rangeMax="auto">
 <!--				<line label="red" value="RED" color="red"/>-->
-<!--				<line label="blue" value="BLUE" color="blue"/>-->
-<!--				<line label="SIDE" value="SIDE" color="cyan"/>-->
-				<line label="THREE" value="THREE" color="yellow"/>
+				<line label="Top RPM" value="113" color="blue"/>
+				<line label="Shooter RPM" value="112" color="cyan"/>
+				<line label="Feeder RPM" value="114" color="yellow"/>
 <!--				<line label="BOTTOM" value="BOTTOM" color="magenta"/>-->
 <!--				<line label="ballLeftPoopEntrance" value="ballLeftPoopEntrance" color="green"/>-->
 <!--				<line label="Color Prox" value="Color Prox" color="yellow"/>-->
 			</widget>
 			<widget type="textBox" title="Color Sensor" draggable="true" static="false" background="none" textColor="theme" headerColor="theme" x="55" y="674">
-				<line label="red" value="RED"/>
-				<line label="THREE" value="THREE"/>
-				<line label="blue" value="BLUE"/>
-				<line label="ballLeftPoopEntrance" value="ballLeftPoopEntrance"/>
-				<line label="Color Prox" value="Color Prox"/>
+				<line label="Top RPM" value="113"/>
+				<line label="Shooter RPM" value="112"/>
+				<line label="Feeder RPM" value="114"/>
+<!--				<line label="ballLeftPoopEntrance" value="ballLeftPoopEntrance"/>-->
+<!--				<line label="Color Prox" value="Color Prox"/>-->
 			</widget>
 		</tab>
 	</widget>
