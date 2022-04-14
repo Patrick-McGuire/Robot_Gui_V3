@@ -129,6 +129,7 @@ void RobotGui::GuiCore::addInterface(ThreadedInterface *thread) {
 }
 
 void RobotGui::GuiCore::addInterface(ServerInterface *serverInterface) {
+    serverInterface->setParent(this);
     serverInterface->setWidgetData(widgetData);
     serverInterface->startServer();
 }

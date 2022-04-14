@@ -6,9 +6,14 @@
 #include <QTcpSocket>
 #include <vector>
 
-RobotGui::ServerInterface::ServerInterface(QObject *parent, int _port) : QTcpServer(parent), RobotGui::BaseInterface() {
+RobotGui::ServerInterface::ServerInterface(int _port) : QTcpServer(), RobotGui::BaseInterface() {
     dataInput = nullptr;
     port = _port;
+}
+
+RobotGui::ServerInterface::ServerInterface() : QTcpServer(), RobotGui::BaseInterface() {
+    dataInput = nullptr;
+    port = defaultPort;
 }
 
 RobotGui::ServerInterface::~ServerInterface() {

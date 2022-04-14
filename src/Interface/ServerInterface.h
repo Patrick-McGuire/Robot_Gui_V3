@@ -27,10 +27,14 @@ namespace RobotGui {
     public:
         /**
          * Constructor
-         * @param parent QObject parent
          * @param _port Port to host on
          */
-        explicit ServerInterface(QObject *parent, int _port);
+        explicit ServerInterface(int _port);
+
+        /**
+         * Constructor
+         */
+        ServerInterface();
 
         /**
          * Deconstruct
@@ -69,6 +73,7 @@ namespace RobotGui {
         DataInput *dataInput;
         InternalJson::SharedPtr output = InternalJson::create(InternalJson::map_t);
         int port;
+        const int defaultPort = 1254;
     };
 }
 
