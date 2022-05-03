@@ -40,7 +40,7 @@ set(widget_type_files
         src/CustomWidgets/MissionStatusWidget.cpp src/CustomWidgets/MissionStatusWidget.h
         src/CustomWidgets/DropDownTextBoxWidget.cpp src/CustomWidgets/DropDownTextBoxWidget.h
         src/CustomWidgets/CompassWidget.cpp src/CustomWidgets/CompassWidget.h
-        src/CustomWidgets/SettingsTab.cpp src/CustomWidgets/SettingsTab.h)
+        src/CustomWidgets/SettingsTab.cpp src/CustomWidgets/SettingsTab.h src/CustomWidgets/AttitudeWidget.cpp src/CustomWidgets/AttitudeWidget.h)
 
 set(widget_part_files
         src/CustomWidgets/WidgetParts/SimpleBarGraph.cpp src/CustomWidgets/WidgetParts/BaseGraphDisplay.h
@@ -48,7 +48,7 @@ set(widget_part_files
         src/CustomWidgets/WidgetParts/LineTextDisplay.cpp src/CustomWidgets/WidgetParts/LineTextDisplay.h
         src/CustomWidgets/WidgetParts/CompassDisplay.cpp src/CustomWidgets/WidgetParts/CompassDisplay.h
         src/CustomWidgets/WidgetParts/BasicImageDisplay.cpp src/CustomWidgets/WidgetParts/BasicImageDisplay.h
-        src/CustomWidgets/WidgetParts/SideTabWidget.cpp src/CustomWidgets/WidgetParts/SideTabWidget.h)
+        src/CustomWidgets/WidgetParts/SideTabWidget.cpp src/CustomWidgets/WidgetParts/SideTabWidget.h src/CustomWidgets/WidgetParts/AttitudeDisplay.cpp src/CustomWidgets/WidgetParts/AttitudeDisplay.h)
 
 set(settings_panel_files
         src/CustomWidgets/SettingsPanels/BaseSettingsPanel.cpp src/CustomWidgets/SettingsPanels/BaseSettingsPanel.h src/CustomWidgets/SettingsPanels/InterfaceSettings.cpp src/CustomWidgets/SettingsPanels/InterfaceSettings.h src/CustomWidgets/SettingsPanels/RawDataView.cpp src/CustomWidgets/SettingsPanels/RawDataView.h)

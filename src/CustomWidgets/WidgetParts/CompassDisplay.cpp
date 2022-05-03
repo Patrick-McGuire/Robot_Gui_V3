@@ -13,6 +13,10 @@ RobotGui::CompassDisplay::CompassDisplay(RobotGui::WidgetData *widgetData, QWidg
     auto arrowImage = widgetData->getImageAsQImage(RobotGui::ARROW_ASSET_NAME).copy(900, 900, 2100 - 900, 2100 - 900);
     auto scaledArrow = arrowImage.scaled(arrowImage.width() * 2, arrowImage.height(), Qt::AspectRatioMode::IgnoreAspectRatio);
 
+    if (parentWidget() != nullptr) {
+        setObjectName(parentWidget()->objectName() + "_compass_display");
+    }
+
     backgroundImageWidget = new BasicImageDisplay(backgroundImage, 300, 300, this);
     arrowImageWidget = new BasicImageDisplay(scaledArrow, 300, 300, this);
     setSize(300);

@@ -11,6 +11,7 @@
 #include "CustomWidgets/DropDownTextBoxWidget.h"
 #include "CustomWidgets/LivePlotWidget.h"
 #include "CustomWidgets/CompassWidget.h"
+#include "CustomWidgets/AttitudeWidget.h"
 #include "WidgetData.h"
 #include "Theme.h"
 
@@ -44,6 +45,8 @@ RobotGui::BaseWidget *RobotGui::GUIMaker::createWidget(QWidget *parent, const Ro
         return new CompassWidget(parent, configInfo, widgetData, theme);
     } else if (configInfo->type == RobotGui::LIVE_PLOT_WIDGET_STRID) {
         return new LivePlotWidget(parent, configInfo, widgetData, theme);
+    } else if (configInfo->type == RobotGui::ATTITUDE_DISPLAY_STRID) {
+        return new AttitudeWidget(parent, configInfo, widgetData, theme);
     } else {
         std::cout << "Can't create widget of type " << configInfo->type << std::endl;
     }

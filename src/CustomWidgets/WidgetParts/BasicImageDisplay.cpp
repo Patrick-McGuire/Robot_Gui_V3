@@ -11,13 +11,16 @@ RobotGui::BasicImageDisplay::BasicImageDisplay(QImage _image, int _targetWidth, 
     setTargetDimensions(_targetWidth, _targetHeight);
 }
 
-void RobotGui::BasicImageDisplay::setTargetDimensions(int _targetWidth, int _targetHeight) {
+void RobotGui::BasicImageDisplay::setTargetDimensions(int _targetWidth, int _targetHeight, int x_offset, int y_offset, bool x_centered, bool y_centered) {
     targetWidth = _targetWidth;
     targetHeight = _targetHeight;
 
-    resizedImage = image.scaledToWidth(targetWidth);
-    setGeometry(0, 0, resizedImage.width(), resizedImage.height());
+    xOffset = x_offset;
+    yOffset = y_offset;
+    xCentered = x_centered;
+    yCentered = y_centered;
 
+    resizedImage = image.scaledToWidth(targetWidth);
     drawImage();
 }
 
@@ -27,11 +30,21 @@ void RobotGui::BasicImageDisplay::setRotation(double _rotation) {
 }
 
 void RobotGui::BasicImageDisplay::drawImage() {
-    QImage rotatedImage = resizedImage.transformed(QTransform().rotate(rotation));
+    rotatedImage = resizedImage.transformed(QTransform().rotate(rotation));
 
-    int widthOffset = (rotatedImage.width() - targetWidth) / 2;
-    int heightOffset = (rotatedImage.height() - targetHeight) / 2;
-    setGeometry(-widthOffset, -heightOffset, rotatedImage.width(), rotatedImage.height());
+    int x_offset = 0;
+    int y_offset = 0;
+
+    if (xCentered && this->parentWidget() != nullptr) {
+        x_offset = (this->parentWidget()->width() - rotatedImage.width()) / 2;
+    }
+
+    if (yCentered && this->parentWidget() != nullptr) {
+        y_offset = (this->parentWidget()->height() - rotatedImage.height()) / 2;
+    }
+
+
+    setGeometry(x_offset, y_offset, rotatedImage.width(), rotatedImage.height());
 
     setPixmap(QPixmap::fromImage(rotatedImage));
 }

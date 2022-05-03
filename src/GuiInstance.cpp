@@ -57,7 +57,7 @@ RobotGui::GuiInstance::GuiInstance(QWidget *_parent, QMainWindow *_mainWindow, A
     // Create the core widget for the GUI
     config->firstChild->objectName = "1";
     coreWidget = GUIMaker::createWidget(parent, config->firstChild, widgetData, theme);
-
+    coreWidget->setObjectName("CoreWidget");
 
     qDebug("Starting update timer");
     timer = new QTimer(this);

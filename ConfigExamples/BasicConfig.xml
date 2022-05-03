@@ -54,7 +54,7 @@
             <widget type="simpleConsole" x="1446" y="313" title="TEST CONSOLE" source="testarray" hidden="False" draggable="True" font="Arial" font_size="14"/>
             <widget type="completeConsole" x="1063" y="476" title="No Title" source="testarray" hidden="False" draggable="True" font="Arial" font_size="12"/>
             <widget type="compass" x="122" y="196" size="200" transparent="True" hidden="False" draggable="True" font="Arial" font_size="12"/>
-            <widget type="AttitudeWidget" x="397" y="156" size="200" transparent="True" hidden="False" draggable="True" font="Arial" font_size="12" pitchSource="pitch" rollSource="roll"/>
+            <widget type="attitudeWidget" x="397" y="156" size="200" transparent="True" hidden="False" draggable="True" font="Arial" font_size="12" pitchSource="pitch" rollSource="roll"/>
         </tab>
         <tab title="test">
             <widget type="video" x="298" y="0" title="Camera 1" id="1" hidden="False" draggable="False" fullscreen="True" lockAspectRatio="true" height="1320" width="990"/>
