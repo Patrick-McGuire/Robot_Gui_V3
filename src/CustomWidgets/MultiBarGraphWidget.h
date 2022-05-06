@@ -5,7 +5,7 @@
 #ifndef ROBOT_GUI_V3_MULTIBARGRAPHWIDGET_H
 #define ROBOT_GUI_V3_MULTIBARGRAPHWIDGET_H
 
-#include "BaseWidget.h"
+#include "BaseWidgetHelper/BaseWidget.h"
 #include "WidgetParts/SimpleBarGraph.h"
 #include "../WidgetData.h"
 #include "../Theme.h"

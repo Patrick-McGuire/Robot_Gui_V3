@@ -2,7 +2,7 @@
 #include "../WidgetData.h"
 #include "../InternalJson.h"
 #include "../Theme.h"
-#include "BaseWidget.h"
+#include "BaseWidgetHelper/BaseWidget.h"
 #include <QString>
 #include <iostream>
 #include <vector>

@@ -1,7 +1,7 @@
 #ifndef ROBOT_GUI_V3_SIMPLEBUTTONWIDGET_H
 #define ROBOT_GUI_V3_SIMPLEBUTTONWIDGET_H
 
-#include "BaseWidget.h"
+#include "BaseWidgetHelper/BaseWidget.h"
 #include <QWidget>
 #include <string>
 #include <QPushButton>

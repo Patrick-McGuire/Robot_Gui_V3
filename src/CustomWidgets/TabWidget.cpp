@@ -5,7 +5,7 @@
 #include "../WidgetData.h"
 #include "../GUIMaker.h"
 #include "../Theme.h"
-#include "BaseWidget.h"
+#include "BaseWidgetHelper/BaseWidget.h"
 #include "../Config/XMLOutput.h"
 
 RobotGui::TabWidget::TabWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {

@@ -5,7 +5,7 @@
 #include "../../lib/rapidxml/rapidxml_print.hpp"
 #include "../../lib/rapidxml/rapidxml_utils.hpp"
 #include "../RobotGui.h"
-#include "../CustomWidgets/BaseWidget.h"
+#include "../CustomWidgets/BaseWidgetHelper/BaseWidget.h"
 
 namespace RobotGui {
     class BaseWidget;

@@ -11,7 +11,7 @@
 #include "../WidgetData.h"
 #include "../InternalJson.h"
 #include "../Theme.h"
-#include "BaseWidget.h"
+#include "BaseWidgetHelper/BaseWidget.h"
 
 RobotGui::DropDownTextBoxWidget::DropDownTextBoxWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme) : BaseWidget(parent, configInfo, widgetData, theme) {
     textDisplay = new LineTextDisplay();

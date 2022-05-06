@@ -28,7 +28,7 @@ set(xml_interface_files
 set(widget_type_files
         src/CustomWidgets/VideoWidget.cpp src/CustomWidgets/VideoWidget.h
         src/CustomWidgets/TextBoxWidget.cpp src/CustomWidgets/TextBoxWidget.h
-        src/CustomWidgets/BaseWidget.cpp src/CustomWidgets/BaseWidget.h
+        src/CustomWidgets/BaseWidgetHelper/BaseWidget.cpp src/CustomWidgets/BaseWidgetHelper/BaseWidget.h
         src/CustomWidgets/TabWidget.cpp src/CustomWidgets/TabWidget.h
         src/CoreWidgets/MenuWidget.cpp src/CoreWidgets/MenuWidget.h
         src/CustomWidgets/SimpleButtonWidget.cpp src/CustomWidgets/SimpleButtonWidget.h

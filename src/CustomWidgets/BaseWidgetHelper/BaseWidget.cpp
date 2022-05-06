@@ -1,9 +1,15 @@
 #include <iostream>
 #include <QtGui/QPainter>
+#include <QVBoxLayout>
+#include <QAbstractButton>
+#include <QLabel>
 #include "BaseWidget.h"
-#include "../../lib/CommonFunctions.h"
-#include "../WidgetData.h"
-#include "../Theme.h"
+#include "../../../lib/CommonFunctions.h"
+#include "../../WidgetData.h"
+#include "../../Theme.h"
+#include "QDialog"
+#include "QPushButton"
+#include "QCheckBox"
 
 RobotGui::BaseWidget::BaseWidget(QWidget *_parent_, const RobotGui::WidgetConfig_ptr &_configInfo, RobotGui::WidgetData *_widgetData, RobotGui::Theme *_theme) : staticPos(_configInfo->staticPos), QWidget(_parent_) {
     configInfo = _configInfo;
@@ -157,6 +163,7 @@ void RobotGui::BaseWidget::showContextMenu(const QPoint &pos) {
     auto contextMenu = new QMenu(this);
     menus.emplace_back(contextMenu);
     contextMenu->setObjectName(CONTEXT_MENU_NAME);
+    contextMenu->addAction("Edit", this, SLOT(showEditMenu()));
     if (!staticPos) {
         contextMenu->addAction("Toggle Draggability", this, SLOT(toggleDraggability()));
     }
@@ -197,6 +204,30 @@ void RobotGui::BaseWidget::showContextMenu(const QPoint &pos) {
     }
     contextMenu->exec(mapToGlobal(pos));
 }
+
+void RobotGui::BaseWidget::showEditMenu() {
+    auto *dialog = new QDialog();
+    auto *dialogLayout = new QGridLayout;
+    dialog->setLayout(dialogLayout);
+
+    auto exitButton = new QPushButton("Save");
+    int nextRow = 0;
+
+    if(!staticPos) {
+        auto draggableLabel = new QLabel("Draggable:");
+        auto draggableCB = new QCheckBox();
+        dialogLayout->addWidget(draggableLabel, nextRow, 0);
+        dialogLayout->addWidget(draggableCB, nextRow, 1);
+        nextRow++;
+    }
+
+
+    dialogLayout->addWidget(exitButton, nextRow, 0);
+
+    dialog->show();
+
+    //    connect(bExit,SIGNAL(clicked()),Dblack,SLOT(close()));
+    }
 
 void RobotGui::BaseWidget::customUpdateStyle() {}
 

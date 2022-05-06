@@ -8,7 +8,7 @@
 #include "../WidgetData.h"
 #include "../InternalJson.h"
 #include "../Theme.h"
-#include "BaseWidget.h"
+#include "BaseWidgetHelper/BaseWidget.h"
 
 RobotGui::SimpleConsoleWidget::SimpleConsoleWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme, bool _borderEnabled) : BaseWidget(parent, configInfo, widgetData, theme) {
     source = configInfo->source;

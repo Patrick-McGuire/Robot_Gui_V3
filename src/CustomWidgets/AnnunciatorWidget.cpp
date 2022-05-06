@@ -2,7 +2,7 @@
 #include "../WidgetData.h"
 #include "../InternalJson.h"
 #include "../Theme.h"
-#include "BaseWidget.h"
+#include "BaseWidgetHelper/BaseWidget.h"
 
 #include <QLabel>
 #include <QGridLayout>

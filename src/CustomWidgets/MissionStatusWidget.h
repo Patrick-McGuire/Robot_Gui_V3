@@ -5,7 +5,7 @@
 #ifndef ROBOT_GUI_V3_MISSIONSTATUSWIDGET_H
 #define ROBOT_GUI_V3_MISSIONSTATUSWIDGET_H
 
-#include "BaseWidget.h"
+#include "BaseWidgetHelper/BaseWidget.h"
 #include "../WidgetData.h"
 #include "../Theme.h"
 #include <QLabel>

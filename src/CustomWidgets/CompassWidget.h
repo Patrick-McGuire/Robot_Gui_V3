@@ -5,7 +5,7 @@
 #ifndef ROBOT_GUI_V3_COMPASSWIDGET_H
 #define ROBOT_GUI_V3_COMPASSWIDGET_H
 
-#include "BaseWidget.h"
+#include "BaseWidgetHelper/BaseWidget.h"
 
 #include "WidgetParts/CompassDisplay.h"
 #include "../WidgetData.h"

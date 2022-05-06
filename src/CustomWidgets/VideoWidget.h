@@ -7,7 +7,7 @@
 #include <QGridLayout>
 #include <string>
 #include "../WidgetData.h"
-#include "BaseWidget.h"
+#include "BaseWidgetHelper/BaseWidget.h"
 #include "../WidgetData.h"
 #include "../Theme.h"
 #include <QImage>

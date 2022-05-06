@@ -10,7 +10,7 @@
 #include "../WidgetData.h"
 #include "../InternalJson.h"
 #include "../Theme.h"
-#include "BaseWidget.h"
+#include "BaseWidgetHelper/BaseWidget.h"
 
 #define SIMPLE_BAR_GRAPH_NAME "SimpleBarGraph"
 #define CIRCLE_BAR_GRAPH_NAME "CircleBarGraph"

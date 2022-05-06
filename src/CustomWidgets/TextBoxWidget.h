@@ -1,7 +1,7 @@
 #ifndef ROBOT_GUI_V3_TEXTBOXWIDGET_H
 #define ROBOT_GUI_V3_TEXTBOXWIDGET_H
 
-#include "BaseWidget.h"
+#include "BaseWidgetHelper/BaseWidget.h"
 
 #include <QWidget>
 #include <QLabel>

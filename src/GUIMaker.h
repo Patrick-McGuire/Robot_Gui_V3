@@ -2,7 +2,7 @@
 #define ROBOT_GUI_V3_GUIMAKER_H
 
 #include <vector>
-#include "CustomWidgets/BaseWidget.h"
+#include "CustomWidgets/BaseWidgetHelper/BaseWidget.h"
 #include "CustomWidgets/TextBoxWidget.h"
 #include "CustomWidgets/TabWidget.h"
 #include "CustomWidgets/VideoWidget.h"

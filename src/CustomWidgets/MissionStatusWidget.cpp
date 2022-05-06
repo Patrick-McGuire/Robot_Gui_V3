@@ -11,7 +11,7 @@
 #include "../../lib/CommonFunctions.h"
 #include "../WidgetData.h"
 #include "../Theme.h"
-#include "BaseWidget.h"
+#include "BaseWidgetHelper/BaseWidget.h"
 
 RobotGui::MissionStatusWidget::MissionStatusWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme) : BaseWidget(parent, configInfo, widgetData, theme) {
     statusBox = new QLabel();

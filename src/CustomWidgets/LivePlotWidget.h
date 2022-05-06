@@ -1,7 +1,7 @@
 #ifndef ROBOT_GUI_V3_LIVEPLOTWIDGET_H
 #define ROBOT_GUI_V3_LIVEPLOTWIDGET_H
 
-#include "BaseWidget.h"
+#include "BaseWidgetHelper/BaseWidget.h"
 #include <QWidget>
 #include <QLabel>
 #include <string>

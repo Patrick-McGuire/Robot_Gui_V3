@@ -5,7 +5,7 @@
 #ifndef ROBOT_GUI_V3_DROPDOWNTEXTBOXWIDGET_H
 #define ROBOT_GUI_V3_DROPDOWNTEXTBOXWIDGET_H
 
-#include "BaseWidget.h"
+#include "BaseWidgetHelper/BaseWidget.h"
 
 #include <QComboBox>
 

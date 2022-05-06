@@ -12,7 +12,7 @@
 #include "SettingsPanels/RawDataView.h"
 #include "../WidgetData.h"
 #include "../Theme.h"
-#include "BaseWidget.h"
+#include "BaseWidgetHelper/BaseWidget.h"
 
 RobotGui::SettingsTab::SettingsTab(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
     sideTabWidget = new SideTabWidget();

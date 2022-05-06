@@ -3,25 +3,25 @@
 
 #include <string>
 #include "QWidget"
-#include "../WidgetData.h"
+#include "../../WidgetData.h"
 #include "QMouseEvent"
-#include "../../lib/rapidxml/rapidxml.hpp"
-#include "../../lib/rapidxml/rapidxml_print.hpp"
-#include "../../lib/rapidxml/rapidxml_utils.hpp"
+#include "../../../lib/rapidxml/rapidxml.hpp"
+#include "../../../lib/rapidxml/rapidxml_print.hpp"
+#include "../../../lib/rapidxml/rapidxml_utils.hpp"
 #include <QTabWidget>
 #include <QMenu>
-#include "../Theme.h"
-#include "../WidgetData.h"
-#include "../Theme.h"
+#include "../../Theme.h"
+#include "../../WidgetData.h"
+#include "../../Theme.h"
 
 
 namespace RobotGui {
     /**
-         * @class BaseWidget
-         * Custom QWidget that creates tabs with children widgets
-         *
-         * @author Patrick McGuire (Patrick-McGuire)
-         */
+     * @class BaseWidget
+     * Custom QWidget that creates tabs with children widgets
+     *
+     * @author Patrick McGuire (Patrick-McGuire)
+     */
     class BaseWidget : public QWidget {
     Q_OBJECT
     public:
@@ -191,6 +191,11 @@ namespace RobotGui {
          * @param pos Point to open menu at
          */
         void showContextMenu(const QPoint &pos);
+
+        /**
+         * Shows the menu used to edit this widget
+         */
+        void showEditMenu();
 
     private:
         const char *const CONTEXT_MENU_NAME = "TempContextMenuName";

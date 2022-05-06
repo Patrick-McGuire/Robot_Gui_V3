@@ -5,7 +5,7 @@
 #ifndef ROBOT_GUI_V3_ANNUNCIATORWIDGET_H
 #define ROBOT_GUI_V3_ANNUNCIATORWIDGET_H
 
-#include "BaseWidget.h"
+#include "BaseWidgetHelper/BaseWidget.h"
 #include "../WidgetData.h"
 #include "../Theme.h"
 
