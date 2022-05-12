@@ -7,8 +7,9 @@
 #include "QObject"
 #include "../BaseStructure/WidgetBaseConfig.h"
 
-namespace RobotGui {
 
+namespace RobotGui {
+    class XMLOutput;
     /**
      * @class LineConfig
      * Class for configuration data that follows the line format
@@ -55,6 +56,8 @@ namespace RobotGui {
          * @return std::shared_ptr container new WidgetBaseConfig
          */
         static SharedPtr create();
+
+        void parseXml(rapidxml::xml_node<> *node) override;
 
         // Required
         std::vector<LineInfo> lines;

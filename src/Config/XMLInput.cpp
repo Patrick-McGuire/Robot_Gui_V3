@@ -135,27 +135,7 @@ RobotGui::WidgetBaseConfig::SharedPtr RobotGui::XMLInput::parseWidget(rapidxml::
         }
     }
 
-    // Call widget specific methods to finish configuring the struct
-    if (newWidgetStruct->type == RobotGui::TEXT_BOX) {
-        RobotGui::TextBoxWidget::parseXml(newWidgetStruct, node);
-    } else if (newWidgetStruct->type == RobotGui::VIDEO) {
-        RobotGui::VideoWidget::parseXml(newWidgetStruct, node);
-    } else if (newWidgetStruct->type == RobotGui::TAB) {
-        RobotGui::TabWidget::parseXml(newWidgetStruct, node);
-    } else if (newWidgetStruct->type == RobotGui::SIMPLE_BUTTON) {
-        RobotGui::SimpleButtonWidget::parseXml(newWidgetStruct, node);
-    } else if (newWidgetStruct->type == RobotGui::MULTI_BAR_GRAPH) {
-        RobotGui::MultiBarGraphWidget::parseXml(newWidgetStruct, node);
-    } else if (newWidgetStruct->type == RobotGui::LIVE_PLOT) {
-        RobotGui::LivePlotWidget::parseXml(newWidgetStruct, node);
-    } else if(newWidgetStruct->type == MISSION_STATUS) {
-        RobotGui::MissionStatusWidget::parseXml(newWidgetStruct, node);
-    } else if(newWidgetStruct->type == ATTITUDE_DISPLAY) {
-        RobotGui::AttitudeWidget::parseXml(newWidgetStruct, node);
-    } else if(newWidgetStruct->type == ROV_STATUS) {
-        RobotGui::ROVStatusWidget::parseXml(newWidgetStruct, node);
-    }
-
+    newWidgetStruct->parseXml(node);
     setDefaults(newWidgetStruct);
     return newWidgetStruct;
 }

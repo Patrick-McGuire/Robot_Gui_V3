@@ -15,13 +15,6 @@ namespace RobotGui {
     public:
         AttitudeWidget(QWidget *parent, const WidgetBaseConfig::SharedPtr &configInfo, WidgetData *widgetData, Theme *theme);
 
-        /**
-         * Parses a xml node into the config struct
-         * @param parentConfig[out] struct to store data into
-         * @param node[in] xml node to parse
-         */
-        static void parseXml(const WidgetBaseConfig::SharedPtr &parentConfig, rapidxml::xml_node<> *node);
-
         void updateInFocus() override;
 
     protected:

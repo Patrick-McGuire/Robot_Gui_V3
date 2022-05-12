@@ -43,6 +43,8 @@ namespace RobotGui {
          */
         static SharedPtr create();
 
+        void parseXml(rapidxml::xml_node<> *node) override;
+
         // Required
         std::map<std::string, std::string> sourceMap;
 

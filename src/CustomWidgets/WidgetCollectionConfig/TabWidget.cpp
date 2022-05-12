@@ -77,25 +77,6 @@ RobotGui::TabWidget::TabWidget(QWidget *parent, const RobotGui::WidgetBaseConfig
     tabs->setCurrentIndex(0);
 }
 
-void RobotGui::TabWidget::parseXml(const RobotGui::WidgetBaseConfig::SharedPtr &parentConfig, rapidxml::xml_node<> *node) {
-    WidgetCollectionConfig::SharedPtr config = std::dynamic_pointer_cast<WidgetCollectionConfig>(parentConfig);
-    for (auto *tab = node->first_node(); tab; tab = tab->next_sibling()) {                           // Iterate over nodes
-        std::string tagName = tab->name();
-        if (tagName == RobotGui::Xml::TAB_TAG) {
-            std::string tabTitle = "No name";
-            for (auto *attr = tab->first_attribute(); attr; attr = attr->next_attribute()) {         // Iterate over attributes
-                std::string attrName = attr->name();
-                std::string attrVal = attr->value();
-                if (attrName == RobotGui::Xml::TITLE_ATR) {
-                    tabTitle = attrVal;
-                }
-            }
-            config->tabs.push_back({tabTitle});
-            parseTabChildren(parentConfig, tab);
-        }
-    }
-}
-
 void RobotGui::TabWidget::outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) {
     for (int i = 0; i < widgets.size(); i++) {
         rapidxml::xml_node<> *tab = doc->allocate_node(rapidxml::node_element, RobotGui::Xml::TAB_TAG);

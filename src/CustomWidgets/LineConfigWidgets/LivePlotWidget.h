@@ -36,14 +36,6 @@ namespace RobotGui {
         LivePlotWidget(QWidget *parent, const WidgetBaseConfig::SharedPtr &configInfo, WidgetData *widgetData, Theme *_theme);
 
         /**
-         * Parses a xml node into the config struct
-         * @param parentConfig[out] struct to store data into
-         * @param node[in] xml node to parse
-         */
-        static void parseXml(const WidgetBaseConfig::SharedPtr &parentConfig, rapidxml::xml_node<> *node);
-
-
-        /**
          * Saves any configuration data to a xml node
          * @param node node to output to
          */

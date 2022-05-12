@@ -6,7 +6,7 @@
 #include "../../../lib/rapidxml/rapidxml.hpp"
 #include "QObject"
 #include "../BaseStructure/WidgetBaseConfig.h"
-
+#include "../../Config/XMLInput.h"
 
 namespace RobotGui {
 
@@ -49,10 +49,10 @@ namespace RobotGui {
          */
         static SharedPtr create();
 
+        void parseXml(rapidxml::xml_node<> *node) override;
+
         // Required
         std::vector<TabInfo> tabs;
-        //        std::vector<std::string> tabNames;
-//        std::vector<std::vector<std::shared_ptr<WidgetConfig>>> tabWidgets;
 
     private:
 
@@ -61,6 +61,14 @@ namespace RobotGui {
          * @param _type type of widget this is for
          */
         explicit WidgetCollectionConfig(WidgetType _type);
+
+
+        /**
+         * Parses xml for all children in the tab
+         * @param parentConfig tab configuration to add children to
+         * @param node xml node containing children
+         */
+        void parseTabChildren(rapidxml::xml_node<> *node);
     };
 }
 

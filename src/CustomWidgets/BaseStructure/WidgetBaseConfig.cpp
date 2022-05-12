@@ -99,5 +99,7 @@ void RobotGui::WidgetBaseConfig::onEdit() {
 
 }
 
+void RobotGui::WidgetBaseConfig::parseXml(rapidxml::xml_node<> *node) {}
+
 
 

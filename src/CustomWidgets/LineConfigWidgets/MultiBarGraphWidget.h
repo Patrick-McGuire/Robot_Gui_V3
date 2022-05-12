@@ -14,8 +14,6 @@ namespace RobotGui {
 
         void updateInFocus() override;
 
-        static void parseXml(const WidgetBaseConfig::SharedPtr &parentConfig, rapidxml::xml_node<> *node);
-
         /**
          * Saves any configuration data to a xml node
          * @param node node to output to

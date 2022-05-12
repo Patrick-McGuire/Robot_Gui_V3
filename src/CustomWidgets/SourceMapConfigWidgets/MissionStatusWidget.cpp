@@ -70,14 +70,3 @@ void RobotGui::MissionStatusWidget::customUpdateStyle() {
     missionNameBox->setStyleSheet(QString::fromStdString("color: " + bodyTextColor));
     objectiveBox->setStyleSheet(QString::fromStdString("color: " + bodyTextColor));
 }
-
-void RobotGui::MissionStatusWidget::parseXml(const RobotGui::WidgetBaseConfig::SharedPtr &parentConfig, rapidxml::xml_node<> *node) {
-    SourceMapConfig::SharedPtr config = std::dynamic_pointer_cast<SourceMapConfig>(parentConfig);
-    for (rapidxml::xml_attribute<> *attr = node->first_attribute(); attr; attr = attr->next_attribute()) {
-        std::string attrName = attr->name();                                            // Get the name of the current attribute
-        std::string attrVal = attr->value();                                            // Get the value of the current attribute
-        if (attrName.find("Source") != std::string::npos) {
-            config->sourceMap[attrName] = attrVal;
-        }
-    }
-}

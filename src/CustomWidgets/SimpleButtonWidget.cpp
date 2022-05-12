@@ -45,10 +45,6 @@ void RobotGui::SimpleButtonWidget::customUpdateStyle() {
     adjustSize();
 }
 
-void RobotGui::SimpleButtonWidget::parseXml(const RobotGui::WidgetBaseConfig::SharedPtr &parentConfig, rapidxml::xml_node<> *node) {
-
-}
-
 void RobotGui::SimpleButtonWidget::outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) {
     if(configInfo->source.is_initialized()) {
         node->append_attribute(doc->allocate_attribute(RobotGui::Xml::ID_ATR, configInfo->source->c_str()));

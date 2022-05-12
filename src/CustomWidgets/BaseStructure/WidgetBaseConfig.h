@@ -60,6 +60,9 @@ namespace RobotGui {
          */
         void showEditMenu();
 
+
+        virtual void parseXml(rapidxml::xml_node<> *node);
+
         /**
          * Members
          */

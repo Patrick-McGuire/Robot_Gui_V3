@@ -111,29 +111,6 @@ void RobotGui::TextBoxWidget::customUpdateStyle() {
     adjustSize();
 }
 
-void RobotGui::TextBoxWidget::parseXml(const RobotGui::WidgetBaseConfig::SharedPtr &parentConfig, rapidxml::xml_node<> *node) {
-    // Iterate though all lines
-    for (auto *line = node->first_node(); line; line = line->next_sibling()) {
-        std::string tagName = line->name();
-        if (tagName == RobotGui::Xml::LINE_TAG) {
-            std::string label;
-            std::string value;
-            for (rapidxml::xml_attribute<> *attr = line->first_attribute(); attr; attr = attr->next_attribute()) {
-                std::string attrName = attr->name();
-                std::string attrVal = attr->value();
-                if (attrName == RobotGui::Xml::LABEL_ATR) {
-                    label = attrVal;
-                } else if (attrName == RobotGui::Xml::VALUE_ATR) {
-                    value = attrVal;
-                }
-            }
-            if(parentConfig->type == TEXT_BOX) {
-                std::dynamic_pointer_cast<LineConfig>(parentConfig)->lines.push_back({label, value});
-            }
-        }
-    }
-}
-
 void RobotGui::TextBoxWidget::outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) {
     for (const auto& lineInfo : lineConfig->lines) {
         rapidxml::xml_node<> *line = doc->allocate_node(rapidxml::node_element, RobotGui::Xml::LINE_TAG);

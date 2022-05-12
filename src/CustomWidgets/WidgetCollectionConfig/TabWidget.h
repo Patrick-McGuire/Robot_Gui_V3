@@ -20,7 +20,7 @@
 #include "WidgetCollectionConfig.h"
 
 class XMLOutput;
-
+class WidgetCollectionConfig;
 namespace RobotGui {
 
     /**
@@ -42,14 +42,6 @@ namespace RobotGui {
         ~TabWidget();
 
         /**
-         * Parses a xml node into the config struct
-         * @param parentConfig[out] struct to store data into
-         * @param node[in] xml node to parse
-         */
-        static void parseXml(const WidgetBaseConfig::SharedPtr& parentConfig, rapidxml::xml_node<> *node);
-
-
-        /**
          * Saves any configuration data to a xml node
          * @param node node to output to
          */
@@ -60,7 +52,7 @@ namespace RobotGui {
         QTabWidget *tabs;
         std::vector<QWidget*> pages;
         std::vector<std::vector<BaseWidget*>> widgets;
-        WidgetCollectionConfig::SharedPtr widgetCollectionConfig;
+        std::shared_ptr<WidgetCollectionConfig> widgetCollectionConfig;
 
         /**
          * Update the widget when in focus

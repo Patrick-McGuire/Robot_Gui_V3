@@ -13,13 +13,13 @@ int main(int argc, char** argv) {
 //    RobotGui::ServerInterface serverInterface;
 //    gui->addInterface(&serverInterface);
 //    // Populate keys with random values
-    RobotGui::RandomDataInterface randomDataInterface(50);
+    RobotGui::RandomDataInterface randomDataInterface(100);
     gui->addInterface(&randomDataInterface);
 //    // Streams the webcam
-    RobotGui::WebcamStreamInterface webcamStreamInterface(16);
+    RobotGui::WebcamStreamInterface webcamStreamInterface(50);
     gui->addInterface(&webcamStreamInterface);
 //    // Prints out any flag raised
-    RobotGui::FlagCheckerInterface flagCheckerInterface(100);
+    RobotGui::FlagCheckerInterface flagCheckerInterface(1000);
     gui->addInterface(&flagCheckerInterface);
 
     // Run the GUI

@@ -107,34 +107,6 @@ RobotGui::LivePlotWidget::LivePlotWidget(QWidget *parent, const RobotGui::Widget
     }
 }
 
-void RobotGui::LivePlotWidget::parseXml(const RobotGui::WidgetBaseConfig::SharedPtr &parentConfig, rapidxml::xml_node<> *node) {
-    // Iterate though all lines
-    for (auto *line = node->first_node(); line; line = line->next_sibling()) {
-        std::string tagName = line->name();
-        if (tagName == RobotGui::Xml::LINE_TAG) {
-            std::string label;
-            std::string value;
-            std::string color;
-            for (rapidxml::xml_attribute<> *attr = line->first_attribute(); attr; attr = attr->next_attribute()) {
-                std::string attrName = attr->name();
-                std::string attrVal = attr->value();
-                if (attrName == RobotGui::Xml::LABEL_ATR) {
-                    label = attrVal;
-                } else if (attrName == RobotGui::Xml::VALUE_ATR) {
-                    value = attrVal;
-                } else if (attrName == RobotGui::Xml::COLOR_ATR) {
-                    color = attrVal;
-                }
-            }
-            if(parentConfig->type == LIVE_PLOT) {
-                LineConfig::LineInfo lineInfo = {label, value};
-                if(!color.empty()) { lineInfo.color = color; }
-                std::dynamic_pointer_cast<LineConfig>(parentConfig)->lines.push_back(lineInfo);
-            }
-        }
-    }
-}
-
 void RobotGui::LivePlotWidget::outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) {
     if(lineConfig->range.is_initialized()) {
         node->append_attribute(doc->allocate_attribute(RobotGui::Xml::TIME_RANGE_ATR, doc->allocate_string(std::to_string(lineConfig->range.get()).c_str())));
