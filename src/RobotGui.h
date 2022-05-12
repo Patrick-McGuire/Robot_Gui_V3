@@ -41,6 +41,7 @@ namespace RobotGui {
         COMPASS,
         LIVE_PLOT,
         SETTINGS_TAB,
+        ATTITUDE_DISPLAY,
     };
     // Widget types
     const char *const TEXT_BOX_WIDGET_STRID = "textBox";

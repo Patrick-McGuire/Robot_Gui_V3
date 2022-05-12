@@ -31,6 +31,8 @@ RobotGui::WidgetType RobotGui::WidgetBaseConfig::getType(const std::string &_typ
         type1 = LIVE_PLOT;
     } else if(_type == RobotGui::SETTINGS_TAB_STRID) {
         type1 = SETTINGS_TAB;
+    } else if(_type == RobotGui::ATTITUDE_DISPLAY_STRID) {
+        type1 = ATTITUDE_DISPLAY;
     }
     return type1;
 }
@@ -65,6 +67,8 @@ std::string RobotGui::WidgetBaseConfig::getTypeString() const {
             return RobotGui::LIVE_PLOT_WIDGET_STRID;
         case SETTINGS_TAB:
             return RobotGui::SETTINGS_TAB_STRID;
+        case ATTITUDE_DISPLAY:
+            return RobotGui::ATTITUDE_DISPLAY_STRID;
         case NO_TYPE:
             break;
     }

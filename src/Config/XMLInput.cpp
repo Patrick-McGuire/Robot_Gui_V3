@@ -3,6 +3,9 @@
 #include "../CustomWidgets/BaseStructure/WidgetBaseConfig.h"
 #include "../CustomWidgets/LineConfigWidgets/LineConfig.h"
 #include "../CustomWidgets/SourceMapConfigWidgets/SourceMapConfig.h"
+#include "../CustomWidgets/SourceMapConfigWidgets/MissionStatusWidget.h"
+#include "../CustomWidgets/SourceMapConfigWidgets/AttitudeWidget.h"
+#include "../CustomWidgets/SourceMapConfigWidgets/ROVStatusWidget.h"
 #include "../CustomWidgets/WidgetCollectionConfig/WidgetCollectionConfig.h"
 #define strFailed -9123931      // Random
 
@@ -26,7 +29,7 @@ RobotGui::WidgetBaseConfig::SharedPtr RobotGui::XMLInput::parseWidget(rapidxml::
     WidgetType type = getWidgetType(node);
     if(type == LIVE_PLOT || type == TEXT_BOX || type == MULTI_BAR_GRAPH) {
         newWidgetStruct = LineConfig::create(type);
-    } else if(type == MISSION_STATUS || type == ROV_STATUS) {
+    } else if(type == MISSION_STATUS || type == ROV_STATUS || type == ATTITUDE_DISPLAY) {
         newWidgetStruct = SourceMapConfig::create(type);
     } else if(type == TAB) {
         newWidgetStruct = WidgetCollectionConfig::create(type);
@@ -145,6 +148,12 @@ RobotGui::WidgetBaseConfig::SharedPtr RobotGui::XMLInput::parseWidget(rapidxml::
         RobotGui::MultiBarGraphWidget::parseXml(newWidgetStruct, node);
     } else if (newWidgetStruct->type == RobotGui::LIVE_PLOT) {
         RobotGui::LivePlotWidget::parseXml(newWidgetStruct, node);
+    } else if(newWidgetStruct->type == MISSION_STATUS) {
+        RobotGui::MissionStatusWidget::parseXml(newWidgetStruct, node);
+    } else if(newWidgetStruct->type == ATTITUDE_DISPLAY) {
+        RobotGui::AttitudeWidget::parseXml(newWidgetStruct, node);
+    } else if(newWidgetStruct->type == ROV_STATUS) {
+        RobotGui::ROVStatusWidget::parseXml(newWidgetStruct, node);
     }
 
     setDefaults(newWidgetStruct);

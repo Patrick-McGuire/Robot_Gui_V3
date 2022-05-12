@@ -40,7 +40,7 @@ set(widget_type_files
         src/CustomWidgets/SourceMapConfigWidgets/MissionStatusWidget.cpp src/CustomWidgets/SourceMapConfigWidgets/MissionStatusWidget.h
         src/CustomWidgets/DropDownTextBoxWidget.cpp src/CustomWidgets/DropDownTextBoxWidget.h
         src/CustomWidgets/CompassWidget.cpp src/CustomWidgets/CompassWidget.h
-        src/CustomWidgets/SettingsTab.cpp src/CustomWidgets/SettingsTab.h src/CustomWidgets/AttitudeWidget.cpp src/CustomWidgets/AttitudeWidget.h)
+        src/CustomWidgets/SettingsTab.cpp src/CustomWidgets/SettingsTab.h src/CustomWidgets/SourceMapConfigWidgets/AttitudeWidget.cpp src/CustomWidgets/SourceMapConfigWidgets/AttitudeWidget.h)
 
 set(widget_part_files
         src/CustomWidgets/WidgetParts/SimpleBarGraph.cpp src/CustomWidgets/WidgetParts/BaseGraphDisplay.h
