@@ -5,7 +5,7 @@
 #ifndef ROBOT_GUI_V3_SETTINGSTAB_H
 #define ROBOT_GUI_V3_SETTINGSTAB_H
 
-#include "BaseWidgetHelper/BaseWidget.h"
+#include "BaseStructure/BaseWidget.h"
 
 #include "../WidgetData.h"
 
@@ -17,7 +17,7 @@
 namespace RobotGui {
     class SettingsTab : public BaseWidget {
     public:
-        SettingsTab(QWidget *parent, const WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *_theme);
+        SettingsTab(QWidget *parent, const WidgetBaseConfig::SharedPtr &configInfo, WidgetData *widgetData, Theme *_theme);
 
         void addPanel(BaseSettingsPanel *new_panel, const std::string &name);
 

@@ -6,6 +6,8 @@
 #include <map>
 #include "Config/AppConfig.h"
 #include "array"
+#include "CustomWidgets/BaseStructure/WidgetBaseConfig.h"
+
 
 namespace RobotGui {
     //// Enums ////
@@ -23,6 +25,23 @@ namespace RobotGui {
     };
 
     //// Constants ////
+    enum WidgetType : int {
+        NO_TYPE,
+        TEXT_BOX,
+        VIDEO,
+        TAB,
+        SIMPLE_BUTTON,
+        MULTI_BAR_GRAPH,
+        ANNUNCIATOR_PANEL,
+        SIMPLE_CONSOLE,
+        ROV_STATUS,
+        COMPLETE_CONSOLE,
+        MISSION_STATUS,
+        DROP_DOWN_TEXT_BOX,
+        COMPASS,
+        LIVE_PLOT,
+        SETTINGS_TAB,
+    };
     // Widget types
     const char *const TEXT_BOX_WIDGET_STRID = "textBox";
     const char *const VIDEO_WIDGET_STRID = "video";
@@ -118,68 +137,14 @@ namespace RobotGui {
     }
 
     //// Configuration data for widgets ////
-    // Data for each line of MultiBarGraph
-    struct GraphLineConfig {
-        std::string type;
-        std::string source;
-        std::string title;
-        double min;
-        double max;
-        std::string colorString;
-    };
-    // Data for every widget
-    struct WidgetConfig {
-        std::string title;
-        std::string type;
-        std::string id;
-        std::string objectName;         // Not set by XML parser
-        int x;
-        int y;
-        int height;
-        int width;
-        int size;
-        bool hidden;
-        bool draggable;
-        bool staticPos;
-        double maximum;
-        double minimum;
-        std::string source;
-        std::map<std::string, std::string> sourceMap;
-        ////// Style //////
-        std::string font;
-        std::string backgroundColor;
-        std::string foregroundColor;
-        std::string relief;
-        std::string textColor;
-        std::string headerColor;
-        std::string borderColor;
-        int fontSize;
-        int borderWidth;
-        /////// Widget specific ///////
-        // Tab widget collection
-        std::vector<std::string> tabNames;
-        std::vector<std::vector<std::shared_ptr<WidgetConfig>>> tabWidgets;
-        // Configurable textbox widget
-        std::vector<std::vector<std::string>> lines;
-        // Configurable bar graph widget
-        std::vector<GraphLineConfig> graphLines;
-        // Annunciator Panel
-        int rowNumber;
-        int columnNumber;
-        // Graph
-        std::string rangeMin;
-        std::string rangeMax;
-        double timeRange;
-    };
-    typedef std::shared_ptr<WidgetConfig> WidgetConfig_ptr;
-    // Window configuration data
+    class WidgetBaseConfig;
     struct WindowConfig {
         std::string title;
         std::string theme;
         int height;
         int width;
         int updateRate;
-        WidgetConfig_ptr firstChild;
+        std::shared_ptr<WidgetBaseConfig> firstChild;
     };
     typedef std::shared_ptr<WindowConfig> WindowConfig_ptr;
 

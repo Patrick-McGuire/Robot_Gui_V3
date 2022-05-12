@@ -2,7 +2,7 @@
 <window title="Probot Control" width="1920" height="1043" theme="Dark">
     <widget type="tab" title="Dashboard" height="max" width="max" x="0" y="0" static="True" background="theme">
         <tab title="Dashboard">
-            <widget type="livePlot" title="Power Stats" draggable="true" static="false" background="theme" width="400" height="300" rangeMax="auto" rangeMin="auto" x="700" y="100" timeRange="5">
+            <widget type="livePlot" title="Power Stats" draggable="true" static="false" background="theme" width="400" height="300" max="auto" min="auto" x="700" y="100" range="5">
                 <line label="roll" value="roll" color="red"/>
                 <line label="random" value="KEY5" color="blue"/>
             </widget>

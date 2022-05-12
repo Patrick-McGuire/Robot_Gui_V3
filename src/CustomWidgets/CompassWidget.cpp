@@ -5,22 +5,24 @@
 #include "CompassWidget.h"
 #include "../WidgetData.h"
 #include "../Theme.h"
-#include "BaseWidgetHelper/BaseWidget.h"
+#include "BaseStructure/BaseWidget.h"
 
-RobotGui::CompassWidget::CompassWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme) : BaseWidget(parent, configInfo, widgetData, theme) {
+RobotGui::CompassWidget::CompassWidget(QWidget *parent, const RobotGui::WidgetBaseConfig::SharedPtr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme) : BaseWidget(parent, configInfo, widgetData, theme) {
     compassDisplay = new CompassDisplay(widgetData, this);
 
     styledBackground = true;
     styledSeeThroughBackground = true;
 
-    if (configInfo->size != 0) {
-        compassDisplay->setSize(configInfo->size);
+    if (configInfo->size.is_initialized() && configInfo->size != 0) {
+        compassDisplay->setSize(configInfo->size.get());
     }
 
     adjustSize();
 }
 
 void RobotGui::CompassWidget::updateInFocus() {
-    double yaw = widgetData->getJson()->mapGet(configInfo->source)->getDouble();
-    compassDisplay->setYaw(yaw);
+    if(configInfo->source.is_initialized()) {
+        double yaw = widgetData->getJson()->mapGet(configInfo->source.get())->getDouble();
+        compassDisplay->setYaw(yaw);
+    }
 }

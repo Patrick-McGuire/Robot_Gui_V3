@@ -1,15 +1,15 @@
 #include "SimpleButtonWidget.h"
 #include "../WidgetData.h"
 #include "../Theme.h"
-#include "BaseWidgetHelper/BaseWidget.h"
+#include "BaseStructure/BaseWidget.h"
 
-RobotGui::SimpleButtonWidget::SimpleButtonWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
+RobotGui::SimpleButtonWidget::SimpleButtonWidget(QWidget *parent, const RobotGui::WidgetBaseConfig::SharedPtr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
     styledText = true;
     styledWidgetBackgroundColor = true;
     drawBorder = false;
     configurablePos = true;
 
-    button = new QPushButton(QString::fromStdString(configInfo->title), this);
+    button = new QPushButton(QString::fromStdString(configInfo->title.is_initialized() ? configInfo->title.get() : "err"), this);
     button->adjustSize();
     adjustSize();
     setFixedSize(width() + 5, height() + 5);            // So you can drag
@@ -20,14 +20,18 @@ RobotGui::SimpleButtonWidget::SimpleButtonWidget(QWidget *parent, const RobotGui
 }
 
 void RobotGui::SimpleButtonWidget::onClick() {
-    widgetData->raiseOutputFlag(configInfo->id);
-    auto json = widgetData->getOutputJson()->mapGetOrAdd(configInfo->id);
-    json->setBool(true);
+    if(configInfo->source.is_initialized()) {
+        widgetData->raiseOutputFlag(configInfo->source.get());
+        auto json = widgetData->getOutputJson()->mapGetOrAdd(configInfo->source.get());
+        json->setBool(true);
+    }
 }
 
 void RobotGui::SimpleButtonWidget::onRelease() {
-    auto json = widgetData->getOutputJson()->mapGetOrAdd(configInfo->id);
-    json->setBool(false);
+    if(configInfo->source.is_initialized()) {
+        auto json = widgetData->getOutputJson()->mapGetOrAdd(configInfo->source.get());
+        json->setBool(false);
+    }
 }
 
 void RobotGui::SimpleButtonWidget::customUpdateStyle() {
@@ -41,10 +45,12 @@ void RobotGui::SimpleButtonWidget::customUpdateStyle() {
     adjustSize();
 }
 
-void RobotGui::SimpleButtonWidget::parseXml(const RobotGui::WidgetConfig_ptr &parentConfig, rapidxml::xml_node<> *node) {
+void RobotGui::SimpleButtonWidget::parseXml(const RobotGui::WidgetBaseConfig::SharedPtr &parentConfig, rapidxml::xml_node<> *node) {
 
 }
 
 void RobotGui::SimpleButtonWidget::outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) {
-    node->append_attribute(doc->allocate_attribute(RobotGui::Xml::ID_ATR, configInfo->id.c_str()));
+    if(configInfo->source.is_initialized()) {
+        node->append_attribute(doc->allocate_attribute(RobotGui::Xml::ID_ATR, configInfo->source->c_str()));
+    }
 }

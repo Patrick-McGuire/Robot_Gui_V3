@@ -10,8 +10,9 @@
 #include "QDialog"
 #include "QPushButton"
 #include "QCheckBox"
+#include "WidgetSettingsDialog.h"
 
-RobotGui::BaseWidget::BaseWidget(QWidget *_parent_, const RobotGui::WidgetConfig_ptr &_configInfo, RobotGui::WidgetData *_widgetData, RobotGui::Theme *_theme) : staticPos(_configInfo->staticPos), QWidget(_parent_) {
+RobotGui::BaseWidget::BaseWidget(QWidget *_parent_, const RobotGui::WidgetBaseConfig::SharedPtr &_configInfo, RobotGui::WidgetData *_widgetData, RobotGui::Theme *_theme) : staticPos(_configInfo->staticPos), QWidget(_parent_) {
     configInfo = _configInfo;
     widgetData = _widgetData;
     _parent = _parent_;
@@ -19,10 +20,9 @@ RobotGui::BaseWidget::BaseWidget(QWidget *_parent_, const RobotGui::WidgetConfig
     configInfo->draggable = !staticPos && _configInfo->draggable;
     this->setObjectName(QString::fromStdString(_configInfo->objectName));
 
-    std::string fontName = configInfo->font;
-    if (!fontName.empty() and fontName != RobotGui::Xml::THEME_CONST) {
-        int fontSize = configInfo->fontSize;
-        setFont(QFont(QString::fromStdString(fontName), fontSize));
+    if (configInfo->font.is_initialized() && configInfo->font.get() != RobotGui::Xml::THEME_CONST) {
+        int fontSize = configInfo->fontSize.is_initialized() ? configInfo->fontSize.get() : 12;
+        setFont(QFont(QString::fromStdString(configInfo->font.get()), fontSize));
     }
 
     // Set up the right click menu
@@ -32,6 +32,10 @@ RobotGui::BaseWidget::BaseWidget(QWidget *_parent_, const RobotGui::WidgetConfig
     // Initialize position
     move(configInfo->x, configInfo->y);
     updateStyle();
+}
+
+RobotGui::BaseWidget::~BaseWidget() {
+    delete widgetSettingsDialog;
 }
 
 void RobotGui::BaseWidget::setPosition(int _x, int _y) {
@@ -113,11 +117,11 @@ void RobotGui::BaseWidget::mouseMoveEvent(QMouseEvent *event) {
 
 // Style
 void RobotGui::BaseWidget::updateStyle() {
-    backgroundColor = configInfo->backgroundColor;
-    widgetBackgroundColor = configInfo->backgroundColor;
-    bodyTextColor = configInfo->textColor;
-    titleTextColor = configInfo->headerColor;
-    borderColor = configInfo->borderColor;
+    backgroundColor = configInfo->backgroundColor.get();
+    widgetBackgroundColor = configInfo->backgroundColor.get();
+    bodyTextColor = configInfo->textColor.get();
+    titleTextColor = configInfo->headerColor.get();
+    borderColor = configInfo->borderColor.get();
     // Check background color
     if (backgroundColor == RobotGui::Xml::THEME_CONST) {
         backgroundColor = theme->getBackgroundColor();
@@ -206,28 +210,14 @@ void RobotGui::BaseWidget::showContextMenu(const QPoint &pos) {
 }
 
 void RobotGui::BaseWidget::showEditMenu() {
-    auto *dialog = new QDialog();
-    auto *dialogLayout = new QGridLayout;
-    dialog->setLayout(dialogLayout);
-
-    auto exitButton = new QPushButton("Save");
-    int nextRow = 0;
-
-    if(!staticPos) {
-        auto draggableLabel = new QLabel("Draggable:");
-        auto draggableCB = new QCheckBox();
-        dialogLayout->addWidget(draggableLabel, nextRow, 0);
-        dialogLayout->addWidget(draggableCB, nextRow, 1);
-        nextRow++;
+    if(widgetSettingsDialog == nullptr) {
+        widgetSettingsDialog = new WidgetSettingsDialog(this, configInfo, widgetData, theme);
+        connect(widgetSettingsDialog, SIGNAL(configChanged()), this, SLOT(updateFromConfigInfo()));
+        widgetSettingsDialog->show();
+    } else {
+        widgetSettingsDialog->show();
     }
-
-
-    dialogLayout->addWidget(exitButton, nextRow, 0);
-
-    dialog->show();
-
-    //    connect(bExit,SIGNAL(clicked()),Dblack,SLOT(close()));
-    }
+}
 
 void RobotGui::BaseWidget::customUpdateStyle() {}
 
@@ -247,6 +237,15 @@ void RobotGui::BaseWidget::outputXML(rapidxml::xml_node<> *node, rapidxml::xml_d
 
 }
 
-RobotGui::WidgetConfig_ptr RobotGui::BaseWidget::getConfig() {
+RobotGui::WidgetBaseConfig::SharedPtr RobotGui::BaseWidget::getConfig() {
     return configInfo;
+}
+
+void RobotGui::BaseWidget::updateFromConfigInfo() {
+    updateStyle();
+    customUpdateFromConfigInfo();
+}
+
+void RobotGui::BaseWidget::customUpdateFromConfigInfo() {
+
 }

@@ -1,7 +1,7 @@
 <window title="Probot Control" theme="Dark" width="max" height="max">
 	<widget type="tab" title="Dashboard" draggable="false" static="true" background="theme" headerColor="theme" height="max" width="max" x="0" y="0">
 		<tab title="Tab1">
-			<widget type="livePlot" title="Color Sensor" draggable="true" static="false" background="theme" textColor="theme" headerColor="theme" height="600" width="1600" x="56" y="43" timeRange="10" rangeMin="0" rangeMax="auto">
+			<widget type="livePlot" title="Color Sensor" draggable="true" static="false" background="theme" textColor="theme" headerColor="theme" height="600" width="1600" x="56" y="43" range="10" min="0" max="auto">
 <!--				<line label="red" value="RED" color="red"/>-->
 				<line label="Top RPM" value="113" color="blue"/>
 				<line label="Shooter RPM" value="112" color="cyan"/>

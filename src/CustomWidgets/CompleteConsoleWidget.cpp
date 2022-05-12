@@ -1,7 +1,3 @@
-//
-// Created by nathan on 12/28/21.
-//
-
 #include "CompleteConsoleWidget.h"
 
 #include <QLabel>
@@ -11,15 +7,21 @@
 #include "SimpleConsoleWidget.h"
 #include "../WidgetData.h"
 #include "../Theme.h"
-#include "BaseWidgetHelper/BaseWidget.h"
+#include "BaseStructure/BaseWidget.h"
+#include "BaseStructure/WidgetBaseConfig.h"
+#include "../Config/XMLInput.h"
 
-RobotGui::CompleteConsoleWidget::CompleteConsoleWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme) : BaseWidget(parent, configInfo, widgetData, theme) {
-    auto newConfigInfo = std::make_shared<RobotGui::WidgetConfig>();
-    newConfigInfo->source = configInfo->source;
-    newConfigInfo->backgroundColor = configInfo->backgroundColor;
-    newConfigInfo->foregroundColor = configInfo->foregroundColor;
-    newConfigInfo->textColor = configInfo->textColor;
-    newConfigInfo->headerColor = configInfo->headerColor;
+RobotGui::CompleteConsoleWidget::CompleteConsoleWidget(QWidget *parent, const RobotGui::WidgetBaseConfig::SharedPtr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme) : BaseWidget(parent, configInfo, widgetData, theme) {
+    ////// NATHAN WTF IS GOING ON HERE THIS CODE IS ASS
+
+    auto newConfigInfo = WidgetBaseConfig::create();
+    newConfigInfo = WidgetBaseConfig::create(RobotGui::SIMPLE_CONSOLE);
+    newConfigInfo->source = configInfo->source.is_initialized() ? configInfo->source.get() : "";
+    newConfigInfo->backgroundColor = configInfo->backgroundColor.is_initialized() ? configInfo->backgroundColor.get() : RobotGui::Xml::THEME_CONST;
+    newConfigInfo->foregroundColor = configInfo->backgroundColor.is_initialized() ? configInfo->foregroundColor.get() : RobotGui::Xml::THEME_CONST;
+    newConfigInfo->textColor = configInfo->backgroundColor.is_initialized() ? configInfo->textColor.get() : RobotGui::Xml::THEME_CONST;
+    newConfigInfo->headerColor = configInfo->backgroundColor.is_initialized() ? configInfo->headerColor.get() : RobotGui::Xml::THEME_CONST;
+    XMLInput::setDefaults(newConfigInfo);
     newConfigInfo->staticPos = true;
 
     titleWidget = new QLabel();
@@ -32,7 +34,7 @@ RobotGui::CompleteConsoleWidget::CompleteConsoleWidget(QWidget *parent, const Ro
     layout->addWidget(simpleConsoleWidget);
     setLayout(layout);
 
-    titleWidget->setText(QString::fromStdString(configInfo->title));
+    titleWidget->setText(configInfo->title.is_initialized() ? configInfo->title->c_str() : "err");
     titleWidget->setAlignment(Qt::AlignCenter | Qt::AlignVCenter);
     titleWidget->setFont(font());
     textEntryWidget->setFont(font());

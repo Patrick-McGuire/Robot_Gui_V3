@@ -5,7 +5,7 @@
 #ifndef ROBOT_GUI_V3_ANNUNCIATORWIDGET_H
 #define ROBOT_GUI_V3_ANNUNCIATORWIDGET_H
 
-#include "BaseWidgetHelper/BaseWidget.h"
+#include "BaseStructure/BaseWidget.h"
 #include "../WidgetData.h"
 #include "../Theme.h"
 
@@ -14,7 +14,7 @@
 namespace RobotGui {
     class AnnunciatorWidget : public RobotGui::BaseWidget {
     public:
-        AnnunciatorWidget(QWidget *parent, const WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *_theme);
+        AnnunciatorWidget(QWidget *parent, const WidgetBaseConfig::SharedPtr &configInfo, WidgetData *widgetData, Theme *_theme);
 
         void updateInFocus() override;
 

@@ -5,10 +5,11 @@
 #include "BaseSettingsPanel.h"
 #include "../../WidgetData.h"
 #include "../../Theme.h"
+#include "../BaseStructure/WidgetBaseConfig.h"
 
 
-std::shared_ptr<RobotGui::WidgetConfig> CreateBlankWidgetConfigPointer() {
-    auto newConfigInfo = std::make_shared<RobotGui::WidgetConfig>();
+RobotGui::WidgetBaseConfig::SharedPtr CreateBlankWidgetConfigPointer() {
+    auto newConfigInfo= RobotGui::WidgetBaseConfig::create();
     newConfigInfo->backgroundColor = RobotGui::Xml::THEME_CONST;
     newConfigInfo->foregroundColor = RobotGui::Xml::THEME_CONST;
     newConfigInfo->textColor = RobotGui::Xml::THEME_CONST;

@@ -1,18 +1,14 @@
-//
-// Created by nathan on 12/26/21.
-//
-
 #include <QtGui/QPainter>
 #include "SimpleConsoleWidget.h"
 #include "../../lib/CommonFunctions.h"
 #include "../WidgetData.h"
 #include "../InternalJson.h"
 #include "../Theme.h"
-#include "BaseWidgetHelper/BaseWidget.h"
+#include "BaseStructure/BaseWidget.h"
 
-RobotGui::SimpleConsoleWidget::SimpleConsoleWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme, bool _borderEnabled) : BaseWidget(parent, configInfo, widgetData, theme) {
-    source = configInfo->source;
-    title = configInfo->title;
+RobotGui::SimpleConsoleWidget::SimpleConsoleWidget(QWidget *parent, const RobotGui::WidgetBaseConfig::SharedPtr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme, bool _borderEnabled) : BaseWidget(parent, configInfo, widgetData, theme) {
+    source = configInfo->source.is_initialized() ? configInfo->source.get() : "";
+    title = configInfo->title.is_initialized() ? configInfo->title.get() : "err";
     drawTitle = !title.empty();
     borderEnabled = _borderEnabled;
 

@@ -1,4 +1,4 @@
-#ifndef ROBOT_GUI_V3_XMLINPUT_H
+    #ifndef ROBOT_GUI_V3_XMLINPUT_H
 #define ROBOT_GUI_V3_XMLINPUT_H
 
 #include "../../lib/rapidxml/rapidxml.hpp"
@@ -7,11 +7,11 @@
 #include "iostream"
 #include "../RobotGui.h"
 #include <cstring>
-#include "../CustomWidgets/TextBoxWidget.h"
+#include "../CustomWidgets/LineConfigWidgets/TextBoxWidget.h"
 #include "../CustomWidgets/VideoWidget.h"
-#include "../CustomWidgets/TabWidget.h"
+#include "../CustomWidgets/WidgetCollectionConfig/TabWidget.h"
 #include "../CustomWidgets/SimpleButtonWidget.h"
-#include "../CustomWidgets/MultiBarGraphWidget.h"
+#include "../CustomWidgets/LineConfigWidgets/MultiBarGraphWidget.h"
 
 namespace RobotGui {
     /**
@@ -34,9 +34,8 @@ namespace RobotGui {
          * @param node xml node to parse
          * @return WidgetConfig struct
          */
-        static WidgetConfig_ptr parseWidget(rapidxml::xml_node<> *node);
+        static WidgetBaseConfig::SharedPtr parseWidget(rapidxml::xml_node<> *node);
 
-    private:
         /**
          * Parses a xml window node into internal format
          * @param windowConfig WindowConfig_ptr to parse into
@@ -69,7 +68,9 @@ namespace RobotGui {
          * Writes defaults to empty/null attributes of a internal config
          * @param widgetConfig internal config to write defaults to
          */
-        static void setDefaults(const WidgetConfig_ptr& widgetConfig);
+        static void setDefaults(const WidgetBaseConfig::SharedPtr& widgetConfig);
+
+        static WidgetType getWidgetType(rapidxml::xml_node<> *node);
     };
 }
 

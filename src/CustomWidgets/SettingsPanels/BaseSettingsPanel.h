@@ -5,7 +5,7 @@
 #ifndef ROBOT_GUI_V3_BASESETTINGSPANEL_H
 #define ROBOT_GUI_V3_BASESETTINGSPANEL_H
 
-#include "../BaseWidgetHelper/BaseWidget.h"
+#include "../BaseStructure/BaseWidget.h"
 #include "../../WidgetData.h"
 #include "../../Theme.h"
 

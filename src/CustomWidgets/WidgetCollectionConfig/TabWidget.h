@@ -1,22 +1,23 @@
 #ifndef ROBOT_GUI_V3_TABWIDGET_H
 #define ROBOT_GUI_V3_TABWIDGET_H
 
-#include "BaseWidgetHelper/BaseWidget.h"
+#include "../BaseStructure/BaseWidget.h"
 #include <QWidget>
 #include <QLabel>
 #include <string>
 #include <QGridLayout>
 #include <string>
-#include "../WidgetData.h"
-#include "../RobotGui.h"
-#include "../Config/XMLInput.h"
+#include "../../WidgetData.h"
+#include "../../RobotGui.h"
+#include "../../Config/XMLInput.h"
 #include <QTabWidget>
 #include <QString>
-#include "../GUIMaker.h"
+#include "../../GUIMaker.h"
 #include <QApplication>
-#include "../Theme.h"
-#include "../Config/XMLOutput.h"
-#include "../WidgetData.h"
+#include "../../Theme.h"
+#include "../../Config/XMLOutput.h"
+#include "../../WidgetData.h"
+#include "WidgetCollectionConfig.h"
 
 class XMLOutput;
 
@@ -36,14 +37,16 @@ namespace RobotGui {
          * @param configInfo configuration data
          * @param widgetData global widgetData object
          */
-        TabWidget(QWidget *parent, const WidgetConfig_ptr& configInfo, WidgetData *widgetData, Theme *_theme);
+        TabWidget(QWidget *parent, const WidgetBaseConfig::SharedPtr& configInfo, WidgetData *widgetData, Theme *_theme);
+
+        ~TabWidget();
 
         /**
          * Parses a xml node into the config struct
          * @param parentConfig[out] struct to store data into
          * @param node[in] xml node to parse
          */
-        static void parseXml(const WidgetConfig_ptr& parentConfig, rapidxml::xml_node<> *node);
+        static void parseXml(const WidgetBaseConfig::SharedPtr& parentConfig, rapidxml::xml_node<> *node);
 
 
         /**
@@ -57,6 +60,7 @@ namespace RobotGui {
         QTabWidget *tabs;
         std::vector<QWidget*> pages;
         std::vector<std::vector<BaseWidget*>> widgets;
+        WidgetCollectionConfig::SharedPtr widgetCollectionConfig;
 
         /**
          * Update the widget when in focus
@@ -96,7 +100,7 @@ namespace RobotGui {
          * @param parentConfig tab configuration to add children to
          * @param node xml node containing children
          */
-        static void parseTabChildren(const WidgetConfig_ptr& parentConfig, rapidxml::xml_node<> *node);
+        static void parseTabChildren(const WidgetBaseConfig::SharedPtr& parentConfig, rapidxml::xml_node<> *node);
     };
 }
 

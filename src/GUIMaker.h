@@ -2,9 +2,9 @@
 #define ROBOT_GUI_V3_GUIMAKER_H
 
 #include <vector>
-#include "CustomWidgets/BaseWidgetHelper/BaseWidget.h"
-#include "CustomWidgets/TextBoxWidget.h"
-#include "CustomWidgets/TabWidget.h"
+#include "CustomWidgets/BaseStructure/BaseWidget.h"
+#include "CustomWidgets/LineConfigWidgets/TextBoxWidget.h"
+#include "CustomWidgets/WidgetCollectionConfig/TabWidget.h"
 #include "CustomWidgets/VideoWidget.h"
 #include "CustomWidgets/SimpleButtonWidget.h"
 #include "WidgetData.h"
@@ -29,7 +29,7 @@ namespace RobotGui {
          * @param theme global theme object
          * @return new custom widget
          */
-        static BaseWidget *createWidget(QWidget *parent, const WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *theme);
+        static BaseWidget *createWidget(QWidget *parent, const WidgetBaseConfig::SharedPtr &configInfo, WidgetData *widgetData, Theme *theme);
     };
 }
 

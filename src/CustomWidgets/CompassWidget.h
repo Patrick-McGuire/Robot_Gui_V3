@@ -5,7 +5,7 @@
 #ifndef ROBOT_GUI_V3_COMPASSWIDGET_H
 #define ROBOT_GUI_V3_COMPASSWIDGET_H
 
-#include "BaseWidgetHelper/BaseWidget.h"
+#include "BaseStructure/BaseWidget.h"
 
 #include "WidgetParts/CompassDisplay.h"
 #include "../WidgetData.h"
@@ -14,7 +14,7 @@
 namespace RobotGui {
     class CompassWidget : public BaseWidget {
     public:
-        CompassWidget(QWidget *parent, const WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *theme);
+        CompassWidget(QWidget *parent, const WidgetBaseConfig::SharedPtr &configInfo, WidgetData *widgetData, Theme *theme);
 
         void updateInFocus() override;
 

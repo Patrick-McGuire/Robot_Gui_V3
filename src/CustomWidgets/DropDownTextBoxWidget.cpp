@@ -11,9 +11,9 @@
 #include "../WidgetData.h"
 #include "../InternalJson.h"
 #include "../Theme.h"
-#include "BaseWidgetHelper/BaseWidget.h"
+#include "BaseStructure/BaseWidget.h"
 
-RobotGui::DropDownTextBoxWidget::DropDownTextBoxWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme) : BaseWidget(parent, configInfo, widgetData, theme) {
+RobotGui::DropDownTextBoxWidget::DropDownTextBoxWidget(QWidget *parent, const RobotGui::WidgetBaseConfig::SharedPtr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme) : BaseWidget(parent, configInfo, widgetData, theme) {
     textDisplay = new LineTextDisplay();
     selectionBox = new QComboBox();
 
@@ -31,8 +31,8 @@ RobotGui::DropDownTextBoxWidget::DropDownTextBoxWidget(QWidget *parent, const Ro
 }
 
 void RobotGui::DropDownTextBoxWidget::updateInFocus() {
-    if (widgetData->keyUpdated(configInfo->source)) {
-        auto pages = widgetData->getJson()->mapGet(configInfo->source);
+    if (configInfo->source.is_initialized() && widgetData->keyUpdated(configInfo->source.get())) {
+        auto pages = widgetData->getJson()->mapGet(configInfo->source.get());
         if (pages->getType() == RobotGui::InternalJson::map_t) {
             std::string currentSelection = selectionBox->currentText().toStdString();
 

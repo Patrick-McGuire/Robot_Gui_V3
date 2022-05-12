@@ -1,19 +1,20 @@
 #ifndef ROBOT_GUI_V3_LIVEPLOTWIDGET_H
 #define ROBOT_GUI_V3_LIVEPLOTWIDGET_H
 
-#include "BaseWidgetHelper/BaseWidget.h"
+#include "../BaseStructure/BaseWidget.h"
 #include <QWidget>
 #include <QLabel>
 #include <string>
 #include <QGridLayout>
 #include <string>
-#include "../WidgetData.h"
-#include "../RobotGui.h"
-#include "../Theme.h"
+#include "../../WidgetData.h"
+#include "../../RobotGui.h"
+#include "../../Theme.h"
 #include "QChartView"
 #include "QtCharts"
 #include "QLineSeries"
-#include "../Theme.h"
+#include "../../Theme.h"
+#include "LineConfig.h"
 
 namespace RobotGui {
     /**
@@ -32,14 +33,14 @@ namespace RobotGui {
          * @param widgetData global widgetData object
          * @param _theme theme object
          */
-        LivePlotWidget(QWidget *parent, const WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *_theme);
+        LivePlotWidget(QWidget *parent, const WidgetBaseConfig::SharedPtr &configInfo, WidgetData *widgetData, Theme *_theme);
 
         /**
          * Parses a xml node into the config struct
          * @param parentConfig[out] struct to store data into
          * @param node[in] xml node to parse
          */
-        static void parseXml(const WidgetConfig_ptr &parentConfig, rapidxml::xml_node<> *node);
+        static void parseXml(const WidgetBaseConfig::SharedPtr &parentConfig, rapidxml::xml_node<> *node);
 
 
         /**
@@ -129,6 +130,8 @@ namespace RobotGui {
         QChartView *chartView;
         QPushButton *pauseButton;
         QPushButton *resetButton;
+
+        LineConfig::SharedPtr lineConfig;
     };
 }
 

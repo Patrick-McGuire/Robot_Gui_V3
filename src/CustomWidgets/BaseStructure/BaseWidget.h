@@ -13,9 +13,12 @@
 #include "../../Theme.h"
 #include "../../WidgetData.h"
 #include "../../Theme.h"
+#include "WidgetSettingsDialog.h"
 
 
 namespace RobotGui {
+    class WidgetSettingsDialog;
+
     /**
      * @class BaseWidget
      * Custom QWidget that creates tabs with children widgets
@@ -31,7 +34,9 @@ namespace RobotGui {
          * @param _configInfo config struct to create widget based off of
          * @param _widgetData data passing structure to read data from at runtime
          */
-        BaseWidget(QWidget *_parent_, const WidgetConfig_ptr &_configInfo, WidgetData *_widgetData, Theme *_theme);
+        BaseWidget(QWidget *_parent_, const WidgetBaseConfig::SharedPtr &_configInfo, WidgetData *_widgetData, Theme *_theme);
+
+        ~BaseWidget();
 
         /**
          * Sets the position of the widget on the screen
@@ -87,10 +92,11 @@ namespace RobotGui {
          * Gets the config info for this widget
          * @return config info
          */
-        WidgetConfig_ptr getConfig();
+        WidgetBaseConfig::SharedPtr getConfig();
 
         // These register weather or not the current widget can update these attributes
         // Set these in the constructor of any derived class
+        const bool staticPos;
         bool styledBackground = false;
         bool styledText = false;
         bool styledHeader = false;
@@ -104,6 +110,7 @@ namespace RobotGui {
 
 
     protected:
+        virtual void customUpdateFromConfigInfo();
 
         /**
          * Updates data when widget is out of focus, virtual
@@ -147,11 +154,11 @@ namespace RobotGui {
         void mouseMoveEvent(QMouseEvent *event) override;
 
         QWidget *_parent;
-        WidgetConfig_ptr configInfo;
+        WidgetBaseConfig::SharedPtr configInfo;
         WidgetData *widgetData;
-        const bool staticPos;
         bool drawBorder = true;
         Theme *theme;
+        WidgetSettingsDialog *widgetSettingsDialog = nullptr;
 
         // Style
         std::string backgroundColor;
@@ -183,6 +190,8 @@ namespace RobotGui {
          * @param channelAction Stores the color to set
          */
         void setTextColor(QAction *channelAction);
+
+        void updateFromConfigInfo();
 
     private slots:
 

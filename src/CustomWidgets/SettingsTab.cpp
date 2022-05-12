@@ -12,9 +12,9 @@
 #include "SettingsPanels/RawDataView.h"
 #include "../WidgetData.h"
 #include "../Theme.h"
-#include "BaseWidgetHelper/BaseWidget.h"
+#include "BaseStructure/BaseWidget.h"
 
-RobotGui::SettingsTab::SettingsTab(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
+RobotGui::SettingsTab::SettingsTab(QWidget *parent, const RobotGui::WidgetBaseConfig::SharedPtr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
     sideTabWidget = new SideTabWidget();
     sideTabWidget->show();
     drawBorder = false;

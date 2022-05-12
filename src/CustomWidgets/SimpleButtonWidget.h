@@ -1,7 +1,7 @@
 #ifndef ROBOT_GUI_V3_SIMPLEBUTTONWIDGET_H
 #define ROBOT_GUI_V3_SIMPLEBUTTONWIDGET_H
 
-#include "BaseWidgetHelper/BaseWidget.h"
+#include "BaseStructure/BaseWidget.h"
 #include <QWidget>
 #include <string>
 #include <QPushButton>
@@ -27,14 +27,14 @@ namespace RobotGui {
          * @param configInfo configuration data
          * @param widgetData global widgetData object
          */
-        SimpleButtonWidget(QWidget *parent, const WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *_theme);
+        SimpleButtonWidget(QWidget *parent, const WidgetBaseConfig::SharedPtr &configInfo, WidgetData *widgetData, Theme *_theme);
 
         /**
          * Parses a xml node into the config struct
          * @param parentConfig[out] struct to store data into
          * @param node[in] xml node to parse
          */
-        static void parseXml(const WidgetConfig_ptr &parentConfig, rapidxml::xml_node<> *node);
+        static void parseXml(const WidgetBaseConfig::SharedPtr &parentConfig, rapidxml::xml_node<> *node);
 
         /**
          * Saves any configuration data to a xml node

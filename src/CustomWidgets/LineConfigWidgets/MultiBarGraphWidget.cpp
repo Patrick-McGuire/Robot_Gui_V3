@@ -1,35 +1,43 @@
-//
-// Created by nathan on 12/25/21.
-//
-
 #include <QGridLayout>
 
 #include "MultiBarGraphWidget.h"
-#include "WidgetParts/SimpleBarGraph.h"
-#include "WidgetParts/CircleBarGraph.h"
-#include "../WidgetData.h"
-#include "../InternalJson.h"
-#include "../Theme.h"
-#include "BaseWidgetHelper/BaseWidget.h"
+#include "../WidgetParts/SimpleBarGraph.h"
+#include "../WidgetParts/CircleBarGraph.h"
+#include "../../WidgetData.h"
+#include "../../InternalJson.h"
+#include "../../Theme.h"
+#include "../BaseStructure/BaseWidget.h"
 
 #define SIMPLE_BAR_GRAPH_NAME "SimpleBarGraph"
 #define CIRCLE_BAR_GRAPH_NAME "CircleBarGraph"
 
-RobotGui::MultiBarGraphWidget::MultiBarGraphWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
+RobotGui::MultiBarGraphWidget::MultiBarGraphWidget(QWidget *parent, const RobotGui::WidgetBaseConfig::SharedPtr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
     configurablePos = true;
-    auto *layout = new QGridLayout();
 
-    for (auto &line : configInfo->graphLines) {
-        if (line.type == SIMPLE_BAR_GRAPH_NAME) {
-            subGraphVector.push_back(new SimpleBarGraph(nullptr, line.title, line.min, line.max, 200, line.colorString));
+    if(configInfo->type == MULTI_BAR_GRAPH) {
+        lineConfig = std::dynamic_pointer_cast<LineConfig> (configInfo);
+    } else {
+        lineConfig = LineConfig::create();
+    }
+
+    auto *layout = new QGridLayout();
+    for (auto &line : lineConfig->lines) {
+        // Make sure everything is initialized
+        if(!line.color.is_initialized()) { line.color = ""; }
+        if(!line.min.is_initialized()) { line.min = 0; }
+        if(!line.max.is_initialized()) { line.max = 100; }
+        if(!line.type.is_initialized()) { line.type = "NONE SPECIFIED"; }
+
+        if (line.type.get() == SIMPLE_BAR_GRAPH_NAME) {
+            subGraphVector.push_back(new SimpleBarGraph(nullptr, line.label, line.min.get(), line.max.get(), 200, line.color.get()));
             subGraphSourcesVector.push_back(line.source);
             layout->addWidget(subGraphVector[subGraphVector.size() - 1], 1, subGraphVector.size());
-        } else if (line.type == CIRCLE_BAR_GRAPH_NAME) {
-            subGraphVector.push_back(new CircleBarGraph(nullptr, line.title, line.min, line.max, 200, line.colorString));
+        } else if (line.type.get() == CIRCLE_BAR_GRAPH_NAME) {
+            subGraphVector.push_back(new CircleBarGraph(nullptr, line.label, line.min.get(), line.max.get(), 200, line.color.get()));
             subGraphSourcesVector.push_back(line.source);
             layout->addWidget(subGraphVector[subGraphVector.size() - 1], 1, subGraphVector.size());
         } else {
-            std::cout << "Unable to add graph of type " << line.type << std::endl;
+            std::cout << "Unable to add graph of type " << line.type.get() << std::endl;
         }
     }
 
@@ -55,12 +63,12 @@ void RobotGui::MultiBarGraphWidget::updateInFocus() {
     }
 }
 
-void RobotGui::MultiBarGraphWidget::parseXml(const RobotGui::WidgetConfig_ptr &parentConfig, rapidxml::xml_node<> *node) {
+void RobotGui::MultiBarGraphWidget::parseXml(const RobotGui::WidgetBaseConfig::SharedPtr &parentConfig, rapidxml::xml_node<> *node) {
     // Iterate though all lines
     for (auto *line = node->first_node(); line; line = line->next_sibling()) {
         std::string tagName = line->name();
         if (tagName == RobotGui::Xml::LINE_TAG) {
-            RobotGui::GraphLineConfig configStruct;
+            LineConfig::LineInfo configStruct;
 
             for (rapidxml::xml_attribute<> *attr = line->first_attribute(); attr; attr = attr->next_attribute()) {
                 std::string attrName = attr->name();
@@ -71,33 +79,34 @@ void RobotGui::MultiBarGraphWidget::parseXml(const RobotGui::WidgetConfig_ptr &p
                 } else if (attrName == RobotGui::Xml::SOURCE_ATR) {
                     configStruct.source = attrVal;
                 } else if (attrName == RobotGui::Xml::TITLE_ATR) {
-                    configStruct.title = attrVal;
+                    configStruct.label = attrVal;
                 } else if (attrName == RobotGui::Xml::MINIMUM_ATR) {
                     configStruct.min = std::atof(attrVal.c_str());
                 } else if (attrName == RobotGui::Xml::MAXIMUM_ATR) {
                     configStruct.max = std::atof(attrVal.c_str());
                 } else if (attrName == RobotGui::Xml::COLOR_ATR) {
-                    configStruct.colorString = attrVal;
+                    configStruct.color = attrVal;
                 }
             }
-
-            parentConfig->graphLines.push_back(configStruct);
+            if(parentConfig->type == MULTI_BAR_GRAPH) {
+                std::dynamic_pointer_cast<LineConfig>(parentConfig)->lines.push_back(configStruct);
+            }
         }
     }
 }
 
 void RobotGui::MultiBarGraphWidget::outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) {
-    for(auto & lineConfig : configInfo->graphLines) {
+    for(auto & lineConfig : lineConfig->lines) {
         rapidxml::xml_node<> *line = doc->allocate_node(rapidxml::node_element, RobotGui::Xml::LINE_TAG);
         node->append_node(line);
-        line->append_attribute(doc->allocate_attribute(RobotGui::Xml::TYPE_ATR, lineConfig.type.c_str()));
+        line->append_attribute(doc->allocate_attribute(RobotGui::Xml::TYPE_ATR, lineConfig.type->c_str()));
         line->append_attribute(doc->allocate_attribute(RobotGui::Xml::SOURCE_ATR, lineConfig.source.c_str()));
-        line->append_attribute(doc->allocate_attribute(RobotGui::Xml::TITLE_ATR, lineConfig.title.c_str()));
+        line->append_attribute(doc->allocate_attribute(RobotGui::Xml::TITLE_ATR, lineConfig.label.c_str()));
 
-        line->append_attribute(doc->allocate_attribute(RobotGui::Xml::MINIMUM_ATR, doc->allocate_string(std::to_string(lineConfig.min).c_str())));
-        line->append_attribute(doc->allocate_attribute(RobotGui::Xml::MAXIMUM_ATR, doc->allocate_string(std::to_string(lineConfig.max).c_str())));
+        line->append_attribute(doc->allocate_attribute(RobotGui::Xml::MINIMUM_ATR, doc->allocate_string(std::to_string(lineConfig.min.get()).c_str())));
+        line->append_attribute(doc->allocate_attribute(RobotGui::Xml::MAXIMUM_ATR, doc->allocate_string(std::to_string(lineConfig.max.get()).c_str())));
 
-        line->append_attribute(doc->allocate_attribute(RobotGui::Xml::COLOR_ATR, lineConfig.colorString.c_str()));
+        line->append_attribute(doc->allocate_attribute(RobotGui::Xml::COLOR_ATR, lineConfig.color->c_str()));
     }
 }
 

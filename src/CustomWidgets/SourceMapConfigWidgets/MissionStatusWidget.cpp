@@ -8,12 +8,19 @@
 #include <QGridLayout>
 #include <QSizePolicy>
 
-#include "../../lib/CommonFunctions.h"
-#include "../WidgetData.h"
-#include "../Theme.h"
-#include "BaseWidgetHelper/BaseWidget.h"
+#include "../../../lib/CommonFunctions.h"
+#include "../../WidgetData.h"
+#include "../../Theme.h"
+#include "../BaseStructure/BaseWidget.h"
 
-RobotGui::MissionStatusWidget::MissionStatusWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme) : BaseWidget(parent, configInfo, widgetData, theme) {
+RobotGui::MissionStatusWidget::MissionStatusWidget(QWidget *parent, const RobotGui::WidgetBaseConfig::SharedPtr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme) : BaseWidget(parent, configInfo, widgetData, theme) {
+
+    if(configInfo->type == MISSION_STATUS) {
+        sourceMapConfig = std::dynamic_pointer_cast<SourceMapConfig> (configInfo);
+    } else {
+        sourceMapConfig = SourceMapConfig::create();
+    }
+
     statusBox = new QLabel();
     missionNameBox = new QLabel();
     objectiveBox = new QLabel();
@@ -24,10 +31,10 @@ RobotGui::MissionStatusWidget::MissionStatusWidget(QWidget *parent, const RobotG
     layout->addWidget(objectiveBox, 2, 2, 1, 1);
     setLayout(layout);
 
-    statusSource = CommonFunctions::GetStringFromMap(configInfo->sourceMap, "statusSource", "missionStatus");
-    missionNameSource = CommonFunctions::GetStringFromMap(configInfo->sourceMap, "missionNameSource", "missionName");
-    objectiveSource = CommonFunctions::GetStringFromMap(configInfo->sourceMap, "objectiveNameSource", "objectiveName");
-    size = configInfo->size;
+    statusSource = CommonFunctions::GetStringFromMap(sourceMapConfig->sourceMap, "statusSource", "missionStatus");
+    missionNameSource = CommonFunctions::GetStringFromMap(sourceMapConfig->sourceMap, "missionNameSource", "missionName");
+    objectiveSource = CommonFunctions::GetStringFromMap(sourceMapConfig->sourceMap, "objectiveNameSource", "objectiveName");
+    size = configInfo->size.is_initialized() ? configInfo->size.get() : 0;
     if (size == 0) { size = 30; }
 
     statusBox->setFont(QFont("Monospace", size));
@@ -62,4 +69,15 @@ void RobotGui::MissionStatusWidget::customUpdateStyle() {
     statusBox->setStyleSheet(QString::fromStdString("color: " + bodyTextColor));
     missionNameBox->setStyleSheet(QString::fromStdString("color: " + bodyTextColor));
     objectiveBox->setStyleSheet(QString::fromStdString("color: " + bodyTextColor));
+}
+
+void RobotGui::MissionStatusWidget::parseXml(const RobotGui::WidgetBaseConfig::SharedPtr &parentConfig, rapidxml::xml_node<> *node) {
+    SourceMapConfig::SharedPtr config = std::dynamic_pointer_cast<SourceMapConfig>(parentConfig);
+    for (rapidxml::xml_attribute<> *attr = node->first_attribute(); attr; attr = attr->next_attribute()) {
+        std::string attrName = attr->name();                                            // Get the name of the current attribute
+        std::string attrVal = attr->value();                                            // Get the value of the current attribute
+        if (attrName.find("Source") != std::string::npos) {
+            config->sourceMap[attrName] = attrVal;
+        }
+    }
 }

@@ -6,7 +6,7 @@
 #include "WidgetData.h"
 #include "GUIMaker.h"
 #include <QMainWindow>
-#include "CustomWidgets/TabWidget.h"
+#include "CustomWidgets/WidgetCollectionConfig/TabWidget.h"
 #include "CoreWidgets/MenuWidget.h"
 #include "CustomWidgets/SimpleButtonWidget.h"
 #include "iostream"

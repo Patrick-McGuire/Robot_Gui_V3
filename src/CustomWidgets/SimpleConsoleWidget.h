@@ -5,14 +5,14 @@
 #ifndef ROBOT_GUI_V3_SIMPLECONSOLEWIDGET_H
 #define ROBOT_GUI_V3_SIMPLECONSOLEWIDGET_H
 
-#include "BaseWidgetHelper/BaseWidget.h"
+#include "BaseStructure/BaseWidget.h"
 #include "../WidgetData.h"
 #include "../Theme.h"
 
 namespace RobotGui {
     class SimpleConsoleWidget : public BaseWidget {
     public:
-        SimpleConsoleWidget(QWidget *parent, const WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *theme, bool _borderEnabled=true);
+        SimpleConsoleWidget(QWidget *parent, const WidgetBaseConfig::SharedPtr &configInfo, WidgetData *widgetData, Theme *theme, bool _borderEnabled=true);
 
         void updateInFocus() override;
 

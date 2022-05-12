@@ -3,7 +3,8 @@
 #include "src/Interface/RandomDataInterface.h"
 #include "src/Interface/WebcamStreamInterface.h"
 #include "src/Interface/FlagCheckerInterface.h"
-
+#include "boost/optional/optional.hpp"
+#include "vector"
 
 int main(int argc, char** argv) {
     auto gui = new RobotGui::GuiCore(argc, argv);

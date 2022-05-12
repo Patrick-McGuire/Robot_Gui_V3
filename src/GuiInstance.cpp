@@ -39,19 +39,19 @@ RobotGui::GuiInstance::GuiInstance(QWidget *_parent, QMainWindow *_mainWindow, A
 
     //Hardcoded settings tab for first tab widget
     if (true == 4) { //Change this to not always true when you want to switch the settings tab on and off
-        auto settingsTabConfig = std::make_shared<RobotGui::WidgetConfig>();
-        settingsTabConfig->type = RobotGui::SETTINGS_TAB_STRID;
-        settingsTabConfig->backgroundColor = RobotGui::Xml::THEME_CONST;
-        settingsTabConfig->textColor = RobotGui::Xml::THEME_CONST;
-        settingsTabConfig->headerColor = RobotGui::Xml::THEME_CONST;
-        settingsTabConfig->relief = RobotGui::Xml::THEME_CONST;
-        settingsTabConfig->font = RobotGui::Xml::THEME_CONST;
-        settingsTabConfig->borderColor = RobotGui::Xml::THEME_CONST;
-
-        std::vector<std::shared_ptr<RobotGui::WidgetConfig>> tabWidgetConfig;
-        tabWidgetConfig.push_back(settingsTabConfig);
-        config->firstChild->tabNames.insert(config->firstChild->tabNames.begin(), "Settings");
-        config->firstChild->tabWidgets.insert(config->firstChild->tabWidgets.begin(), tabWidgetConfig);
+//        auto settingsTabConfig = WidgetBaseConfig::create();
+//        settingsTabConfig->config->type = RobotGui::SETTINGS_TAB;
+//        settingsTabConfig->config->backgroundColor = RobotGui::Xml::THEME_CONST;
+//        settingsTabConfig->config->textColor = RobotGui::Xml::THEME_CONST;
+//        settingsTabConfig->config->headerColor = RobotGui::Xml::THEME_CONST;
+//        settingsTabConfig->config->relief = RobotGui::Xml::THEME_CONST;
+//        settingsTabConfig->config->font = RobotGui::Xml::THEME_CONST;
+//        settingsTabConfig->config->borderColor = RobotGui::Xml::THEME_CONST;
+//
+//        std::vector<WidgetBaseConfig::SharedPtr> tabWidgetConfig;
+//        tabWidgetConfig.push_back(settingsTabConfig);
+//        config->firstChild->tabNames.insert(config->firstChild->tabNames.begin(), "Settings");
+//        config->firstChild->tabWidgets.insert(config->firstChild->tabWidgets.begin(), tabWidgetConfig);
     }
 
     // Create the core widget for the GUI

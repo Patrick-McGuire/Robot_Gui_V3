@@ -27,17 +27,17 @@ set(xml_interface_files
 
 set(widget_type_files
         src/CustomWidgets/VideoWidget.cpp src/CustomWidgets/VideoWidget.h
-        src/CustomWidgets/TextBoxWidget.cpp src/CustomWidgets/TextBoxWidget.h
-        src/CustomWidgets/BaseWidgetHelper/BaseWidget.cpp src/CustomWidgets/BaseWidgetHelper/BaseWidget.h
-        src/CustomWidgets/TabWidget.cpp src/CustomWidgets/TabWidget.h
+        src/CustomWidgets/LineConfigWidgets/TextBoxWidget.cpp src/CustomWidgets/LineConfigWidgets/TextBoxWidget.h
+        src/CustomWidgets/BaseStructure/BaseWidget.cpp src/CustomWidgets/BaseStructure/BaseWidget.h
+        src/CustomWidgets/WidgetCollectionConfig/TabWidget.cpp src/CustomWidgets/WidgetCollectionConfig/TabWidget.h
         src/CoreWidgets/MenuWidget.cpp src/CoreWidgets/MenuWidget.h
         src/CustomWidgets/SimpleButtonWidget.cpp src/CustomWidgets/SimpleButtonWidget.h
-        src/CustomWidgets/MultiBarGraphWidget.cpp src/CustomWidgets/MultiBarGraphWidget.h
+        src/CustomWidgets/LineConfigWidgets/MultiBarGraphWidget.cpp src/CustomWidgets/LineConfigWidgets/MultiBarGraphWidget.h
         src/CustomWidgets/AnnunciatorWidget.cpp src/CustomWidgets/AnnunciatorWidget.h
         src/CustomWidgets/SimpleConsoleWidget.cpp src/CustomWidgets/SimpleConsoleWidget.h
-        src/CustomWidgets/ROVStatusWidget.cpp src/CustomWidgets/ROVStatusWidget.h
+        src/CustomWidgets/SourceMapConfigWidgets/ROVStatusWidget.cpp src/CustomWidgets/SourceMapConfigWidgets/ROVStatusWidget.h
         src/CustomWidgets/CompleteConsoleWidget.cpp src/CustomWidgets/CompleteConsoleWidget.h
-        src/CustomWidgets/MissionStatusWidget.cpp src/CustomWidgets/MissionStatusWidget.h
+        src/CustomWidgets/SourceMapConfigWidgets/MissionStatusWidget.cpp src/CustomWidgets/SourceMapConfigWidgets/MissionStatusWidget.h
         src/CustomWidgets/DropDownTextBoxWidget.cpp src/CustomWidgets/DropDownTextBoxWidget.h
         src/CustomWidgets/CompassWidget.cpp src/CustomWidgets/CompassWidget.h
         src/CustomWidgets/SettingsTab.cpp src/CustomWidgets/SettingsTab.h)
@@ -81,7 +81,7 @@ set(all_gui_files
         ${networking_files}
         ${interface_files}
         ${xml_interface_files}
-        ${core_files} src/CustomWidgets/LivePlotWidget.cpp src/CustomWidgets/LivePlotWidget.h src/Interface/ServerInterface.cpp src/Interface/ServerInterface.h)
+        ${core_files} src/CustomWidgets/LineConfigWidgets/LivePlotWidget.cpp src/CustomWidgets/LineConfigWidgets/LivePlotWidget.h src/Interface/ServerInterface.cpp src/Interface/ServerInterface.h src/CustomWidgets/BaseStructure/WidgetSettingsDialog.cpp src/CustomWidgets/BaseStructure/WidgetSettingsDialog.h src/CustomWidgets/BaseStructure/WidgetBaseConfig.cpp src/CustomWidgets/BaseStructure/WidgetBaseConfig.h src/CustomWidgets/LineConfigWidgets/LineConfig.cpp src/CustomWidgets/LineConfigWidgets/LineConfig.h src/CustomWidgets/SourceMapConfigWidgets/SourceMapConfig.cpp src/CustomWidgets/SourceMapConfigWidgets/SourceMapConfig.h src/CustomWidgets/WidgetCollectionConfig/WidgetCollectionConfig.cpp src/CustomWidgets/WidgetCollectionConfig/WidgetCollectionConfig.h)
 
 add_executable(Robot_Gui_V3 main.cpp ${all_gui_files})
 set(SOURCE_FILES main.cpp)

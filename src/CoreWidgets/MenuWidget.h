@@ -1,7 +1,7 @@
 #ifndef ROBOT_GUI_V3_MENUWIDGET_H
 #define ROBOT_GUI_V3_MENUWIDGET_H
 
-#include "../CustomWidgets/BaseWidgetHelper/BaseWidget.h"
+#include "../CustomWidgets/BaseStructure/BaseWidget.h"
 #include <QWidget>
 #include <QLabel>
 #include <string>

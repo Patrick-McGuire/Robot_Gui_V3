@@ -1,18 +1,24 @@
 #include "TextBoxWidget.h"
-#include "../WidgetData.h"
-#include "../InternalJson.h"
-#include "../Theme.h"
-#include "BaseWidgetHelper/BaseWidget.h"
+#include "../../WidgetData.h"
+#include "../../InternalJson.h"
+#include "../../Theme.h"
+#include "../BaseStructure/BaseWidget.h"
 #include <QString>
 #include <iostream>
 #include <vector>
 
-RobotGui::TextBoxWidget::TextBoxWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
+RobotGui::TextBoxWidget::TextBoxWidget(QWidget *parent, const RobotGui::WidgetBaseConfig::SharedPtr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
     styledHeader = true;
     styledText = true;
     styledSeeThroughBackground = true;
     styledWidgetBackgroundColor = true;
     configurablePos = true;
+
+    if(configInfo->type == TEXT_BOX) {
+        lineConfig = std::dynamic_pointer_cast<LineConfig> (configInfo);
+    } else {
+        lineConfig = LineConfig::create();
+    }
 
     layout = new QGridLayout();
     titleBox = new QLabel();
@@ -23,25 +29,27 @@ RobotGui::TextBoxWidget::TextBoxWidget(QWidget *parent, const RobotGui::WidgetCo
     layout->addWidget(textBox);
     this->setLayout(layout);
 
-    titleBox->setText(QString::fromStdString(configInfo->title));
+    titleBox->setText(configInfo->title.is_initialized() ? configInfo->title->c_str() : "err");
     titleBox->setAlignment(Qt::AlignCenter | Qt::AlignVCenter);
 
     layout->setMargin(5);
     titleBox->setMargin(0);
     this->setAttribute(Qt::WA_StyledBackground, true);                                  // QWidget don't have this enabled by default, but most QWidgets do
 
-    for (auto it = configInfo->lines.begin(); it != configInfo->lines.end(); ++it) {
-        lineKeys.push_back(it[0][1]);
-    }
-
     titleBox->setFont(QFont(font()));
     textBox->setFont(QFont("monospace", font().pointSize()));
     customUpdate();
 }
 
+void RobotGui::TextBoxWidget::customUpdateFromConfigInfo() {
+    if(configInfo->title.is_initialized()) {
+        titleBox->setText(configInfo->title->c_str());
+    }
+}
+
 void RobotGui::TextBoxWidget::updateInFocus() {
-    for (auto &lineKey : lineKeys) {
-        if (widgetData->keyUpdated(lineKey)) {
+    for (auto &line : lineConfig->lines) {
+        if (widgetData->keyUpdated(line.source)) {
             customUpdate();
             return;
         }
@@ -59,24 +67,23 @@ void RobotGui::TextBoxWidget::updateOnInFocus() {
 void RobotGui::TextBoxWidget::customUpdate() {
     int i = 0;
 
-    for (auto it = configInfo->lines.begin(); it != configInfo->lines.end(); ++it) {
-        std::string first = it[0][0];
-        std::string second;
+    for (auto &line : lineConfig->lines) {
+        std::string val;
+        RobotGui::InternalJson::SharedPtr jsonVal = widgetData->getJson()->mapGet(line.source);
 
-        RobotGui::InternalJson::SharedPtr jsonVal = widgetData->getJson()->mapGet(it[0][1]);
         if (jsonVal->getType() == RobotGui::InternalJson::int_t) {
-            second += std::to_string(jsonVal->getInt());
+            val += std::to_string(jsonVal->getInt());
         } else if (jsonVal->getType() == RobotGui::InternalJson::double_t) {
-            second += std::to_string(jsonVal->getDouble());
+            val += std::to_string(jsonVal->getDouble());
         } else if (jsonVal->getType() == RobotGui::InternalJson::string_t) {
-            second += jsonVal->getString();
+            val += jsonVal->getString();
         } else if (jsonVal->getType() == RobotGui::InternalJson::bool_t) {
-            second += jsonVal->getBool() ? "True" : "False";
+            val += jsonVal->getBool() ? "True" : "False";
         } else {
-            second += "No Data";
+            val += "No Data";
         }
 
-        textBox->setLine(i, first, second);
+        textBox->setLine(i, line.label, val);
         i++;
     }
 
@@ -104,7 +111,7 @@ void RobotGui::TextBoxWidget::customUpdateStyle() {
     adjustSize();
 }
 
-void RobotGui::TextBoxWidget::parseXml(const RobotGui::WidgetConfig_ptr &parentConfig, rapidxml::xml_node<> *node) {
+void RobotGui::TextBoxWidget::parseXml(const RobotGui::WidgetBaseConfig::SharedPtr &parentConfig, rapidxml::xml_node<> *node) {
     // Iterate though all lines
     for (auto *line = node->first_node(); line; line = line->next_sibling()) {
         std::string tagName = line->name();
@@ -120,17 +127,19 @@ void RobotGui::TextBoxWidget::parseXml(const RobotGui::WidgetConfig_ptr &parentC
                     value = attrVal;
                 }
             }
-            parentConfig->lines.emplace_back(std::vector < std::string > {label, value});
+            if(parentConfig->type == TEXT_BOX) {
+                std::dynamic_pointer_cast<LineConfig>(parentConfig)->lines.push_back({label, value});
+            }
         }
     }
 }
 
 void RobotGui::TextBoxWidget::outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) {
-    for (auto &lineConfig : configInfo->lines) {
+    for (const auto& lineInfo : lineConfig->lines) {
         rapidxml::xml_node<> *line = doc->allocate_node(rapidxml::node_element, RobotGui::Xml::LINE_TAG);
         node->append_node(line);
-        line->append_attribute(doc->allocate_attribute(RobotGui::Xml::LABEL_ATR, lineConfig[0].c_str()));
-        line->append_attribute(doc->allocate_attribute(RobotGui::Xml::VALUE_ATR, lineConfig[1].c_str()));
+        line->append_attribute(doc->allocate_attribute(RobotGui::Xml::LABEL_ATR, lineInfo.label.c_str()));
+        line->append_attribute(doc->allocate_attribute(RobotGui::Xml::VALUE_ATR, lineInfo.source.c_str()));
     }
 }
 

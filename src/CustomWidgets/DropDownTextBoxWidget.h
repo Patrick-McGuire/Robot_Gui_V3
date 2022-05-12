@@ -5,7 +5,7 @@
 #ifndef ROBOT_GUI_V3_DROPDOWNTEXTBOXWIDGET_H
 #define ROBOT_GUI_V3_DROPDOWNTEXTBOXWIDGET_H
 
-#include "BaseWidgetHelper/BaseWidget.h"
+#include "BaseStructure/BaseWidget.h"
 
 #include <QComboBox>
 
@@ -16,7 +16,7 @@
 namespace RobotGui {
     class DropDownTextBoxWidget : public BaseWidget {
     public:
-        DropDownTextBoxWidget(QWidget *parent, const WidgetConfig_ptr &configInfo, WidgetData *widgetData, Theme *theme);
+        DropDownTextBoxWidget(QWidget *parent, const WidgetBaseConfig::SharedPtr &configInfo, WidgetData *widgetData, Theme *theme);
 
         void updateInFocus() override;
 

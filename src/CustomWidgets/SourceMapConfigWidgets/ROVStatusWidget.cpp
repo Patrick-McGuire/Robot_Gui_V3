@@ -1,24 +1,28 @@
-//
-// Created by nathan on 12/27/21.
-//
-
 #include "ROVStatusWidget.h"
-#include "../../lib/CommonFunctions.h"
-#include "../WidgetData.h"
-#include "../Theme.h"
-#include "BaseWidgetHelper/BaseWidget.h"
+#include "../../../lib/CommonFunctions.h"
+#include "../../WidgetData.h"
+#include "../../Theme.h"
+#include "../BaseStructure/BaseWidget.h"
 
 #include <QLabel>
 #include <QGridLayout>
 
-RobotGui::ROVStatusWidget::ROVStatusWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme) : BaseWidget(parent, configInfo, widgetData, theme) {
-    statusSource = CommonFunctions::GetStringFromMap(configInfo->sourceMap, "statusSource", "status");
-    armedSource = CommonFunctions::GetStringFromMap(configInfo->sourceMap, "armedSource", "armed");
-    allowedToArmSource = CommonFunctions::GetStringFromMap(configInfo->sourceMap, "allowedToArmSource", "allowedToArm");
-    modeSource = CommonFunctions::GetStringFromMap(configInfo->sourceMap, "modeSource", "driveMode");
-    runtimeSource = CommonFunctions::GetStringFromMap(configInfo->sourceMap, "runtimeSource", "runtime");
-    timeSource = CommonFunctions::GetStringFromMap(configInfo->sourceMap, "timeSource", "time");
-    size = configInfo->size;
+RobotGui::ROVStatusWidget::ROVStatusWidget(QWidget *parent, const RobotGui::WidgetBaseConfig::SharedPtr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme) : BaseWidget(parent, configInfo,
+                                                                                                                                                                                 widgetData, theme) {
+
+    if (configInfo->type == ROV_STATUS) {
+        sourceMapConfig = std::dynamic_pointer_cast<SourceMapConfig>(configInfo);
+    } else {
+        sourceMapConfig = SourceMapConfig::create();
+    }
+
+    statusSource = CommonFunctions::GetStringFromMap(sourceMapConfig->sourceMap, "statusSource", "status");
+    armedSource = CommonFunctions::GetStringFromMap(sourceMapConfig->sourceMap, "armedSource", "armed");
+    allowedToArmSource = CommonFunctions::GetStringFromMap(sourceMapConfig->sourceMap, "allowedToArmSource", "allowedToArm");
+    modeSource = CommonFunctions::GetStringFromMap(sourceMapConfig->sourceMap, "modeSource", "driveMode");
+    runtimeSource = CommonFunctions::GetStringFromMap(sourceMapConfig->sourceMap, "runtimeSource", "runtime");
+    timeSource = CommonFunctions::GetStringFromMap(sourceMapConfig->sourceMap, "timeSource", "time");
+    size = configInfo->size.is_initialized() ? configInfo->size.get() : 0;
     if (size == 0) { size = 30; } //Default value
 
     statusBox = new QLabel();
@@ -100,4 +104,15 @@ void RobotGui::ROVStatusWidget::customUpdateStyle() {
     modeBox->setStyleSheet(QString::fromStdString("color: " + bodyTextColor));
     timeBox->setStyleSheet(QString::fromStdString("color: " + bodyTextColor));
     runtimeBox->setStyleSheet(QString::fromStdString("color: " + bodyTextColor));
+}
+
+void RobotGui::ROVStatusWidget::parseXml(const RobotGui::WidgetBaseConfig::SharedPtr &parentConfig, rapidxml::xml_node<> *node) {
+    SourceMapConfig::SharedPtr config = std::dynamic_pointer_cast<SourceMapConfig>(parentConfig);
+    for (rapidxml::xml_attribute<> *attr = node->first_attribute(); attr; attr = attr->next_attribute()) {
+        std::string attrName = attr->name();                                            // Get the name of the current attribute
+        std::string attrVal = attr->value();                                            // Get the value of the current attribute
+        if (attrName.find("Source") != std::string::npos) {
+            config->sourceMap[attrName] = attrVal;
+        }
+    }
 }

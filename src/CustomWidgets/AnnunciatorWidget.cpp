@@ -2,20 +2,20 @@
 #include "../WidgetData.h"
 #include "../InternalJson.h"
 #include "../Theme.h"
-#include "BaseWidgetHelper/BaseWidget.h"
+#include "BaseStructure/BaseWidget.h"
 
 #include <QLabel>
 #include <QGridLayout>
 
-RobotGui::AnnunciatorWidget::AnnunciatorWidget(QWidget *parent, const RobotGui::WidgetConfig_ptr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *_theme) : RobotGui::BaseWidget(parent, configInfo, widgetData, _theme) {
+RobotGui::AnnunciatorWidget::AnnunciatorWidget(QWidget *parent, const RobotGui::WidgetBaseConfig::SharedPtr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *_theme) : RobotGui::BaseWidget(parent, configInfo, widgetData, _theme) {
     int rows = 10;
     int columns = 2;
-    if (configInfo->rowNumber != 0) { rows = configInfo->rowNumber; }
-    if (configInfo->columnNumber != 0) { columns = configInfo->columnNumber; }
-    source = configInfo->source;
+    if (configInfo->rowNumber.is_initialized() && configInfo->rowNumber != 0) { rows = configInfo->rowNumber.get(); }
+    if (configInfo->columnNumber.is_initialized() && configInfo->columnNumber != 0) { columns = configInfo->columnNumber.get(); }
+    source = configInfo->source.is_initialized() ? configInfo->source.get() : "";
 
     titleWidget = new QLabel();
-    titleWidget->setText(QString::fromStdString(configInfo->title));
+    titleWidget->setText(QString::fromStdString(configInfo->title.get()));
     titleWidget->setAlignment(Qt::AlignCenter | Qt::AlignVCenter);
     titleWidget->show();
     auto *layout = new QGridLayout();
