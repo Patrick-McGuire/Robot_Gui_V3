@@ -14,7 +14,7 @@ namespace RobotGui {
     public:
         BasicImageDisplay(QImage _image, int _targetWidth, int _targetHeight, QWidget *parent = nullptr);
 
-        void setTargetDimensions(int _targetWidth, int _targetHeight);
+        void setTargetDimensions(int _targetWidth, int _targetHeight, int x_offset = 0, int y_offset = 0, bool x_centered = true, bool y_centered = true);
 
         void setRotation(double _rotation);
 
@@ -23,9 +23,15 @@ namespace RobotGui {
     protected:
         QImage image;
         QImage resizedImage;
+        QImage rotatedImage;
 
         int targetWidth = 100;
         int targetHeight = 100;
+        int xOffset = 0;
+        int yOffset = 0;
+        bool xCentered = true;
+        bool yCentered = true;
+
         double rotation = 0;
     };
 }
