@@ -1,18 +1,18 @@
 #include "SourceMapConfig.h"
 
 //////// Mandatory constructors ////////
-RobotGui::SourceMapConfig::SourceMapConfig(RobotGui::WidgetType _type) : WidgetBaseConfig(_type) {}
+RobotGui::SourceMapConfig::SourceMapConfig(WidgetConstants::Type _type) : WidgetBaseConfig(_type) {}
 
-RobotGui::SourceMapConfig::SharedPtr RobotGui::SourceMapConfig::create(RobotGui::WidgetType _type) {
+RobotGui::SourceMapConfig::SharedPtr RobotGui::SourceMapConfig::create(WidgetConstants::Type _type) {
     return RobotGui::SourceMapConfig::SharedPtr(new SourceMapConfig(_type));
 }
 
 RobotGui::SourceMapConfig::SharedPtr RobotGui::SourceMapConfig::create(const std::string &_type) {
-    return RobotGui::SourceMapConfig::SharedPtr(new SourceMapConfig(getType(_type)));
+    return RobotGui::SourceMapConfig::SharedPtr(new SourceMapConfig(WidgetConstants::getWidgetType(_type)));
 }
 
 RobotGui::SourceMapConfig::SharedPtr RobotGui::SourceMapConfig::create() {
-    return RobotGui::SourceMapConfig::SharedPtr(new SourceMapConfig(NO_TYPE));
+    return RobotGui::SourceMapConfig::SharedPtr(new SourceMapConfig(RobotGui::WidgetConstants::NO_TYPE));
 }
 //////// Mandatory constructors ////////
 

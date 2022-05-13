@@ -41,12 +41,6 @@ namespace RobotGui {
 
         ~TabWidget();
 
-        /**
-         * Saves any configuration data to a xml node
-         * @param node node to output to
-         */
-        void outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) override;
-
     private:
         QGridLayout layout;
         QTabWidget *tabs;
@@ -86,13 +80,6 @@ namespace RobotGui {
          * @param overwrite if we should overwrite any attributes with theme
          */
         void updateChildrenStyle() override;
-
-        /**
-         * Parses xml for all children in the tab
-         * @param parentConfig tab configuration to add children to
-         * @param node xml node containing children
-         */
-        static void parseTabChildren(const WidgetBaseConfig::SharedPtr& parentConfig, rapidxml::xml_node<> *node);
     };
 }
 

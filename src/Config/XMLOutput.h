@@ -18,9 +18,9 @@ namespace RobotGui {
          */
     class XMLOutput {
     public:
-        static void output(const char *filename, const WindowConfig_ptr &windowConfig, BaseWidget *firstWidget);
+        static void output(const char *filename, const WindowConfig_ptr &windowConfig, const WidgetBaseConfig::SharedPtr& firstWidget);
 
-        static rapidxml::xml_node<> *createWidget(rapidxml::xml_document<> *doc, BaseWidget *widget);
+        static rapidxml::xml_node<> *createWidget(rapidxml::xml_document<> *doc, const WidgetBaseConfig::SharedPtr& config);
 
     private:
         static rapidxml::xml_node<> *createWindowNode(const WindowConfig_ptr &windowConfig, rapidxml::xml_document<> *doc);

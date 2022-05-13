@@ -24,41 +24,137 @@ namespace RobotGui {
         RETURN_FLAGS_AND_VALUES = 3,
     };
 
-    //// Constants ////
-    enum WidgetType : int {
-        NO_TYPE,
-        TEXT_BOX,
-        VIDEO,
-        TAB,
-        SIMPLE_BUTTON,
-        MULTI_BAR_GRAPH,
-        ANNUNCIATOR_PANEL,
-        SIMPLE_CONSOLE,
-        ROV_STATUS,
-        COMPLETE_CONSOLE,
-        MISSION_STATUS,
-        DROP_DOWN_TEXT_BOX,
-        COMPASS,
-        LIVE_PLOT,
-        SETTINGS_TAB,
-        ATTITUDE_DISPLAY,
-    };
-    // Widget types
-    const char *const TEXT_BOX_WIDGET_STRID = "textBox";
-    const char *const VIDEO_WIDGET_STRID = "video";
-    const char *const TAB_WIDGET_STRID = "tab";
-    const char *const SIMPLE_BUTTON_WIDGET_STRID = "simpleButton";
-    const char *const MULTI_BAR_GRAPH_STRID = "multiBarGraph";
-    const char *const ANNUNCIATOR_PANEL_STRID = "annunciatorPanel";
-    const char *const SIMPLE_CONSOLE_WIDGET_STRID = "simpleConsole";
-    const char *const ROV_STATUS_WIDGET_STRID = "ROVStatusWidget";
-    const char *const COMPLETE_CONSOLE_WIDGET_STRID = "completeConsole";
-    const char *const MISSION_STATUS_WIDGET_STRID = "missionStatusWidget";
-    const char *const DROP_DOWN_TEXT_BOX_WIDGET_STRID = "dropDownTextBox";
-    const char *const COMPASS_WIDGET_STRID = "compass";
-    const char *const LIVE_PLOT_WIDGET_STRID = "livePlot";
-    const char *const SETTINGS_TAB_STRID = "settingsTab";
-    const char *const ATTITUDE_DISPLAY_STRID = "attitudeWidget";
+    namespace WidgetConstants {
+        enum Requirements {
+            TITLE,
+            SOURCE,
+            HEIGHT,
+            WIDTH,
+            SIZE,
+            MIN,
+            MAX,
+            RANGE,
+            ROW_NUMBER,
+            COLUMN_NUMBER,
+            FONT,
+            BACKGROUND_COLOR,
+            FOREGROUND_COLOR,
+            RELIEF,
+            TEXT_COLOR,
+            HEADER_COLOR,
+            BORDER_COLOR,
+            FONT_Size,
+            BORDER_Width,
+        };
+        enum Type : int {
+            NO_TYPE,
+            TEXT_BOX,
+            VIDEO,
+            TAB,
+            SIMPLE_BUTTON,
+            MULTI_BAR_GRAPH,
+            ANNUNCIATOR_PANEL,
+            SIMPLE_CONSOLE,
+            ROV_STATUS,
+            COMPLETE_CONSOLE,
+            MISSION_STATUS,
+            DROP_DOWN_TEXT_BOX,
+            COMPASS,
+            LIVE_PLOT,
+            SETTINGS_TAB,
+            ATTITUDE_DISPLAY,
+        };
+        // Widget types
+        const char *const TEXT_BOX_STRID = "textBox";
+        const char *const VIDEO_STRID = "video";
+        const char *const TAB_STRID = "tab";
+        const char *const SIMPLE_BUTTON_STRID = "simpleButton";
+        const char *const MULTI_BAR_GRAPH_STRID = "multiBarGraph";
+        const char *const ANNUNCIATOR_PANEL_STRID = "annunciatorPanel";
+        const char *const SIMPLE_CONSOLE_STRID = "simpleConsole";
+        const char *const ROV_STATUS_STRID = "ROVStatusWidget";
+        const char *const COMPLETE_CONSOLE_STRID = "completeConsole";
+        const char *const MISSION_STATUS_STRID = "missionStatusWidget";
+        const char *const DROP_DOWN_TEXT_BOX_STRID = "dropDownTextBox";
+        const char *const COMPASS_STRID = "compass";
+        const char *const LIVE_PLOT_STRID = "livePlot";
+        const char *const SETTINGS_TAB_STRID = "settingsTab";
+        const char *const ATTITUDE_DISPLAY_STRID = "attitudeWidget";
+
+        inline Type getWidgetType(const std::string &_type) {
+            WidgetConstants::Type type1 = RobotGui::WidgetConstants::NO_TYPE;
+            if (_type == WidgetConstants::TEXT_BOX_STRID) {
+                type1 = RobotGui::WidgetConstants::TEXT_BOX;
+            } else if (_type == WidgetConstants::VIDEO_STRID) {
+                type1 = RobotGui::WidgetConstants::VIDEO;
+            } else if (_type == WidgetConstants::TAB_STRID) {
+                type1 = RobotGui::WidgetConstants::TAB;
+            } else if (_type == WidgetConstants::SIMPLE_BUTTON_STRID) {
+                type1 = RobotGui::WidgetConstants::SIMPLE_BUTTON;
+            } else if (_type == WidgetConstants::MULTI_BAR_GRAPH_STRID) {
+                type1 = RobotGui::WidgetConstants::MULTI_BAR_GRAPH;
+            } else if (_type == WidgetConstants::ANNUNCIATOR_PANEL_STRID) {
+                type1 = RobotGui::WidgetConstants::ANNUNCIATOR_PANEL;
+            } else if (_type == WidgetConstants::SIMPLE_CONSOLE_STRID) {
+                type1 = RobotGui::WidgetConstants::SIMPLE_CONSOLE;
+            } else if (_type == WidgetConstants::ROV_STATUS_STRID) {
+                type1 = RobotGui::WidgetConstants::ROV_STATUS;
+            } else if (_type == WidgetConstants::COMPLETE_CONSOLE_STRID) {
+                type1 = RobotGui::WidgetConstants::COMPLETE_CONSOLE;
+            } else if (_type == WidgetConstants::MISSION_STATUS_STRID) {
+                type1 = RobotGui::WidgetConstants::MISSION_STATUS;
+            } else if (_type == WidgetConstants::DROP_DOWN_TEXT_BOX_STRID) {
+                type1 = RobotGui::WidgetConstants::DROP_DOWN_TEXT_BOX;
+            } else if (_type == WidgetConstants::COMPASS_STRID) {
+                type1 = RobotGui::WidgetConstants::COMPASS;
+            } else if (_type == WidgetConstants::LIVE_PLOT_STRID) {
+                type1 = RobotGui::WidgetConstants::LIVE_PLOT;
+            } else if (_type == WidgetConstants::SETTINGS_TAB_STRID) {
+                type1 = RobotGui::WidgetConstants::SETTINGS_TAB;
+            } else if (_type == WidgetConstants::ATTITUDE_DISPLAY_STRID) {
+                type1 = RobotGui::WidgetConstants::ATTITUDE_DISPLAY;
+            }
+            return type1;
+        }
+
+        inline std::string getTypeString(Type type) {
+            switch (type) {
+                case RobotGui::WidgetConstants::TEXT_BOX:
+                    return WidgetConstants::TEXT_BOX_STRID;
+                case RobotGui::WidgetConstants::VIDEO:
+                    return WidgetConstants::VIDEO_STRID;
+                case RobotGui::WidgetConstants::TAB:
+                    return WidgetConstants::TAB_STRID;
+                case RobotGui::WidgetConstants::SIMPLE_BUTTON:
+                    return WidgetConstants::SIMPLE_BUTTON_STRID;
+                case RobotGui::WidgetConstants::MULTI_BAR_GRAPH:
+                    return WidgetConstants::MULTI_BAR_GRAPH_STRID;
+                case RobotGui::WidgetConstants::ANNUNCIATOR_PANEL:
+                    return WidgetConstants::ANNUNCIATOR_PANEL_STRID;
+                case RobotGui::WidgetConstants::SIMPLE_CONSOLE:
+                    return WidgetConstants::SIMPLE_CONSOLE_STRID;
+                case RobotGui::WidgetConstants::ROV_STATUS:
+                    return WidgetConstants::ROV_STATUS_STRID;
+                case RobotGui::WidgetConstants::COMPLETE_CONSOLE:
+                    return WidgetConstants::COMPLETE_CONSOLE_STRID;
+                case RobotGui::WidgetConstants::MISSION_STATUS:
+                    return WidgetConstants::MISSION_STATUS_STRID;
+                case RobotGui::WidgetConstants::DROP_DOWN_TEXT_BOX:
+                    return WidgetConstants::DROP_DOWN_TEXT_BOX_STRID;
+                case RobotGui::WidgetConstants::COMPASS:
+                    return WidgetConstants::COMPASS_STRID;
+                case RobotGui::WidgetConstants::LIVE_PLOT:
+                    return WidgetConstants::LIVE_PLOT_STRID;
+                case RobotGui::WidgetConstants::SETTINGS_TAB:
+                    return WidgetConstants::SETTINGS_TAB_STRID;
+                case RobotGui::WidgetConstants::ATTITUDE_DISPLAY:
+                    return WidgetConstants::ATTITUDE_DISPLAY_STRID;
+                case RobotGui::WidgetConstants::NO_TYPE:
+                    break;
+            }
+            return "";
+        }
+    }
     // AppConfig consts
     const char *const APP_CONFIG_FILE_PATH = "/.config/RobotGUI";
     const char *const APP_CONFIG_FILE_NAME = "/RobotGUI_Settings.csv";
@@ -98,10 +194,10 @@ namespace RobotGui {
         const char *const MINIMUM_ATR = "minimum";
         const char *const MAXIMUM_ATR = "maximum";
         const char *const COLOR_ATR = "color";
-        const char *const ROW_NUMBER_ATTRIBUTE = "row_number";
-        const char *const COLUMN_NUMBER_ATTRIBUTE = "column_number";
+        const char *const ROW_NUMBER_ATR = "row_number";
+        const char *const COLUMN_NUMBER_ATR = "column_number";
         const char *const SOURCE_ATTRIBUTE = "source";
-        const char *const SIZE_ATTRIBUTE = "size";
+        const char *const SIZE_ATR = "size";
         const char *const TRANSPARENT_ATTRIBUTE = "transparent"; //For backwards compatibility
         const char *const UPDATE_RATE_ATR = "updateRate";
         const char *const RANGE_MIN_ATR = "rangeMin";

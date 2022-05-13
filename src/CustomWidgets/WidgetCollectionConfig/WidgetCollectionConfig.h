@@ -34,7 +34,7 @@ namespace RobotGui {
          * @param _type type to make this config
          * @return std::shared_ptr container new WidgetBaseConfig
          */
-        static SharedPtr create(WidgetType _type);
+        static SharedPtr create(WidgetConstants::Type _type);
 
         /**
          * Static create method inorder to only use shared pointers
@@ -49,7 +49,18 @@ namespace RobotGui {
          */
         static SharedPtr create();
 
+        /**
+         * Parses lines into internal structure
+         * @param node xml node to parse
+         */
         void parseXml(rapidxml::xml_node<> *node) override;
+
+        /**
+         * Saves any configuration data to a xml node
+         * @param node node to output to
+         * @param doc xml document to allocate in
+         */
+        void outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) override;
 
         // Required
         std::vector<TabInfo> tabs;
@@ -60,7 +71,7 @@ namespace RobotGui {
          * Constructor
          * @param _type type of widget this is for
          */
-        explicit WidgetCollectionConfig(WidgetType _type);
+        explicit WidgetCollectionConfig(WidgetConstants::Type _type);
 
 
         /**

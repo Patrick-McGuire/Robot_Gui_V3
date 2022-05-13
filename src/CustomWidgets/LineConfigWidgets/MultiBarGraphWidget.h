@@ -14,12 +14,6 @@ namespace RobotGui {
 
         void updateInFocus() override;
 
-        /**
-         * Saves any configuration data to a xml node
-         * @param node node to output to
-         */
-        void outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) override;
-
         void customUpdateStyle() override;
 
     protected:

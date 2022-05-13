@@ -10,7 +10,7 @@
 RobotGui::ROVStatusWidget::ROVStatusWidget(QWidget *parent, const RobotGui::WidgetBaseConfig::SharedPtr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme) : BaseWidget(parent, configInfo,
                                                                                                                                                                                  widgetData, theme) {
 
-    if (configInfo->type == ROV_STATUS) {
+    if (configInfo->type == RobotGui::WidgetConstants::ROV_STATUS) {
         sourceMapConfig = std::dynamic_pointer_cast<SourceMapConfig>(configInfo);
     } else {
         sourceMapConfig = SourceMapConfig::create();

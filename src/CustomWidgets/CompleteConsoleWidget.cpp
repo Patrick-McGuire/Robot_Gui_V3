@@ -15,7 +15,7 @@ RobotGui::CompleteConsoleWidget::CompleteConsoleWidget(QWidget *parent, const Ro
     ////// NATHAN WTF IS GOING ON HERE THIS CODE IS ASS
 
     auto newConfigInfo = WidgetBaseConfig::create();
-    newConfigInfo = WidgetBaseConfig::create(RobotGui::SIMPLE_CONSOLE);
+    newConfigInfo = WidgetBaseConfig::create(RobotGui::WidgetConstants::SIMPLE_CONSOLE);
     newConfigInfo->source = configInfo->source.is_initialized() ? configInfo->source.get() : "";
     newConfigInfo->backgroundColor = configInfo->backgroundColor.is_initialized() ? configInfo->backgroundColor.get() : RobotGui::Xml::THEME_CONST;
     newConfigInfo->foregroundColor = configInfo->backgroundColor.is_initialized() ? configInfo->foregroundColor.get() : RobotGui::Xml::THEME_CONST;

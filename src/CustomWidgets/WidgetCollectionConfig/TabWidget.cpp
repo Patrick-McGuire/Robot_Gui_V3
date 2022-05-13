@@ -16,7 +16,7 @@ RobotGui::TabWidget::TabWidget(QWidget *parent, const RobotGui::WidgetBaseConfig
     configurableWidth = true;
     configurableHeight = true;
 
-    if(configInfo->type == TAB) {
+    if(configInfo->type == RobotGui::WidgetConstants::TAB) {
         widgetCollectionConfig = std::dynamic_pointer_cast<WidgetCollectionConfig> (configInfo);
     } else {
         widgetCollectionConfig = WidgetCollectionConfig::create();
@@ -48,7 +48,7 @@ RobotGui::TabWidget::TabWidget(QWidget *parent, const RobotGui::WidgetBaseConfig
         pages.emplace_back(page);
         widgets.emplace_back(std::vector<BaseWidget *>());
 
-        if (widgetCollectionConfig->tabs[i].widgets.size() == 1 and widgetCollectionConfig->tabs[i].widgets[0]->type == RobotGui::TAB) { //If we're doing a settings tab, parse a little differently
+        if (widgetCollectionConfig->tabs[i].widgets.size() == 1 and widgetCollectionConfig->tabs[i].widgets[0]->type == RobotGui::WidgetConstants::TAB) { //If we're doing a settings tab, parse a little differently
             //Make the widget
             BaseWidget *newWidget = new SettingsTab(page, widgetCollectionConfig->tabs[i].widgets[0], widgetData, theme);
             widgets[i].emplace_back(newWidget);
@@ -75,17 +75,6 @@ RobotGui::TabWidget::TabWidget(QWidget *parent, const RobotGui::WidgetBaseConfig
 //        tabs->setCurrentIndex(i);
 //    }
     tabs->setCurrentIndex(0);
-}
-
-void RobotGui::TabWidget::outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) {
-    for (int i = 0; i < widgets.size(); i++) {
-        rapidxml::xml_node<> *tab = doc->allocate_node(rapidxml::node_element, RobotGui::Xml::TAB_TAG);
-        node->append_node(tab);
-        tab->append_attribute(doc->allocate_attribute(RobotGui::Xml::TITLE_ATR, widgetCollectionConfig->tabs[i].name.c_str()));
-        for (auto &widget : widgets[i]) {
-            tab->append_node(XMLOutput::createWidget(doc, widget));
-        }
-    }
 }
 
 void RobotGui::TabWidget::updateInFocus() {
@@ -144,16 +133,6 @@ void RobotGui::TabWidget::updateChildrenStyle() {
     }
 }
 
-void RobotGui::TabWidget::parseTabChildren(const RobotGui::WidgetBaseConfig::SharedPtr &parentConfig, rapidxml::xml_node<> *node) {
-    WidgetCollectionConfig::SharedPtr config = std::dynamic_pointer_cast<WidgetCollectionConfig>(parentConfig);
-    // These calls back to XML input to parse the "sub" widgets
-    std::vector<RobotGui::WidgetBaseConfig::SharedPtr> widgetsVec;
-    for (auto *widget = node->first_node(); widget; widget = widget->next_sibling()) {
-        widgetsVec.emplace_back(XMLInput::parseWidget(widget));
-    }
-    config->tabs[config->tabs.size() - 1].widgets = widgetsVec;
-//    parentConfig->tabWidgets.emplace_back(widgetsVec);
-}
 
 RobotGui::TabWidget::~TabWidget() {
     for (auto &tab : widgets) {

@@ -7,7 +7,7 @@
 			<widget type="video" title="TestVideo" draggable="true" static="false" height="200" width="400" x="942" y="77" id="1"/>
 			<widget type="livePlot" title="Power Stats" draggable="true" static="false" background="theme" width="400" height="400" x="0" y="0" range="20">
 				<line label="Thing 1" value="KEY1"/>
-<!--				<line label="Thing 2" value="KEY2"/>-->
+				<line label="Thing 2" value="KEY2"/>
 				<line label="Thing 4" value="KEY4"/>
 			</widget>
 			<widget type="livePlot" title="Power Stats" draggable="true" static="false" background="theme" width="400" height="300" max="auto" min="auto" x="0" y="400" range="5">
@@ -27,7 +27,7 @@
 			</widget>
 		</tab>
 		<tab title="Tab2">
-			<widget type="video" title="ex2" draggable="true" static="false" height="480" width="640" x="0" y="0" id="2"/>
+			<widget type="video" draggable="true" static="false" height="480" width="640" x="0" y="0" source="2"/>
 		</tab>
 		<tab title="Tab3">
 			<widget type="textBox" title="Power Stats" draggable="true" static="false" background="green" textColor="theme" headerColor="theme" x="100" y="300">

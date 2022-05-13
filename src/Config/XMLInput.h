@@ -13,7 +13,7 @@
 #include "../CustomWidgets/SimpleButtonWidget.h"
 #include "../CustomWidgets/LineConfigWidgets/MultiBarGraphWidget.h"
 
-namespace RobotGui {
+    namespace RobotGui {
     /**
          * @class XMLInput
          * Static class that parses xml files into the internal configuration format
@@ -70,7 +70,7 @@ namespace RobotGui {
          */
         static void setDefaults(const WidgetBaseConfig::SharedPtr& widgetConfig);
 
-        static WidgetType getWidgetType(rapidxml::xml_node<> *node);
+        static WidgetConstants::Type getWidgetType(rapidxml::xml_node<> *node);
     };
 }
 

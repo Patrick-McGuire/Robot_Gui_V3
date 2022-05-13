@@ -9,7 +9,7 @@
 #include "../BaseStructure/WidgetBaseConfig.h"
 
 RobotGui::AttitudeWidget::AttitudeWidget(QWidget *parent, const RobotGui::WidgetBaseConfig::SharedPtr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme) : BaseWidget(parent, configInfo, widgetData, theme) {
-    if(configInfo->type == ATTITUDE_DISPLAY) {
+    if(configInfo->type == RobotGui::WidgetConstants::ATTITUDE_DISPLAY) {
         sourceMapConfig = std::dynamic_pointer_cast<SourceMapConfig>(configInfo);
     } else {
         sourceMapConfig = SourceMapConfig::create();

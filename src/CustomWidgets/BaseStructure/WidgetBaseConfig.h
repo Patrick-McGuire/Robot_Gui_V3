@@ -7,8 +7,9 @@
 #include "QObject"
 
 namespace RobotGui {
-    enum WidgetType : int;
-
+    namespace WidgetConstants {
+        enum Type : int;
+    }
     /**
      * @class WidgetBaseConfig
      * Base class for configuration data
@@ -28,7 +29,7 @@ namespace RobotGui {
          * @param _type type to make this config
          * @return std::shared_ptr container new WidgetBaseConfig
          */
-        static SharedPtr create(WidgetType _type);
+        static SharedPtr create(WidgetConstants::Type _type);
 
         /**
          * Static create method inorder to only use shared pointers
@@ -44,30 +45,28 @@ namespace RobotGui {
         static SharedPtr create();
 
         /**
-         * Sets the type based on a string
-         * @param _type type to set
-         */
-        static WidgetType getType(const std::string &_type);
-
-        /**
-         * Sets the type based on a string
-         * @param _type type to set
-         */
-        std::string getTypeString() const;
-
-        /**
          * Shows a menu in which to edit this config
          */
         void showEditMenu();
 
-
+        /**
+         * Virtual function to be used for parsing additional xml information
+         * @param node xml node to parse
+         */
         virtual void parseXml(rapidxml::xml_node<> *node);
+
+        /**
+         * Saves any configuration data to a xml node
+         * @param node node to output to
+         * @param doc xml document to allocate in
+         */
+        virtual void outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc);
 
         /**
          * Members
          */
         // Required members
-        WidgetType type;
+        WidgetConstants::Type type;
         int x = 0;
         int y = 0;
         bool hidden = false;
@@ -101,7 +100,7 @@ namespace RobotGui {
          * Constructor
          * @param _type type of widget this is for
          */
-        explicit WidgetBaseConfig(WidgetType _type);
+        explicit WidgetBaseConfig(WidgetConstants::Type _type);
 
     private slots:
 

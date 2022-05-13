@@ -28,7 +28,7 @@ namespace RobotGui {
          * @param _type type to make this config
          * @return std::shared_ptr container new WidgetBaseConfig
          */
-        static SharedPtr create(WidgetType _type);
+        static SharedPtr create(WidgetConstants::Type _type);
 
         /**
          * Static create method inorder to only use shared pointers
@@ -55,7 +55,7 @@ namespace RobotGui {
          * Constructor
          * @param _type type of widget this is for
          */
-        explicit SourceMapConfig(WidgetType _type);
+        explicit SourceMapConfig(WidgetConstants::Type _type);
     };
 }
 

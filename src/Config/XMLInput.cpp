@@ -7,6 +7,8 @@
 #include "../CustomWidgets/SourceMapConfigWidgets/AttitudeWidget.h"
 #include "../CustomWidgets/SourceMapConfigWidgets/ROVStatusWidget.h"
 #include "../CustomWidgets/WidgetCollectionConfig/WidgetCollectionConfig.h"
+#include "../RobotGui.h"
+
 #define strFailed -9123931      // Random
 
 RobotGui::WindowConfig_ptr RobotGui::XMLInput::parse(const char *filename) {
@@ -26,12 +28,12 @@ RobotGui::WindowConfig_ptr RobotGui::XMLInput::parse(const char *filename) {
 
 RobotGui::WidgetBaseConfig::SharedPtr RobotGui::XMLInput::parseWidget(rapidxml::xml_node<> *node) {
     RobotGui::WidgetBaseConfig::SharedPtr newWidgetStruct = WidgetBaseConfig::create();
-    WidgetType type = getWidgetType(node);
-    if(type == LIVE_PLOT || type == TEXT_BOX || type == MULTI_BAR_GRAPH) {
+    WidgetConstants::Type type = getWidgetType(node);
+    if(type == RobotGui::WidgetConstants::LIVE_PLOT || type == RobotGui::WidgetConstants::TEXT_BOX || type == RobotGui::WidgetConstants::MULTI_BAR_GRAPH) {
         newWidgetStruct = LineConfig::create(type);
-    } else if(type == MISSION_STATUS || type == ROV_STATUS || type == ATTITUDE_DISPLAY) {
+    } else if(type == RobotGui::WidgetConstants::MISSION_STATUS || type == RobotGui::WidgetConstants::ROV_STATUS || type == RobotGui::WidgetConstants::ATTITUDE_DISPLAY) {
         newWidgetStruct = SourceMapConfig::create(type);
-    } else if(type == TAB) {
+    } else if(type == RobotGui::WidgetConstants::TAB) {
         newWidgetStruct = WidgetCollectionConfig::create(type);
     } else {
         newWidgetStruct = WidgetBaseConfig::create();
@@ -44,7 +46,7 @@ RobotGui::WidgetBaseConfig::SharedPtr RobotGui::XMLInput::parseWidget(rapidxml::
         // Cases for all non type specific attributes
 
         if (attrName == RobotGui::Xml::TYPE_ATR) {
-            newWidgetStruct->type = WidgetBaseConfig::getType(attrVal);     //// NEW!!
+            newWidgetStruct->type = WidgetConstants::getWidgetType(attrVal);
         } else if (attrName == RobotGui::Xml::TITLE_ATR) {
             newWidgetStruct->title = attrVal;
             newWidgetStruct->title = attrVal;
@@ -84,17 +86,17 @@ RobotGui::WidgetBaseConfig::SharedPtr RobotGui::XMLInput::parseWidget(rapidxml::
                 tempVal = safeStoi(attrVal);
                 newWidgetStruct->width = tempVal != strFailed ? tempVal : RobotGui::Xml::AUTO_CONST_ID;         // If conversion failed return the "auto" id so the GUI can still be created
             }
-        } else if (attrName == RobotGui::Xml::ROW_NUMBER_ATTRIBUTE) {
+        } else if (attrName == RobotGui::Xml::ROW_NUMBER_ATR) {
             newWidgetStruct->rowNumber = std::atoi(attrVal.c_str());
-        } else if (attrName == RobotGui::Xml::COLUMN_NUMBER_ATTRIBUTE) {
+        } else if (attrName == RobotGui::Xml::COLUMN_NUMBER_ATR) {
             newWidgetStruct->columnNumber = std::atoi(attrVal.c_str());
         } else if (attrName == RobotGui::Xml::SOURCE_ATTRIBUTE) {
             newWidgetStruct->source = attrVal;
-        } else if (attrName == RobotGui::Xml::SIZE_ATTRIBUTE) {
+        } else if (attrName == RobotGui::Xml::SIZE_ATR) {
             newWidgetStruct->size = std::atoi(attrVal.c_str());
-        } else if (attrName == RobotGui::Xml::RANGE_MIN_ATR) {
+        } else if (attrName == RobotGui::Xml::RANGE_MIN_ATR || attrName == RobotGui::Xml::MINIMUM_ATR) {
             newWidgetStruct->min = attrVal;
-        } else if (attrName == RobotGui::Xml::RANGE_MAX_ATR) {
+        } else if (attrName == RobotGui::Xml::RANGE_MAX_ATR || attrName == RobotGui::Xml::MAXIMUM_ATR) {
             newWidgetStruct->max = attrVal;
         } else if (attrName == RobotGui::Xml::BACKGROUND_COLOR_ATR) {
             newWidgetStruct->backgroundColor = attrVal;
@@ -228,15 +230,15 @@ void RobotGui::XMLInput::setDefaults(const RobotGui::WidgetBaseConfig::SharedPtr
     }
 }
 
-RobotGui::WidgetType RobotGui::XMLInput::getWidgetType(rapidxml::xml_node<> *node) {
+RobotGui::WidgetConstants::Type RobotGui::XMLInput::getWidgetType(rapidxml::xml_node<> *node) {
     for (rapidxml::xml_attribute<> *attr = node->first_attribute(); attr; attr = attr->next_attribute()) {
         std::string attrName = attr->name();                                            // Get the name of the current attribute
         std::string attrVal = attr->value();                                            // Get the value of the current attribute
         // Cases for all non type specific attributes
 
         if (attrName == RobotGui::Xml::TYPE_ATR) {
-            return WidgetBaseConfig::getType(attrVal);
+            return WidgetConstants::getWidgetType(attrVal);
         }
     }
-    return NO_TYPE;
+    return RobotGui::WidgetConstants::NO_TYPE;
 }

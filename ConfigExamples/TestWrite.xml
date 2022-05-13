@@ -1,56 +1,45 @@
 <window title="Probot Control" theme="Dark" width="max" height="max">
-	<widget type="tab" title="Dashboard" draggable="false" static="true" background="theme" headerColor="theme" height="max" width="max" x="0" y="0">
+	<widget type="tab" x="0" y="0" hidden="false" draggable="false" static="true" title="Dashboard" height="max" width="max" font="theme" background="theme" foreground="theme" relief="theme" textColor="theme" headerColor="theme">
 		<tab title="Tab1">
-			<widget type="simpleButton" title="test button" draggable="false" static="false" background="theme" textColor="theme" x="100" y="200" id="simpleButtonOut"/>
-			<widget type="simpleButton" title="Destroy the world" draggable="false" static="false" background="theme" textColor="theme" x="100" y="300" id="button2"/>
-			<widget type="simpleButton" title="Evaporate mars" draggable="false" static="false" background="theme" textColor="theme" x="100" y="400" id="roll"/>
-			<widget type="video" title="TestVideo" draggable="true" static="false" height="200" width="400" x="942" y="77" id="1"/>
-			<widget type="livePlot" title="Power Stats" draggable="true" static="false" background="theme" textColor="theme" headerColor="theme" height="400" width="400" x="393" y="98" range="20.000000">
-				<line label="Thing 1" value="KEY1" color=""/>
-				<line label="Thing 4" value="KEY4" color=""/>
+			<widget type="simpleButton" x="100" y="200" hidden="false" draggable="false" static="false" title="test button" source="simpleButtonOut" font="theme" background="theme" foreground="theme" relief="theme" textColor="theme" headerColor="theme"/>
+			<widget type="simpleButton" x="100" y="300" hidden="false" draggable="false" static="false" title="Destroy the world" source="button2" font="theme" background="theme" foreground="theme" relief="theme" textColor="theme" headerColor="theme"/>
+			<widget type="simpleButton" x="100" y="400" hidden="false" draggable="false" static="false" title="Evaporate mars" source="roll" font="theme" background="theme" foreground="theme" relief="theme" textColor="theme" headerColor="theme"/>
+			<widget type="video" x="942" y="77" hidden="false" draggable="true" static="false" title="TestVideo" source="1" height="200" width="400" font="theme" background="theme" foreground="theme" relief="theme" textColor="theme" headerColor="theme"/>
+			<widget type="livePlot" x="0" y="0" hidden="false" draggable="true" static="false" title="Power Stats" height="400" width="400" timeRange="10.000000" font="theme" background="theme" foreground="theme" relief="theme" textColor="theme" headerColor="theme">
+				<line label="Thing 1" value="KEY1"/>
+				<line label="Thing 2" value="KEY2"/>
+				<line label="Thing 4" value="KEY4"/>
 			</widget>
-			<widget type="livePlot" title="Power Stats" draggable="true" static="false" background="theme" textColor="theme" headerColor="theme" height="300" width="300" x="33" y="138" range="5.000000">
+			<widget type="livePlot" x="0" y="400" hidden="false" draggable="true" static="false" title="Power Stats" height="300" width="400" timeRange="10.000000" font="theme" background="theme" foreground="theme" relief="theme" textColor="theme" headerColor="theme">
 				<line label="roll" value="roll" color="red"/>
 				<line label="random" value="KEY5" color="blue"/>
 			</widget>
-			<widget type="livePlot" title="Power Stats" draggable="true" static="false" background="theme" textColor="theme" headerColor="theme" height="300" width="300" x="33" y="138" range="5.000000">
+			<widget type="textBox" x="0" y="800" hidden="false" draggable="true" static="false" title="Power Stats" font="theme" background="none" foreground="theme" relief="theme" textColor="theme" headerColor="theme">
 				<line label="roll" value="roll" color="red"/>
 				<line label="random" value="KEY5" color="blue"/>
 			</widget>
-			<widget type="livePlot" title="Power Stats" draggable="true" static="false" background="theme" textColor="theme" headerColor="theme" height="300" width="300" x="33" y="138" range="5.000000">
-				<line label="roll" value="roll" color="red"/>
-				<line label="random" value="KEY5" color="blue"/>
-			</widget>
-			<widget type="livePlot" title="Power Stats" draggable="true" static="false" background="theme" textColor="theme" headerColor="theme" height="300" width="300" x="33" y="138" range="5.000000">
-				<line label="roll" value="roll" color="red"/>
-				<line label="random" value="KEY5" color="blue"/>
-			</widget>
-			<widget type="textBox" title="Power Stats" draggable="true" static="false" background="none" textColor="theme" headerColor="theme" x="0" y="800">
-				<line label="roll" value="roll"/>
-				<line label="random" value="KEY5"/>
-			</widget>
-			<widget type="multiBarGraph" title="TestGraph" draggable="true" static="false" x="719" y="330">
-				<line type="SimpleBarGraph" source="roll" title="A" minimum="-20.000000" maximum="20.000000" color="rgb(0,0,255)"/>
-				<line type="CircleBarGraph" source="j" title="B" minimum="0.000000" maximum="360.000000" color="rgb(255,0,0)"/>
-				<line type="SimpleBarGraph" source="verticalSpeed" title="Graph C" minimum="0.000000" maximum="20.000000" color="rgb(255,0,158)"/>
-				<line type="SimpleBarGraph" source="terrainAlt" title="D" minimum="0.000000" maximum="100.000000" color="rgb(60,255,40)"/>
-				<line type="SimpleBarGraph" source="j" title="Title" minimum="0.000000" maximum="360.000000" color="rgb(255,255,255)"/>
+			<widget type="multiBarGraph" x="300" y="300" hidden="false" draggable="true" static="false" title="TestGraph" font="theme" background="theme" foreground="theme" relief="theme" textColor="theme" headerColor="theme">
+				<line label="A" value="roll" color="rgb(0,0,255)" type="SimpleBarGraph" minimum="-20.000000" maximum="20.000000"/>
+				<line label="B" value="j" color="rgb(255,0,0)" type="CircleBarGraph" minimum="0.000000" maximum="360.000000"/>
+				<line label="Graph C" value="verticalSpeed" color="rgb(255,0,158)" type="SimpleBarGraph" minimum="0.000000" maximum="20.000000"/>
+				<line label="D" value="terrainAlt" color="rgb(60,255,40)" type="SimpleBarGraph" minimum="0.000000" maximum="100.000000"/>
+				<line label="Title" value="j" color="rgb(255,255,255)" type="SimpleBarGraph" minimum="0.000000" maximum="360.000000"/>
 			</widget>
 		</tab>
 		<tab title="Tab2">
-			<widget type="video" title="ex2" draggable="true" static="false" height="480" width="640" x="0" y="0" id="2"/>
+			<widget type="video" x="0" y="0" hidden="false" draggable="true" static="false" source="2" height="480" width="640" font="theme" background="theme" foreground="theme" relief="theme" textColor="theme" headerColor="theme"/>
 		</tab>
 		<tab title="Tab3">
-			<widget type="textBox" title="Power Stats" draggable="true" static="false" background="green" textColor="theme" headerColor="theme" x="100" y="300">
+			<widget type="textBox" x="100" y="300" hidden="false" draggable="true" static="false" title="Power Stats" font="theme" background="green" foreground="theme" relief="theme" textColor="theme" headerColor="theme">
 				<line label="Thing 1" value="KEY1"/>
 				<line label="Thing 2" value="KEY2"/>
 				<line label="Thing 3" value="KEY3"/>
 				<line label="Thing 4" value="KEY4"/>
 			</widget>
-			<widget type="tab" title="Dashboard2" draggable="false" static="false" background="theme" headerColor="theme" height="500" width="500" x="50" y="50">
+			<widget type="tab" x="50" y="50" hidden="false" draggable="false" static="false" title="Dashboard2" height="500" width="500" font="theme" background="theme" foreground="theme" relief="theme" textColor="theme" headerColor="theme">
 				<tab title="Tab1">
-					<widget type="video" title="TestVideo" draggable="true" static="false" height="150" width="200" x="100" y="0" id="1"/>
-					<widget type="textBox" title="Power Stats" draggable="true" static="false" background="green" textColor="theme" headerColor="theme" x="100" y="300">
+					<widget type="video" x="100" y="0" hidden="false" draggable="true" static="false" title="TestVideo" source="1" height="150" width="200" font="theme" background="theme" foreground="theme" relief="theme" textColor="theme" headerColor="theme"/>
+					<widget type="textBox" x="100" y="300" hidden="false" draggable="true" static="false" title="Power Stats" font="theme" background="green" foreground="theme" relief="theme" textColor="theme" headerColor="theme">
 						<line label="Thing 1" value="KEY1"/>
 						<line label="Thing 2" value="KEY2"/>
 						<line label="Thing 3" value="KEY3"/>
@@ -58,7 +47,7 @@
 					</widget>
 				</tab>
 				<tab title="Tab2">
-					<widget type="video" title="ex2" draggable="true" static="false" height="200" width="250" x="0" y="0" id="2"/>
+					<widget type="video" x="0" y="0" hidden="false" draggable="true" static="false" title="ex2" source="2" height="200" width="250" font="theme" background="theme" foreground="theme" relief="theme" textColor="theme" headerColor="theme"/>
 				</tab>
 				<tab title="Tab3"/>
 			</widget>

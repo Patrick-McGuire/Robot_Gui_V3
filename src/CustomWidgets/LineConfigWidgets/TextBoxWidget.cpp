@@ -14,7 +14,7 @@ RobotGui::TextBoxWidget::TextBoxWidget(QWidget *parent, const RobotGui::WidgetBa
     styledWidgetBackgroundColor = true;
     configurablePos = true;
 
-    if(configInfo->type == TEXT_BOX) {
+    if(configInfo->type == RobotGui::WidgetConstants::TEXT_BOX) {
         lineConfig = std::dynamic_pointer_cast<LineConfig> (configInfo);
     } else {
         lineConfig = LineConfig::create();
@@ -111,12 +111,4 @@ void RobotGui::TextBoxWidget::customUpdateStyle() {
     adjustSize();
 }
 
-void RobotGui::TextBoxWidget::outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) {
-    for (const auto& lineInfo : lineConfig->lines) {
-        rapidxml::xml_node<> *line = doc->allocate_node(rapidxml::node_element, RobotGui::Xml::LINE_TAG);
-        node->append_node(line);
-        line->append_attribute(doc->allocate_attribute(RobotGui::Xml::LABEL_ATR, lineInfo.label.c_str()));
-        line->append_attribute(doc->allocate_attribute(RobotGui::Xml::VALUE_ATR, lineInfo.source.c_str()));
-    }
-}
 

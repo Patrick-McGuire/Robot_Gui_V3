@@ -2,18 +2,18 @@
 #include "../../Config/XMLInput.h"
 
 //////// Mandatory constructors ////////
-RobotGui::WidgetCollectionConfig::WidgetCollectionConfig(RobotGui::WidgetType _type) : WidgetBaseConfig(_type) {}
+RobotGui::WidgetCollectionConfig::WidgetCollectionConfig(WidgetConstants::Type _type) : WidgetBaseConfig(_type) {}
 
-RobotGui::WidgetCollectionConfig::SharedPtr RobotGui::WidgetCollectionConfig::create(RobotGui::WidgetType _type) {
+RobotGui::WidgetCollectionConfig::SharedPtr RobotGui::WidgetCollectionConfig::create(WidgetConstants::Type _type) {
     return RobotGui::WidgetCollectionConfig::SharedPtr(new WidgetCollectionConfig(_type));
 }
 
 RobotGui::WidgetCollectionConfig::SharedPtr RobotGui::WidgetCollectionConfig::create(const std::string &_type) {
-    return RobotGui::WidgetCollectionConfig::SharedPtr(new WidgetCollectionConfig(getType(_type)));
+    return RobotGui::WidgetCollectionConfig::SharedPtr(new WidgetCollectionConfig(WidgetConstants::getWidgetType(_type)));
 }
 
 RobotGui::WidgetCollectionConfig::SharedPtr RobotGui::WidgetCollectionConfig::create() {
-    return RobotGui::WidgetCollectionConfig::SharedPtr(new WidgetCollectionConfig(NO_TYPE));
+    return RobotGui::WidgetCollectionConfig::SharedPtr(new WidgetCollectionConfig(RobotGui::WidgetConstants::NO_TYPE));
 }
 //////// Mandatory constructors ////////
 
@@ -42,4 +42,15 @@ void RobotGui::WidgetCollectionConfig::parseTabChildren(rapidxml::xml_node<> *no
         widgetsVec.emplace_back(XMLInput::parseWidget(widget));
     }
     tabs[tabs.size() - 1].widgets = widgetsVec;
+}
+
+void RobotGui::WidgetCollectionConfig::outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) {
+    for (auto & tabInfo : tabs) {
+        rapidxml::xml_node<> *tab = doc->allocate_node(rapidxml::node_element, RobotGui::Xml::TAB_TAG);
+        node->append_node(tab);
+        tab->append_attribute(doc->allocate_attribute(RobotGui::Xml::TITLE_ATR, tabInfo.name.c_str()));
+        for (auto &widget : tabInfo.widgets) {
+            tab->append_node(XMLOutput::createWidget(doc, widget));
+        }
+    }
 }

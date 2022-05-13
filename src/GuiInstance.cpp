@@ -113,7 +113,7 @@ RobotGui::WidgetData *RobotGui::GuiInstance::getWidgetData() {
 
 void RobotGui::GuiInstance::save() {
     return;
-    XMLOutput::output(appConfig->getDefaultXmlPath().c_str(), config, coreWidget);
+    XMLOutput::output(appConfig->getDefaultXmlPath().c_str(), config, coreWidget->getConfig());
 }
 
 void RobotGui::GuiInstance::saveAs() {
@@ -121,7 +121,7 @@ void RobotGui::GuiInstance::saveAs() {
     if (!filePath.empty()) {
         appConfig->setDefaultXmlPath(filePath);
         appConfig->write();
-        XMLOutput::output(filePath.c_str(), config, coreWidget);
+        XMLOutput::output(filePath.c_str(), config, coreWidget->getConfig());
     }
 }
 

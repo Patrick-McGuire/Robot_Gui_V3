@@ -26,12 +26,6 @@ namespace RobotGui {
         VideoWidget(QWidget *parent, const WidgetBaseConfig::SharedPtr& configInfo, WidgetData *widgetData, Theme *_theme);
 
         /**
-         * Saves any configuration data to a xml node
-         * @param node node to output to
-         */
-        void outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) override;
-
-        /**
          * Update the widget when in focus
          */
         void updateInFocus() override;

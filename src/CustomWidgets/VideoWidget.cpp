@@ -21,12 +21,6 @@ RobotGui::VideoWidget::VideoWidget(QWidget *parent, const RobotGui::WidgetBaseCo
     if(!autoWidth) { videoWidget.setFixedWidth(configInfo->width.get()); }
 }
 
-void RobotGui::VideoWidget::outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) {
-    if(configInfo->source.is_initialized()) {
-        node->append_attribute(doc->allocate_attribute(RobotGui::Xml::ID_ATR, configInfo->source->c_str()));
-    }
-}
-
 void RobotGui::VideoWidget::updateInFocus() {
     if(configInfo->source.is_initialized()) {
         if (widgetData->keyUpdated(configInfo->source.get())) {

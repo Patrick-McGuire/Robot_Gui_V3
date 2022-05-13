@@ -233,10 +233,6 @@ void RobotGui::BaseWidget::customUpdate() {}
 
 void RobotGui::BaseWidget::customUpdateDraggability(bool _draggable) {}
 
-void RobotGui::BaseWidget::outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) {
-
-}
-
 RobotGui::WidgetBaseConfig::SharedPtr RobotGui::BaseWidget::getConfig() {
     return configInfo;
 }

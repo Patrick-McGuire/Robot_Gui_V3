@@ -22,7 +22,7 @@ RobotGui::LivePlotWidget::LivePlotWidget(QWidget *parent, const RobotGui::Widget
     configurableHeight = true;
     configurableWidth = true;
 
-    if(configInfo->type == LIVE_PLOT) {
+    if(configInfo->type == RobotGui::WidgetConstants::LIVE_PLOT) {
         lineConfig = std::dynamic_pointer_cast<LineConfig> (configInfo);
     } else {
         lineConfig = LineConfig::create();
@@ -43,7 +43,6 @@ RobotGui::LivePlotWidget::LivePlotWidget(QWidget *parent, const RobotGui::Widget
         auto series = new QLineSeries();
         series->setName(line.label.c_str());
         if (line.color.is_initialized()) {
-//            std::cout << configInfo->title << " : " << line.color.get()
             series->setColor(line.color->c_str());
         }
         data.emplace_back();
@@ -103,21 +102,6 @@ RobotGui::LivePlotWidget::LivePlotWidget(QWidget *parent, const RobotGui::Widget
             } catch (...) {
                 autoRangeMin = true;
             }
-        }
-    }
-}
-
-void RobotGui::LivePlotWidget::outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) {
-    if(lineConfig->range.is_initialized()) {
-        node->append_attribute(doc->allocate_attribute(RobotGui::Xml::TIME_RANGE_ATR, doc->allocate_string(std::to_string(lineConfig->range.get()).c_str())));
-    }
-    for (auto &lineInfo: lineConfig->lines) {
-        rapidxml::xml_node<> *line = doc->allocate_node(rapidxml::node_element, RobotGui::Xml::LINE_TAG);
-        node->append_node(line);
-        line->append_attribute(doc->allocate_attribute(RobotGui::Xml::LABEL_ATR, lineInfo.label.c_str()));
-        line->append_attribute(doc->allocate_attribute(RobotGui::Xml::VALUE_ATR, lineInfo.source.c_str()));
-        if(lineInfo.color.is_initialized()) {
-            line->append_attribute(doc->allocate_attribute(RobotGui::Xml::COLOR_ATR, lineInfo.color->c_str()));
         }
     }
 }

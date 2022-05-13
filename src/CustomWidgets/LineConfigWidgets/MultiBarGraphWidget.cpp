@@ -14,7 +14,7 @@
 RobotGui::MultiBarGraphWidget::MultiBarGraphWidget(QWidget *parent, const RobotGui::WidgetBaseConfig::SharedPtr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
     configurablePos = true;
 
-    if(configInfo->type == MULTI_BAR_GRAPH) {
+    if(configInfo->type == RobotGui::WidgetConstants::MULTI_BAR_GRAPH) {
         lineConfig = std::dynamic_pointer_cast<LineConfig> (configInfo);
     } else {
         lineConfig = LineConfig::create();
@@ -60,21 +60,6 @@ void RobotGui::MultiBarGraphWidget::updateInFocus() {
                 subGraph->update();
             }
         }
-    }
-}
-
-void RobotGui::MultiBarGraphWidget::outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) {
-    for(auto & lineConfig : lineConfig->lines) {
-        rapidxml::xml_node<> *line = doc->allocate_node(rapidxml::node_element, RobotGui::Xml::LINE_TAG);
-        node->append_node(line);
-        line->append_attribute(doc->allocate_attribute(RobotGui::Xml::TYPE_ATR, lineConfig.type->c_str()));
-        line->append_attribute(doc->allocate_attribute(RobotGui::Xml::SOURCE_ATR, lineConfig.source.c_str()));
-        line->append_attribute(doc->allocate_attribute(RobotGui::Xml::TITLE_ATR, lineConfig.label.c_str()));
-
-        line->append_attribute(doc->allocate_attribute(RobotGui::Xml::MINIMUM_ATR, doc->allocate_string(std::to_string(lineConfig.min.get()).c_str())));
-        line->append_attribute(doc->allocate_attribute(RobotGui::Xml::MAXIMUM_ATR, doc->allocate_string(std::to_string(lineConfig.max.get()).c_str())));
-
-        line->append_attribute(doc->allocate_attribute(RobotGui::Xml::COLOR_ATR, lineConfig.color->c_str()));
     }
 }
 

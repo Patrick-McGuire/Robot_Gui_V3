@@ -21,7 +21,7 @@ namespace RobotGui {
 
     /**
      * @class BaseWidget
-     * Custom QWidget that creates tabs with children widgets
+     * Base widget class for all RobotGui widgets
      *
      * @author Patrick McGuire (Patrick-McGuire)
      */
@@ -81,12 +81,6 @@ namespace RobotGui {
          * @param _draggable
          */
         void setDraggability(bool _draggable);
-
-        /**
-         * Saves any configuration data to a xml node
-         * @param node node to output to
-         */
-        virtual void outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc);
 
         /**
          * Gets the config info for this widget
