@@ -106,6 +106,46 @@ RobotGui::LivePlotWidget::LivePlotWidget(QWidget *parent, const RobotGui::Widget
     }
 }
 
+void RobotGui::LivePlotWidget::customUpdateFromConfigInfo() {
+    chartView->setFixedSize(configInfo->width.get(), configInfo->height.get());
+    top->setFixedSize(configInfo->width.get(), configInfo->height.get());
+    resetButton->move(configInfo->width.get() - resetButton->width() + 10, 1);
+    this->adjustSize();
+
+    if(configInfo->title.is_initialized()) {
+        chart->setTitle(configInfo->title.is_initialized() ? configInfo->title->c_str() : "err");
+    }
+    if (!chart->axes(Qt::Horizontal).empty()) {
+        chart->axes(Qt::Horizontal)[0]->setMax(0);
+        chart->axes(Qt::Horizontal)[0]->setMin(-lineConfig->range.get());
+    }
+    if (!chart->axes(Qt::Vertical).empty()) {
+        if (!lineConfig->max.is_initialized()) {
+            autoRangeMax = true;
+        } else {
+            try {
+                rangeMax = std::stoi(lineConfig->max.get());
+                autoRangeMax = false;
+                chart->axes(Qt::Vertical)[0]->setMax(rangeMax);
+            } catch (...) {
+                autoRangeMax = true;
+            }
+        }
+        if (!lineConfig->min.is_initialized()) {
+            autoRangeMin = true;
+        } else {
+            try {
+                rangeMin = std::stoi(lineConfig->min.get());
+                autoRangeMin = false;
+                chart->axes(Qt::Vertical)[0]->setMin(rangeMin);
+            } catch (...) {
+                autoRangeMin = true;
+            }
+        }
+    }
+}
+
+
 void RobotGui::LivePlotWidget::customUpdateStyle() {
     chart->setBackgroundBrush(CommonFunctions::GetQColorFromString(widgetBackgroundColor));
     chart->setTitleBrush(CommonFunctions::GetQColorFromString(titleTextColor));
@@ -157,6 +197,7 @@ void RobotGui::LivePlotWidget::generateGraph() {
 }
 
 void RobotGui::LivePlotWidget::updateInFocus() {
+    chart->update();
     for (const auto& line: lineConfig->lines) {
         if (widgetData->keyUpdated(line.source)) {
             updateDataStructure();

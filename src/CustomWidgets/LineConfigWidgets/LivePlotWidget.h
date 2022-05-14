@@ -35,6 +35,8 @@ namespace RobotGui {
          */
         LivePlotWidget(QWidget *parent, const WidgetBaseConfig::SharedPtr &configInfo, WidgetData *widgetData, Theme *_theme);
 
+        void customUpdateFromConfigInfo() override;
+
 
     private slots:
         /**

@@ -232,6 +232,7 @@ RobotGui::WidgetBaseConfig::SharedPtr RobotGui::BaseWidget::getConfig() {
 void RobotGui::BaseWidget::updateFromConfigInfo() {
     updateStyle();
     customUpdateFromConfigInfo();
+    repaint();
     setPosition(configInfo->x, configInfo->y);
 }
 

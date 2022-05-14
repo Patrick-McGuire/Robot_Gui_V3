@@ -66,9 +66,9 @@ namespace RobotGui {
             } else {
                 dropDown->setCurrentIndex(0);
                 auto rgb = CommonFunctions::GetRGBFromString(color);
-                r->setText(QString(rgb[0]));
-                g->setText(QString(rgb[1]));
-                b->setText(QString(rgb[2]));
+                r->setText(std::to_string(rgb[0]).c_str());
+                g->setText(std::to_string(rgb[1]).c_str());
+                b->setText(std::to_string(rgb[2]).c_str());
             }
         }
 
