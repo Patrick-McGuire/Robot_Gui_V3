@@ -55,10 +55,8 @@ RobotGui::LivePlotWidget::LivePlotWidget(QWidget *parent, const RobotGui::Widget
         chart->axes(Qt::Horizontal)[0]->setMax(0);
         chart->axes(Qt::Horizontal)[0]->setMin(-lineConfig->range.get());
     }
-    chart->setTitle(configInfo->title.is_initialized() ? configInfo->title->c_str() : "err");
 
     chartView = new QChartView(chart);
-    chartView->setFixedSize(configInfo->width.get(), configInfo->height.get());
     chartView->setContentsMargins(0, 0, 0, 0);
     chart->layout()->setContentsMargins(0, 0, 0, 0);
     chart->setBackgroundRoundness(0);
@@ -69,41 +67,16 @@ RobotGui::LivePlotWidget::LivePlotWidget(QWidget *parent, const RobotGui::Widget
     setLayout(layout);
 
     top = new QWidget(this);
-    top->setFixedSize(configInfo->width.get(), configInfo->height.get());
 
     pauseButton = new QPushButton("Pause", top);
     pauseButton->setObjectName(this->objectName() + "_PAUSE_BUTTON");
     pauseButton->move(1, 1);
     resetButton = new QPushButton("Reset", top);
     resetButton->setObjectName(this->objectName() + "_RESET_BUTTON");
-    resetButton->move(configInfo->width.get() - resetButton->width() + 20, 1);
     connect(resetButton, SIGNAL(pressed()), this, SLOT(reset()));
     connect(pauseButton, SIGNAL(pressed()), this, SLOT(pause()));
 
-    if (!chart->axes(Qt::Vertical).empty()) {
-        if (!lineConfig->max.is_initialized()) {
-            autoRangeMax = true;
-        } else {
-            try {
-                rangeMax = std::stoi(lineConfig->max.get());
-                autoRangeMax = false;
-                chart->axes(Qt::Vertical)[0]->setMax(rangeMax);
-            } catch (...) {
-                autoRangeMax = true;
-            }
-        }
-        if (!lineConfig->min.is_initialized()) {
-            autoRangeMin = true;
-        } else {
-            try {
-                rangeMin = std::stoi(lineConfig->min.get());
-                autoRangeMin = false;
-                chart->axes(Qt::Vertical)[0]->setMin(rangeMin);
-            } catch (...) {
-                autoRangeMin = true;
-            }
-        }
-    }
+    customUpdateFromConfigInfo();
 }
 
 void RobotGui::LivePlotWidget::customUpdateFromConfigInfo() {

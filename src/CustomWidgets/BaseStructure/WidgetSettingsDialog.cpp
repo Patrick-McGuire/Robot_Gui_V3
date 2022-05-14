@@ -57,4 +57,10 @@ RobotGui::ColorEntry *RobotGui::WidgetSettingsDialog::addColorEntry(const std::s
     return colorEntry;
 }
 
+void RobotGui::WidgetSettingsDialog::addEntry(const std::string &title, QWidget *wid) {
+    dialogLayout->addWidget(new QLabel(title.c_str()), nextRow, 0);
+    dialogLayout->addWidget(wid, nextRow, 1);
+    nextRow++;
+}
+
 

@@ -32,6 +32,8 @@ namespace RobotGui {
          */
         typedef std::shared_ptr<WidgetBaseConfig> SharedPtr;
 
+        ~WidgetBaseConfig();
+
         /**
          * Static create method inorder to only use shared pointers
          * @param _type type to make this config

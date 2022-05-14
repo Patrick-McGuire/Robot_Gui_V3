@@ -21,6 +21,12 @@ RobotGui::VideoWidget::VideoWidget(QWidget *parent, const RobotGui::WidgetBaseCo
     if(!autoWidth) { videoWidget.setFixedWidth(configInfo->width.get()); }
 }
 
+void RobotGui::VideoWidget::customUpdateFromConfigInfo() {
+    if(!autoHeight) { videoWidget.setFixedHeight(configInfo->height.get()); }
+    if(!autoWidth) { videoWidget.setFixedWidth(configInfo->width.get()); }
+    this->adjustSize();
+}
+
 void RobotGui::VideoWidget::updateInFocus() {
     if(configInfo->source.is_initialized()) {
         if (widgetData->keyUpdated(configInfo->source.get())) {

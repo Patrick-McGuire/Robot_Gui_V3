@@ -25,6 +25,8 @@ namespace RobotGui {
          */
         VideoWidget(QWidget *parent, const WidgetBaseConfig::SharedPtr& configInfo, WidgetData *widgetData, Theme *_theme);
 
+        void customUpdateFromConfigInfo() override;
+
         /**
          * Update the widget when in focus
          */

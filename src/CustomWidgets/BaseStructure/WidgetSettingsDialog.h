@@ -31,6 +31,8 @@ namespace RobotGui {
 
         WidgetSettingsDialog();
 
+        void addEntry(const std::string &title, QWidget *wid);
+
         QLineEdit *addTextEntry(const std::string &title, const std::string &text);
 
         QLineEdit *addIntEntry(const std::string &title, int val);

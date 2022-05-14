@@ -48,6 +48,11 @@ void RobotGui::TextBoxWidget::customUpdateFromConfigInfo() {
 }
 
 void RobotGui::TextBoxWidget::updateInFocus() {
+    if(lineConfig->lines.empty()) {
+        textBox->clearLinesAfterIndex(0);
+        textBox->updateDisplayString();
+        return;
+    }
     for (auto &line : lineConfig->lines) {
         if (widgetData->keyUpdated(line.source)) {
             customUpdate();
@@ -87,6 +92,7 @@ void RobotGui::TextBoxWidget::customUpdate() {
         i++;
     }
 
+    textBox->clearLinesAfterIndex(lineConfig->lines.size());
     textBox->updateDisplayString();
     this->adjustSize();
 }

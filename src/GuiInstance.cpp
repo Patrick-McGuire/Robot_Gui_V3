@@ -64,7 +64,6 @@ RobotGui::GuiInstance::GuiInstance(QWidget *_parent, QMainWindow *_mainWindow, A
     connect(timer, SIGNAL(timeout()), this, SLOT(updateGUI()));
     timer->start(timerUpdateTime);
 
-
     parent->show();
     setTheme();
 }
@@ -124,4 +123,5 @@ void RobotGui::GuiInstance::saveAs() {
         XMLOutput::output(filePath.c_str(), config, coreWidget->getConfig());
     }
 }
+
 

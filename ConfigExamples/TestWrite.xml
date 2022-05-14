@@ -4,7 +4,7 @@
 			<widget type="simpleButton" x="100" y="200" hidden="false" draggable="false" static="false" title="test button" source="simpleButtonOut" font="theme" background="theme" foreground="theme" relief="theme" textColor="theme" headerColor="theme"/>
 			<widget type="simpleButton" x="100" y="300" hidden="false" draggable="false" static="false" title="Destroy the world" source="button2" font="theme" background="theme" foreground="theme" relief="theme" textColor="theme" headerColor="theme"/>
 			<widget type="simpleButton" x="100" y="400" hidden="false" draggable="false" static="false" title="Evaporate mars" source="roll" font="theme" background="theme" foreground="theme" relief="theme" textColor="theme" headerColor="theme"/>
-			<widget type="video" x="942" y="77" hidden="false" draggable="true" static="false" title="TestVideo" source="1" height="200" width="400" font="theme" background="theme" foreground="theme" relief="theme" textColor="theme" headerColor="theme"/>
+			<widget type="video" x="942" y="77" hidden="false" draggable="true" static="false" source="1" height="200" width="400" font="theme" background="theme" foreground="theme" relief="theme" textColor="theme" headerColor="theme"/>
 			<widget type="livePlot" x="0" y="0" hidden="false" draggable="true" static="false" title="Power Stats" height="400" width="400" timeRange="10.000000" font="theme" background="theme" foreground="theme" relief="theme" textColor="theme" headerColor="theme">
 				<line label="Thing 1" value="KEY1"/>
 				<line label="Thing 2" value="KEY2"/>
@@ -14,11 +14,12 @@
 				<line label="roll" value="roll" color="red"/>
 				<line label="random" value="KEY5" color="blue"/>
 			</widget>
-			<widget type="textBox" x="0" y="800" hidden="false" draggable="true" static="false" title="Power Stats" font="theme" background="none" foreground="theme" relief="theme" textColor="theme" headerColor="theme">
+			<widget type="textBox" x="600" y="100" hidden="false" draggable="true" static="false" title="Sower Ptats" font="theme" background="none" foreground="theme" relief="theme" textColor="theme" headerColor="theme">
 				<line label="roll" value="roll" color="red"/>
 				<line label="random" value="KEY5" color="blue"/>
+				<line label="KEY3" value="KEY3" color=""/>
 			</widget>
-			<widget type="multiBarGraph" x="300" y="300" hidden="false" draggable="true" static="false" title="TestGraph" font="theme" background="theme" foreground="theme" relief="theme" textColor="theme" headerColor="theme">
+			<widget type="multiBarGraph" x="622" y="370" hidden="false" draggable="true" static="false" title="TestGraph" font="theme" background="theme" foreground="theme" relief="theme" textColor="theme" headerColor="theme">
 				<line label="A" value="roll" color="rgb(0,0,255)" type="SimpleBarGraph" minimum="-20.000000" maximum="20.000000"/>
 				<line label="B" value="j" color="rgb(255,0,0)" type="CircleBarGraph" minimum="0.000000" maximum="360.000000"/>
 				<line label="Graph C" value="verticalSpeed" color="rgb(255,0,158)" type="SimpleBarGraph" minimum="0.000000" maximum="20.000000"/>

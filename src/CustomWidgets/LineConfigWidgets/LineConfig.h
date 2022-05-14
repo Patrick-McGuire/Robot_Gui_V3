@@ -6,6 +6,7 @@
 #include "../../../lib/rapidxml/rapidxml.hpp"
 #include "QObject"
 #include "../BaseStructure/WidgetBaseConfig.h"
+#include "LineEntry.h"
 
 namespace RobotGui {
     class XMLOutput;
@@ -69,8 +70,18 @@ namespace RobotGui {
          */
         void outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) override;
 
+        void customCreateDialog(WidgetSettingsDialog *dialog) override;
+
         // Required
         std::vector<LineInfo> lines;
+
+    public slots:
+
+        void addRow(QVBoxLayout *layout);
+
+        void removeRow(int index);
+
+        void updateRow(LineInfo *info);
 
 
     private:
@@ -80,6 +91,10 @@ namespace RobotGui {
          * @param _type type of widget this is for
          */
         explicit LineConfig(WidgetConstants::Type _type);
+
+        LineInfo getDefault();
+
+
     };
 }
 

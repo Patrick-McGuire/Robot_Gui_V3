@@ -22,6 +22,8 @@ RobotGui::WidgetBaseConfig::SharedPtr RobotGui::WidgetBaseConfig::create() {
 
 RobotGui::WidgetBaseConfig::WidgetBaseConfig(WidgetConstants::Type _type) : type(_type) {}
 
+RobotGui::WidgetBaseConfig::~WidgetBaseConfig() {}
+
 void RobotGui::WidgetBaseConfig::createDialog(WidgetSettingsDialog *dialog) {
     addDialogOption(dialog, "Draggable:", &draggable);
     addDialogOption(dialog, "X pos:", &x);
@@ -46,6 +48,7 @@ void RobotGui::WidgetBaseConfig::createDialog(WidgetSettingsDialog *dialog) {
 
 void RobotGui::WidgetBaseConfig::showEditMenu() {
     auto dialog = new WidgetSettingsDialog();
+    connect(this, SIGNAL(destroyed()), dialog, SLOT(close()));
     createDialog(dialog);
     dialog->show();
 }
@@ -101,6 +104,7 @@ void RobotGui::WidgetBaseConfig::parseXml(rapidxml::xml_node<> *node) {}
 void RobotGui::WidgetBaseConfig::outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) {}
 
 void RobotGui::WidgetBaseConfig::customCreateDialog(WidgetSettingsDialog *dialog) {}
+
 
 
 
