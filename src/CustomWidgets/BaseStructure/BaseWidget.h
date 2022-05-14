@@ -104,6 +104,8 @@ namespace RobotGui {
 
 
     protected:
+
+
         virtual void customUpdateFromConfigInfo();
 
         /**
@@ -194,11 +196,6 @@ namespace RobotGui {
          * @param pos Point to open menu at
          */
         void showContextMenu(const QPoint &pos);
-
-        /**
-         * Shows the menu used to edit this widget
-         */
-        void showEditMenu();
 
     private:
         const char *const CONTEXT_MENU_NAME = "TempContextMenuName";

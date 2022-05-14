@@ -32,6 +32,8 @@ RobotGui::BaseWidget::BaseWidget(QWidget *_parent_, const RobotGui::WidgetBaseCo
     // Initialize position
     move(configInfo->x, configInfo->y);
     updateStyle();
+
+    connect(configInfo.get(), SIGNAL(configChanged()), this, SLOT(updateFromConfigInfo()));
 }
 
 RobotGui::BaseWidget::~BaseWidget() {
@@ -167,7 +169,7 @@ void RobotGui::BaseWidget::showContextMenu(const QPoint &pos) {
     auto contextMenu = new QMenu(this);
     menus.emplace_back(contextMenu);
     contextMenu->setObjectName(CONTEXT_MENU_NAME);
-    contextMenu->addAction("Edit", this, SLOT(showEditMenu()));
+    contextMenu->addAction("Edit", configInfo.get(), SLOT(showEditMenu()));
     if (!staticPos) {
         contextMenu->addAction("Toggle Draggability", this, SLOT(toggleDraggability()));
     }
@@ -207,16 +209,6 @@ void RobotGui::BaseWidget::showContextMenu(const QPoint &pos) {
         element->setStyleSheet(style);
     }
     contextMenu->exec(mapToGlobal(pos));
-}
-
-void RobotGui::BaseWidget::showEditMenu() {
-    if(widgetSettingsDialog == nullptr) {
-        widgetSettingsDialog = new WidgetSettingsDialog(this, configInfo, widgetData, theme);
-        connect(widgetSettingsDialog, SIGNAL(configChanged()), this, SLOT(updateFromConfigInfo()));
-        widgetSettingsDialog->show();
-    } else {
-        widgetSettingsDialog->show();
-    }
 }
 
 void RobotGui::BaseWidget::customUpdateStyle() {}

@@ -1,19 +1,17 @@
 #ifndef ROBOT_GUI_V3_WIDGETSETTINGSDIALOG_H
 #define ROBOT_GUI_V3_WIDGETSETTINGSDIALOG_H
+
 #include "QObject"
 #include <iostream>
 #include <QtGui/QPainter>
 #include <QVBoxLayout>
 #include <QAbstractButton>
 #include <QLabel>
-#include "BaseWidget.h"
 #include "../../../lib/CommonFunctions.h"
-#include "../../WidgetData.h"
-#include "../../Theme.h"
+#include "WidgetBaseConfig.h"
 #include "QDialog"
 #include "QPushButton"
 #include "QCheckBox"
-#include "BaseWidget.h"
 #include "QLineEdit"
 
 namespace RobotGui {
@@ -23,30 +21,25 @@ namespace RobotGui {
      *
      * @author Patrick McGuire (Patrick-McGuire)
      */
-    class BaseWidget;
+    class WidgetBaseConfig;
 
     class WidgetSettingsDialog : public QDialog {
     Q_OBJECT
     public:
-        WidgetSettingsDialog(BaseWidget *_widget, const WidgetBaseConfig::SharedPtr &_widgetConfigInfo, WidgetData *_widgetData, Theme *_theme);
+        WidgetSettingsDialog();
 
-    signals:
-        void configChanged();
+        QLineEdit *addTextEntry(const std::string& title, const std::string& text);
 
-    private slots:
-        void updateWidgetData();
+        QLineEdit *addIntEntry(const std::string& title, int val);
+
+        QLineEdit *addDoubleEntry(const std::string& title, double val);
+
+        QCheckBox *addBoolEntry(const std::string& title, bool val);
 
     private:
-        void closeEvent(QCloseEvent *bar);
+        QGridLayout *dialogLayout;
+        int nextRow = 0;
 
-        BaseWidget *widget;
-        WidgetBaseConfig::SharedPtr widgetConfigInfo;
-        WidgetData *widgetData;
-        Theme *theme;
-
-        // All default settings
-        QCheckBox *draggableCheckbox;
-        QLineEdit *titleSet;
     };
 
 }

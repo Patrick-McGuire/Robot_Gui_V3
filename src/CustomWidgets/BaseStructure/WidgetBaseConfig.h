@@ -5,8 +5,16 @@
 #include "../../RobotGui.h"
 #include "../../../lib/rapidxml/rapidxml.hpp"
 #include "QObject"
+#include "QDialog"
+#include "QDialog"
+#include "QPushButton"
+#include "QCheckBox"
+#include "QLineEdit"
+#include "WidgetSettingsDialog.h"
 
 namespace RobotGui {
+    class WidgetSettingsDialog;
+
     namespace WidgetConstants {
         enum Type : int;
     }
@@ -43,11 +51,6 @@ namespace RobotGui {
          * @return std::shared_ptr container new WidgetBaseConfig
          */
         static SharedPtr create();
-
-        /**
-         * Shows a menu in which to edit this config
-         */
-        void showEditMenu();
 
         /**
          * Virtual function to be used for parsing additional xml information
@@ -95,19 +98,54 @@ namespace RobotGui {
         boost::optional<int> fontSize;
         boost::optional<int> borderWidth;
 
+    signals:
+
+        void configChanged();
+
+    public slots:
+
+        /**
+         * Shows a menu in which to edit this config
+         */
+        void showEditMenu();
+
     protected:
+
         /**
          * Constructor
          * @param _type type of widget this is for
          */
         explicit WidgetBaseConfig(WidgetConstants::Type _type);
 
+        virtual void customCreateDialog(WidgetSettingsDialog *dialog);
+
     private slots:
 
         /**
          * Updates the members of this class based on the dialog
          */
-        void onEdit();
+        void onEdit(std::string *val);
+
+        void onEdit(int *val);
+
+        void onEdit(double *val);
+
+        void onEdit(bool *val);
+
+    private:
+
+        void createDialog(WidgetSettingsDialog *dialog);
+
+    protected:
+        void addDialogOption(WidgetSettingsDialog *dialog, const std::string &_title, std::string *varLoc);
+
+        void addDialogOption(WidgetSettingsDialog *dialog, const std::string &_title, int *varLoc);
+
+        void addDialogOption(WidgetSettingsDialog *dialog, const std::string &_title, double *varLoc);
+
+        void addDialogOption(WidgetSettingsDialog *dialog, const std::string &_title, bool *varLoc);
+
+
     };
 }
 
