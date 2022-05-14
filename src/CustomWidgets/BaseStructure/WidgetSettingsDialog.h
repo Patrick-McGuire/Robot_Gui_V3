@@ -13,6 +13,8 @@
 #include "QPushButton"
 #include "QCheckBox"
 #include "QLineEdit"
+#include "QComboBox"
+#include "ColorEntry.h"
 
 namespace RobotGui {
     /**
@@ -26,15 +28,18 @@ namespace RobotGui {
     class WidgetSettingsDialog : public QDialog {
     Q_OBJECT
     public:
+
         WidgetSettingsDialog();
 
-        QLineEdit *addTextEntry(const std::string& title, const std::string& text);
+        QLineEdit *addTextEntry(const std::string &title, const std::string &text);
 
-        QLineEdit *addIntEntry(const std::string& title, int val);
+        QLineEdit *addIntEntry(const std::string &title, int val);
 
-        QLineEdit *addDoubleEntry(const std::string& title, double val);
+        QLineEdit *addDoubleEntry(const std::string &title, double val);
 
-        QCheckBox *addBoolEntry(const std::string& title, bool val);
+        QCheckBox *addBoolEntry(const std::string &title, bool val);
+
+        ColorEntry *addColorEntry(const std::string &title, const std::string &color);
 
     private:
         QGridLayout *dialogLayout;

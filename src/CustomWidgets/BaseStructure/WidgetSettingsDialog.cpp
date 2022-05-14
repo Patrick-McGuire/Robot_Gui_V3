@@ -1,6 +1,7 @@
 #include "WidgetSettingsDialog.h"
 #include "QIntValidator"
 #include "QDoubleValidator"
+#include "ColorEntry.h"
 
 RobotGui::WidgetSettingsDialog::WidgetSettingsDialog() : QDialog() {
     dialogLayout = new QGridLayout;
@@ -37,7 +38,7 @@ QLineEdit *RobotGui::WidgetSettingsDialog::addDoubleEntry(const std::string &tit
 }
 
 QCheckBox *RobotGui::WidgetSettingsDialog::addBoolEntry(const std::string &title, bool val) {
-    auto label = new QLabel("Draggable:");
+    auto label = new QLabel(title.c_str());
     auto entry = new QCheckBox();
     dialogLayout->addWidget(label, nextRow, 0);
     dialogLayout->addWidget(entry, nextRow, 1);
@@ -46,6 +47,14 @@ QCheckBox *RobotGui::WidgetSettingsDialog::addBoolEntry(const std::string &title
     return entry;
 }
 
-
+RobotGui::ColorEntry *RobotGui::WidgetSettingsDialog::addColorEntry(const std::string &title, const std::string &color) {
+    auto label = new QLabel(title.c_str());
+    auto *colorEntry = new ColorEntry();
+    dialogLayout->addWidget(label, nextRow, 0);
+    dialogLayout->addWidget(colorEntry, nextRow, 1);
+    nextRow++;
+    colorEntry->setColor(color);
+    return colorEntry;
+}
 
 

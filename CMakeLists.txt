@@ -81,7 +81,7 @@ set(all_gui_files
         ${networking_files}
         ${interface_files}
         ${xml_interface_files}
-        ${core_files} src/CustomWidgets/LineConfigWidgets/LivePlotWidget.cpp src/CustomWidgets/LineConfigWidgets/LivePlotWidget.h src/Interface/ServerInterface.cpp src/Interface/ServerInterface.h src/CustomWidgets/BaseStructure/WidgetSettingsDialog.cpp src/CustomWidgets/BaseStructure/WidgetSettingsDialog.h src/CustomWidgets/BaseStructure/WidgetBaseConfig.cpp src/CustomWidgets/BaseStructure/WidgetBaseConfig.h src/CustomWidgets/LineConfigWidgets/LineConfig.cpp src/CustomWidgets/LineConfigWidgets/LineConfig.h src/CustomWidgets/SourceMapConfigWidgets/SourceMapConfig.cpp src/CustomWidgets/SourceMapConfigWidgets/SourceMapConfig.h src/CustomWidgets/WidgetCollectionConfig/WidgetCollectionConfig.cpp src/CustomWidgets/WidgetCollectionConfig/WidgetCollectionConfig.h)
+        ${core_files} src/CustomWidgets/LineConfigWidgets/LivePlotWidget.cpp src/CustomWidgets/LineConfigWidgets/LivePlotWidget.h src/Interface/ServerInterface.cpp src/Interface/ServerInterface.h src/CustomWidgets/BaseStructure/WidgetSettingsDialog.cpp src/CustomWidgets/BaseStructure/WidgetSettingsDialog.h src/CustomWidgets/BaseStructure/WidgetBaseConfig.cpp src/CustomWidgets/BaseStructure/WidgetBaseConfig.h src/CustomWidgets/LineConfigWidgets/LineConfig.cpp src/CustomWidgets/LineConfigWidgets/LineConfig.h src/CustomWidgets/SourceMapConfigWidgets/SourceMapConfig.cpp src/CustomWidgets/SourceMapConfigWidgets/SourceMapConfig.h src/CustomWidgets/WidgetCollectionConfig/WidgetCollectionConfig.cpp src/CustomWidgets/WidgetCollectionConfig/WidgetCollectionConfig.h src/CustomWidgets/BaseStructure/ColorEntry.h)
 
 add_executable(Robot_Gui_V3 main.cpp ${all_gui_files})
 set(SOURCE_FILES main.cpp)

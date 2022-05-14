@@ -126,6 +126,8 @@ namespace RobotGui {
          */
         void onEdit(std::string *val);
 
+        void onColorEdit(std::string *val);
+
         void onEdit(int *val);
 
         void onEdit(double *val);
@@ -138,6 +140,8 @@ namespace RobotGui {
 
     protected:
         void addDialogOption(WidgetSettingsDialog *dialog, const std::string &_title, std::string *varLoc);
+
+        void addDialogColorOption(WidgetSettingsDialog *dialog, const std::string &_title, std::string *varLoc);
 
         void addDialogOption(WidgetSettingsDialog *dialog, const std::string &_title, int *varLoc);
 

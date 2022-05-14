@@ -6,6 +6,7 @@
 #include "QCheckBox"
 #include "QLineEdit"
 #include "WidgetSettingsDialog.h"
+#include "ColorEntry.h"
 
 RobotGui::WidgetBaseConfig::SharedPtr RobotGui::WidgetBaseConfig::create(const std::string &_type) {
     return RobotGui::WidgetBaseConfig::SharedPtr(new WidgetBaseConfig(WidgetConstants::getWidgetType(_type)));
@@ -19,9 +20,7 @@ RobotGui::WidgetBaseConfig::SharedPtr RobotGui::WidgetBaseConfig::create() {
     return RobotGui::WidgetBaseConfig::SharedPtr(new WidgetBaseConfig(RobotGui::WidgetConstants::NO_TYPE));
 }
 
-RobotGui::WidgetBaseConfig::WidgetBaseConfig(WidgetConstants::Type _type) : type(_type) {
-
-}
+RobotGui::WidgetBaseConfig::WidgetBaseConfig(WidgetConstants::Type _type) : type(_type) {}
 
 void RobotGui::WidgetBaseConfig::createDialog(WidgetSettingsDialog *dialog) {
     addDialogOption(dialog, "Draggable:", &draggable);
@@ -37,6 +36,11 @@ void RobotGui::WidgetBaseConfig::createDialog(WidgetSettingsDialog *dialog) {
     if(range.is_initialized()) { addDialogOption(dialog, "Range:", &range.get()); }
     if(rowNumber.is_initialized()) { addDialogOption(dialog, "Row number:", &rowNumber.get()); }
     if(columnNumber.is_initialized()) { addDialogOption(dialog, "Column number:", &columnNumber.get()); }
+    // Style
+    if(backgroundColor.is_initialized()) { addDialogColorOption(dialog, "Background color", &backgroundColor.get()); }
+    if(textColor.is_initialized()) { addDialogColorOption(dialog, "Text color", &textColor.get()); }
+    if(headerColor.is_initialized()) { addDialogColorOption(dialog, "Header color", &headerColor.get()); }
+    if(borderColor.is_initialized()) { addDialogColorOption(dialog, "Border color", &borderColor.get()); }
     customCreateDialog(dialog);
 }
 
@@ -48,6 +52,11 @@ void RobotGui::WidgetBaseConfig::showEditMenu() {
 
 void RobotGui::WidgetBaseConfig::onEdit(std::string *val) {
     (*val) = qobject_cast<QLineEdit*>(sender())->text().toStdString();
+    emit configChanged();
+}
+
+void RobotGui::WidgetBaseConfig::onColorEdit(std::string *val) {
+    (*val) = qobject_cast<ColorEntry*>(sender())->getColor();
     emit configChanged();
 }
 
@@ -82,11 +91,17 @@ void RobotGui::WidgetBaseConfig::addDialogOption(WidgetSettingsDialog *dialog, c
     connect(dialog->addBoolEntry(_title, *varLoc), &QPushButton::clicked, this, [this, varLoc] { onEdit(varLoc); });
 }
 
+void RobotGui::WidgetBaseConfig::addDialogColorOption(RobotGui::WidgetSettingsDialog *dialog, const std::string &_title, std::string *varLoc) {
+    ColorEntry *colorEntry = dialog->addColorEntry(_title, *varLoc);
+    connect(colorEntry, &ColorEntry::updated, this, [this, varLoc] { onColorEdit(varLoc); });
+}
+
 void RobotGui::WidgetBaseConfig::parseXml(rapidxml::xml_node<> *node) {}
 
 void RobotGui::WidgetBaseConfig::outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc) {}
 
 void RobotGui::WidgetBaseConfig::customCreateDialog(WidgetSettingsDialog *dialog) {}
+
 
 
 

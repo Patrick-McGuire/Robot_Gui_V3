@@ -235,6 +235,4 @@ void RobotGui::BaseWidget::updateFromConfigInfo() {
     setPosition(configInfo->x, configInfo->y);
 }
 
-void RobotGui::BaseWidget::customUpdateFromConfigInfo() {
-
-}
+void RobotGui::BaseWidget::customUpdateFromConfigInfo() {}
