@@ -21,11 +21,11 @@ std::string RobotGui::Theme::getWidgetBackgroundColor() {
     return stringFormats[currentTheme].widgetBackgroundColor;
 }
 
-std::string RobotGui::Theme::getBodyTextColor() {
+std::string RobotGui::Theme::getTextColor() {
     return stringFormats[currentTheme].bodyTextColor;
 }
 
-std::string RobotGui::Theme::getTitleTextColor() {
+std::string RobotGui::Theme::getHeaderColor() {
     return stringFormats[currentTheme].titleTextColor;
 }
 

@@ -6,20 +6,21 @@
 #include "boost/optional/optional.hpp"
 #include "vector"
 
-int main(int argc, char** argv) {
+
+int main(int argc, char **argv) {
     auto gui = new RobotGui::GuiCore(argc, argv);
 
     // Localhost server interface
-//    RobotGui::ServerInterface serverInterface;
-//    gui->addInterface(&serverInterface);
+    RobotGui::ServerInterface serverInterface;
+    gui->addInterface(&serverInterface);
 //    // Populate keys with random values
-    RobotGui::RandomDataInterface randomDataInterface(100);
+    RobotGui::RandomDataInterface randomDataInterface(50);
     gui->addInterface(&randomDataInterface);
-//    // Streams the webcam
-    RobotGui::WebcamStreamInterface webcamStreamInterface(50);
+    // Streams the webcam
+    RobotGui::WebcamStreamInterface webcamStreamInterface(16);
     gui->addInterface(&webcamStreamInterface);
-//    // Prints out any flag raised
-    RobotGui::FlagCheckerInterface flagCheckerInterface(1000);
+    // Prints out any flag raised
+    RobotGui::FlagCheckerInterface flagCheckerInterface(500);
     gui->addInterface(&flagCheckerInterface);
 
     // Run the GUI

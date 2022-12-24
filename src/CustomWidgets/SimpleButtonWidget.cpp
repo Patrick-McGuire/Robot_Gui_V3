@@ -4,10 +4,10 @@
 #include "BaseStructure/BaseWidget.h"
 
 RobotGui::SimpleButtonWidget::SimpleButtonWidget(QWidget *parent, const RobotGui::WidgetBaseConfig::SharedPtr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
-    styledText = true;
-    styledWidgetBackgroundColor = true;
+//    styledText = true;
+//    styledWidgetBackgroundColor = true;
     drawBorder = false;
-    configurablePos = true;
+//    configurablePos = true;
 
     button = new QPushButton(QString::fromStdString(configInfo->title.is_initialized() ? configInfo->title.get() : "err"), this);
     button->adjustSize();
@@ -38,8 +38,8 @@ void RobotGui::SimpleButtonWidget::customUpdateStyle() {
     char buf[400];
     sprintf(buf, "QWidget#%s{ background: %s; color: %s }",
             button->objectName().toStdString().c_str(),
-            backgroundColor.c_str(),
-            titleTextColor.c_str()
+            getBackgroundColor().c_str(),
+            getHeaderColor().c_str()
     );
     this->setStyleSheet(buf);
     adjustSize();

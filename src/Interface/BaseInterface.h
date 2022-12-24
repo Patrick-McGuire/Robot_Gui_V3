@@ -1,4 +1,4 @@
-#ifndef ROBOT_GUI_V3_BASEINTERFACE_H
+    #ifndef ROBOT_GUI_V3_BASEINTERFACE_H
 #define ROBOT_GUI_V3_BASEINTERFACE_H
 
 #include "iostream"

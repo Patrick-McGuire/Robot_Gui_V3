@@ -1,0 +1,27 @@
+<window title="Probot Control" theme="Dark" width="max" height="max">
+	<widget type="tab" title="Dashboard" draggable="false" static="true" background="theme" headerColor="theme" height="max" width="max" x="0" y="0">
+		<tab title="Tab1">
+
+<!--			<widget type="attitudeWidget" x="500" y="100" size="200" transparent="True" hidden="False" draggable="True" font="Arial" font_size="12" pitchSource="pitch" rollSource="roll" yawSource="yaw"/>&ndash;&gt;-->
+			<widget type="textBox" x="100" y="100" title="Velocity" hidden="False" draggable="True" font="Arial" font_size="12">
+				<line label="vx" value="vx"/>
+				<line label="vy" value="vy"/>
+				<line label="vz" value="vz"/>
+				<line label="valid" value="valid"/>
+				<line label="altitude" value="altitude"/>
+			</widget>
+			<widget type="textBox" x="31	0" y="100" title="Velocity" hidden="False" draggable="True" font="Arial" font_size="12">
+				<line label="x" value="x"/>
+				<line label="y" value="y"/>
+				<line label="z" value="z"/>
+				<line label="roll" value="roll"/>
+				<line label="pitch" value="pitch"/>
+				<line label="yaw" value="yaw"/>
+			</widget>
+			<widget type="compass" x="700" y="100" source="yaw" size="200" transparent="True" hidden="False" draggable="True" font="Arial" font_size="12"/>
+			<widget type="simpleButton" x="500" y="300" title="Reset pos" source="button1" hidden="False" draggable="True" font="Arial" font_size="12"/>
+
+		</tab>
+	</widget>
+</window>
+

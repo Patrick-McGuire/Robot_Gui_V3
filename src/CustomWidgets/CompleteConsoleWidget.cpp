@@ -21,7 +21,6 @@ RobotGui::CompleteConsoleWidget::CompleteConsoleWidget(QWidget *parent, const Ro
     newConfigInfo->foregroundColor = configInfo->backgroundColor.is_initialized() ? configInfo->foregroundColor.get() : RobotGui::Xml::THEME_CONST;
     newConfigInfo->textColor = configInfo->backgroundColor.is_initialized() ? configInfo->textColor.get() : RobotGui::Xml::THEME_CONST;
     newConfigInfo->headerColor = configInfo->backgroundColor.is_initialized() ? configInfo->headerColor.get() : RobotGui::Xml::THEME_CONST;
-    XMLInput::setDefaults(newConfigInfo);
     newConfigInfo->staticPos = true;
 
     titleWidget = new QLabel();
@@ -54,8 +53,8 @@ void RobotGui::CompleteConsoleWidget::customUpdateStyle() {
     textEntryWidget->setFont(font());
     simpleConsoleWidget->setFont(QFont("Monospace", font().pointSize()));
 
-    titleWidget->setStyleSheet(QString::fromStdString("color: " + titleTextColor));
-    textEntryWidget->setStyleSheet(QString::fromStdString("border: 1px solid " + borderColor + "; color: " + bodyTextColor + "; background: " + widgetBackgroundColor));
+    titleWidget->setStyleSheet(QString::fromStdString("color: " + getHeaderColor()));
+    textEntryWidget->setStyleSheet(QString::fromStdString("border: 1px solid " + getBorderColor() + "; color: " + getTextColor() + "; background: " + getWidgetBackgroundColor()));
     simpleConsoleWidget->customUpdateStyle();
 }
 

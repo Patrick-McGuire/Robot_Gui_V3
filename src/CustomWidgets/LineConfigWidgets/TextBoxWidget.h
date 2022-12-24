@@ -44,11 +44,6 @@ namespace RobotGui {
         void updateInFocus() override;
 
         /**
-         * Update the widget when not in focus
-         */
-        void updateNoFocus() override;
-
-        /**
          * Update the widget when coming into focus
          */
         void updateOnInFocus() override;

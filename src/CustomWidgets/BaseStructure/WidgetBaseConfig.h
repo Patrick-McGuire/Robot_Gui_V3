@@ -11,12 +11,14 @@
 #include "QCheckBox"
 #include "QLineEdit"
 #include "WidgetSettingsDialog.h"
+#include "set"
 
 namespace RobotGui {
     class WidgetSettingsDialog;
 
     namespace WidgetConstants {
         enum Type : int;
+        enum Attribute : int;
     }
     /**
      * @class WidgetBaseConfig
@@ -66,6 +68,24 @@ namespace RobotGui {
          * @param doc xml document to allocate in
          */
         virtual void outputXML(rapidxml::xml_node<> *node, rapidxml::xml_document<> *doc);
+
+        void set(WidgetConstants::Attribute attr, bool val);
+
+        void set(WidgetConstants::Attribute attr, int val);
+
+        void set(WidgetConstants::Attribute attr, double val);
+
+        void set(WidgetConstants::Attribute attr, std::string val);
+
+        void require(WidgetConstants::Attribute attr);
+
+        void require(WidgetConstants::Attribute attr, int def);
+
+        void require(WidgetConstants::Attribute attr, double def);
+
+        void require(WidgetConstants::Attribute attr, const std::string &def);
+
+        bool isRequired(WidgetConstants::Attribute attr);
 
         /**
          * Members
@@ -121,35 +141,15 @@ namespace RobotGui {
 
         virtual void customCreateDialog(WidgetSettingsDialog *dialog);
 
-    private slots:
-
-        /**
-         * Updates the members of this class based on the dialog
-         */
-        void onEdit(std::string *val);
-
-        void onColorEdit(std::string *val);
-
-        void onEdit(int *val);
-
-        void onEdit(double *val);
-
-        void onEdit(bool *val);
-
     private:
+        void require(WidgetConstants::Attribute attr, bool defBool, int defInt, double defDouble, const std::string& defString, const std::string &defStyle);
+
+        void set(WidgetConstants::Attribute attr, bool boolVal, int intVal, double doubleVal, std::string strVal, std::string defStyle, bool overwrite=true);
 
         void createDialog(WidgetSettingsDialog *dialog);
 
-    protected:
-        void addDialogOption(WidgetSettingsDialog *dialog, const std::string &_title, std::string *varLoc);
+        std::set<WidgetConstants::Attribute> requiredAttributes;
 
-        void addDialogColorOption(WidgetSettingsDialog *dialog, const std::string &_title, std::string *varLoc);
-
-        void addDialogOption(WidgetSettingsDialog *dialog, const std::string &_title, int *varLoc);
-
-        void addDialogOption(WidgetSettingsDialog *dialog, const std::string &_title, double *varLoc);
-
-        void addDialogOption(WidgetSettingsDialog *dialog, const std::string &_title, bool *varLoc);
 
 
     };

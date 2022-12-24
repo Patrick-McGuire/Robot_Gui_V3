@@ -33,5 +33,5 @@ void RobotGui::RawDataView::updateInFocus() {
 }
 
 void RobotGui::RawDataView::customUpdateStyle() {
-    lineTextDisplay->setStyleSheet(QString::fromStdString("color: " + bodyTextColor));
+    lineTextDisplay->setStyleSheet(QString::fromStdString("color: " + getTextColor()));
 }

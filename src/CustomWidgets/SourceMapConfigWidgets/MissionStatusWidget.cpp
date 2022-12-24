@@ -66,7 +66,7 @@ void RobotGui::MissionStatusWidget::updateInFocus() {
 }
 
 void RobotGui::MissionStatusWidget::customUpdateStyle() {
-    statusBox->setStyleSheet(QString::fromStdString("color: " + bodyTextColor));
-    missionNameBox->setStyleSheet(QString::fromStdString("color: " + bodyTextColor));
-    objectiveBox->setStyleSheet(QString::fromStdString("color: " + bodyTextColor));
+    statusBox->setStyleSheet(QString::fromStdString("color: " + getTextColor()));
+    missionNameBox->setStyleSheet(QString::fromStdString("color: " + getTextColor()));
+    objectiveBox->setStyleSheet(QString::fromStdString("color: " + getTextColor()));
 }

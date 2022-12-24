@@ -45,5 +45,5 @@ void RobotGui::SettingsTab::customUpdateStyle() {
         panel->updateStyle();
     }
 
-    sideTabWidget->setColorStrings(backgroundColor, bodyTextColor, borderColor);
+    sideTabWidget->setColorStrings(getBackgroundColor(), getTextColor(), getBorderColor());
 }

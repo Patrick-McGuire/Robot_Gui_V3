@@ -69,6 +69,6 @@ void RobotGui::DropDownTextBoxWidget::setDropDownItems(std::vector<std::string> 
 }
 
 void RobotGui::DropDownTextBoxWidget::customUpdateStyle() {
-    textDisplay->setStyleSheet(QString::fromStdString("color: " + bodyTextColor));
-    selectionBox->setStyleSheet(QString::fromStdString("background: " + backgroundColor + "; color: " + titleTextColor));
+    textDisplay->setStyleSheet(QString::fromStdString("color: " + getTextColor()));
+    selectionBox->setStyleSheet(QString::fromStdString("background: " + getBackgroundColor() + "; color: " + getHeaderColor()));
 }

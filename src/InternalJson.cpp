@@ -88,7 +88,7 @@ void RobotGui::InternalJson::print() {
 }
 
 void RobotGui::InternalJson::print(bool first) {
-    std::cout << toString(first) << std::endl;
+    std::cout << toString(1) << std::endl;
 }
 
 std::string RobotGui::InternalJson::toString(bool first) {

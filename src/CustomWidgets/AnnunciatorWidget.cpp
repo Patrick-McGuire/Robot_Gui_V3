@@ -21,7 +21,6 @@ RobotGui::AnnunciatorWidget::AnnunciatorWidget(QWidget *parent, const RobotGui::
     auto *layout = new QGridLayout();
     layout->addWidget(titleWidget, 0, 0, 1, columns);
     setLayout(layout);
-    configurablePos = true;
 
     for (int i = 0; i < columns; i++) {
         for (int j = 0; j < rows; j++) {
@@ -82,6 +81,6 @@ void RobotGui::AnnunciatorWidget::updateInFocus() {
 }
 
 void RobotGui::AnnunciatorWidget::customUpdateStyle() {
-    titleWidget->setStyleSheet(QString::fromStdString("color: " + titleTextColor));
+    titleWidget->setStyleSheet(QString::fromStdString("color: " + getHeaderColor()));
     titleWidget->setFont(font());
 }

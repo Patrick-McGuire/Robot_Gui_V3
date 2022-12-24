@@ -11,22 +11,22 @@
 #define SIMPLE_BAR_GRAPH_NAME "SimpleBarGraph"
 #define CIRCLE_BAR_GRAPH_NAME "CircleBarGraph"
 
-RobotGui::MultiBarGraphWidget::MultiBarGraphWidget(QWidget *parent, const RobotGui::WidgetBaseConfig::SharedPtr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
-    configurablePos = true;
+RobotGui::MultiBarGraphWidget::MultiBarGraphWidget(QWidget *parent, const RobotGui::WidgetBaseConfig::SharedPtr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *_theme) : BaseWidget(
+        parent, configInfo, widgetData, _theme) {
+    configInfo->require(WidgetConstants::BACKGROUND_COLOR);
+    configInfo->require(WidgetConstants::TEXT_COLOR);
 
-    if(configInfo->type == RobotGui::WidgetConstants::MULTI_BAR_GRAPH) {
-        lineConfig = std::dynamic_pointer_cast<LineConfig> (configInfo);
-    } else {
-        lineConfig = LineConfig::create();
-    }
+
+    lineConfig = std::dynamic_pointer_cast<LineConfig>(configInfo);
+
 
     auto *layout = new QGridLayout();
-    for (auto &line : lineConfig->lines) {
+    for (auto &line: lineConfig->lines) {
         // Make sure everything is initialized
-        if(!line.color.is_initialized()) { line.color = ""; }
-        if(!line.min.is_initialized()) { line.min = 0; }
-        if(!line.max.is_initialized()) { line.max = 100; }
-        if(!line.type.is_initialized()) { line.type = "NONE SPECIFIED"; }
+        if (!line.color.is_initialized()) { line.color = ""; }
+        if (!line.min.is_initialized()) { line.min = 0; }
+        if (!line.max.is_initialized()) { line.max = 100; }
+        if (!line.type.is_initialized()) { line.type = "NONE SPECIFIED"; }
 
         if (line.type.get() == SIMPLE_BAR_GRAPH_NAME) {
             subGraphVector.push_back(new SimpleBarGraph(nullptr, line.label, line.min.get(), line.max.get(), 200, line.color.get()));
@@ -64,7 +64,7 @@ void RobotGui::MultiBarGraphWidget::updateInFocus() {
 }
 
 void RobotGui::MultiBarGraphWidget::customUpdateStyle() {
-    for (auto &graph : subGraphVector) {
-        graph->setTextColor(bodyTextColor);
+    for (auto &graph: subGraphVector) {
+        graph->setTextColor(getTextColor());
     }
 }

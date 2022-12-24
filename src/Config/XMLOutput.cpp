@@ -28,7 +28,7 @@ rapidxml::xml_node<> *RobotGui::XMLOutput::createWidget(rapidxml::xml_document<>
     if (config->size.is_initialized()) { node->append_attribute(doc->allocate_attribute(RobotGui::Xml::SIZE_ATR, doc->allocate_string(getAttributeString(config->size.get()).c_str()))); }
     if (config->min.is_initialized()) { node->append_attribute(doc->allocate_attribute(RobotGui::Xml::MINIMUM_ATR, config->min->c_str())); }
     if (config->max.is_initialized()) { node->append_attribute(doc->allocate_attribute(RobotGui::Xml::MINIMUM_ATR, config->max->c_str())); }
-    if (config->range.is_initialized()) { node->append_attribute(doc->allocate_attribute(RobotGui::Xml::TIME_RANGE_ATR, doc->allocate_string(std::to_string(config->range.get()).c_str()))); }
+    if (config->range.is_initialized()) { node->append_attribute(doc->allocate_attribute(RobotGui::Xml::RANGE_ATR, doc->allocate_string(std::to_string(config->range.get()).c_str()))); }
     if (config->rowNumber.is_initialized()) { node->append_attribute(doc->allocate_attribute(RobotGui::Xml::ROW_NUMBER_ATR, doc->allocate_string(getAttributeString(config->rowNumber.get()).c_str()))); }
     if (config->columnNumber.is_initialized()) { node->append_attribute(doc->allocate_attribute(RobotGui::Xml::COLUMN_NUMBER_ATR, doc->allocate_string(getAttributeString(config->columnNumber.get()).c_str()))); }
     // Theme based optional members

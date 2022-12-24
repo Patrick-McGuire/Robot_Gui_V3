@@ -64,12 +64,6 @@
          */
         static int safeStoi(const std::string& val);
 
-        /**
-         * Writes defaults to empty/null attributes of a internal config
-         * @param widgetConfig internal config to write defaults to
-         */
-        static void setDefaults(const WidgetBaseConfig::SharedPtr& widgetConfig);
-
         static WidgetConstants::Type getWidgetType(rapidxml::xml_node<> *node);
     };
 }

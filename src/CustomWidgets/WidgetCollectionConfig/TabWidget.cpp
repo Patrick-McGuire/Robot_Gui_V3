@@ -9,12 +9,8 @@
 #include "../../Config/XMLOutput.h"
 
 RobotGui::TabWidget::TabWidget(QWidget *parent, const RobotGui::WidgetBaseConfig::SharedPtr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
-    styledBackground = true;
-    styledHeader = true;
-    drawBorder = false;
-    configurablePos = true;
-    configurableWidth = true;
-    configurableHeight = true;
+    configInfo->require(WidgetConstants::BACKGROUND_COLOR);
+    configInfo->require(WidgetConstants::HEADER_COLOR);
 
     if(configInfo->type == RobotGui::WidgetConstants::TAB) {
         widgetCollectionConfig = std::dynamic_pointer_cast<WidgetCollectionConfig> (configInfo);
@@ -106,8 +102,8 @@ void RobotGui::TabWidget::customUpdateDraggability(bool _draggable) {
 }
 
 void RobotGui::TabWidget::customUpdateStyle() {
-    std::string textColor = CommonFunctions::GetContrastingTextColor(backgroundColor);
-    std::string darkerBackground = CommonFunctions::GenerateDarkerColor(backgroundColor, 10);;
+    std::string textColor = CommonFunctions::GetContrastingTextColor(getBackgroundColor());
+    std::string darkerBackground = CommonFunctions::GenerateDarkerColor(getBackgroundColor(), 10);;
     std::string darkerDarkerBorder = CommonFunctions::GenerateDarkerColor(darkerBackground, 10);
     std::string newBorderColor = "rgb(50,50,50)";
 
@@ -119,9 +115,9 @@ void RobotGui::TabWidget::customUpdateStyle() {
                                    "QTabBar::tab:!selected {margin-top: 2px;}";
 
     tabs->setStyleSheet(QString::fromStdString(stylesheetString));
-    this->setStyleSheet("QWidget#" + objectName() + "{ background: " + QString::fromStdString(backgroundColor) + "}");
+    this->setStyleSheet("QWidget#" + objectName() + "{ background: " + QString::fromStdString(getBackgroundColor()) + "}");
     for (auto &page : pages) {
-        page->setStyleSheet("QWidget#" + pages[0]->objectName() + "{ background: " + QString::fromStdString(backgroundColor) + "}");
+        page->setStyleSheet("QWidget#" + pages[0]->objectName() + "{ background: " + QString::fromStdString(getBackgroundColor()) + "}");
     }
 }
 

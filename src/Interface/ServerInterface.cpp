@@ -47,6 +47,7 @@ void RobotGui::ServerInterface::incomingConnection() {
 void RobotGui::ServerInterface::receiveData() {
     auto *senderObj = dynamic_cast<QTcpSocket *>(QObject::sender());
     QByteArray data = senderObj->readAll();
+    std::cout << data.data() << "\n";
 
     dataInput->parse((char *) data.data(), data.length());        // Parse the data
     // Check if we received any data

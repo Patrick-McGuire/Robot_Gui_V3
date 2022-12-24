@@ -101,7 +101,7 @@ void RobotGui::ROVStatusWidget::updateInFocus() {
 }
 
 void RobotGui::ROVStatusWidget::customUpdateStyle() {
-    modeBox->setStyleSheet(QString::fromStdString("color: " + bodyTextColor));
-    timeBox->setStyleSheet(QString::fromStdString("color: " + bodyTextColor));
-    runtimeBox->setStyleSheet(QString::fromStdString("color: " + bodyTextColor));
+    modeBox->setStyleSheet(QString::fromStdString("color: " + getTextColor()));
+    timeBox->setStyleSheet(QString::fromStdString("color: " + getTextColor()));
+    runtimeBox->setStyleSheet(QString::fromStdString("color: " + getTextColor()));
 }

@@ -37,7 +37,7 @@ void RobotGui::SimpleConsoleWidget::paintEvent(QPaintEvent *_event) {
 
     QPainter painter(this);
     if (drawTitle) {
-        painter.setPen(CommonFunctions::GetQColorFromString(titleTextColor));
+        painter.setPen(CommonFunctions::GetQColorFromString(getHeaderColor()));
         painter.drawText(5, fontHeight, QString::fromStdString(title));
         titleHeight = fontHeight;
         numberOfLines = int(consoleData->vectorSize());
@@ -54,7 +54,7 @@ void RobotGui::SimpleConsoleWidget::paintEvent(QPaintEvent *_event) {
             maxLineWidth = fmax(maxLineWidth, line.length());
 
             if (status == 0) {
-                painter.setPen(CommonFunctions::GetQColorFromString(bodyTextColor));
+                painter.setPen(CommonFunctions::GetQColorFromString(getTextColor()));
             } else if (status == 1) {
                 painter.setPen(QColor("yellow"));
             } else if (status == 2) {

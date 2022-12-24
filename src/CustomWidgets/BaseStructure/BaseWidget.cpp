@@ -12,12 +12,20 @@
 #include "QCheckBox"
 #include "WidgetSettingsDialog.h"
 
-RobotGui::BaseWidget::BaseWidget(QWidget *_parent_, const RobotGui::WidgetBaseConfig::SharedPtr &_configInfo, RobotGui::WidgetData *_widgetData, RobotGui::Theme *_theme) : staticPos(_configInfo->staticPos), QWidget(_parent_) {
+RobotGui::BaseWidget::BaseWidget(QWidget *_parent_, const RobotGui::WidgetBaseConfig::SharedPtr &_configInfo, RobotGui::WidgetData *_widgetData, RobotGui::Theme *_theme) : QWidget(_parent_) {
+    _configInfo->require(WidgetConstants::BACKGROUND_COLOR);
+    _configInfo->require(WidgetConstants::TEXT_COLOR);
+    _configInfo->require(WidgetConstants::HEADER_COLOR);
+    _configInfo->require(WidgetConstants::RELIEF);
+    _configInfo->require(WidgetConstants::FONT);
+    _configInfo->require(WidgetConstants::FOREGROUND_COLOR);
+    _configInfo->require(WidgetConstants::BORDER_COLOR);
+
     configInfo = _configInfo;
     widgetData = _widgetData;
     _parent = _parent_;
     theme = _theme;
-    configInfo->draggable = !staticPos && _configInfo->draggable;
+    configInfo->draggable = !configInfo->staticPos && _configInfo->draggable;
     this->setObjectName(QString::fromStdString(_configInfo->objectName));
 
     if (configInfo->font.is_initialized() && configInfo->font.get() != RobotGui::Xml::THEME_CONST) {
@@ -41,7 +49,7 @@ RobotGui::BaseWidget::~BaseWidget() {
 }
 
 void RobotGui::BaseWidget::setPosition(int _x, int _y) {
-    if (!staticPos) {
+    if (!configInfo->staticPos) {
         // Clip values to be inside the window
         if (_x > _parent->size().width() - this->width()) { _x = _parent->size().width() - this->width(); }
         if (_y > _parent->size().height() - this->height()) { _y = _parent->size().height() - this->height(); }
@@ -72,29 +80,29 @@ void RobotGui::BaseWidget::updateData(QWidget *activeParent) {
 }
 
 void RobotGui::BaseWidget::setDraggability(bool _draggable) {
-    configInfo->draggable = !staticPos && _draggable;
+    configInfo->draggable = !configInfo->staticPos && _draggable;
     customUpdateDraggability(_draggable);
 }
 
 void RobotGui::BaseWidget::toggleDraggability() {
-    if (!staticPos) {
+    if (!configInfo->staticPos) {
         configInfo->draggable = !configInfo->draggable;
     }
 }
 
 void RobotGui::BaseWidget::paintEvent(QPaintEvent *_event) {
     QPainter painter(this);
-    if (drawBorder) {
-        painter.setPen(CommonFunctions::GetQColorFromString(borderColor));
-        if (backgroundColor != RobotGui::TRANSPARENT_STYLE) {
-            painter.setBrush(CommonFunctions::GetQColorFromString(widgetBackgroundColor));
+    if (configInfo->borderColor.is_initialized()) {
+        painter.setPen(CommonFunctions::GetQColorFromString(getBorderColor()));
+        if (configInfo->backgroundColor.is_initialized() && configInfo->backgroundColor.get() != RobotGui::TRANSPARENT_STYLE) {
+            painter.setBrush(CommonFunctions::GetQColorFromString(getWidgetBackgroundColor()));
         }
         painter.drawRect(0, 0, width() - 1, height() - 1);
     }
 }
 
 void RobotGui::BaseWidget::mousePressEvent(QMouseEvent *event) {
-    if (!staticPos && configInfo->draggable) {
+    if (!configInfo->staticPos && configInfo->draggable) {
         clicked = true;
         startX = event->globalX();
         startY = event->globalY();
@@ -104,7 +112,7 @@ void RobotGui::BaseWidget::mousePressEvent(QMouseEvent *event) {
 }
 
 void RobotGui::BaseWidget::mouseReleaseEvent(QMouseEvent *event) {
-    if (!staticPos) {
+    if (!configInfo->staticPos) {
         clicked = false;
         startX = event->globalX();
         startY = event->globalY();
@@ -112,44 +120,67 @@ void RobotGui::BaseWidget::mouseReleaseEvent(QMouseEvent *event) {
 }
 
 void RobotGui::BaseWidget::mouseMoveEvent(QMouseEvent *event) {
-    if (!staticPos && clicked && configInfo->draggable) {
+    if (!configInfo->staticPos && clicked && configInfo->draggable) {
         setPosition(event->globalX() - startX + startWX, event->globalY() - startY + startWY);
     }
 }
 
-// Style
+std::string RobotGui::BaseWidget::getBackgroundColor() {
+    if (configInfo->backgroundColor.is_initialized()) {
+        if (configInfo->backgroundColor.get() == RobotGui::Xml::NONE_CONST) {
+            return RobotGui::TRANSPARENT_STYLE;
+        } else if (configInfo->backgroundColor.get() != RobotGui::Xml::THEME_CONST) {
+            return configInfo->backgroundColor.get();
+        }
+    }
+    return theme->getBackgroundColor();
+}
+
+std::string RobotGui::BaseWidget::getWidgetBackgroundColor() {
+    if (configInfo->backgroundColor.is_initialized()) {
+        if (configInfo->backgroundColor.get() == RobotGui::Xml::NONE_CONST) {
+            return RobotGui::TRANSPARENT_STYLE;
+        } else if (configInfo->backgroundColor.get() != RobotGui::Xml::THEME_CONST) {
+            return configInfo->backgroundColor.get();
+        }
+    }
+    return theme->getWidgetBackgroundColor();
+}
+
+std::string RobotGui::BaseWidget::getTextColor() {
+    if (configInfo->textColor.is_initialized()) {
+        if (configInfo->textColor.get() == RobotGui::Xml::NONE_CONST) {
+            return RobotGui::TRANSPARENT_STYLE;
+        } else if (configInfo->textColor.get() != RobotGui::Xml::THEME_CONST) {
+            return configInfo->textColor.get();
+        }
+    }
+    return theme->getTextColor();
+}
+
+std::string RobotGui::BaseWidget::getHeaderColor() {
+    if (configInfo->headerColor.is_initialized()) {
+        if (configInfo->headerColor.get() == RobotGui::Xml::NONE_CONST) {
+            return RobotGui::TRANSPARENT_STYLE;
+        } else if (configInfo->headerColor.get() != RobotGui::Xml::THEME_CONST) {
+            return configInfo->headerColor.get();
+        }
+    }
+    return theme->getHeaderColor();
+}
+
+std::string RobotGui::BaseWidget::getBorderColor() {
+    if (configInfo->borderColor.is_initialized()) {
+        if (configInfo->borderColor.get() == RobotGui::Xml::NONE_CONST) {
+            return RobotGui::TRANSPARENT_STYLE;
+        } else if (configInfo->borderColor.get() != RobotGui::Xml::THEME_CONST) {
+            return configInfo->borderColor.get();
+        }
+    }
+    return theme->getBorderColor();
+}
+
 void RobotGui::BaseWidget::updateStyle() {
-    backgroundColor = configInfo->backgroundColor.get();
-    widgetBackgroundColor = configInfo->backgroundColor.get();
-    bodyTextColor = configInfo->textColor.get();
-    titleTextColor = configInfo->headerColor.get();
-    borderColor = configInfo->borderColor.get();
-    // Check background color
-    if (backgroundColor == RobotGui::Xml::THEME_CONST) {
-        backgroundColor = theme->getBackgroundColor();
-    } else if (backgroundColor == RobotGui::Xml::NONE_CONST) {
-        backgroundColor = RobotGui::TRANSPARENT_STYLE;
-    }
-    // Check widget background color
-    if (widgetBackgroundColor == RobotGui::Xml::THEME_CONST) {
-        widgetBackgroundColor = theme->getWidgetBackgroundColor();
-    } else if (widgetBackgroundColor == RobotGui::Xml::NONE_CONST) {
-        widgetBackgroundColor = RobotGui::TRANSPARENT_STYLE;
-    }
-    // Check body text
-    if (bodyTextColor == RobotGui::Xml::THEME_CONST) {
-        bodyTextColor = theme->getBodyTextColor();
-    }
-    // Check title text color
-    if (titleTextColor == RobotGui::Xml::THEME_CONST) {
-        titleTextColor = theme->getTitleTextColor();
-    }
-    // Check border color
-    if (borderColor == RobotGui::Xml::THEME_CONST) {
-        borderColor = theme->getBorderColor();
-    } else if (borderColor == RobotGui::Xml::NONE_CONST) {
-        borderColor = RobotGui::TRANSPARENT_STYLE;
-    }
     customUpdateStyle();
     updateChildrenStyle();
 }
@@ -170,23 +201,23 @@ void RobotGui::BaseWidget::showContextMenu(const QPoint &pos) {
     menus.emplace_back(contextMenu);
     contextMenu->setObjectName(CONTEXT_MENU_NAME);
     contextMenu->addAction("Edit", configInfo.get(), SLOT(showEditMenu()));
-    if (!staticPos) {
+    if (!configInfo->staticPos) {
         contextMenu->addAction("Toggle Draggability", this, SLOT(toggleDraggability()));
     }
-    if (styledBackground || styledWidgetBackgroundColor) {
+    if (configInfo->isRequired(WidgetConstants::BACKGROUND_COLOR)) {
         auto *backgroundColor = contextMenu->addMenu("Background color");
         menus.emplace_back(backgroundColor);
         backgroundColor->setObjectName(QString(CONTEXT_MENU_NAME) + "BGColor");
         const char *colors[] = {"theme", "none", "black", "white", "grey", "green", "blue", "red", "orange", "yellow"};
         for (auto &color: colors) {
-            if (std::strcmp("none", color) != 0 || styledSeeThroughBackground) {
-                auto *sub1 = backgroundColor->addAction(color);
-                sub1->setData(color);
-            }
+//            if (std::strcmp("none", color) != 0 || styledSeeThroughBackground) {
+            auto *sub1 = backgroundColor->addAction(color);
+            sub1->setData(color);
+//            }
         }
         connect(backgroundColor, SIGNAL(triggered(QAction * )), this, SLOT(setBackgroundColor(QAction * )));
     }
-    if (styledText) {
+    if (configInfo->isRequired(WidgetConstants::TEXT_COLOR)) {
         auto *textColor = contextMenu->addMenu("Text color");
         menus.emplace_back(textColor);
         textColor->setObjectName(QString(CONTEXT_MENU_NAME) + "TXTColor");
@@ -237,3 +268,5 @@ void RobotGui::BaseWidget::updateFromConfigInfo() {
 }
 
 void RobotGui::BaseWidget::customUpdateFromConfigInfo() {}
+
+

@@ -25,7 +25,7 @@ namespace RobotGui {
     };
 
     namespace WidgetConstants {
-        enum Requirements {
+        enum Attribute : int {
             TITLE,
             SOURCE,
             HEIGHT,
@@ -202,7 +202,7 @@ namespace RobotGui {
         const char *const UPDATE_RATE_ATR = "updateRate";
         const char *const RANGE_MIN_ATR = "rangeMin";
         const char *const RANGE_MAX_ATR = "rangeMax";
-        const char *const TIME_RANGE_ATR = "timeRange";
+        const char *const RANGE_ATR = "range";
         // Style attributes
         const char *const FONT_ATR = "font";
         const char *const BACKGROUND_COLOR_ATR = "background";

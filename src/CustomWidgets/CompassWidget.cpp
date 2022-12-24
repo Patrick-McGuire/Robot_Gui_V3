@@ -10,8 +10,6 @@
 RobotGui::CompassWidget::CompassWidget(QWidget *parent, const RobotGui::WidgetBaseConfig::SharedPtr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *theme) : BaseWidget(parent, configInfo, widgetData, theme) {
     compassDisplay = new CompassDisplay(widgetData, this);
 
-    styledBackground = true;
-    styledSeeThroughBackground = true;
 
     if (configInfo->size.is_initialized() && configInfo->size != 0) {
         compassDisplay->setSize(configInfo->size.get());

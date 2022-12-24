@@ -36,13 +36,13 @@ namespace RobotGui {
          * Returns a string containing the text color for the current theme
          * @return text color string
          */
-        std::string getBodyTextColor();
+        std::string getTextColor();
 
         /**
          * Returns a string containing the header text color for the current theme
          * @return header text color string
          */
-        std::string getTitleTextColor();
+        std::string getHeaderColor();
 
         /**
          * Returns a string containing the border color for the current theme

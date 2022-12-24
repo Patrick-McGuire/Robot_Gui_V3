@@ -88,20 +88,6 @@ namespace RobotGui {
          */
         WidgetBaseConfig::SharedPtr getConfig();
 
-        // These register weather or not the current widget can update these attributes
-        // Set these in the constructor of any derived class
-        const bool staticPos;
-        bool styledBackground = false;
-        bool styledText = false;
-        bool styledHeader = false;
-        bool styledSeeThroughBackground = false;
-        bool styledBorderColor = false;
-        bool styledWidgetBackgroundColor = false;
-        bool configurableHeight = false;
-        bool configurableWidth = false;
-        bool configurablePos = false;
-        bool configurableID = false;
-
 
     protected:
 
@@ -157,11 +143,11 @@ namespace RobotGui {
         WidgetSettingsDialog *widgetSettingsDialog = nullptr;
 
         // Style
-        std::string backgroundColor;
-        std::string widgetBackgroundColor;
-        std::string bodyTextColor;
-        std::string titleTextColor;
-        std::string borderColor;
+        std::string getBackgroundColor();
+        std::string getWidgetBackgroundColor();
+        std::string getTextColor();
+        std::string getHeaderColor();
+        std::string getBorderColor();
 
     /**
      * Updates data when widget is in focus, virtual

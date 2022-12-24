@@ -8,17 +8,12 @@
 #include <vector>
 
 RobotGui::TextBoxWidget::TextBoxWidget(QWidget *parent, const RobotGui::WidgetBaseConfig::SharedPtr &configInfo, RobotGui::WidgetData *widgetData, RobotGui::Theme *_theme) : BaseWidget(parent, configInfo, widgetData, _theme) {
-    styledHeader = true;
-    styledText = true;
-    styledSeeThroughBackground = true;
-    styledWidgetBackgroundColor = true;
-    configurablePos = true;
+    configInfo->require(WidgetConstants::TITLE, "NO TITTLE");
+    configInfo->require(WidgetConstants::BACKGROUND_COLOR);
+    configInfo->require(WidgetConstants::HEADER_COLOR);
+    configInfo->require(WidgetConstants::TEXT_COLOR);
 
-    if(configInfo->type == RobotGui::WidgetConstants::TEXT_BOX) {
-        lineConfig = std::dynamic_pointer_cast<LineConfig> (configInfo);
-    } else {
-        lineConfig = LineConfig::create();
-    }
+    lineConfig = std::dynamic_pointer_cast<LineConfig> (configInfo);
 
     layout = new QGridLayout();
     titleBox = new QLabel();
@@ -29,7 +24,7 @@ RobotGui::TextBoxWidget::TextBoxWidget(QWidget *parent, const RobotGui::WidgetBa
     layout->addWidget(textBox);
     this->setLayout(layout);
 
-    titleBox->setText(configInfo->title.is_initialized() ? configInfo->title->c_str() : "err");
+    titleBox->setText(configInfo->title->c_str());
     titleBox->setAlignment(Qt::AlignCenter | Qt::AlignVCenter);
 
     layout->setMargin(5);
@@ -59,10 +54,6 @@ void RobotGui::TextBoxWidget::updateInFocus() {
             return;
         }
     }
-}
-
-void RobotGui::TextBoxWidget::updateNoFocus() {
-
 }
 
 void RobotGui::TextBoxWidget::updateOnInFocus() {
@@ -102,10 +93,10 @@ void RobotGui::TextBoxWidget::customUpdateStyle() {
     sprintf(buf, "QWidget#%s{ background: %s; color: %s } QWidget#%s{ background: %s; color: %s }",
             titleBox->objectName().toStdString().c_str(),
             "transparent",
-            titleTextColor.c_str(),
+            getHeaderColor().c_str(),
             textBox->objectName().toStdString().c_str(),
             "transparent",
-            bodyTextColor.c_str()
+            getTextColor().c_str()
     );
     this->setStyleSheet(buf);
 

@@ -29,14 +29,14 @@ RobotGui::WindowConfig_ptr RobotGui::XMLInput::parse(const char *filename) {
 RobotGui::WidgetBaseConfig::SharedPtr RobotGui::XMLInput::parseWidget(rapidxml::xml_node<> *node) {
     RobotGui::WidgetBaseConfig::SharedPtr newWidgetStruct = WidgetBaseConfig::create();
     WidgetConstants::Type type = getWidgetType(node);
-    if(type == RobotGui::WidgetConstants::LIVE_PLOT || type == RobotGui::WidgetConstants::TEXT_BOX || type == RobotGui::WidgetConstants::MULTI_BAR_GRAPH) {
+    if (type == RobotGui::WidgetConstants::LIVE_PLOT || type == RobotGui::WidgetConstants::TEXT_BOX || type == RobotGui::WidgetConstants::MULTI_BAR_GRAPH) {
         newWidgetStruct = LineConfig::create(type);
-    } else if(type == RobotGui::WidgetConstants::MISSION_STATUS || type == RobotGui::WidgetConstants::ROV_STATUS || type == RobotGui::WidgetConstants::ATTITUDE_DISPLAY) {
+    } else if (type == RobotGui::WidgetConstants::MISSION_STATUS || type == RobotGui::WidgetConstants::ROV_STATUS || type == RobotGui::WidgetConstants::ATTITUDE_DISPLAY) {
         newWidgetStruct = SourceMapConfig::create(type);
-    } else if(type == RobotGui::WidgetConstants::TAB) {
+    } else if (type == RobotGui::WidgetConstants::TAB) {
         newWidgetStruct = WidgetCollectionConfig::create(type);
     } else {
-        newWidgetStruct = WidgetBaseConfig::create();
+        newWidgetStruct = WidgetBaseConfig::create(type);
     }
     int tempVal;                                            // Used to keep track of ints parsed from the xml file
     // Parse all basic data into default struct
@@ -45,9 +45,7 @@ RobotGui::WidgetBaseConfig::SharedPtr RobotGui::XMLInput::parseWidget(rapidxml::
         std::string attrVal = attr->value();                                            // Get the value of the current attribute
         // Cases for all non type specific attributes
 
-        if (attrName == RobotGui::Xml::TYPE_ATR) {
-            newWidgetStruct->type = WidgetConstants::getWidgetType(attrVal);
-        } else if (attrName == RobotGui::Xml::TITLE_ATR) {
+        if (attrName == RobotGui::Xml::TITLE_ATR) {
             newWidgetStruct->title = attrVal;
             newWidgetStruct->title = attrVal;
         } else if (attrName == RobotGui::Xml::ID_ATR) {
@@ -94,9 +92,9 @@ RobotGui::WidgetBaseConfig::SharedPtr RobotGui::XMLInput::parseWidget(rapidxml::
             newWidgetStruct->source = attrVal;
         } else if (attrName == RobotGui::Xml::SIZE_ATR) {
             newWidgetStruct->size = std::atoi(attrVal.c_str());
-        } else if (attrName == RobotGui::Xml::RANGE_MIN_ATR || attrName == RobotGui::Xml::MINIMUM_ATR) {
+        } else if (attrName == RobotGui::Xml::MINIMUM_ATR) {
             newWidgetStruct->min = attrVal;
-        } else if (attrName == RobotGui::Xml::RANGE_MAX_ATR || attrName == RobotGui::Xml::MAXIMUM_ATR) {
+        } else if (attrName == RobotGui::Xml::MAXIMUM_ATR) {
             newWidgetStruct->max = attrVal;
         } else if (attrName == RobotGui::Xml::BACKGROUND_COLOR_ATR) {
             newWidgetStruct->backgroundColor = attrVal;
@@ -127,7 +125,7 @@ RobotGui::WidgetBaseConfig::SharedPtr RobotGui::XMLInput::parseWidget(rapidxml::
                 tempVal = safeStoi(attrVal);
                 newWidgetStruct->borderWidth = tempVal != strFailed ? tempVal : RobotGui::Xml::AUTO_CONST_ID;         // If conversion failed return the "auto" id so the GUI can still be created
             }
-        } else if (attrName == RobotGui::Xml::TIME_RANGE_ATR) {
+        } else if (attrName == RobotGui::Xml::RANGE_ATR) {
             if (isConstant(attrVal)) {                                                   // Check if it is one of a few constant types (ie auto, max, min)
                 newWidgetStruct->range = getConstVal(attrVal);
             } else {
@@ -138,7 +136,6 @@ RobotGui::WidgetBaseConfig::SharedPtr RobotGui::XMLInput::parseWidget(rapidxml::
     }
 
     newWidgetStruct->parseXml(node);
-    setDefaults(newWidgetStruct);
     return newWidgetStruct;
 }
 
@@ -206,29 +203,6 @@ int RobotGui::XMLInput::safeStoi(const std::string &val) {
     }
 }
 
-void RobotGui::XMLInput::setDefaults(const RobotGui::WidgetBaseConfig::SharedPtr &widgetConfig) {
-    if (!widgetConfig->backgroundColor.is_initialized()) {
-        widgetConfig->backgroundColor = RobotGui::Xml::THEME_CONST;
-    }
-    if (!widgetConfig->textColor.is_initialized()) {
-        widgetConfig->textColor = RobotGui::Xml::THEME_CONST;
-    }
-    if (!widgetConfig->headerColor.is_initialized()) {
-        widgetConfig->headerColor = RobotGui::Xml::THEME_CONST;
-    }
-    if (!widgetConfig->relief.is_initialized()) {
-        widgetConfig->relief = RobotGui::Xml::THEME_CONST;
-    }
-    if (!widgetConfig->font.is_initialized()) {
-        widgetConfig->font = RobotGui::Xml::THEME_CONST;
-    }
-    if (!widgetConfig->foregroundColor.is_initialized()) {
-        widgetConfig->foregroundColor = RobotGui::Xml::THEME_CONST;
-    }
-    if (!widgetConfig->borderColor.is_initialized()) {
-        widgetConfig->borderColor = RobotGui::Xml::THEME_CONST;
-    }
-}
 
 RobotGui::WidgetConstants::Type RobotGui::XMLInput::getWidgetType(rapidxml::xml_node<> *node) {
     for (rapidxml::xml_attribute<> *attr = node->first_attribute(); attr; attr = attr->next_attribute()) {
